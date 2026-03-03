@@ -26,6 +26,9 @@ Thumbs.db
 # Jupyter
 .ipynb_checkpoints/
 
+# MkDocs
+site/
+
 # Data
 *.csv
 *.h5
