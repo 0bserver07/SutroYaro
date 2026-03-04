@@ -58,44 +58,45 @@ markdown_extensions:
       permalink: true
 
 nav:
-  - Home: index.md
-  - Learning Guide: learning-guide.md
-  - Context: context.md
-  - Goals: goals.md
-  - Google Docs:
-      - Challenge 1 - Sparse Parity: google-docs/challenge-1-sparse-parity.md
-      - Sutro Group Main: google-docs/sutro-group-main.md
-      - Yaroslav Sprint 1: google-docs/yaroslav-technical-sprint-1.md
-  - Meetings:
-      - Overview: meetings/index.md
-      - Meeting Notes: meetings/notes.md
-  - Homework:
-      - All Homework: homework/index.md
-  - Lectures: lectures/index.md
+  - Home:
+      - Overview: index.md
+      - Context: context.md
+      - Goals: goals.md
+  - Learning:
+      - Learning Guide: learning-guide.md
+      - Lectures: lectures/index.md
+      - Homework: homework/index.md
+      - References: references.md
   - Research:
       - Overview: research/index.md
       - Literature Review: research/sparse-parity-literature.md
-  - Findings:
-      - Sprint 1 (ARD Baseline): findings/sprint-1-findings.md
-      - Exp 1 - Fix Hyperparams: findings/exp1_fix_hyperparams.md
-      - Exp 4 - GrokFast: findings/exp4_grokfast.md
-      - Exp A - ARD Winning Config: findings/exp_a_ard_winning.md
-      - Exp B - Batch ARD: findings/exp_b_batch_ard.md
-      - Exp C - Per-Layer 20-bit: findings/exp_c_perlayer_20bit.md
-      - Exp D - Scaling Frontier: findings/exp_d_scaling.md
-      - Exp E - Forward-Forward: findings/exp_e_forward_forward.md
-      - Sign SGD: findings/exp_sign_sgd.md
-      - Cache-Aware ARD: findings/exp_cache_ard.md
-      - Curriculum Learning: findings/exp_curriculum.md
-      - Weight Decay Sweep: findings/exp_wd_sweep.md
-      - Per-Layer + Batch: findings/exp_perlayer_batch.md
-      - Prompting Strategies: findings/prompting-strategies.md
-  - Plans:
-      - Pipeline Design: plans/2026-03-03-sparse-parity-pipeline-design.md
-      - Implementation Plan: plans/2026-03-03-sparse-parity-implementation.md
-      - Beat 20-bit Research: plans/2026-03-04-beat-20bit-research-plan.md
-      - Sprint 2: plans/sprint-2-plan.md
-  - References: references.md
+      - Findings:
+          - Sprint 1 (ARD Baseline): findings/sprint-1-findings.md
+          - Exp 1 - Fix Hyperparams: findings/exp1_fix_hyperparams.md
+          - Exp 4 - GrokFast: findings/exp4_grokfast.md
+          - Exp A - ARD Winning Config: findings/exp_a_ard_winning.md
+          - Exp B - Batch ARD: findings/exp_b_batch_ard.md
+          - Exp C - Per-Layer 20-bit: findings/exp_c_perlayer_20bit.md
+          - Exp D - Scaling Frontier: findings/exp_d_scaling.md
+          - Exp E - Forward-Forward: findings/exp_e_forward_forward.md
+          - Sign SGD: findings/exp_sign_sgd.md
+          - Cache-Aware ARD: findings/exp_cache_ard.md
+          - Curriculum Learning: findings/exp_curriculum.md
+          - Weight Decay Sweep: findings/exp_wd_sweep.md
+          - Per-Layer + Batch: findings/exp_perlayer_batch.md
+          - Prompting Strategies: findings/prompting-strategies.md
+      - Plans:
+          - Pipeline Design: plans/2026-03-03-sparse-parity-pipeline-design.md
+          - Implementation Plan: plans/2026-03-03-sparse-parity-implementation.md
+          - Beat 20-bit Research: plans/2026-03-04-beat-20bit-research-plan.md
+          - Sprint 2: plans/sprint-2-plan.md
+  - Meetings:
+      - Overview: meetings/index.md
+      - Meeting Notes: meetings/notes.md
+      - Google Docs:
+          - Challenge 1 - Sparse Parity: google-docs/challenge-1-sparse-parity.md
+          - Sutro Group Main: google-docs/sutro-group-main.md
+          - Yaroslav Sprint 1: google-docs/yaroslav-technical-sprint-1.md
   - Changelog: changelog.md
 
 extra:
