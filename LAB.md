@@ -154,3 +154,6 @@ See `src/sparse_parity/experiments/_template.py` for the code template.
 | n=50, k=3 | standard (direct) | 54% (FAIL) | — | — | exp_d |
 | n=3, k=3 | standard | 100% | 10,640 | — | run_20260303_200353 |
 | n=3, k=3 | perlayer | 100% | 9,674 | — | run_20260303_200353 |
+| n=20, k=3 | fourier (Walsh-Hadamard) | 100% | 1,147,375 | 0.009s | exp_fourier |
+| n=50, k=3 | fourier (Walsh-Hadamard) | 100% | — | 0.16s | exp_fourier |
+| n=20, k=5 | fourier (Walsh-Hadamard) | 100% | — | 0.14s | exp_fourier |
