@@ -1,3 +1,8 @@
+!!! info "Cross-references"
+    **Source**: [Google Doc](https://docs.google.com/document/d/1DAwx_gohi6tomMPkb_fETAIuxIyHgLtC5OPD_qpGpqg/edit?tab=t.0) · Presented at [Meeting #6](meeting-6-notes.md)
+    **Context**: Emmett used the Aster agentic loop to optimize Karpathy's pure-Python MicroGPT, reducing memory from 80MB to 35MB
+    **Related**: [Meeting #6 full notes](meeting-6-notes.md) · [Meeting #5 (Karpathy names task)](../meetings/notes.md#meeting-5-16-feb-26-intelligence-per-joule)
+
 \"Aster for 8 iterations, minimizing memory, and got this program which takes up 35 MB instead of the original 80 MB. I recommend trying out a few simpler mechanims than Aster to compare, like running Codex in a loop or OpenEvolve. Seems to mainly be making optimizations rather than fundamentally changing the algorithm though.\"
 
 \"\"\"
@@ -22,15 +27,15 @@ random.seed(42) \# Let there be order among chaos
 
 \# Let there be a Dataset \`docs\`: list\[str\ of documents (e.g. a list of names)]
 
-if not os.path.exists(\'input.txt\'):
+if not os.path.exists('input.txt'):
 
     import urllib.request
 
-    names_url = \'[https://raw.githubusercontent.com/karpathy/makemore/988aa59/names.txt](https://raw.githubusercontent.com/karpathy/makemore/988aa59/names.txt)\'
+    names_url = '[[https://raw.githubusercontent.com/karpathy/makemore/988aa59/names.txt](https://raw.githubusercontent.com/karpathy/makemore/988aa59/names.txt)]'
 
-    urllib.request.urlretrieve(names_url, \'input.txt\')
+    urllib.request.urlretrieve(names_url, 'input.txt')
 
-docs = \[line.strip() for line in open(\'input.txt\') if line.strip()\]
+docs = \[line.strip() for line in open('input.txt') if line.strip()\]
 
 random.shuffle(docs)
 
@@ -38,7 +43,7 @@ print(f\"num docs: \")
 
 \# Let there be a Tokenizer to translate strings to sequences of integers (\"tokens\") and back
 
-uchars = sorted(set(\'\'.join(docs))) \# unique characters in the dataset become token ids 0..n-1
+uchars = sorted(set(''.join(docs))) \# unique characters in the dataset become token ids 0..n-1
 
 BOS = len(uchars) \# token id for a special Beginning of Sequence (BOS) token
 
@@ -50,9 +55,9 @@ print(f\"vocab size: \")
 
 class Value:
 
-    \_\_slots\_\_ = (\'data\', \'grad\', \'\_children\', \'\_op\')
+    \_\_slots\_\_ = ('data', 'grad', '\_children', '\_op')
 
-    def \_\_init\_\_(self, data, children=(), op=\'\'):
+    def \_\_init\_\_(self, data, children=(), op=''):
 
         self.data, self.grad = data, 0
 
@@ -62,21 +67,21 @@ class Value:
 
         other = other if isinstance(other, Value) else Value(other)
 
-        return Value(self.data + other.data, (self, other), \'+\')
+        return Value(self.data + other.data, (self, other), '+')
 
     def \_\_mul\_\_(self, other):
 
         other = other if isinstance(other, Value) else Value(other)
 
-        return Value(self.data \* other.data, (self, other), \'\*\')
+        return Value(self.data \* other.data, (self, other), '\*')
 
-    def \_\_pow\_\_(self, other): return Value(self.data\*\*other, (self,), f\'p\')
+    def \_\_pow\_\_(self, other): return Value(self.data\*\*other, (self,), f'p')
 
-    def log(self): return Value(math.log(self.data), (self,), \'log\')
+    def log(self): return Value(math.log(self.data), (self,), 'log')
 
-    def exp(self): return Value(math.exp(self.data), (self,), \'exp\')
+    def exp(self): return Value(math.exp(self.data), (self,), 'exp')
 
-    def relu(self): return Value(max(0, self.data), (self,), \'relu\')
+    def relu(self): return Value(max(0, self.data), (self,), 'relu')
 
     def \_\_neg\_\_(self): return self \* -1
 
@@ -116,19 +121,19 @@ class Value:
 
         for v in reversed(topo):
 
-            if v.\_op == \'+\':
+            if v.\_op == '+':
 
                 v.\_children\[0\.grad += v.grad]
 
                 v.\_children\[1\.grad += v.grad]
 
-            elif v.\_op == \'\*\':
+            elif v.\_op == '\*':
 
                 v.\_children\[0\.grad += v.\_children\1\.data \* v.grad]
 
                 v.\_children\[1\.grad += v.\_children\0\.data \* v.grad]
 
-            elif v.\_op == \'dot\':
+            elif v.\_op == 'dot':
 
                 n = len(v.\_children) // 2
 
@@ -138,13 +143,13 @@ class Value:
 
                     v.\_children\[n+i\.grad += v.\_children\i\.data \* v.grad]
 
-            elif v.\_op == \'log\': v.\_children\[0\.grad += (1.0/v.\_children\0\.data) \* v.grad]
+            elif v.\_op == 'log': v.\_children\[0\.grad += (1.0/v.\_children\0\.data) \* v.grad]
 
-            elif v.\_op == \'exp\': v.\_children\[0\.grad += v.data \* v.grad]
+            elif v.\_op == 'exp': v.\_children\[0\.grad += v.data \* v.grad]
 
-            elif v.\_op == \'relu\': v.\_children\[0\.grad += (v.data \> 0) \* v.grad]
+            elif v.\_op == 'relu': v.\_children\[0\.grad += (v.data \> 0) \* v.grad]
 
-            elif v.\_op\[:1\ == \'p\':]
+            elif v.\_op\[:1\ == 'p':]
 
                 p = float(v.\_op\[1:\)]
 
@@ -170,17 +175,17 @@ state_dict =
 
 for i in range(n_layer):
 
-    state_dict\[f\'layer.attn_wq\'\ = matrix(n_embd, n_embd)]
+    state_dict\[f'layer.attn_wq'\ = matrix(n_embd, n_embd)]
 
-    state_dict\[f\'layer.attn_wk\'\ = matrix(n_embd, n_embd)]
+    state_dict\[f'layer.attn_wk'\ = matrix(n_embd, n_embd)]
 
-    state_dict\[f\'layer.attn_wv\'\ = matrix(n_embd, n_embd)]
+    state_dict\[f'layer.attn_wv'\ = matrix(n_embd, n_embd)]
 
-    state_dict\[f\'layer.attn_wo\'\ = matrix(n_embd, n_embd)]
+    state_dict\[f'layer.attn_wo'\ = matrix(n_embd, n_embd)]
 
-    state_dict\[f\'layer.mlp_fc1\'\ = matrix(4 \* n_embd, n_embd)]
+    state_dict\[f'layer.mlp_fc1'\ = matrix(4 \* n_embd, n_embd)]
 
-    state_dict\[f\'layer.mlp_fc2\'\ = matrix(n_embd, 4 \* n_embd)]
+    state_dict\[f'layer.mlp_fc2'\ = matrix(n_embd, 4 \* n_embd)]
 
 params = \[p for mat in state_dict.values() for row in mat for p in row\ \# flatten params into a single list\Value\]
 
@@ -192,7 +197,7 @@ print(f\"num params: \")
 
 def dot(v1, v2):
 
-    return Value(sum(x.data \* y.data for x, y in zip(v1, v2)), tuple(v1) + tuple(v2), \'dot\')
+    return Value(sum(x.data \* y.data for x, y in zip(v1, v2)), tuple(v1) + tuple(v2), 'dot')
 
 def linear(x, w):
 
@@ -218,9 +223,9 @@ def rmsnorm(x):
 
 def gpt(token_id, pos_id, keys, values):
 
-    tok_emb = state_dict\[\'wte\'\\token_id\ \# token embedding]
+    tok_emb = state_dict\['wte'\\token_id\ \# token embedding]
 
-    pos_emb = state_dict\[\'wpe\'\\pos_id\ \# position embedding]
+    pos_emb = state_dict\['wpe'\\pos_id\ \# position embedding]
 
     x = \[t + p for t, p in zip(tok_emb, pos_emb)\ \# joint token and position embedding]
 
@@ -234,11 +239,11 @@ def gpt(token_id, pos_id, keys, values):
 
         x = rmsnorm(x)
 
-        q = linear(x, state_dict\[f\'layer.attn_wq\'\)]
+        q = linear(x, state_dict\[f'layer.attn_wq'\)]
 
-        k = linear(x, state_dict\[f\'layer.attn_wk\'\)]
+        k = linear(x, state_dict\[f'layer.attn_wk'\)]
 
-        v = linear(x, state_dict\[f\'layer.attn_wv\'\)]
+        v = linear(x, state_dict\[f'layer.attn_wv'\)]
 
         keys\[li\.append(k)]
 
@@ -264,7 +269,7 @@ def gpt(token_id, pos_id, keys, values):
 
             x_attn.extend(head_out)
 
-        x = linear(x_attn, state_dict\[f\'layer.attn_wo\'\)]
+        x = linear(x_attn, state_dict\[f'layer.attn_wo'\)]
 
         x = \[a + b for a, b in zip(x, x_residual)\]
 
@@ -274,15 +279,15 @@ def gpt(token_id, pos_id, keys, values):
 
         x = rmsnorm(x)
 
-        x = linear(x, state_dict\[f\'layer.mlp_fc1\'\)]
+        x = linear(x, state_dict\[f'layer.mlp_fc1'\)]
 
         x = \[xi.relu() for xi in x\]
 
-        x = linear(x, state_dict\[f\'layer.mlp_fc2\'\)]
+        x = linear(x, state_dict\[f'layer.mlp_fc2'\)]
 
         x = \[a + b for a, b in zip(x, x_residual)\]
 
-    logits = linear(x, state_dict\[\'lm_head\'\)]
+    logits = linear(x, state_dict\['lm_head'\)]
 
     return logits
 
@@ -350,7 +355,7 @@ for step in range(num_steps):
 
         p.grad = 0
 
-    print(f\"step  /  \| loss \", end=\'\\r\')
+    print(f\"step  /  \| loss \", end='\\r')
 
 \# Inference: may the model babble back to us
 

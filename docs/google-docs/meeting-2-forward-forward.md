@@ -1,6 +1,11 @@
+!!! info "Cross-references"
+    **Source**: [Google Doc](https://docs.google.com/document/d/1IdXRUhPRoWt8xLH1Y6iRWRx1g9-gbotFiiAnVixJYZY/edit?tab=t.0) · [Meeting #2 summary](../meetings/notes.md#meeting-2-26-jan-26-forward-forward-algorithm)
+    **Experiment results**: [Exp E - Forward-Forward](../findings/exp_e_forward_forward.md) — FF has 25x worse ARD than backprop for 2-layer networks
+    **Related**: [Jamie Simon's implementation](https://docs.google.com/document/d/1u8pIWg2iWc9R-dQgXz2Yt6xgF2fWP0GbDipbIxF1v1Y/edit?tab=t.0)
+
 This is a detailed summary of the reading group discussion regarding Geoffrey Hinton's \"The Forward-Forward Algorithm: Some Preliminary Investigations.\"
 
-This summary synthesizes the paper\'s core claims with the common critiques, questions, and follow-up topics that typically arise in technical deep dives on this work.
+This summary synthesizes the paper's core claims with the common critiques, questions, and follow-up topics that typically arise in technical deep dives on this work.
 
 ------------------------------------------------------------------------
 

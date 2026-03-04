@@ -1,40 +1,45 @@
+!!! info "Cross-references"
+    **Source**: [Google Doc](https://docs.google.com/document/d/1ZsH26hVvbZBOshwA1KgdX5AK5zw9W0CzqZuXLa5fIlo/edit?tab=t.0) · [Meeting #1 summary](../meetings/notes.md#meeting-1-19-jan-26-energy-efficient-training)
+    **Key concepts introduced**: Memory energy hierarchy (5pJ registers vs 640pJ HBM), backprop inefficiency, WebGPU nerd snipe
+    **Related**: [Project context](../context.md) · [Goals](../goals.md) · [Bill Daly talk](https://youtu.be/rsxCZAE8QNA?si=8-kIJ1MuhxChRLgW&t=2457)
+
 AI links (local to yaroslav)
 
-[https://gemini.google.com/app/baf86fdafcaac3af](https://gemini.google.com/app/baf86fdafcaac3af)
+[[https://gemini.google.com/app/baf86fdafcaac3af](https://gemini.google.com/app/baf86fdafcaac3af)]
 
-[https://gemini.google.com/app/5c855e3a869d19cf](https://gemini.google.com/app/5c855e3a869d19cf)
+[[https://gemini.google.com/app/5c855e3a869d19cf](https://gemini.google.com/app/5c855e3a869d19cf)]
 
-[https://chatgpt.com/c/6970003e-4114-8333-86a8-71a8a0e97b23](https://chatgpt.com/c/6970003e-4114-8333-86a8-71a8a0e97b23)
+[[https://chatgpt.com/c/6970003e-4114-8333-86a8-71a8a0e97b23](https://chatgpt.com/c/6970003e-4114-8333-86a8-71a8a0e97b23)]
 
-[Link to \"Slides\"](#h.pxi5998vn4my)
+[Link to \"Slides\"]
 
-[Meeting notes summary](#h.glmspdw9n75u)
+[Meeting notes summary]
 
-[Host: Yaroslav Bulatov](#h.hhm5tsxkkc7q)
+[Host: Yaroslav Bulatov]
 
-[Jackjack Ganbold \@JackJack](#h.bt51o8ok02il)
+[Jackjack Ganbold \@JackJack]
 
-[Jonathan Belay (@Jonathan Belay )](#h.kg8sks8b2lw9)
+[Jonathan Belay (@Jonathan Belay )]
 
-[Anish Tondwalkar](#h.g3wz3pqufkok)
+[Anish Tondwalkar]
 
-[Seth Stafford](#h.x36oea213kc4)
+[Seth Stafford]
 
-[Caleb Sirak](#h.iy3k962v2ukw)
+[Caleb Sirak]
 
-[Anushka Deshpande](#h.qpa6bmmti036)
+[Anushka Deshpande]
 
-[Daria Soboleva](#h.j84jv1543ow8)
+[Daria Soboleva]
 
-[2. Companies & Named Entities](#h.49n4ziy73ju0)
+[2. Companies & Named Entities]
 
-[3. Key Topics & Tidbits](#h.otng0v94f2v2)
+[3. Key Topics & Tidbits]
 
-[4. Picture](#h.vpdlri5thuez)
+[4. Picture]
 
 # Link to \"Slides\" 
 
-from [energy-efficient learning](https://docs.google.com/document/d/1PhArG_B1qrurqeXtqG41n_OorHw5J9kJcaZkhJOh7NU/edit?tab=t.0#heading=h.cdeox1s0xsl1)
+from [[energy-efficient learning](https://docs.google.com/document/d/1PhArG_B1qrurqeXtqG41n_OorHw5J9kJcaZkhJOh7NU/edit?tab=t.0#heading=h.cdeox1s0xsl1)]
 
 # Meeting notes summary 
 
@@ -65,7 +70,7 @@ A founder of two companies, including Basic Nim Sims (associated with Coinbase/
 ## Jonathan Belay (@Jonathan Belay ) 
 
 - Identity: South Park Commons Member 
-- Connection to Yaroslav: classmate of Darius, Yaroslav\'s collaborator on Transformer-XL [work](https://yaroslavvb.medium.com/scaling-transformer-xl-to-128-gpus-d21875961c5d)
+- Connection to Yaroslav: classmate of Darius, Yaroslav's collaborator on Transformer-XL [[work](https://yaroslavvb.medium.com/scaling-transformer-xl-to-128-gpus-d21875961c5d)]
 - Bio: Runs an independent research lab.
 
 <!-- -->
@@ -93,7 +98,7 @@ A founder of two companies, including Basic Nim Sims (associated with Coinbase/
 ## Seth Stafford  
 
 - Identity: \"Recovering mathematician\" (PhD). A former postdoc and mathematician (PhD Cornell 1991). Early Oracle.
-- Connection to Yaroslav. Met 2017 \"Deep Learning Study Group\". Former manager of Burkay Gur (Yaroslav\'s former manager at [Fal.AI](http://fal.ai))  
+- Connection to Yaroslav. Met 2017 \"Deep Learning Study Group\". Former manager of Burkay Gur (Yaroslav's former manager at [[Fal.AI](http://fal.ai)])  
 - Role: Introduced Yaroslav to the concept of \"Satisficing.\"
 - Work: Applies AI to healthcare 
 
@@ -105,12 +110,12 @@ A founder of two companies, including Basic Nim Sims (associated with Coinbase/
 
 ## Anushka Deshpande 
 
-- Identity: works at [https://www.arcee.ai/](https://www.arcee.ai/), building \"American DeepSeek\"
+- Identity: works at [[https://www.arcee.ai/](https://www.arcee.ai/)], building \"American DeepSeek\"
 - Connection to Yaroslav: We met at a Tilde Research/Cruseo organized Poker night last year.
 
 ## Daria Soboleva 
 
-- Identity: Head Researcher at Cerebras. Manages researchers and leads large-scale MoE training on Cerebras. Author of [https://www.cerebras.ai/moe-guide](https://www.cerebras.ai/moe-guide)
+- Identity: Head Researcher at Cerebras. Manages researchers and leads large-scale MoE training on Cerebras. Author of [[https://www.cerebras.ai/moe-guide](https://www.cerebras.ai/moe-guide)]
 
 - Connection to Yaroslav: Russians
 
@@ -119,19 +124,19 @@ A founder of two companies, including Basic Nim Sims (associated with Coinbase/
 # 2. Companies & Named Entities 
 
 - Arcee.ai (\"RC\"): Yaroslav refers to \"RC\" as the \"American DeepSeek\" (known for efficient, domain-adapted SLMs).
-- Project Turquoise: (Transcript: \"TurquoiseSAG\"). Google\'s internal custom silicon division.
+- Project Turquoise: (Transcript: \"TurquoiseSAG\"). Google's internal custom silicon division.
 - Basenames: (Transcript: \"Basic Nim Sims\"). Identity protocol on the Base blockchain.
 - Google Antigravity: A new/internal Agentic IDE from Google. John and William discussed using it to generate full apps and deploy them to Vercel in minutes from screenshots.
 - Cerebras: Hardware company. The group criticized it for the \"wafer-scale\" approach (yield issues) and bad software. Anish called it a \"worse Groq.\"
 - Etched: A new Transformer ASIC company 
 - MatX / Positron: Hardware startups Anish mentioned as legitimate contenders.
-- Ainekko: (Transcript: \"AInico\"). Startup that bought Esperanto Technologies\' IP to open-source their RISC-V work.
+- Ainekko: (Transcript: \"AInico\"). Startup that bought Esperanto Technologies' IP to open-source their RISC-V work.
 
 ------------------------------------------------------------------------
 
 # 3. Key Topics & Tidbits 
 
-- The \"Giraffe Nerve\" Thesis: Yaroslav argues Backpropagation is like the Recurrent Laryngeal Nerve in giraffes (which takes a massive detour due to evolution). It works, but it\'s inefficient because it requires global memory access (HBM), which costs \~640pJ vs 5pJ for local registers.
+- The \"Giraffe Nerve\" Thesis: Yaroslav argues Backpropagation is like the Recurrent Laryngeal Nerve in giraffes (which takes a massive detour due to evolution). It works, but it's inefficient because it requires global memory access (HBM), which costs \~640pJ vs 5pJ for local registers.
 
 <!-- -->
 
@@ -152,4 +157,4 @@ A founder of two companies, including Basic Nim Sims (associated with Coinbase/
 
 # 4. Picture 
 
-[image]
+[embedded image]

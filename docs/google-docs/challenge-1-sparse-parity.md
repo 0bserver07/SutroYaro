@@ -1,4 +1,9 @@
-# Sutro Group Challenge #1 
+!!! info "Cross-references"
+    **Source**: [Google Doc](https://docs.google.com/document/d/16eeltCaTpiiM1t_m_5BSxRnqxoMoiJ-xn4cy0x-TFgc/edit?tab=t.0) · Homework assigned at [Meeting #7](meeting-7-notes.md).
+    **Related research**: [Sprint 1 findings](../findings/sprint-1-findings.md) · [All experiment results](../research/index.md) · [Yaroslav Sprint 1](yaroslav-technical-sprint-1.md) · [Literature review](../research/sparse-parity-literature.md)
+    **Yad's reproduction**: [SutroYaro repo](https://github.com/0bserver07/SutroYaro) — 16 experiments, solved 20-bit k=3 in 0.12s
+
+# Sutro Group Challenge #1
 
 sparse parity
 
@@ -22,11 +27,11 @@ We can incorporate the following concrete lessons:
 
 3. memory cost is the biggest contributor to energy use (see bill daly [[talk](https://youtu.be/rsxCZAE8QNA?si=8-kIJ1MuhxChRLgW&t=2457)])
 
-Emmet, Germaine, Andy, Seth were able to improve energy efficiency on some tasks. Microgpt task was interesting (by virtue of being popular), Emmett was able to drive energy usage 2x using his Aster agentic loop framework however iteration time was adding friction (3 minutes per run).
+Emmet, Germain, Andy, Seth were able to improve energy efficiency on some tasks. Microgpt task was interesting (by virtue of being popular), Emmett was able to drive energy usage 2x using his Aster agentic loop framework however iteration time was adding friction (3 minutes per run).
 
 Now it would be useful to practice starting from the other direction. Instead of existing application (like nanogpt), take a simplest possible learning task and practice solving it with the energy in mind 
 
-Goal: practice inventing energy efficient learning algorithms for a simplest non-trivial learning task. 
+Goal: practice inventing energy efficient learning algorithms for a simplest non-trivial learning task (also see  \"The question to answer\" below)
 
 1. Use a neural network to solve task
 
@@ -103,3 +108,258 @@ Can modern AI
 2) improve (memory) energy usage?
 
 3) what are the prompting strategies/approaches that are useful here?
+
+\<end-of-original-document\>
+
+------------------------------------------------------------------------
+
+===============================================================================
+
+Yad's repro using Claude Code [[https://github.com/0bserver07/SutroYaro](https://github.com/0bserver07/SutroYaro)]
+
+Germain's summary: 
+
+## Energy-Efficient Learning Experiments (Clarified Brief) 
+
+### Purpose 
+
+Practice inventing energy-efficient learning algorithms on the simplest non-trivial learning tasks, using a memory-energy proxy (reuse distance) and an AI-assisted iteration loop. The point is less "XOR is hard" and more "build a repeatable workflow where AI suggests changes, you measure, and you iterate."
+
+------------------------------------------------------------------------
+
+## Success Criteria 
+
+### Objective (what we optimize) 
+
+Minimize Average Reuse Distance (ARD) (prefer true reuse distance; approximate if needed).
+
+### Constraints (must remain satisfied) 
+
+1.  Accuracy: test accuracy ≥ 90%\
+    
+2.  Iteration speed: end-to-end train + eval ≤ 2 seconds (or a similarly strict bound you set and keep fixed per phase)\
+    
+
+Formally:
+
+\\min \\; \\text \\quad \\text \\quad \\text \\ge 0.90,\\; \\text \\le 2s
+
+------------------------------------------------------------------------
+
+## Phase 0 --- Setup (one-time) 
+
+1.  Pick stack (e.g., PyTorch CPU first; later GPU).\
+    
+2.  Implement a repeatable runner that, for a given config, prints one line of metrics:\
+    
+
+- accuracy\
+  
+- runtime\
+  
+- ARD (or proxy)\
+  
+- any secondary stats you want (peak memory, allocations, etc.)\
+  
+
+3.  Define the measurement window for ARD (must be consistent):\
+    
+
+- Option A: training loop only\
+  
+- Option B: train + eval\
+  \
+  Pick one and keep it fixed.\
+  
+
+------------------------------------------------------------------------
+
+## Phase 1 --- Baseline Task (2-bit parity / XOR) 
+
+### Data definition (sign-encoded bits) 
+
+We encode bits as real numbers:
+
+- bit 0 → random negative value\
+  
+- bit 1 → random positive value\
+  
+
+For XOR (2-bit parity), label is:
+
+- output = 1 if signs differ\
+  
+- output = 0 if signs match\
+  
+
+### Dataset generator 
+
+Create a function that generates:
+
+- training set: N samples\
+  
+- test set: M samples\
+  \
+  by sampling random sign-coded inputs and computing labels from the parity rule.\
+  
+
+### Model + training baseline 
+
+Use a small neural net classifier (e.g., MLP). Keep it intentionally simple, but correct.
+
+### Baseline target 
+
+- Achieve ≥90% test accuracy\
+  
+- Keep runtime under the iteration bound\
+  
+- Record baseline ARD (or proxy)\
+  
+
+Deliverable: baseline code + a single "baseline metrics" record.
+
+------------------------------------------------------------------------
+
+## Phase 2 --- AI-Assisted Optimization Loop (core of the project) 
+
+### Loop structure (repeat many times) 
+
+1.  Measure current version\
+    
+
+- accuracy, runtime, ARD (or proxy)\
+  
+
+2.  Ask an AI agent to propose improvements\
+    
+
+- Provide: brief, constraints, current code excerpt (or summary), and last results\
+  
+- Ask for: 3--10 ranked modifications + rationale + expected impact\
+  
+
+3.  Select one change\
+    
+
+- "One change at a time" to preserve attribution\
+  
+
+4.  Implement and re-measure\
+    
+5.  Log results\
+    
+
+- change description\
+  
+- AI prompt used (or prompt template ID)\
+  
+- metrics before/after\
+  
+
+6.  Feed results back\
+    
+
+- Ask AI: "update hypothesis; propose next change"\
+  
+
+### What changes are in scope 
+
+All changes are allowed, including:
+
+- algorithmic: optimizer, update rule, truncations, checkpointing, etc.\
+  
+- systems: batch layout, fusion, in-place ops, caching, precision, avoiding allocations, streaming data\
+  
+- model: architecture variations, parameter sharing, alternative representations\
+  
+- measurement: using true reuse distance vs. a well-justified proxy (must remain consistent within a phase)\
+  
+
+Guardrail: The task definition, dataset generator, train budget, and eval protocol remain fixed within a phase, so improvements are comparable.
+
+Deliverable: an experiment log showing multiple iterations and measured improvements.
+
+------------------------------------------------------------------------
+
+## Phase 3 --- Scaling Tasks (same loop, harder problems) 
+
+### 3-bit parity 
+
+Inputs: 3 sign-encoded floats
+
+Label: 1 if an odd number of bits are 1, else 0
+
+Goal: repeat baseline + optimization loop.
+
+### Sparse parity (feature selection under noise) 
+
+Inputs: total dimension D (e.g., 20)
+
+Only k bits (e.g., 3) are relevant parity bits; remaining D--k are noise bits.
+
+Generate samples where:
+
+- relevant bits determine label via parity\
+  
+- noise bits are random and irrelevant\
+  
+
+Scale D upward (e.g., 20 → 50 → 100) while keeping k small.
+
+Deliverable: results tables by task level showing (accuracy, runtime, ARD) and the best achieved configuration.
+
+------------------------------------------------------------------------
+
+## Phase 4 --- Transfer Mindset to "Real" Scale (future-facing) 
+
+Keep asking: "Would this strategy help when training on GPUs with \~100M tokens?"
+
+As the workflow matures, add GPU-relevant metrics (optional at first):
+
+- bytes moved (HBM traffic proxies)\
+  
+- cache hit rates where available\
+  
+- kernel launch count\
+  
+- activation memory footprint\
+  
+
+------------------------------------------------------------------------
+
+## Logging & Reporting (required) 
+
+Maintain a simple run log (CSV/JSON/Markdown) with:
+
+- date/time, git commit (or version id)\
+  
+- task phase (XOR / 3-bit / sparse)\
+  
+- config (model, batch, steps, precision, etc.)\
+  
+- AI prompt template used + the AI's recommended options\
+  
+- the chosen change\
+  
+- metrics before/after\
+  
+
+------------------------------------------------------------------------
+
+## Notes / Best Practices 
+
+- Keep iteration time small (\<2s) by design (small models, small datasets, fixed steps).\
+  
+- Prioritize in this order:\
+  
+
+1.  correctness (≥90% accuracy)\
+    
+2.  iteration speed\
+    
+3.  ARD / energy proxy improvements\
+    
+
+- Save checkpoints only when runs remain correct + fast.\
+  
+- Prefer true reuse distance; if not feasible, use a proxy consistently and document it.\

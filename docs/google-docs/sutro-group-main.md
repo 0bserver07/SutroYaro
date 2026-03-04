@@ -1,26 +1,10 @@
-# [] 
+!!! info "Cross-references"
+    **Source**: [Google Doc](https://docs.google.com/document/d/1B9867EN6Bg4ZVQK9vI_ZqykZ5HEtMAHJ7zBGGas4szQ/edit?tab=t.0) · Master index for all Sutro Group meetings and logistics.
+    See also: [Meetings overview](../meetings/index.md) · [Detailed notes](../meetings/notes.md) · [Challenge #1](challenge-1-sparse-parity.md)
 
-[General]
+# Sutro Group Main Page
 
-[Meetings]
 
-[Meeting #1, 19 Jan 26]
-
-[Meeting #2, 26 Jan 26]
-
-[Meeting #3, 02 Feb 26]
-
-[Meeting #4, 09 Feb 26]
-
-[Meeting #5, 16 Feb 26]
-
-[Meeting #6, 23 Feb 26]
-
-[Meeting #7, 02 Mar 26]
-
-[Homework for next time]
-
-# [] 
 
 # General 
 

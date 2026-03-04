@@ -2,7 +2,7 @@
 
 ## Meeting #1, 19 Jan 26 - Energy-Efficient Training
 
-**Location**: SPC main floor
+**Location**: SPC main floor · [Full notes](../google-docs/meeting-1-energy-intro.md) · [Google Doc](https://docs.google.com/document/d/1ZsH26hVvbZBOshwA1KgdX5AK5zw9W0CzqZuXLa5fIlo/edit?tab=t.0)
 
 Orientation meeting. Introductions and backgrounds. Concepts introduced:
 
@@ -19,17 +19,15 @@ Orientation meeting. Introductions and backgrounds. Concepts introduced:
 
 ## Meeting #2, 26 Jan 26 - Forward-Forward Algorithm
 
-**Location**: Accel board room
+**Location**: Accel board room · [Full notes](../google-docs/meeting-2-forward-forward.md) · [Google Doc](https://docs.google.com/document/d/1IdXRUhPRoWt8xLH1Y6iRWRx1g9-gbotFiiAnVixJYZY/edit?tab=t.0)
 
-Discussion of Hinton's Forward-Forward paper.
+Discussion of Hinton's Forward-Forward paper. See also: [Exp E - Forward-Forward findings](../findings/exp_e_forward_forward.md).
 
 - Two forward passes (positive/negative) replace forward+backward
 - Greedy layer-wise learning: each layer has its own objective
 - Goodness = sum of squared ReLU activations
 - Negative data generation is the hard problem for complex domains
 - Jamie Simon shared implementation results
-
-Notes: [Forward-Forward discussion](https://docs.google.com/document/d/1IdXRUhPRoWt8xLH1Y6iRWRx1g9-gbotFiiAnVixJYZY/edit?tab=t.0)
 
 ---
 
@@ -67,17 +65,22 @@ Presentation: [Intelligence_Per_Joule.pdf](https://drive.google.com/open?id=1vyv
 
 ## Meeting #6, 23 Feb 26 - Presentations
 
-- **Germaine**: [presentation video](https://drive.google.com/file/d/1BzZLWCveiXRAXj2nAsYYDoPnPe8lDDki/view?usp=sharing)
-- **Emmett**: Pure-Python GPT, reduced memory 80MB -> 35MB with Aster ([doc](https://docs.google.com/document/d/1DAwx_gohi6tomMPkb_fETAIuxIyHgLtC5OPD_qpGpqg/edit?tab=t.0))
-- Overall [meeting notes](https://docs.google.com/document/d/1OXd_-RweVbHzjqTA2UF05mEs8iJZQiqKeU3QHU_DMdc/edit?tab=t.0)
+[Full notes](../google-docs/meeting-6-notes.md) · [Google Doc](https://docs.google.com/document/d/1OXd_-RweVbHzjqTA2UF05mEs8iJZQiqKeU3QHU_DMdc/edit?tab=t.0)
+
+- **Germaine**: [presentation video](https://drive.google.com/file/d/1BzZLWCveiXRAXj2nAsYYDoPnPe8lDDki/view?usp=sharing) — truncated backprop, 19% energy reduction, 27% intelligence-per-joule improvement
+- **Emmett**: Pure-Python GPT, reduced memory 80MB -> 35MB with Aster ([local](../google-docs/meeting-6-emmett-results.md) · [Google Doc](https://docs.google.com/document/d/1DAwx_gohi6tomMPkb_fETAIuxIyHgLtC5OPD_qpGpqg/edit?tab=t.0))
+- Yaroslav presented pebbling games, energy hierarchy, "drosophila of learning" concept
+- Key outcome: 3-minute MicroGPT iteration too slow — need sub-1-second task
 
 ---
 
 ## Meeting #7, 02 Mar 26 - Sparse Parity
 
-- Yaroslav presented [Technical Sprint 1](../google-docs/yaroslav-technical-sprint-1.md) results
-- Andy attempted better chat tooling ([codeberg](https://codeberg.org/zh4ng/chat))
-- Michael showed Pebbling Game implementation
-- Homework assigned: [Drosophila of Learning](../google-docs/challenge-1-sparse-parity.md) (sparse parity challenge)
+[Full notes](../google-docs/meeting-7-notes.md) · [Google Doc](https://docs.google.com/document/d/1M5cJVDTb3AbCz1w19O333FuQrSIoQHW8y6pJK4KwEO4/edit?tab=t.0)
 
-Meeting [notes](https://docs.google.com/document/d/1M5cJVDTb3AbCz1w19O333FuQrSIoQHW8y6pJK4KwEO4/edit?tab=t.0)
+- Yaroslav presented [Technical Sprint 1](../google-docs/yaroslav-technical-sprint-1.md) results — 2.5hr sprint, ARD metric, gradient fusion (16% cache reuse improvement)
+- Andy attempted better chat tooling ([codeberg](https://codeberg.org/zh4ng/chat))
+- Michael showed [Pebbling Game implementation](https://claude.ai/public/artifacts/647d9d58-211c-4f32-83e6-500353f47d86)
+- Homework assigned: [Challenge #1: Sparse Parity](../google-docs/challenge-1-sparse-parity.md) ("Drosophila of Learning")
+
+See also: [Research overview](../research/index.md) for all experiment results building on this challenge.

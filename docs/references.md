@@ -3,18 +3,18 @@
 Extracted from the Sutro Group Google Docs.
 
 ## Google Docs
-| Doc | Link |
-|-----|------|
-| Sutro Group (main) | https://docs.google.com/document/d/1B9867EN6Bg4ZVQK9vI_ZqykZ5HEtMAHJ7zBGGas4szQ/edit?tab=t.0 |
-| Challenge #1: Sparse Parity | https://docs.google.com/document/d/16eeltCaTpiiM1t_m_5BSxRnqxoMoiJ-xn4cy0x-TFgc/edit?tab=t.0 |
-| Yaroslav Sprint 1 | https://docs.google.com/document/d/1344Vld2n9-8B-OfeeqI5sP9fqPYCLQTglc9pSAmeeEM/edit?tab=t.0 |
-| Meeting #1 notes (energy-efficient training) | https://docs.google.com/document/d/1ZsH26hVvbZBOshwA1KgdX5AK5zw9W0CzqZuXLa5fIlo/edit?tab=t.0 |
-| Meeting #2 notes (Forward-Forward) | https://docs.google.com/document/d/1IdXRUhPRoWt8xLH1Y6iRWRx1g9-gbotFiiAnVixJYZY/edit?tab=t.0 |
-| Jamie Simon implementation results | https://docs.google.com/document/d/1u8pIWg2iWc9R-dQgXz2Yt6xgF2fWP0GbDipbIxF1v1Y/edit?tab=t.0 |
-| Emmett's results | https://docs.google.com/document/d/1DAwx_gohi6tomMPkb_fETAIuxIyHgLtC5OPD_qpGpqg/edit?tab=t.0 |
-| Meeting #6 notes | https://docs.google.com/document/d/1OXd_-RweVbHzjqTA2UF05mEs8iJZQiqKeU3QHU_DMdc/edit?tab=t.0 |
-| Meeting #7 notes | https://docs.google.com/document/d/1M5cJVDTb3AbCz1w19O333FuQrSIoQHW8y6pJK4KwEO4/edit?tab=t.0 |
-| Sprint 1 meta-prompt | https://docs.google.com/document/d/1cs8DsWnz9CRoit6JknPavCfNlOV5DfjsSPVGyWH415s/edit?tab=t.0 |
+| Doc | Link | Local Copy |
+|-----|------|------------|
+| Sutro Group (main) | [Google Doc](https://docs.google.com/document/d/1B9867EN6Bg4ZVQK9vI_ZqykZ5HEtMAHJ7zBGGas4szQ/edit?tab=t.0) | [sutro-group-main](google-docs/sutro-group-main.md) |
+| Challenge #1: Sparse Parity | [Google Doc](https://docs.google.com/document/d/16eeltCaTpiiM1t_m_5BSxRnqxoMoiJ-xn4cy0x-TFgc/edit?tab=t.0) | [challenge-1-sparse-parity](google-docs/challenge-1-sparse-parity.md) |
+| Yaroslav Sprint 1 | [Google Doc](https://docs.google.com/document/d/1344Vld2n9-8B-OfeeqI5sP9fqPYCLQTglc9pSAmeeEM/edit?tab=t.0) | [yaroslav-technical-sprint-1](google-docs/yaroslav-technical-sprint-1.md) |
+| Meeting #1 notes (energy-efficient training) | [Google Doc](https://docs.google.com/document/d/1ZsH26hVvbZBOshwA1KgdX5AK5zw9W0CzqZuXLa5fIlo/edit?tab=t.0) | [meeting-1-energy-intro](google-docs/meeting-1-energy-intro.md) |
+| Meeting #2 notes (Forward-Forward) | [Google Doc](https://docs.google.com/document/d/1IdXRUhPRoWt8xLH1Y6iRWRx1g9-gbotFiiAnVixJYZY/edit?tab=t.0) | [meeting-2-forward-forward](google-docs/meeting-2-forward-forward.md) |
+| Jamie Simon implementation results | [Google Doc](https://docs.google.com/document/d/1u8pIWg2iWc9R-dQgXz2Yt6xgF2fWP0GbDipbIxF1v1Y/edit?tab=t.0) | - |
+| Emmett's results | [Google Doc](https://docs.google.com/document/d/1DAwx_gohi6tomMPkb_fETAIuxIyHgLtC5OPD_qpGpqg/edit?tab=t.0) | [meeting-6-emmett-results](google-docs/meeting-6-emmett-results.md) |
+| Meeting #6 notes | [Google Doc](https://docs.google.com/document/d/1OXd_-RweVbHzjqTA2UF05mEs8iJZQiqKeU3QHU_DMdc/edit?tab=t.0) | [meeting-6-notes](google-docs/meeting-6-notes.md) |
+| Meeting #7 notes | [Google Doc](https://docs.google.com/document/d/1M5cJVDTb3AbCz1w19O333FuQrSIoQHW8y6pJK4KwEO4/edit?tab=t.0) | [meeting-7-notes](google-docs/meeting-7-notes.md) |
+| Sprint 1 meta-prompt | [Google Doc](https://docs.google.com/document/d/1cs8DsWnz9CRoit6JknPavCfNlOV5DfjsSPVGyWH415s/edit?tab=t.0) | - |
 
 ## Google Drive
 | File | Link |
