@@ -1,0 +1,758 @@
+{
+  "experiment": "exp_sign_sgd",
+  "description": "Sign SGD vs standard SGD on sparse parity (k=3 and k=5)",
+  "hypothesis": "Sign SGD needs n^{k-1} samples vs n^k, enabling k=5",
+  "configs": {
+    "n20_k3_standard": [
+      {
+        "method": "standard",
+        "best_test_acc": 1.0,
+        "solve_epoch": 49,
+        "epoch_90": 41,
+        "total_epochs": 49,
+        "elapsed_s": 1.375,
+        "secret": [
+          0,
+          15,
+          17
+        ],
+        "n_bits": 20,
+        "k_sparse": 3,
+        "n_train": 1000,
+        "hidden": 200,
+        "lr": 0.1,
+        "wd": 0.01,
+        "batch_size": 32,
+        "max_epochs": 200
+      },
+      {
+        "method": "standard",
+        "best_test_acc": 1.0,
+        "solve_epoch": 41,
+        "epoch_90": 37,
+        "total_epochs": 41,
+        "elapsed_s": 0.56,
+        "secret": [
+          6,
+          9,
+          19
+        ],
+        "n_bits": 20,
+        "k_sparse": 3,
+        "n_train": 1000,
+        "hidden": 200,
+        "lr": 0.1,
+        "wd": 0.01,
+        "batch_size": 32,
+        "max_epochs": 200
+      },
+      {
+        "method": "standard",
+        "best_test_acc": 1.0,
+        "solve_epoch": 28,
+        "epoch_90": 24,
+        "total_epochs": 28,
+        "elapsed_s": 0.113,
+        "secret": [
+          9,
+          14,
+          15
+        ],
+        "n_bits": 20,
+        "k_sparse": 3,
+        "n_train": 1000,
+        "hidden": 200,
+        "lr": 0.1,
+        "wd": 0.01,
+        "batch_size": 32,
+        "max_epochs": 200
+      }
+    ],
+    "n20_k3_sign": [
+      {
+        "method": "sign-sgd",
+        "best_test_acc": 0.994,
+        "solve_epoch": -1,
+        "epoch_90": 33,
+        "total_epochs": 200,
+        "elapsed_s": 0.512,
+        "secret": [
+          0,
+          15,
+          17
+        ],
+        "n_bits": 20,
+        "k_sparse": 3,
+        "n_train": 1000,
+        "hidden": 200,
+        "lr": 0.01,
+        "wd": 0.01,
+        "batch_size": 32,
+        "max_epochs": 200
+      },
+      {
+        "method": "sign-sgd",
+        "best_test_acc": 0.998,
+        "solve_epoch": -1,
+        "epoch_90": 21,
+        "total_epochs": 200,
+        "elapsed_s": 0.451,
+        "secret": [
+          6,
+          9,
+          19
+        ],
+        "n_bits": 20,
+        "k_sparse": 3,
+        "n_train": 1000,
+        "hidden": 200,
+        "lr": 0.01,
+        "wd": 0.01,
+        "batch_size": 32,
+        "max_epochs": 200
+      },
+      {
+        "method": "sign-sgd",
+        "best_test_acc": 1.0,
+        "solve_epoch": 72,
+        "epoch_90": 24,
+        "total_epochs": 72,
+        "elapsed_s": 0.292,
+        "secret": [
+          9,
+          14,
+          15
+        ],
+        "n_bits": 20,
+        "k_sparse": 3,
+        "n_train": 1000,
+        "hidden": 200,
+        "lr": 0.01,
+        "wd": 0.01,
+        "batch_size": 32,
+        "max_epochs": 200
+      }
+    ],
+    "n20_k3_sign_lr001": [
+      {
+        "method": "sign-sgd",
+        "best_test_acc": 0.784,
+        "solve_epoch": -1,
+        "epoch_90": -1,
+        "total_epochs": 200,
+        "elapsed_s": 0.681,
+        "secret": [
+          0,
+          15,
+          17
+        ],
+        "n_bits": 20,
+        "k_sparse": 3,
+        "n_train": 1000,
+        "hidden": 200,
+        "lr": 0.001,
+        "wd": 0.01,
+        "batch_size": 32,
+        "max_epochs": 200
+      },
+      {
+        "method": "sign-sgd",
+        "best_test_acc": 0.744,
+        "solve_epoch": -1,
+        "epoch_90": -1,
+        "total_epochs": 200,
+        "elapsed_s": 0.824,
+        "secret": [
+          6,
+          9,
+          19
+        ],
+        "n_bits": 20,
+        "k_sparse": 3,
+        "n_train": 1000,
+        "hidden": 200,
+        "lr": 0.001,
+        "wd": 0.01,
+        "batch_size": 32,
+        "max_epochs": 200
+      },
+      {
+        "method": "sign-sgd",
+        "best_test_acc": 0.836,
+        "solve_epoch": -1,
+        "epoch_90": -1,
+        "total_epochs": 200,
+        "elapsed_s": 0.717,
+        "secret": [
+          9,
+          14,
+          15
+        ],
+        "n_bits": 20,
+        "k_sparse": 3,
+        "n_train": 1000,
+        "hidden": 200,
+        "lr": 0.001,
+        "wd": 0.01,
+        "batch_size": 32,
+        "max_epochs": 200
+      }
+    ],
+    "n20_k5_standard": [
+      {
+        "method": "standard",
+        "best_test_acc": 1.0,
+        "solve_epoch": 26,
+        "epoch_90": 13,
+        "total_epochs": 26,
+        "elapsed_s": 0.743,
+        "secret": [
+          0,
+          1,
+          8,
+          15,
+          17
+        ],
+        "n_bits": 20,
+        "k_sparse": 5,
+        "n_train": 5000,
+        "hidden": 500,
+        "lr": 0.1,
+        "wd": 0.01,
+        "batch_size": 32,
+        "max_epochs": 500
+      },
+      {
+        "method": "standard",
+        "best_test_acc": 1.0,
+        "solve_epoch": 35,
+        "epoch_90": 15,
+        "total_epochs": 35,
+        "elapsed_s": 1.038,
+        "secret": [
+          5,
+          6,
+          9,
+          14,
+          19
+        ],
+        "n_bits": 20,
+        "k_sparse": 5,
+        "n_train": 5000,
+        "hidden": 500,
+        "lr": 0.1,
+        "wd": 0.01,
+        "batch_size": 32,
+        "max_epochs": 500
+      },
+      {
+        "method": "standard",
+        "best_test_acc": 1.0,
+        "solve_epoch": 24,
+        "epoch_90": 14,
+        "total_epochs": 24,
+        "elapsed_s": 0.655,
+        "secret": [
+          2,
+          5,
+          9,
+          14,
+          15
+        ],
+        "n_bits": 20,
+        "k_sparse": 5,
+        "n_train": 5000,
+        "hidden": 500,
+        "lr": 0.1,
+        "wd": 0.01,
+        "batch_size": 32,
+        "max_epochs": 500
+      }
+    ],
+    "n20_k5_sign_n5000_lr0.01": [
+      {
+        "method": "sign-sgd",
+        "best_test_acc": 1.0,
+        "solve_epoch": 12,
+        "epoch_90": 7,
+        "total_epochs": 12,
+        "elapsed_s": 0.392,
+        "secret": [
+          0,
+          1,
+          8,
+          15,
+          17
+        ],
+        "n_bits": 20,
+        "k_sparse": 5,
+        "n_train": 5000,
+        "hidden": 500,
+        "lr": 0.01,
+        "wd": 0.01,
+        "batch_size": 32,
+        "max_epochs": 500
+      },
+      {
+        "method": "sign-sgd",
+        "best_test_acc": 1.0,
+        "solve_epoch": 12,
+        "epoch_90": 8,
+        "total_epochs": 12,
+        "elapsed_s": 0.409,
+        "secret": [
+          5,
+          6,
+          9,
+          14,
+          19
+        ],
+        "n_bits": 20,
+        "k_sparse": 5,
+        "n_train": 5000,
+        "hidden": 500,
+        "lr": 0.01,
+        "wd": 0.01,
+        "batch_size": 32,
+        "max_epochs": 500
+      },
+      {
+        "method": "sign-sgd",
+        "best_test_acc": 1.0,
+        "solve_epoch": 14,
+        "epoch_90": 7,
+        "total_epochs": 14,
+        "elapsed_s": 0.51,
+        "secret": [
+          2,
+          5,
+          9,
+          14,
+          15
+        ],
+        "n_bits": 20,
+        "k_sparse": 5,
+        "n_train": 5000,
+        "hidden": 500,
+        "lr": 0.01,
+        "wd": 0.01,
+        "batch_size": 32,
+        "max_epochs": 500
+      }
+    ],
+    "n20_k5_sign_n5000_lr0.001": [
+      {
+        "method": "sign-sgd",
+        "best_test_acc": 0.984,
+        "solve_epoch": -1,
+        "epoch_90": 69,
+        "total_epochs": 500,
+        "elapsed_s": 13.225,
+        "secret": [
+          0,
+          1,
+          8,
+          15,
+          17
+        ],
+        "n_bits": 20,
+        "k_sparse": 5,
+        "n_train": 5000,
+        "hidden": 500,
+        "lr": 0.001,
+        "wd": 0.01,
+        "batch_size": 32,
+        "max_epochs": 500
+      },
+      {
+        "method": "sign-sgd",
+        "best_test_acc": 0.97,
+        "solve_epoch": -1,
+        "epoch_90": 293,
+        "total_epochs": 500,
+        "elapsed_s": 12.62,
+        "secret": [
+          5,
+          6,
+          9,
+          14,
+          19
+        ],
+        "n_bits": 20,
+        "k_sparse": 5,
+        "n_train": 5000,
+        "hidden": 500,
+        "lr": 0.001,
+        "wd": 0.01,
+        "batch_size": 32,
+        "max_epochs": 500
+      },
+      {
+        "method": "sign-sgd",
+        "best_test_acc": 0.988,
+        "solve_epoch": -1,
+        "epoch_90": 74,
+        "total_epochs": 500,
+        "elapsed_s": 16.337,
+        "secret": [
+          2,
+          5,
+          9,
+          14,
+          15
+        ],
+        "n_bits": 20,
+        "k_sparse": 5,
+        "n_train": 5000,
+        "hidden": 500,
+        "lr": 0.001,
+        "wd": 0.01,
+        "batch_size": 32,
+        "max_epochs": 500
+      }
+    ],
+    "n20_k5_sign_n20000_lr0.01": [
+      {
+        "method": "sign-sgd",
+        "best_test_acc": 1.0,
+        "solve_epoch": 4,
+        "epoch_90": 2,
+        "total_epochs": 4,
+        "elapsed_s": 0.683,
+        "secret": [
+          0,
+          1,
+          8,
+          15,
+          17
+        ],
+        "n_bits": 20,
+        "k_sparse": 5,
+        "n_train": 20000,
+        "hidden": 500,
+        "lr": 0.01,
+        "wd": 0.01,
+        "batch_size": 32,
+        "max_epochs": 500
+      },
+      {
+        "method": "sign-sgd",
+        "best_test_acc": 1.0,
+        "solve_epoch": 3,
+        "epoch_90": 2,
+        "total_epochs": 3,
+        "elapsed_s": 0.73,
+        "secret": [
+          5,
+          6,
+          9,
+          14,
+          19
+        ],
+        "n_bits": 20,
+        "k_sparse": 5,
+        "n_train": 20000,
+        "hidden": 500,
+        "lr": 0.01,
+        "wd": 0.01,
+        "batch_size": 32,
+        "max_epochs": 500
+      },
+      {
+        "method": "sign-sgd",
+        "best_test_acc": 1.0,
+        "solve_epoch": 6,
+        "epoch_90": 2,
+        "total_epochs": 6,
+        "elapsed_s": 1.016,
+        "secret": [
+          2,
+          5,
+          9,
+          14,
+          15
+        ],
+        "n_bits": 20,
+        "k_sparse": 5,
+        "n_train": 20000,
+        "hidden": 500,
+        "lr": 0.01,
+        "wd": 0.01,
+        "batch_size": 32,
+        "max_epochs": 500
+      }
+    ],
+    "n20_k5_sign_n20000_lr0.001": [
+      {
+        "method": "sign-sgd",
+        "best_test_acc": 1.0,
+        "solve_epoch": 17,
+        "epoch_90": 11,
+        "total_epochs": 17,
+        "elapsed_s": 3.378,
+        "secret": [
+          0,
+          1,
+          8,
+          15,
+          17
+        ],
+        "n_bits": 20,
+        "k_sparse": 5,
+        "n_train": 20000,
+        "hidden": 500,
+        "lr": 0.001,
+        "wd": 0.01,
+        "batch_size": 32,
+        "max_epochs": 500
+      },
+      {
+        "method": "sign-sgd",
+        "best_test_acc": 1.0,
+        "solve_epoch": 22,
+        "epoch_90": 17,
+        "total_epochs": 22,
+        "elapsed_s": 3.32,
+        "secret": [
+          5,
+          6,
+          9,
+          14,
+          19
+        ],
+        "n_bits": 20,
+        "k_sparse": 5,
+        "n_train": 20000,
+        "hidden": 500,
+        "lr": 0.001,
+        "wd": 0.01,
+        "batch_size": 32,
+        "max_epochs": 500
+      },
+      {
+        "method": "sign-sgd",
+        "best_test_acc": 1.0,
+        "solve_epoch": 21,
+        "epoch_90": 17,
+        "total_epochs": 21,
+        "elapsed_s": 2.997,
+        "secret": [
+          2,
+          5,
+          9,
+          14,
+          15
+        ],
+        "n_bits": 20,
+        "k_sparse": 5,
+        "n_train": 20000,
+        "hidden": 500,
+        "lr": 0.001,
+        "wd": 0.01,
+        "batch_size": 32,
+        "max_epochs": 500
+      }
+    ],
+    "n20_k5_sign_n50000_lr0.001": [
+      {
+        "method": "sign-sgd",
+        "best_test_acc": 1.0,
+        "solve_epoch": 6,
+        "epoch_90": 4,
+        "total_epochs": 6,
+        "elapsed_s": 2.226,
+        "secret": [
+          0,
+          1,
+          8,
+          15,
+          17
+        ],
+        "n_bits": 20,
+        "k_sparse": 5,
+        "n_train": 50000,
+        "hidden": 500,
+        "lr": 0.001,
+        "wd": 0.01,
+        "batch_size": 32,
+        "max_epochs": 500
+      },
+      {
+        "method": "sign-sgd",
+        "best_test_acc": 1.0,
+        "solve_epoch": 9,
+        "epoch_90": 6,
+        "total_epochs": 9,
+        "elapsed_s": 3.324,
+        "secret": [
+          5,
+          6,
+          9,
+          14,
+          19
+        ],
+        "n_bits": 20,
+        "k_sparse": 5,
+        "n_train": 50000,
+        "hidden": 500,
+        "lr": 0.001,
+        "wd": 0.01,
+        "batch_size": 32,
+        "max_epochs": 500
+      },
+      {
+        "method": "sign-sgd",
+        "best_test_acc": 1.0,
+        "solve_epoch": 7,
+        "epoch_90": 6,
+        "total_epochs": 7,
+        "elapsed_s": 3.715,
+        "secret": [
+          2,
+          5,
+          9,
+          14,
+          15
+        ],
+        "n_bits": 20,
+        "k_sparse": 5,
+        "n_train": 50000,
+        "hidden": 500,
+        "lr": 0.001,
+        "wd": 0.01,
+        "batch_size": 32,
+        "max_epochs": 500
+      }
+    ],
+    "n30_k3_standard": [
+      {
+        "method": "standard",
+        "best_test_acc": 1.0,
+        "solve_epoch": 32,
+        "epoch_90": 29,
+        "total_epochs": 32,
+        "elapsed_s": 0.199,
+        "secret": [
+          15,
+          23,
+          27
+        ],
+        "n_bits": 30,
+        "k_sparse": 3,
+        "n_train": 2000,
+        "hidden": 200,
+        "lr": 0.1,
+        "wd": 0.01,
+        "batch_size": 32,
+        "max_epochs": 300
+      },
+      {
+        "method": "standard",
+        "best_test_acc": 1.0,
+        "solve_epoch": 24,
+        "epoch_90": 21,
+        "total_epochs": 24,
+        "elapsed_s": 0.156,
+        "secret": [
+          12,
+          13,
+          25
+        ],
+        "n_bits": 30,
+        "k_sparse": 3,
+        "n_train": 2000,
+        "hidden": 200,
+        "lr": 0.1,
+        "wd": 0.01,
+        "batch_size": 32,
+        "max_epochs": 300
+      },
+      {
+        "method": "standard",
+        "best_test_acc": 1.0,
+        "solve_epoch": 19,
+        "epoch_90": 17,
+        "total_epochs": 19,
+        "elapsed_s": 0.17,
+        "secret": [
+          2,
+          21,
+          23
+        ],
+        "n_bits": 30,
+        "k_sparse": 3,
+        "n_train": 2000,
+        "hidden": 200,
+        "lr": 0.1,
+        "wd": 0.01,
+        "batch_size": 32,
+        "max_epochs": 300
+      }
+    ],
+    "n30_k3_sign": [
+      {
+        "method": "sign-sgd",
+        "best_test_acc": 1.0,
+        "solve_epoch": 45,
+        "epoch_90": 17,
+        "total_epochs": 45,
+        "elapsed_s": 0.364,
+        "secret": [
+          15,
+          23,
+          27
+        ],
+        "n_bits": 30,
+        "k_sparse": 3,
+        "n_train": 2000,
+        "hidden": 200,
+        "lr": 0.01,
+        "wd": 0.01,
+        "batch_size": 32,
+        "max_epochs": 300
+      },
+      {
+        "method": "sign-sgd",
+        "best_test_acc": 1.0,
+        "solve_epoch": 41,
+        "epoch_90": 16,
+        "total_epochs": 41,
+        "elapsed_s": 0.338,
+        "secret": [
+          12,
+          13,
+          25
+        ],
+        "n_bits": 30,
+        "k_sparse": 3,
+        "n_train": 2000,
+        "hidden": 200,
+        "lr": 0.01,
+        "wd": 0.01,
+        "batch_size": 32,
+        "max_epochs": 300
+      },
+      {
+        "method": "sign-sgd",
+        "best_test_acc": 1.0,
+        "solve_epoch": 36,
+        "epoch_90": 12,
+        "total_epochs": 36,
+        "elapsed_s": 0.385,
+        "secret": [
+          2,
+          21,
+          23
+        ],
+        "n_bits": 30,
+        "k_sparse": 3,
+        "n_train": 2000,
+        "hidden": 200,
+        "lr": 0.01,
+        "wd": 0.01,
+        "batch_size": 32,
+        "max_epochs": 300
+      }
+    ]
+  }
+}

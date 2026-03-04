@@ -50,8 +50,16 @@
 
 - **Standard SGD breaks at n^k > 100,000 steps**. Confirmed experimentally. [exp_d]
 - **k=3 works up to n≈30-45**. n=30 solved (94.5%), n=50 failed (54%). [exp_d]
-- **k=5 is categorically impractical** with standard SGD. Even n=20/k=5 needs ~200,000 epochs. [exp_d]
+- ~~**k=5 is categorically impractical** with standard SGD.~~ CORRECTED: k=5 works with enough data. n=20/k=5 solves at 100% with n_train=5000, 14 epochs. The earlier exp_d failure was due to insufficient training data (n_train=200), not the algorithm. [exp_d, exp_sign_sgd]
 - **The frontier for novel algorithms is k≥5 or n≥50**. Below that, just tune hyperparams. [exp_d]
+
+### Sign SGD
+
+- **Sign SGD solves k=5 2x faster than standard SGD** (7 vs 14 epochs to 90% with n_train=5000). Both reach 100%. [exp_sign_sgd]
+- **Sign SGD with more data converges extremely fast**: 2 epochs to 90% with n_train=20K on k=5. [exp_sign_sgd]
+- **Sign SGD needs lr=0.01** (not 0.1). Fixed step size means the lr effectively controls step magnitude directly; lr=0.1 works but lr=0.01 is more stable. lr=0.001 is too slow. [exp_sign_sgd]
+- **Sign SGD oscillates near 100%** on k=3 due to fixed step size. Reaches 99% but can't always close the gap. Learning rate decay would likely fix this. [exp_sign_sgd]
+- **The n^k sample complexity bound is pessimistic**: Standard SGD solves n=20/k=5 with only 5,000 samples, far below n^k=3,200,000. The practical frontier is much further than theory predicts. [exp_sign_sgd]
 
 ### Curriculum Learning
 
@@ -64,7 +72,7 @@
 ## Open Questions (prioritized)
 
 ### High Priority
-1. **Can Sign SGD solve k=5?** Theory says it needs n^{k-1} samples instead of n^k. For n=20/k=5, that's 160,000 vs 3,200,000. Could be feasible. [ref: Kou et al. 2024]
+1. ~~**Can Sign SGD solve k=5?**~~ ANSWERED — Yes, Sign SGD solves k=5 2x faster (7 vs 14 epochs). But standard SGD also solves k=5 with n_train=5000. The real bottleneck was training data, not the optimizer. [exp_sign_sgd]
 2. **What does ARD look like with a cache model?** Adding cache simulation to MemTracker would give realistic energy numbers. Batch training would look much better. [from exp_b]
 3. ~~**Can curriculum learning help at scale?**~~ ANSWERED — n-curriculum gives 14.6x speedup on n=50/k=3. Transfer is instant after W1 expansion. [exp_curriculum]
 
@@ -93,3 +101,4 @@
 | exp_wd_sweep | 03-04 | Higher WD accelerates grokking | REFUTED: WD=0.01 optimal | Only [0.01, 0.05] works |
 | exp_curriculum | 03-04 | Curriculum learning helps scaling | SUCCESS: 14.6x speedup | n=50 solved in 20 epochs |
 | exp_perlayer_batch | 03-04 | Per-layer + batch combine? | CONFIRMED: converges, but 3.7x slower wall-time | 40.6 vs 41.4 epochs |
+| exp_sign_sgd | 03-04 | Sign SGD solves k=5 | SUCCESS: 2x faster, but std SGD also works w/ data | 7 vs 14 epochs to 90% |
