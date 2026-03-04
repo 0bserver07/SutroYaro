@@ -1,6 +1,5 @@
 """Main runner: execute all phases sequentially, produce JSON + markdown + plots."""
 
-import copy
 import json
 import time
 from pathlib import Path
@@ -11,7 +10,7 @@ from .model import init_params
 from .train import train
 from .train_fused import train_fused
 from .train_perlayer import train_perlayer
-from .metrics import save_json, save_markdown, timestamp
+from .metrics import timestamp
 
 
 RESULTS_DIR = Path(__file__).parent.parent.parent / 'results'
@@ -95,7 +94,7 @@ def generate_report(all_results, ts):
     return '\n'.join(lines)
 
 
-def try_plot(all_results, ts):
+def try_plot(all_results, run_dir):
     """Generate plots if matplotlib is available."""
     try:
         import matplotlib
@@ -142,16 +141,94 @@ def try_plot(all_results, ts):
         plt.suptitle(f'Sparse Parity: {label}', fontsize=14, fontweight='bold')
         plt.tight_layout()
 
-        plot_path = RESULTS_DIR / f'{ts}_{label.lower().replace(" ", "_")}_plots.png'
-        plt.savefig(plot_path, dpi=150, bbox_inches='tight')
-        print(f"  [PLOT] Saved: {plot_path.name}")
+        plot_name = f'{label.lower().replace(" ", "_")}_plots.png'
+        plt.savefig(run_dir / plot_name, dpi=150, bbox_inches='tight')
+        print(f"  [PLOT] Saved: {plot_name}")
         plt.close(fig)
+
+
+def update_index(results_dir):
+    """Regenerate results/index.md from all run directories."""
+    runs = sorted(
+        [d for d in results_dir.iterdir() if d.is_dir() and d.name.startswith('run_')],
+        reverse=True,
+    )
+
+    lines = [
+        "# Experiment Results Index",
+        "",
+        f"**{len(runs)} run(s)** | newest first",
+        "",
+        "| Run | Date | 3-bit Acc | 3-bit ARD (best) | 20-bit Acc | 20-bit ARD (best) | Report |",
+        "|-----|------|-----------|-------------------|------------|--------------------|----|",
+    ]
+
+    for run_dir in runs:
+        # Try to load results JSON
+        json_files = list(run_dir.glob('*_results.json'))
+        if not json_files:
+            continue
+
+        with open(json_files[0]) as f:
+            data = json.load(f)
+
+        run_name = run_dir.name
+        date = run_name.replace('run_', '')[:8]
+        date_fmt = f"{date[:4]}-{date[4:6]}-{date[6:8]}"
+
+        # 3-bit stats
+        three = data.get('3-bit parity', {})
+        three_acc = ''
+        three_ard = ''
+        if three:
+            methods = three.get('methods', {})
+            ard_data = three.get('ard', {})
+            best_acc = max((m.get('best_test_acc', 0) for m in methods.values()), default=0)
+            three_acc = f"{best_acc:.0%}"
+            if ard_data:
+                best_ard_method = min(ard_data.items(), key=lambda x: x[1].get('weighted_ard', float('inf')))
+                three_ard = f"{best_ard_method[1]['weighted_ard']:,.0f} ({best_ard_method[0]})"
+
+        # 20-bit stats
+        twenty = data.get('20-bit sparse parity', {})
+        twenty_acc = ''
+        twenty_ard = ''
+        if twenty:
+            methods = twenty.get('methods', {})
+            ard_data = twenty.get('ard', {})
+            best_acc = max((m.get('best_test_acc', 0) for m in methods.values()), default=0)
+            twenty_acc = f"{best_acc:.0%}"
+            if ard_data:
+                best_ard_method = min(ard_data.items(), key=lambda x: x[1].get('weighted_ard', float('inf')))
+                twenty_ard = f"{best_ard_method[1]['weighted_ard']:,.0f} ({best_ard_method[0]})"
+
+        # Find report
+        report_files = list(run_dir.glob('*_report.md'))
+        report_link = f"[report]({run_name}/{report_files[0].name})" if report_files else ""
+
+        lines.append(f"| {run_name} | {date_fmt} | {three_acc} | {three_ard} | {twenty_acc} | {twenty_ard} | {report_link} |")
+
+    lines.append("")
+    lines.append("---")
+    lines.append("")
+    lines.append("Each run directory contains:")
+    lines.append("- `*_results.json` — full structured metrics")
+    lines.append("- `*_report.md` — human-readable comparison")
+    lines.append("- `*_plots.png` — loss, accuracy, and ARD charts")
+    lines.append("")
+
+    index_path = results_dir / 'index.md'
+    with open(index_path, 'w') as f:
+        f.write('\n'.join(lines))
+    print(f"  [INDEX] Updated: {index_path}")
 
 
 def main():
     """Run the full pipeline: 3-bit baseline + 20-bit scaling."""
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
     ts = timestamp()
+    run_dir = RESULTS_DIR / f'run_{ts}'
+    run_dir.mkdir()
     total_start = time.time()
 
     all_results = {}
@@ -166,7 +243,7 @@ def main():
     all_results['20-bit sparse parity'] = (results_20bit, secret_20bit)
 
     # Save JSON
-    json_path = RESULTS_DIR / f'{ts}_results.json'
+    json_path = run_dir / f'{ts}_results.json'
     json_data = {}
     for label, (results, secret) in all_results.items():
         json_data[label] = {
@@ -181,18 +258,21 @@ def main():
 
     # Save markdown report
     report = generate_report(all_results, ts)
-    md_path = RESULTS_DIR / f'{ts}_report.md'
+    md_path = run_dir / f'{ts}_report.md'
     with open(md_path, 'w') as f:
         f.write(report)
     print(f"  [MD] Saved: {md_path.name}")
 
     # Generate plots
-    try_plot(all_results, ts)
+    try_plot(all_results, run_dir)
+
+    # Update index
+    update_index(RESULTS_DIR)
 
     total_elapsed = time.time() - total_start
     print(f"\n{'='*70}")
     print(f"  DONE in {total_elapsed:.2f}s")
-    print(f"  Results: {RESULTS_DIR}")
+    print(f"  Results: {run_dir}")
     print(f"{'='*70}")
 
 
