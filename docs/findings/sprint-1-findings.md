@@ -1,5 +1,8 @@
 # Sprint 1 Findings
 
+!!! note "Historical — Sprint 1 of 3"
+    This was the first sprint. All candidate algorithms recommended here (Forward-Forward, per-layer updates, local learning) have since been implemented and tested. See [Exp E](exp_e_forward_forward.md) (FF: 25x worse ARD), [Exp C](exp_c_perlayer_20bit.md) (per-layer: 3.8% improvement), and the [changelog](../changelog.md) for the full story.
+
 **Date**: 02 Mar 2026 | **Duration**: 2.5 hours
 
 ## Summary
