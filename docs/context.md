@@ -65,7 +65,8 @@ gantt
 
 | Name | Role / Focus |
 |------|-------------|
-| **Yaroslav** | Repo owner, technical sprints, algorithm work |
+| **Yad** | Created this repo (SutroYaro), built the Claude Code autonomous research lab — parallel agent teams, experiment templates, DISCOVERIES.md knowledge accumulation |
+| **Yaroslav** | Sutro Group founder, technical sprints, algorithm work, [cybertronai/sutro](https://github.com/cybertronai/sutro) |
 | **Emmett** | Aster agentic loop framework, 2x energy improvement on microgpt |
 | **Germaine** | Presentations, implementations |
 | **Andy** | Chat tooling experiments |

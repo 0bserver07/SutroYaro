@@ -47,7 +47,8 @@ Solves in ~40 epochs / 0.12s with numpy (`fast.py`).
 
 ## Key People
 
-- **Yaroslav** (repo owner) — Technical sprints, algorithm work
+- **Yad** (repo creator, SutroYaro) — Built the Claude Code autonomous research lab, parallel agent experiments
+- **Yaroslav** (Sutro Group founder) — Technical sprints, algorithm work, cybertronai/sutro
 - **Emmett** — Aster agentic loop framework, 2x energy improvement on microgpt
 - **Germaine**, **Andy**, **Seth**, **Barak**, **Jamie Simon** — Group members
 
