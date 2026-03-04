@@ -1,0 +1,448 @@
+{
+  "ff_3bit": {
+    "label": "3-bit parity (n=3, k=3)",
+    "n_bits": 3,
+    "k_sparse": 3,
+    "hidden1": 100,
+    "hidden2": 100,
+    "n_train": 50,
+    "n_test": 50,
+    "lr": 0.01,
+    "threshold": 2.0,
+    "max_epochs": 100,
+    "best_train_acc": 1.0,
+    "best_test_acc": 1.0,
+    "converge_epoch": 4,
+    "elapsed_s": 0.822688102722168,
+    "ard": {
+      "total_floats_accessed": 53810,
+      "reads": 14,
+      "writes": 18,
+      "weighted_ard": 11303.380218457836,
+      "total_floats_read": 21606,
+      "per_buffer": {
+        "x": {
+          "size": 3,
+          "distances": [
+            4,
+            21607
+          ],
+          "avg_dist": 10805.5,
+          "min_dist": 4,
+          "max_dist": 21607,
+          "read_count": 2
+        },
+        "W1": {
+          "size": 400,
+          "distances": [
+            10607,
+            20903
+          ],
+          "avg_dist": 15755.0,
+          "min_dist": 10607,
+          "max_dist": 20903,
+          "read_count": 2
+        },
+        "b1": {
+          "size": 100,
+          "distances": [
+            10607,
+            20903
+          ],
+          "avg_dist": 15755.0,
+          "min_dist": 10607,
+          "max_dist": 20903,
+          "read_count": 2
+        },
+        "h1_pos": {
+          "size": 100,
+          "distances": [
+            100
+          ],
+          "avg_dist": 100.0,
+          "min_dist": 100,
+          "max_dist": 100,
+          "read_count": 1
+        },
+        "W2": {
+          "size": 10000,
+          "distances": [
+            11307,
+            11303
+          ],
+          "avg_dist": 11305.0,
+          "min_dist": 11303,
+          "max_dist": 11307,
+          "read_count": 2
+        },
+        "b2": {
+          "size": 100,
+          "distances": [
+            11307,
+            11303
+          ],
+          "avg_dist": 11305.0,
+          "min_dist": 11303,
+          "max_dist": 11307,
+          "read_count": 2
+        },
+        "h2_pos": {
+          "size": 100,
+          "distances": [
+            100
+          ],
+          "avg_dist": 100.0,
+          "min_dist": 100,
+          "max_dist": 100,
+          "read_count": 1
+        },
+        "h1_neg": {
+          "size": 100,
+          "distances": [
+            100
+          ],
+          "avg_dist": 100.0,
+          "min_dist": 100,
+          "max_dist": 100,
+          "read_count": 1
+        },
+        "h2_neg": {
+          "size": 100,
+          "distances": [
+            100
+          ],
+          "avg_dist": 100.0,
+          "min_dist": 100,
+          "max_dist": 100,
+          "read_count": 1
+        }
+      }
+    }
+  },
+  "ff_20bit": {
+    "label": "20-bit parity (n=20, k=3)",
+    "n_bits": 20,
+    "k_sparse": 3,
+    "hidden1": 500,
+    "hidden2": 500,
+    "n_train": 500,
+    "n_test": 200,
+    "lr": 0.01,
+    "threshold": 2.0,
+    "max_epochs": 100,
+    "best_train_acc": 0.924,
+    "best_test_acc": 0.585,
+    "converge_epoch": null,
+    "elapsed_s": 84.84086012840271,
+    "ard": {
+      "total_floats_accessed": 1311561,
+      "reads": 14,
+      "writes": 18,
+      "weighted_ard": 277255.92857687036,
+      "total_floats_read": 525040,
+      "per_buffer": {
+        "x": {
+          "size": 20,
+          "distances": [
+            21,
+            525041
+          ],
+          "avg_dist": 262531.0,
+          "min_dist": 21,
+          "max_dist": 525041,
+          "read_count": 2
+        },
+        "W1": {
+          "size": 10500,
+          "distances": [
+            261541,
+            513020
+          ],
+          "avg_dist": 387280.5,
+          "min_dist": 261541,
+          "max_dist": 513020,
+          "read_count": 2
+        },
+        "b1": {
+          "size": 500,
+          "distances": [
+            261541,
+            513020
+          ],
+          "avg_dist": 387280.5,
+          "min_dist": 261541,
+          "max_dist": 513020,
+          "read_count": 2
+        },
+        "h1_pos": {
+          "size": 500,
+          "distances": [
+            500
+          ],
+          "avg_dist": 500.0,
+          "min_dist": 500,
+          "max_dist": 500,
+          "read_count": 1
+        },
+        "W2": {
+          "size": 250000,
+          "distances": [
+            273541,
+            273520
+          ],
+          "avg_dist": 273530.5,
+          "min_dist": 273520,
+          "max_dist": 273541,
+          "read_count": 2
+        },
+        "b2": {
+          "size": 500,
+          "distances": [
+            273541,
+            273520
+          ],
+          "avg_dist": 273530.5,
+          "min_dist": 273520,
+          "max_dist": 273541,
+          "read_count": 2
+        },
+        "h2_pos": {
+          "size": 500,
+          "distances": [
+            500
+          ],
+          "avg_dist": 500.0,
+          "min_dist": 500,
+          "max_dist": 500,
+          "read_count": 1
+        },
+        "h1_neg": {
+          "size": 500,
+          "distances": [
+            500
+          ],
+          "avg_dist": 500.0,
+          "min_dist": 500,
+          "max_dist": 500,
+          "read_count": 1
+        },
+        "h2_neg": {
+          "size": 500,
+          "distances": [
+            500
+          ],
+          "avg_dist": 500.0,
+          "min_dist": 500,
+          "max_dist": 500,
+          "read_count": 1
+        }
+      }
+    }
+  },
+  "bp_3bit": {
+    "best_test_acc": 1.0,
+    "converged_epoch": 2,
+    "ard": {
+      "total_floats_accessed": 1412,
+      "reads": 9,
+      "writes": 9,
+      "weighted_ard": 447.34844192634563,
+      "total_floats_read": 706,
+      "per_buffer": {
+        "x": {
+          "size": 3,
+          "distances": [
+            4
+          ],
+          "avg_dist": 4.0,
+          "min_dist": 4,
+          "max_dist": 4,
+          "read_count": 1
+        },
+        "W1": {
+          "size": 300,
+          "distances": [
+            508
+          ],
+          "avg_dist": 508.0,
+          "min_dist": 508,
+          "max_dist": 508,
+          "read_count": 1
+        },
+        "b1": {
+          "size": 100,
+          "distances": [
+            508
+          ],
+          "avg_dist": 508.0,
+          "min_dist": 508,
+          "max_dist": 508,
+          "read_count": 1
+        },
+        "h_pre": {
+          "size": 100,
+          "distances": [
+            100
+          ],
+          "avg_dist": 100.0,
+          "min_dist": 100,
+          "max_dist": 100,
+          "read_count": 1
+        },
+        "h": {
+          "size": 100,
+          "distances": [
+            100
+          ],
+          "avg_dist": 100.0,
+          "min_dist": 100,
+          "max_dist": 100,
+          "read_count": 1
+        },
+        "W2": {
+          "size": 100,
+          "distances": [
+            908
+          ],
+          "avg_dist": 908.0,
+          "min_dist": 908,
+          "max_dist": 908,
+          "read_count": 1
+        },
+        "b2": {
+          "size": 1,
+          "distances": [
+            908
+          ],
+          "avg_dist": 908.0,
+          "min_dist": 908,
+          "max_dist": 908,
+          "read_count": 1
+        },
+        "out": {
+          "size": 1,
+          "distances": [
+            1
+          ],
+          "avg_dist": 1.0,
+          "min_dist": 1,
+          "max_dist": 1,
+          "read_count": 1
+        },
+        "y": {
+          "size": 1,
+          "distances": [
+            907
+          ],
+          "avg_dist": 907.0,
+          "min_dist": 907,
+          "max_dist": 907,
+          "read_count": 1
+        }
+      }
+    }
+  },
+  "bp_20bit": {
+    "best_test_acc": 0.965,
+    "converged_epoch": 6,
+    "ard": {
+      "total_floats_accessed": 24046,
+      "reads": 9,
+      "writes": 9,
+      "weighted_ard": 10229.434167844964,
+      "total_floats_read": 12023,
+      "per_buffer": {
+        "x": {
+          "size": 20,
+          "distances": [
+            21
+          ],
+          "avg_dist": 21.0,
+          "min_dist": 21,
+          "max_dist": 21,
+          "read_count": 1
+        },
+        "W1": {
+          "size": 10000,
+          "distances": [
+            11042
+          ],
+          "avg_dist": 11042.0,
+          "min_dist": 11042,
+          "max_dist": 11042,
+          "read_count": 1
+        },
+        "b1": {
+          "size": 500,
+          "distances": [
+            11042
+          ],
+          "avg_dist": 11042.0,
+          "min_dist": 11042,
+          "max_dist": 11042,
+          "read_count": 1
+        },
+        "h_pre": {
+          "size": 500,
+          "distances": [
+            500
+          ],
+          "avg_dist": 500.0,
+          "min_dist": 500,
+          "max_dist": 500,
+          "read_count": 1
+        },
+        "h": {
+          "size": 500,
+          "distances": [
+            500
+          ],
+          "avg_dist": 500.0,
+          "min_dist": 500,
+          "max_dist": 500,
+          "read_count": 1
+        },
+        "W2": {
+          "size": 500,
+          "distances": [
+            13042
+          ],
+          "avg_dist": 13042.0,
+          "min_dist": 13042,
+          "max_dist": 13042,
+          "read_count": 1
+        },
+        "b2": {
+          "size": 1,
+          "distances": [
+            13042
+          ],
+          "avg_dist": 13042.0,
+          "min_dist": 13042,
+          "max_dist": 13042,
+          "read_count": 1
+        },
+        "out": {
+          "size": 1,
+          "distances": [
+            1
+          ],
+          "avg_dist": 1.0,
+          "min_dist": 1,
+          "max_dist": 1,
+          "read_count": 1
+        },
+        "y": {
+          "size": 1,
+          "distances": [
+            13024
+          ],
+          "avg_dist": 13024.0,
+          "min_dist": 13024,
+          "max_dist": 13024,
+          "read_count": 1
+        }
+      }
+    }
+  }
+}
