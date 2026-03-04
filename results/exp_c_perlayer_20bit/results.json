@@ -1,0 +1,347 @@
+{
+  "experiment": "exp_c_perlayer_20bit",
+  "question": "Does per-layer forward-backward converge on 20-bit sparse parity?",
+  "config": {
+    "n_bits": 20,
+    "k_sparse": 3,
+    "n_train": 500,
+    "n_test": 200,
+    "hidden": 1000,
+    "lr": 0.1,
+    "wd": 0.01,
+    "max_epochs": 200,
+    "seed": 42,
+    "training": "single-sample SGD"
+  },
+  "secret_indices": [
+    0,
+    3,
+    8
+  ],
+  "perlayer": {
+    "best_test_acc": 0.995,
+    "final_test_acc": 0.995,
+    "solve_epoch": 6,
+    "epochs_run": 9,
+    "elapsed_s": 19.21769118309021,
+    "train_accs": [
+      0.556,
+      0.592,
+      0.696,
+      0.896,
+      0.958,
+      0.992,
+      0.982,
+      0.986,
+      0.998
+    ],
+    "test_accs": [
+      0.515,
+      0.485,
+      0.6,
+      0.8,
+      0.89,
+      0.97,
+      0.975,
+      0.97,
+      0.995
+    ],
+    "weight_movements": [
+      3927.031742018465,
+      4731.122082981769,
+      5035.611682408172,
+      5191.887504709832,
+      5245.963793215948,
+      5274.736089986434,
+      5286.267577362777,
+      5292.541426740421,
+      5294.675415850346
+    ],
+    "ard": {
+      "total_floats_accessed": 95066,
+      "reads": 15,
+      "writes": 13,
+      "weighted_ard": 34563.87190571347,
+      "total_floats_read": 49042,
+      "per_buffer": {
+        "x": {
+          "size": 20,
+          "distances": [
+            21,
+            31045
+          ],
+          "avg_dist": 15533.0,
+          "min_dist": 21,
+          "max_dist": 31045,
+          "read_count": 2
+        },
+        "W1": {
+          "size": 20000,
+          "distances": [
+            22042,
+            53066
+          ],
+          "avg_dist": 37554.0,
+          "min_dist": 22042,
+          "max_dist": 53066,
+          "read_count": 2
+        },
+        "b1": {
+          "size": 1000,
+          "distances": [
+            22042,
+            73066
+          ],
+          "avg_dist": 47554.0,
+          "min_dist": 22042,
+          "max_dist": 73066,
+          "read_count": 2
+        },
+        "h_pre": {
+          "size": 1000,
+          "distances": [
+            1000,
+            9004
+          ],
+          "avg_dist": 5002.0,
+          "min_dist": 1000,
+          "max_dist": 9004,
+          "read_count": 2
+        },
+        "h": {
+          "size": 1000,
+          "distances": [
+            1000,
+            3002
+          ],
+          "avg_dist": 2001.0,
+          "min_dist": 1000,
+          "max_dist": 3002,
+          "read_count": 2
+        },
+        "W2": {
+          "size": 1000,
+          "distances": [
+            26042,
+            28044,
+            29044
+          ],
+          "avg_dist": 27710.0,
+          "min_dist": 26042,
+          "max_dist": 29044,
+          "read_count": 3
+        },
+        "b2": {
+          "size": 1,
+          "distances": [
+            26042,
+            30044
+          ],
+          "avg_dist": 28043.0,
+          "min_dist": 26042,
+          "max_dist": 30044,
+          "read_count": 2
+        }
+      }
+    }
+  },
+  "standard": {
+    "best_test_acc": 0.995,
+    "final_test_acc": 0.995,
+    "solve_epoch": 6,
+    "epochs_run": 9,
+    "elapsed_s": 19.06138300895691,
+    "train_accs": [
+      0.556,
+      0.592,
+      0.696,
+      0.896,
+      0.958,
+      0.992,
+      0.982,
+      0.986,
+      0.998
+    ],
+    "test_accs": [
+      0.515,
+      0.485,
+      0.6,
+      0.8,
+      0.89,
+      0.97,
+      0.975,
+      0.97,
+      0.995
+    ],
+    "weight_movements": [
+      3927.031742018465,
+      4731.122082981769,
+      5035.611682408172,
+      5191.887504709832,
+      5245.963793215948,
+      5274.736089986434,
+      5286.267577362777,
+      5292.541426740421,
+      5294.675415850346
+    ],
+    "ard": {
+      "total_floats_accessed": 102073,
+      "reads": 24,
+      "writes": 18,
+      "weighted_ard": 35919.798744509586,
+      "total_floats_read": 53047,
+      "per_buffer": {
+        "x": {
+          "size": 20,
+          "distances": [
+            21,
+            34049
+          ],
+          "avg_dist": 17035.0,
+          "min_dist": 21,
+          "max_dist": 34049,
+          "read_count": 2
+        },
+        "W1": {
+          "size": 20000,
+          "distances": [
+            22042,
+            56070
+          ],
+          "avg_dist": 39056.0,
+          "min_dist": 22042,
+          "max_dist": 56070,
+          "read_count": 2
+        },
+        "b1": {
+          "size": 1000,
+          "distances": [
+            22042,
+            77070
+          ],
+          "avg_dist": 49556.0,
+          "min_dist": 22042,
+          "max_dist": 77070,
+          "read_count": 2
+        },
+        "h_pre": {
+          "size": 1000,
+          "distances": [
+            1000,
+            10008
+          ],
+          "avg_dist": 5504.0,
+          "min_dist": 1000,
+          "max_dist": 10008,
+          "read_count": 2
+        },
+        "h": {
+          "size": 1000,
+          "distances": [
+            1000,
+            3006
+          ],
+          "avg_dist": 2003.0,
+          "min_dist": 1000,
+          "max_dist": 3006,
+          "read_count": 2
+        },
+        "W2": {
+          "size": 1000,
+          "distances": [
+            26042,
+            29049,
+            79070
+          ],
+          "avg_dist": 44720.333333333336,
+          "min_dist": 26042,
+          "max_dist": 79070,
+          "read_count": 3
+        },
+        "b2": {
+          "size": 1,
+          "distances": [
+            26042,
+            80071
+          ],
+          "avg_dist": 53056.5,
+          "min_dist": 26042,
+          "max_dist": 80071,
+          "read_count": 2
+        },
+        "out": {
+          "size": 1,
+          "distances": [
+            1
+          ],
+          "avg_dist": 1.0,
+          "min_dist": 1,
+          "max_dist": 1,
+          "read_count": 1
+        },
+        "y": {
+          "size": 1,
+          "distances": [
+            26024
+          ],
+          "avg_dist": 26024.0,
+          "min_dist": 26024,
+          "max_dist": 26024,
+          "read_count": 1
+        },
+        "dout": {
+          "size": 1,
+          "distances": [
+            1,
+            3003
+          ],
+          "avg_dist": 1502.0,
+          "min_dist": 1,
+          "max_dist": 3003,
+          "read_count": 2
+        },
+        "dh": {
+          "size": 1000,
+          "distances": [
+            1000
+          ],
+          "avg_dist": 1000.0,
+          "min_dist": 1000,
+          "max_dist": 1000,
+          "read_count": 1
+        },
+        "dh_pre": {
+          "size": 1000,
+          "distances": [
+            1000,
+            42020
+          ],
+          "avg_dist": 21510.0,
+          "min_dist": 1000,
+          "max_dist": 42020,
+          "read_count": 2
+        },
+        "dW2": {
+          "size": 1000,
+          "distances": [
+            50022
+          ],
+          "avg_dist": 50022.0,
+          "min_dist": 50022,
+          "max_dist": 50022,
+          "read_count": 1
+        },
+        "db2": {
+          "size": 1,
+          "distances": [
+            52022
+          ],
+          "avg_dist": 52022.0,
+          "min_dist": 52022,
+          "max_dist": 52022,
+          "read_count": 1
+        }
+      }
+    }
+  }
+}
