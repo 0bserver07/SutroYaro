@@ -1,0 +1,437 @@
+{
+  "experiment": "exp_a_ard_winning",
+  "description": "Measure ARD on winning 20-bit sparse parity config across 3 training variants",
+  "config": {
+    "n_bits": 20,
+    "k_sparse": 3,
+    "n_train": 500,
+    "n_test": 200,
+    "hidden": 500,
+    "lr": 0.1,
+    "wd": 0.01,
+    "max_epochs": 200,
+    "seed": 42
+  },
+  "variants": {
+    "standard": {
+      "epochs_to_converge": 6,
+      "best_test_acc": 0.965,
+      "training_time_s": 6.851779222488403,
+      "tracker": {
+        "total_floats_accessed": 51073,
+        "reads": 24,
+        "writes": 18,
+        "weighted_ard": 17976.402757373715,
+        "total_floats_read": 26547,
+        "per_buffer": {
+          "x": {
+            "size": 20,
+            "distances": [
+              21,
+              17049
+            ],
+            "avg_dist": 8535.0,
+            "min_dist": 21,
+            "max_dist": 17049,
+            "read_count": 2
+          },
+          "W1": {
+            "size": 10000,
+            "distances": [
+              11042,
+              28070
+            ],
+            "avg_dist": 19556.0,
+            "min_dist": 11042,
+            "max_dist": 28070,
+            "read_count": 2
+          },
+          "b1": {
+            "size": 500,
+            "distances": [
+              11042,
+              38570
+            ],
+            "avg_dist": 24806.0,
+            "min_dist": 11042,
+            "max_dist": 38570,
+            "read_count": 2
+          },
+          "h_pre": {
+            "size": 500,
+            "distances": [
+              500,
+              5008
+            ],
+            "avg_dist": 2754.0,
+            "min_dist": 500,
+            "max_dist": 5008,
+            "read_count": 2
+          },
+          "h": {
+            "size": 500,
+            "distances": [
+              500,
+              1506
+            ],
+            "avg_dist": 1003.0,
+            "min_dist": 500,
+            "max_dist": 1506,
+            "read_count": 2
+          },
+          "W2": {
+            "size": 500,
+            "distances": [
+              13042,
+              14549,
+              39570
+            ],
+            "avg_dist": 22387.0,
+            "min_dist": 13042,
+            "max_dist": 39570,
+            "read_count": 3
+          },
+          "b2": {
+            "size": 1,
+            "distances": [
+              13042,
+              40071
+            ],
+            "avg_dist": 26556.5,
+            "min_dist": 13042,
+            "max_dist": 40071,
+            "read_count": 2
+          },
+          "out": {
+            "size": 1,
+            "distances": [
+              1
+            ],
+            "avg_dist": 1.0,
+            "min_dist": 1,
+            "max_dist": 1,
+            "read_count": 1
+          },
+          "y": {
+            "size": 1,
+            "distances": [
+              13024
+            ],
+            "avg_dist": 13024.0,
+            "min_dist": 13024,
+            "max_dist": 13024,
+            "read_count": 1
+          },
+          "dout": {
+            "size": 1,
+            "distances": [
+              1,
+              1503
+            ],
+            "avg_dist": 752.0,
+            "min_dist": 1,
+            "max_dist": 1503,
+            "read_count": 2
+          },
+          "dh": {
+            "size": 500,
+            "distances": [
+              500
+            ],
+            "avg_dist": 500.0,
+            "min_dist": 500,
+            "max_dist": 500,
+            "read_count": 1
+          },
+          "dh_pre": {
+            "size": 500,
+            "distances": [
+              500,
+              21020
+            ],
+            "avg_dist": 10760.0,
+            "min_dist": 500,
+            "max_dist": 21020,
+            "read_count": 2
+          },
+          "dW2": {
+            "size": 500,
+            "distances": [
+              25022
+            ],
+            "avg_dist": 25022.0,
+            "min_dist": 25022,
+            "max_dist": 25022,
+            "read_count": 1
+          },
+          "db2": {
+            "size": 1,
+            "distances": [
+              26022
+            ],
+            "avg_dist": 26022.0,
+            "min_dist": 26022,
+            "max_dist": 26022,
+            "read_count": 1
+          }
+        }
+      }
+    },
+    "fused": {
+      "epochs_to_converge": 6,
+      "best_test_acc": 0.965,
+      "training_time_s": 6.963107109069824,
+      "tracker": {
+        "total_floats_accessed": 51073,
+        "reads": 24,
+        "writes": 18,
+        "weighted_ard": 17740.877839303877,
+        "total_floats_read": 26547,
+        "per_buffer": {
+          "x": {
+            "size": 20,
+            "distances": [
+              21,
+              18552
+            ],
+            "avg_dist": 9286.5,
+            "min_dist": 21,
+            "max_dist": 18552,
+            "read_count": 2
+          },
+          "W1": {
+            "size": 10000,
+            "distances": [
+              11042,
+              29573
+            ],
+            "avg_dist": 20307.5,
+            "min_dist": 11042,
+            "max_dist": 29573,
+            "read_count": 2
+          },
+          "b1": {
+            "size": 500,
+            "distances": [
+              11042,
+              40073
+            ],
+            "avg_dist": 25557.5,
+            "min_dist": 11042,
+            "max_dist": 40073,
+            "read_count": 2
+          },
+          "h_pre": {
+            "size": 500,
+            "distances": [
+              500,
+              6511
+            ],
+            "avg_dist": 3505.5,
+            "min_dist": 500,
+            "max_dist": 6511,
+            "read_count": 2
+          },
+          "h": {
+            "size": 500,
+            "distances": [
+              500,
+              1506
+            ],
+            "avg_dist": 1003.0,
+            "min_dist": 500,
+            "max_dist": 1506,
+            "read_count": 2
+          },
+          "W2": {
+            "size": 500,
+            "distances": [
+              13042,
+              14549,
+              16050
+            ],
+            "avg_dist": 14547.0,
+            "min_dist": 13042,
+            "max_dist": 16050,
+            "read_count": 3
+          },
+          "b2": {
+            "size": 1,
+            "distances": [
+              13042,
+              16551
+            ],
+            "avg_dist": 14796.5,
+            "min_dist": 13042,
+            "max_dist": 16551,
+            "read_count": 2
+          },
+          "out": {
+            "size": 1,
+            "distances": [
+              1
+            ],
+            "avg_dist": 1.0,
+            "min_dist": 1,
+            "max_dist": 1,
+            "read_count": 1
+          },
+          "y": {
+            "size": 1,
+            "distances": [
+              13024
+            ],
+            "avg_dist": 13024.0,
+            "min_dist": 13024,
+            "max_dist": 13024,
+            "read_count": 1
+          },
+          "dout": {
+            "size": 1,
+            "distances": [
+              1,
+              1503
+            ],
+            "avg_dist": 752.0,
+            "min_dist": 1,
+            "max_dist": 1503,
+            "read_count": 2
+          },
+          "dW2": {
+            "size": 500,
+            "distances": [
+              1502
+            ],
+            "avg_dist": 1502.0,
+            "min_dist": 1502,
+            "max_dist": 1502,
+            "read_count": 1
+          },
+          "db2": {
+            "size": 1,
+            "distances": [
+              2502
+            ],
+            "avg_dist": 2502.0,
+            "min_dist": 2502,
+            "max_dist": 2502,
+            "read_count": 1
+          },
+          "dh": {
+            "size": 500,
+            "distances": [
+              2003
+            ],
+            "avg_dist": 2003.0,
+            "min_dist": 2003,
+            "max_dist": 2003,
+            "read_count": 1
+          },
+          "dh_pre": {
+            "size": 500,
+            "distances": [
+              500,
+              21020
+            ],
+            "avg_dist": 10760.0,
+            "min_dist": 500,
+            "max_dist": 21020,
+            "read_count": 2
+          }
+        }
+      }
+    },
+    "perlayer": {
+      "epochs_to_converge": 6,
+      "best_test_acc": 0.965,
+      "training_time_s": 6.9662299156188965,
+      "tracker": {
+        "total_floats_accessed": 47566,
+        "reads": 15,
+        "writes": 13,
+        "weighted_ard": 17298.56596854372,
+        "total_floats_read": 24542,
+        "per_buffer": {
+          "x": {
+            "size": 20,
+            "distances": [
+              21,
+              15545
+            ],
+            "avg_dist": 7783.0,
+            "min_dist": 21,
+            "max_dist": 15545,
+            "read_count": 2
+          },
+          "W1": {
+            "size": 10000,
+            "distances": [
+              11042,
+              26566
+            ],
+            "avg_dist": 18804.0,
+            "min_dist": 11042,
+            "max_dist": 26566,
+            "read_count": 2
+          },
+          "b1": {
+            "size": 500,
+            "distances": [
+              11042,
+              36566
+            ],
+            "avg_dist": 23804.0,
+            "min_dist": 11042,
+            "max_dist": 36566,
+            "read_count": 2
+          },
+          "h_pre": {
+            "size": 500,
+            "distances": [
+              500,
+              4504
+            ],
+            "avg_dist": 2502.0,
+            "min_dist": 500,
+            "max_dist": 4504,
+            "read_count": 2
+          },
+          "h": {
+            "size": 500,
+            "distances": [
+              500,
+              1502
+            ],
+            "avg_dist": 1001.0,
+            "min_dist": 500,
+            "max_dist": 1502,
+            "read_count": 2
+          },
+          "W2": {
+            "size": 500,
+            "distances": [
+              13042,
+              14044,
+              14544
+            ],
+            "avg_dist": 13876.666666666666,
+            "min_dist": 13042,
+            "max_dist": 14544,
+            "read_count": 3
+          },
+          "b2": {
+            "size": 1,
+            "distances": [
+              13042,
+              15044
+            ],
+            "avg_dist": 14043.0,
+            "min_dist": 13042,
+            "max_dist": 15044,
+            "read_count": 2
+          }
+        }
+      }
+    }
+  }
+}
