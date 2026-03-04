@@ -1,0 +1,156 @@
+{
+  "experiment": "exp_wd_sweep",
+  "hypothesis": "Higher weight decay accelerates grokking on 20-bit sparse parity",
+  "config": {
+    "n_bits": 20,
+    "k_sparse": 3,
+    "hidden": 200,
+    "n_train": 1000,
+    "n_test": 200,
+    "lr": 0.1,
+    "batch_size": 32,
+    "max_epochs": 200,
+    "seeds": [
+      42,
+      43,
+      44,
+      45,
+      46
+    ],
+    "wd_values": [
+      0.001,
+      0.01,
+      0.05,
+      0.1,
+      0.5,
+      1.0,
+      2.0
+    ]
+  },
+  "results": {
+    "0.001": {
+      "wd": 0.001,
+      "avg_epochs": null,
+      "avg_time_s": 0.3143,
+      "success_rate": 0.0,
+      "solved_count": 0,
+      "total_seeds": 5,
+      "epochs_per_seed": [],
+      "times_per_seed": [
+        0.3327,
+        0.3091,
+        0.2668,
+        0.3127,
+        0.3503
+      ]
+    },
+    "0.01": {
+      "wd": 0.01,
+      "avg_epochs": 39.0,
+      "avg_time_s": 0.108,
+      "success_rate": 1.0,
+      "solved_count": 5,
+      "total_seeds": 5,
+      "epochs_per_seed": [
+        49,
+        39,
+        28,
+        42,
+        37
+      ],
+      "times_per_seed": [
+        0.1352,
+        0.1004,
+        0.0828,
+        0.101,
+        0.1207
+      ]
+    },
+    "0.05": {
+      "wd": 0.05,
+      "avg_epochs": 45.8,
+      "avg_time_s": 0.1237,
+      "success_rate": 1.0,
+      "solved_count": 5,
+      "total_seeds": 5,
+      "epochs_per_seed": [
+        45,
+        67,
+        33,
+        46,
+        38
+      ],
+      "times_per_seed": [
+        0.1381,
+        0.1703,
+        0.0901,
+        0.1226,
+        0.0974
+      ]
+    },
+    "0.1": {
+      "wd": 0.1,
+      "avg_epochs": null,
+      "avg_time_s": 1.1241,
+      "success_rate": 0.0,
+      "solved_count": 0,
+      "total_seeds": 5,
+      "epochs_per_seed": [],
+      "times_per_seed": [
+        0.5924,
+        0.6529,
+        0.7521,
+        1.4742,
+        2.149
+      ]
+    },
+    "0.5": {
+      "wd": 0.5,
+      "avg_epochs": null,
+      "avg_time_s": 0.8342,
+      "success_rate": 0.0,
+      "solved_count": 0,
+      "total_seeds": 5,
+      "epochs_per_seed": [],
+      "times_per_seed": [
+        1.3821,
+        0.7614,
+        0.6318,
+        0.5643,
+        0.8313
+      ]
+    },
+    "1.0": {
+      "wd": 1.0,
+      "avg_epochs": null,
+      "avg_time_s": 0.6597,
+      "success_rate": 0.0,
+      "solved_count": 0,
+      "total_seeds": 5,
+      "epochs_per_seed": [],
+      "times_per_seed": [
+        0.6504,
+        0.6258,
+        0.7678,
+        0.6606,
+        0.5939
+      ]
+    },
+    "2.0": {
+      "wd": 2.0,
+      "avg_epochs": null,
+      "avg_time_s": 0.7442,
+      "success_rate": 0.0,
+      "solved_count": 0,
+      "total_seeds": 5,
+      "epochs_per_seed": [],
+      "times_per_seed": [
+        0.7232,
+        0.6706,
+        0.5782,
+        0.6472,
+        1.1018
+      ]
+    }
+  }
+}

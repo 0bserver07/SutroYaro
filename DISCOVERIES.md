@@ -10,7 +10,7 @@
 - **LR=0.1 is critical** (not 0.5). LR=0.5 overshoots and never triggers the phase transition on 20-bit. [exp1]
 - **Batch size=32 helps convergence** but doesn't help ARD (see ARD Metric section). [exp1, exp_b]
 - **n_train=500 is sufficient** for n=20, k=3. More data helps generalization. [exp1]
-- **Weight decay=0.01 works**. Higher WD not yet tested. [exp1]
+- **Weight decay=0.01 is optimal**. Only WD in [0.01, 0.05] solves 20-bit; WD<0.01 too weak (no grokking in 200 epochs), WD>=0.1 too strong (kills learning). The effective regularization LR*WD must be in [0.001, 0.005]. [exp1, exp_wd_sweep]
 - **hidden=1000 is fine** for n=20. hidden=500 also works. hidden=2000 is wasteful. [exp1, exp4]
 
 ### Grokking / Phase Transition
@@ -56,7 +56,7 @@
 
 ### Medium Priority
 4. **Does per-layer + batching combine?** We've tested per-layer with single-sample and batching with standard backprop. What about per-layer + batch=32?
-5. **Weight decay sweep**: Does higher WD (0.1, 1.0) accelerate grokking on 20-bit? Would reduce epochs needed.
+5. ~~**Weight decay sweep**~~: ANSWERED — WD=0.01 is optimal, higher WD kills learning. [exp_wd_sweep]
 6. **Tiled/blocked W1 updates**: Since W1 dominates ARD, can we tile the update to keep blocks in cache?
 
 ### Exploratory
@@ -76,3 +76,4 @@
 | exp_d | 03-04 | Find scaling frontier | MAPPED: breaks at n^k > 100K | k=5 impractical |
 | exp_e | 03-04 | FF has lower ARD | REFUTED: 25x worse ARD | FF not suitable |
 | exp_f | 03-04 | Document prompting strategies | DONE | Literature→diagnose→fix |
+| exp_wd_sweep | 03-04 | Higher WD accelerates grokking | REFUTED: WD=0.01 optimal | Only [0.01, 0.05] works |
