@@ -1,0 +1,153 @@
+# Sparse Parity Research Lab
+
+> This file is the entry point for any Claude Code session running experiments.
+> Read this FIRST before doing anything.
+
+## How This Lab Works
+
+This is an autonomous research lab. Each experiment follows a strict template so findings accumulate and future sessions can build on past work without re-reading everything.
+
+### Quick Start for New Experiment
+
+```bash
+# 1. Read this file (LAB.md)
+# 2. Read DISCOVERIES.md for what's known so far
+# 3. Pick an open question from DISCOVERIES.md or TODO.md
+# 4. Create experiment using the template below
+# 5. Run, record, commit
+```
+
+### Directory Layout
+
+```
+LAB.md                  # You are here — lab protocol
+DISCOVERIES.md          # Accumulated knowledge (READ THIS)
+TODO.md                 # Open research tasks
+
+src/sparse_parity/
+  experiments/
+    _template.py        # Copy this to start a new experiment
+    exp1_*.py           # Completed experiments
+    exp_a_*.py
+    ...
+
+findings/
+  {exp_name}.md         # One file per experiment, strict format
+
+results/
+  {exp_name}/
+    results.json        # Machine-readable metrics
+    *.png               # Plots (optional)
+```
+
+### The Experiment Lifecycle
+
+```
+1. HYPOTHESIS  →  What do you expect and why?
+2. SETUP       →  Config, code, what you're measuring
+3. RUN         →  Execute, capture all output
+4. RESULTS     →  Numbers in a table
+5. ANALYSIS    →  Why did it work/fail? What's surprising?
+6. NEXT        →  What should be tried next based on this?
+7. COMMIT      →  findings/ + results/ + experiments/
+```
+
+---
+
+## Experiment Template (findings/{exp_name}.md)
+
+Every finding MUST follow this format exactly:
+
+```markdown
+# Experiment {ID}: {Title}
+
+**Date**: YYYY-MM-DD
+**Status**: SUCCESS | PARTIAL | FAILED
+**Answers**: {Which question from DISCOVERIES.md does this address?}
+
+## Hypothesis
+
+{One sentence: "If we do X, then Y will happen because Z."}
+
+## Config
+
+| Parameter | Value |
+|-----------|-------|
+| n_bits | |
+| k_sparse | |
+| hidden | |
+| lr | |
+| wd | |
+| batch_size | |
+| max_epochs | |
+| n_train | |
+| seed | |
+| method | {standard/fused/perlayer/forward-forward/sign-sgd/...} |
+
+## Results
+
+| Metric | Value |
+|--------|-------|
+| Best test accuracy | |
+| Epochs to >90% | |
+| Wall time | |
+| Weighted ARD | |
+| ARD improvement vs baseline | |
+
+## Key Table
+
+{The ONE comparison table that tells the story}
+
+## Analysis
+
+### What worked
+{Bullet points}
+
+### What didn't work
+{Bullet points}
+
+### Surprise
+{The one thing you didn't expect}
+
+## Open Questions (for next experiment)
+
+- {Question 1 — specific enough to be an experiment}
+- {Question 2}
+
+## Files
+
+- Experiment: `src/sparse_parity/experiments/{exp_name}.py`
+- Results: `results/{exp_name}/results.json`
+```
+
+---
+
+## Code Template (src/sparse_parity/experiments/_template.py)
+
+See `src/sparse_parity/experiments/_template.py` for the code template.
+
+---
+
+## Rules for Autonomous Sessions
+
+1. **Read DISCOVERIES.md first** — don't repeat what's known
+2. **One hypothesis per experiment** — change one thing at a time
+3. **Always compare against a baseline** — never report absolute numbers alone
+4. **Record failures** — a failed hypothesis is still a finding
+5. **Update DISCOVERIES.md** — add your finding to the knowledge base
+6. **Keep runtime < 5 minutes** — reduce hidden/epochs if needed
+7. **Commit locally, don't push** — the human decides when to push
+8. **Leave a "Next" section** — so the next session knows what to try
+
+## Current Baselines
+
+| Config | Method | Accuracy | ARD | Reference |
+|--------|--------|----------|-----|-----------|
+| n=3, k=3 | standard | 100% | 10,640 | run_20260303_200353 |
+| n=3, k=3 | perlayer | 100% | 9,674 | run_20260303_200353 |
+| n=20, k=3 | standard (LR=0.1, batch=32) | 100% | 17,976 | exp_a |
+| n=20, k=3 | perlayer (LR=0.1) | 99.5% | 17,299 | exp_a / exp_c |
+| n=20, k=3 | forward-forward | 58.5% | 277,256 | exp_e |
+| n=30, k=3 | standard (LR=0.1, batch=32) | 94.5% | — | exp_d |
+| n=50, k=3 | standard | 54% (FAIL) | — | exp_d |
+| n=20, k=5 | standard | 61.5% (FAIL) | — | exp_d |
