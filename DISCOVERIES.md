@@ -27,11 +27,13 @@
 - **Fused gives 1.3% ARD improvement** on 20-bit (17,741 vs 17,976). Less than per-layer. [exp_a]
 - **W1 dominates ARD at scale**: W1 (n*hidden floats) accounts for ~75% of all float reads. Its reuse distance is fixed regardless of update order. This caps the improvement from operation reordering at ~10%. [exp_a]
 
-### ARD Metric Limitations
+### ARD Metric & Cache Model
 
 - **ARD doesn't model cache**: batch-32 shows 17x higher ARD than single-sample, but would be far better on real hardware because W1 (80KB at float32) fits in L2 cache. [exp_b]
-- **Need cache-simulation mode**: a MemTracker that counts hits vs misses given configurable cache size would give more realistic energy estimates. [exp_b]
-- **Parameter writes dominate**: batch-32 does 16x fewer parameter writes than 32 single-sample steps. This is the real energy win. [exp_b]
+- **CacheTracker built**: LRU cache simulation extends MemTracker. Configurable cache size, tracks hits/misses/hit_rate/effective_ard. [exp_cache_ard]
+- **L2 cache (256KB) eliminates ALL misses** for both single-sample and batch, at hidden=200 and hidden=1000. When cache fits the working set, raw ARD is irrelevant — all accesses are hits. [exp_cache_ard]
+- **Single-sample is MORE L1-cache-friendly than batch**: batch per-sample temporaries (h_pre_0..31, h_0..31, etc.) thrash L1, giving 69-73% hit rate vs single-sample's 91-100%. [exp_cache_ard]
+- **Batch's real advantage is total traffic reduction**: 13% fewer total floats (2.13M vs 2.46M at hidden=1000) and 16x fewer parameter writes. This, not cache hit rate, is the energy win. [exp_b, exp_cache_ard]
 
 ### Forward-Forward Algorithm
 
@@ -73,7 +75,7 @@
 
 ### High Priority
 1. ~~**Can Sign SGD solve k=5?**~~ ANSWERED — Yes, Sign SGD solves k=5 2x faster (7 vs 14 epochs). But standard SGD also solves k=5 with n_train=5000. The real bottleneck was training data, not the optimizer. [exp_sign_sgd]
-2. **What does ARD look like with a cache model?** Adding cache simulation to MemTracker would give realistic energy numbers. Batch training would look much better. [from exp_b]
+2. ~~**What does ARD look like with a cache model?**~~ ANSWERED — CacheTracker built. L2 eliminates all misses for both methods. Single-sample is actually more L1-friendly. Batch wins on total traffic (13% fewer floats, 16x fewer writes), not cache locality. [exp_cache_ard]
 3. ~~**Can curriculum learning help at scale?**~~ ANSWERED — n-curriculum gives 14.6x speedup on n=50/k=3. Transfer is instant after W1 expansion. [exp_curriculum]
 
 ### Medium Priority
@@ -101,4 +103,5 @@
 | exp_wd_sweep | 03-04 | Higher WD accelerates grokking | REFUTED: WD=0.01 optimal | Only [0.01, 0.05] works |
 | exp_curriculum | 03-04 | Curriculum learning helps scaling | SUCCESS: 14.6x speedup | n=50 solved in 20 epochs |
 | exp_perlayer_batch | 03-04 | Per-layer + batch combine? | CONFIRMED: converges, but 3.7x slower wall-time | 40.6 vs 41.4 epochs |
+| exp_cache_ard | 03-04 | Cache model shows batch wins | NUANCED: L2 eliminates all misses; batch wins on traffic not locality | SS 100% L1 hit vs batch 73% |
 | exp_sign_sgd | 03-04 | Sign SGD solves k=5 | SUCCESS: 2x faster, but std SGD also works w/ data | 7 vs 14 epochs to 90% |

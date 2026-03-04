@@ -1,0 +1,132 @@
+{
+  "experiment": "exp_cache_ard",
+  "hidden_sizes": [
+    200,
+    1000
+  ],
+  "batch_size": 32,
+  "cache_configs": {
+    "L1_32KB": 8192,
+    "L2_256KB": 65536
+  },
+  "runs": {
+    "hidden_200": {
+      "hidden": 200,
+      "w1_floats": 4000,
+      "w1_kb": 15.625,
+      "comparisons": {
+        "L1_32KB": {
+          "cache_size_floats": 8192,
+          "w1_fits_in_cache": true,
+          "single_sample": {
+            "weighted_ard": 6323.43490668814,
+            "total_floats": 492731,
+            "reads": 543,
+            "writes": 441,
+            "cache_hits": 543,
+            "cache_misses": 0,
+            "hit_rate": 1.0,
+            "effective_ard": 0,
+            "wall_time_s": 0.019112110137939453
+          },
+          "batch_32": {
+            "weighted_ard": 102325.49366852669,
+            "total_floats": 364278,
+            "reads": 524,
+            "writes": 316,
+            "cache_hits": 384,
+            "cache_misses": 140,
+            "hit_rate": 0.732824427480916,
+            "effective_ard": 112186.79918849612,
+            "wall_time_s": 0.016441822052001953
+          }
+        },
+        "L2_256KB": {
+          "cache_size_floats": 65536,
+          "w1_fits_in_cache": true,
+          "single_sample": {
+            "weighted_ard": 6323.43490668814,
+            "total_floats": 492731,
+            "reads": 543,
+            "writes": 441,
+            "cache_hits": 543,
+            "cache_misses": 0,
+            "hit_rate": 1.0,
+            "effective_ard": 0,
+            "wall_time_s": 0.02069568634033203
+          },
+          "batch_32": {
+            "weighted_ard": 102325.49366852669,
+            "total_floats": 364278,
+            "reads": 524,
+            "writes": 316,
+            "cache_hits": 524,
+            "cache_misses": 0,
+            "hit_rate": 1.0,
+            "effective_ard": 0,
+            "wall_time_s": 0.016650915145874023
+          }
+        }
+      }
+    },
+    "hidden_1000": {
+      "hidden": 1000,
+      "w1_floats": 20000,
+      "w1_kb": 78.125,
+      "comparisons": {
+        "L1_32KB": {
+          "cache_size_floats": 8192,
+          "w1_fits_in_cache": false,
+          "single_sample": {
+            "weighted_ard": 31499.64337904391,
+            "total_floats": 2455931,
+            "reads": 543,
+            "writes": 441,
+            "cache_hits": 494,
+            "cache_misses": 49,
+            "hit_rate": 0.9097605893186004,
+            "effective_ard": 33847.63265306123,
+            "wall_time_s": 0.09937500953674316
+          },
+          "batch_32": {
+            "weighted_ard": 547881.3046903154,
+            "total_floats": 2132040,
+            "reads": 608,
+            "writes": 370,
+            "cache_hits": 420,
+            "cache_misses": 188,
+            "hit_rate": 0.6907894736842105,
+            "effective_ard": 612423.8296923338,
+            "wall_time_s": 0.08182907104492188
+          }
+        },
+        "L2_256KB": {
+          "cache_size_floats": 65536,
+          "w1_fits_in_cache": true,
+          "single_sample": {
+            "weighted_ard": 31499.64337904391,
+            "total_floats": 2455931,
+            "reads": 543,
+            "writes": 441,
+            "cache_hits": 543,
+            "cache_misses": 0,
+            "hit_rate": 1.0,
+            "effective_ard": 0,
+            "wall_time_s": 0.09982109069824219
+          },
+          "batch_32": {
+            "weighted_ard": 547881.3046903154,
+            "total_floats": 2132040,
+            "reads": 608,
+            "writes": 370,
+            "cache_hits": 608,
+            "cache_misses": 0,
+            "hit_rate": 1.0,
+            "effective_ard": 0,
+            "wall_time_s": 0.08210134506225586
+          }
+        }
+      }
+    }
+  }
+}
