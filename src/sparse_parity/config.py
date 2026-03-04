@@ -16,6 +16,7 @@ class Config:
     max_epochs: int = 10
     seed: int = 42
     patience: int = 10
+    batch_size: int = 1
 
     @property
     def total_params(self):
