@@ -58,3 +58,42 @@ After pulling new docs:
 ## References Auto-Extraction
 
 The sync script also builds `docs/references_auto.md` — a flat list of all unique URLs found across all pulled Google Docs. This feeds into the curated `docs/references.md` page which organizes them by category (Google Docs, Drive, Colab, GitHub, Gemini, Other).
+
+## export_sessions.py
+
+Exports Claude Code session traces from `~/.claude` into `.traces/sessions/` as readable text files.
+
+### Why
+
+Claude Code stores every conversation as JSONL files in `~/.claude/projects/`. These contain the full back-and-forth of every research session — hypotheses tested, code written, experiments run, dead ends hit. Without exporting them, this research history is invisible and eventually lost when sessions age out or the machine changes.
+
+The exported traces let us:
+
+- Review what each agent actually did during parallel experiments (sparse-parity team had 4 agents, research-loop had 5, blank-slate had 3)
+- Find abandoned ideas worth revisiting
+- See which approaches were tried and why they failed
+- Reconstruct the reasoning behind decisions in DISCOVERIES.md
+
+### Usage
+
+```bash
+python3 .traces/export_sessions.py              # export all sessions
+python3 .traces/export_sessions.py --list       # list sessions with metadata
+python3 .traces/export_sessions.py SESSION_ID   # export one session
+python3 .traces/export_sessions.py --team sparse-parity  # export one team
+```
+
+### How It Works
+
+1. Reads JSONL files from `~/.claude/projects/-Users-yadkonrad-dev-dev-year26-feb26-SutroYaro/`
+2. Parses the nested message format (`entry.message.role`, `entry.message.content`)
+3. Extracts text from content blocks, summarizes tool calls (Read, Write, Edit, Bash, Grep, Agent, etc.)
+4. Strips `<system-reminder>` tags and skips system messages
+5. Writes readable text files to `.traces/sessions/` with `YOU` / `CLAUDE` labels
+6. Generates `INDEX.md` with a table of all exported sessions
+
+Filenames include team and agent names when available: `sparse-parity-metrics-agent-04f577d0.txt`.
+
+### Privacy
+
+The `.traces/sessions/` directory is gitignored. The export script is committed, the outputs are not. Session traces contain raw conversation data and should stay local.
