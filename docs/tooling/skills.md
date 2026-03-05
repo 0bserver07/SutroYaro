@@ -1,99 +1,96 @@
-# Skills Reference
+# Skills & Plugins
 
-Skills are reusable workflow templates for Claude Code. They enforce discipline on specific types of work — you invoke them with `/skill-name` or Claude Code invokes them automatically when relevant.
+Claude Code supports skills (reusable workflow templates) and plugins (installable packages of skills). Here's what we use in this project.
 
-## Skills We Use
+## Plugin: Superpowers
 
-### Anti-slop Guide
+[obra/superpowers](https://github.com/obra/superpowers) — an agentic skills framework that adds a 7-phase development workflow to Claude Code. In the Anthropic marketplace since Jan 2026. Installed as a Claude Code plugin.
 
+The skills auto-invoke when relevant — you don't need to call them manually.
+
+| Skill | When it fires | What it does |
+|-------|--------------|-------------|
+| **Brainstorming** | Before any creative work | Explores intent, requirements, and design before writing code |
+| **Writing Plans** | Multi-step tasks | Write a plan, get approval, then execute with checkpoints |
+| **Executing Plans** | After plan approval | Follows the plan step-by-step with review gates |
+| **Test-Driven Development** | Before implementation | Write tests first, then code to pass them |
+| **Systematic Debugging** | Any bug or test failure | 4-phase root cause analysis: trace, hypothesize, verify, fix |
+| **Dispatching Parallel Agents** | 2+ independent tasks | Spawns multiple Claude Code agents working simultaneously |
+| **Subagent-Driven Development** | Implementation plans with independent tasks | Coordinates agents within a single session |
+| **Verification Before Completion** | Before claiming "done" | Requires running commands and confirming output before success claims |
+| **Requesting Code Review** | After completing a step | Reviews implementation against plan, reports issues by severity |
+| **Receiving Code Review** | When given feedback | Prevents blind agreement — requires verifying feedback is technically correct |
+| **Using Git Worktrees** | Feature work needing isolation | Creates isolated git worktrees for parallel development |
+| **Finishing a Development Branch** | All tests pass, ready to integrate | Presents merge/PR/keep/discard options, cleans up worktree |
+| **Writing Skills** | Creating or editing skills | Guides skill authoring and verification |
+
+Related repos:
+
+- [obra/superpowers-skills](https://github.com/obra/superpowers-skills) — community-editable skills, cloned to `~/.config/superpowers/skills/`
+- [obra/superpowers-lab](https://github.com/obra/superpowers-lab) — experimental skills (semantic duplication detection, etc.)
+- [obra/superpowers-marketplace](https://github.com/obra/superpowers-marketplace) — curated plugin marketplace
+
+## Custom Skills (included in this repo)
+
+This repo ships project-level skills in `.claude/skills/`. Anyone cloning the repo gets them automatically — Claude Code detects them on session start.
+
+```
+.claude/skills/
+  anti-slop-guide/
+    SKILL.md          # auto-detected by Claude Code
+```
+
+Skills can also live at the user level (`~/.claude/skills/`) for use across all projects.
+
+### Anti-Slop Guide
+
+**Location**: `.claude/skills/anti-slop-guide/SKILL.md` (in this repo)
 **Invoked**: `/anti-slop-guide` or automatically when writing prose
 
-Detects and removes AI writing patterns: overused vocabulary (delve, tapestry, landscape), formulaic structures (binary contrasts, rule of three), throat-clearing openers, business jargon. See the [full guide](anti-slop-guide.md).
+Detects and removes AI writing patterns from prose. We ran it on all 32 MkDocs pages after initial generation — the difference was large. Pages went from sounding like ChatGPT marketing copy to reading like research notes.
 
-We ran an anti-slop pass on all 32 MkDocs pages after initial generation. The difference was significant — pages went from sounding like ChatGPT marketing copy to reading like research notes.
+See the [full reference](anti-slop-guide.md).
 
-### Brainstorming
+Sources: [stop-slop](https://github.com/hardikpandya/stop-slop) by Hardik Pandya, [Wikipedia: Signs of AI Writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing), and several community guides. MIT licensed.
 
-**Invoked**: Automatically before any creative work (features, components, behavior changes)
+### Ralph Wiggum
 
-Explores intent, requirements, and design before implementation. Prevents jumping straight to code.
+A technique for maintaining persistent background loops in Claude Code sessions. Available commands: `/ralph-wiggum:help`, `/ralph-wiggum:ralph-loop`, `/ralph-wiggum:cancel-ralph`.
 
-### Systematic Debugging
+## MCP Servers
 
-**Invoked**: When encountering any bug, test failure, or unexpected behavior
+Model Context Protocol servers extend Claude Code with new tools.
 
-Forces root-cause analysis before proposing fixes. Prevents the "try random things until it works" pattern.
+### Currently Active
 
-### Test-Driven Development
+| Server | What it provides |
+|--------|-----------------|
+| **drawio-mcp** | Create and edit diagrams (`.drawio.svg`) from Claude Code |
+| **macos-control** | Screenshot, mouse/keyboard control, screen automation |
+| **macos-automator** | AppleScript/JXA execution, app automation |
+| **apple-calendar** | Calendar event management |
+| **macos-ui-automation** | Accessibility-based UI element interaction |
 
-**Invoked**: Before writing implementation code
+### Worth Adding
 
-Write tests first, then implementation. Keeps experiments honest — if the test passes, the experiment succeeded.
-
-### Writing Plans / Executing Plans
-
-**Invoked**: For multi-step tasks before touching code
-
-Write a plan, get approval, then execute with review checkpoints. Used for the experiment pipeline design.
-
-### Parallel Agent Dispatch
-
-**Invoked**: When facing 2+ independent tasks
-
-Spawns multiple Claude Code agents working in parallel on independent tasks. Used to run multiple experiments simultaneously.
-
-### Verification Before Completion
-
-**Invoked**: Before claiming work is done
-
-Requires running verification commands and confirming output before making success claims. Prevents "it should work" without evidence.
-
-### Code Review
-
-**Invoked**: After completing a major feature or step
-
-Reviews implementation against the original plan and coding standards.
+| Server | Why |
+|--------|-----|
+| **Google Docs MCP** | Live read/write access to Google Docs (replace sync script) |
+| **Browser MCP** | Fetch web content, papers, arxiv results |
+| **GitHub MCP** | Direct PR/issue management without `gh` CLI |
 
 ## Skills Worth Building
 
-These don't exist yet but would fit the Sutro Group workflow:
+These don't exist yet but would fit the Sutro research workflow:
 
-### Research Sprint
+**Research Sprint** — enforce the loop from [prompting strategies](../findings/prompting-strategies.md): literature search, gap diagnosis, ranked experiments, one-at-a-time execution, failure analysis.
 
-A skill that enforces the research loop from [prompting strategies](../findings/prompting-strategies.md):
+**Energy Audit** — run ARD analysis on an experiment script, compare against baseline, identify top memory access bottlenecks.
 
-1. Literature search on exact problem
-2. Compare config against published baselines
-3. Ranked experiment plan
-4. Execute one experiment at a time
-5. Analyze failures
+**Google Docs Sync** — wrap `sync_google_docs.py`: pull latest, diff, update cross-references, rebuild site.
 
-### Energy Audit
+## More Skills & Resources
 
-A skill that runs ARD analysis on a given experiment script:
-
-1. Run the experiment
-2. Measure ARD with CacheTracker
-3. Compare against baseline
-4. Identify the top-3 memory access bottlenecks
-5. Suggest improvements
-
-### Google Docs Sync
-
-A skill that wraps `sync_google_docs.py`:
-
-1. Pull latest docs
-2. Diff against previous versions
-3. Update cross-references
-4. Rebuild MkDocs site
-
-## How to Create a Skill
-
-Skills live in `~/.claude/skills/` as directories with a markdown file. The file has YAML frontmatter (name, description) and the skill content.
-
-```
-~/.claude/skills/my-skill/
-  my-skill.md    # Skill definition with frontmatter
-```
-
-Invoke with `/my-skill` in Claude Code.
+- [travisvn/awesome-claude-skills](https://github.com/travisvn/awesome-claude-skills) — curated list of Claude skills and tools
+- [VoltAgent/awesome-agent-skills](https://github.com/VoltAgent/awesome-agent-skills) — 500+ agent skills from official dev teams and community
+- [hesreallyhim/awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) — skills, hooks, slash-commands, agent orchestrators

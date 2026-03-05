@@ -71,7 +71,7 @@ nav:
       - Tooling:
           - Overview: tooling/index.md
           - Claude Code Setup: tooling/claude-code-setup.md
-          - Skills Reference: tooling/skills.md
+          - Skills & Plugins: tooling/skills.md
           - Anti-Slop Guide: tooling/anti-slop-guide.md
           - Automation Scripts: tooling/automation.md
   - Research:

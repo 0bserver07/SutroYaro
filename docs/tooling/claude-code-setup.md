@@ -94,6 +94,9 @@ CLAUDE.md          — Project context (read first every session)
 LAB.md             — Experiment protocol
 DISCOVERIES.md     — Proven findings (read before every experiment)
 TODO.md            — Open research tasks
+.claude/
+  skills/          — Project-level skills (auto-detected by Claude Code)
+    anti-slop-guide/SKILL.md
 src/               — Experiment scripts
   fast.py          — Numpy solver (< 2s iteration)
   sync_google_docs.py — Google Docs pull script
@@ -103,3 +106,5 @@ docs/              — MkDocs site
   tooling/         — This section
 results/           — Raw experiment output
 ```
+
+Anyone cloning this repo gets the skills automatically. Claude Code detects `.claude/skills/` on session start.
