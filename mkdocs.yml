@@ -77,6 +77,7 @@ nav:
   - Research:
       - Overview: research/index.md
       - Literature Review: research/sparse-parity-literature.md
+      - Proposed Approaches: research/proposed-approaches.md
       - Findings:
           - Sprint 1 (ARD Baseline): findings/sprint-1-findings.md
           - Exp 1 - Fix Hyperparams: findings/exp1_fix_hyperparams.md

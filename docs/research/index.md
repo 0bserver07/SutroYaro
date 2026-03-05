@@ -12,6 +12,7 @@ Research notes and literature review for the Sutro Group.
 - [x] Curriculum learning: [14.6x speedup on n=50](../findings/exp_curriculum.md)
 - [x] Scaling frontier: [SGD breaks at n^k > 100K](../findings/exp_d_scaling.md)
 - [x] Blank-slate approaches: [Fourier](../findings/exp_fourier.md), [evolutionary](../findings/exp_evolutionary.md), [feature selection](../findings/exp_feature_select.md)
+- [ ] [17 proposed approaches](proposed-approaches.md) — info-theoretic, algebraic, local learning, hardware-aware, alternative framings
 - [ ] Deeper networks (5-10 layers) where FF's locality advantage may appear
 - [ ] Predictive Coding on sparse parity
 - [ ] Hybrid approaches for k=8-9 (combinatorial search with pruning)
