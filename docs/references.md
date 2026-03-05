@@ -19,36 +19,36 @@ Extracted from the Sutro Group Google Docs.
 ## Google Drive
 | File | Link |
 |------|------|
-| From_Beauty_to_Joules.pdf | https://drive.google.com/open?id=1T2jTdXnS5L7JGri5clrCz4hRslxIr6Vg&usp=drive_fs |
-| Intelligence_Per_Joule.pdf | https://drive.google.com/open?id=1vyvElj7aTFZYwNpA1mzHAaLSJegmAson&usp=drive_fs |
-| germaine.mp4 | https://drive.google.com/file/d/1BzZLWCveiXRAXj2nAsYYDoPnPe8lDDki/view?usp=sharing |
-| Sparse_Parity_Optimization.pdf | https://drive.google.com/file/d/1nC5KbckpwLjeGynuS4wPntBoClfDHyqY/view |
+| From_Beauty_to_Joules.pdf | [Drive](https://drive.google.com/open?id=1T2jTdXnS5L7JGri5clrCz4hRslxIr6Vg&usp=drive_fs) |
+| Intelligence_Per_Joule.pdf | [Drive](https://drive.google.com/open?id=1vyvElj7aTFZYwNpA1mzHAaLSJegmAson&usp=drive_fs) |
+| germaine.mp4 | [Drive](https://drive.google.com/file/d/1BzZLWCveiXRAXj2nAsYYDoPnPe8lDDki/view?usp=sharing) |
+| Sparse_Parity_Optimization.pdf | [Drive](https://drive.google.com/file/d/1nC5KbckpwLjeGynuS4wPntBoClfDHyqY/view) |
 
 ## Google Colab
 | Notebook | Link |
 |----------|------|
-| Joules-measuring notebook | https://colab.research.google.com/drive/1ctren0aejK4KI9AYclUrGbDYZrDqSiJS#scrollTo=kdhH19I9XvDZ |
-| Sprint 1 fast version | https://colab.research.google.com/drive/1auWQjRgtrqyzef98wqq796sl927tCGMq |
+| Joules-measuring notebook | [Colab](https://colab.research.google.com/drive/1ctren0aejK4KI9AYclUrGbDYZrDqSiJS#scrollTo=kdhH19I9XvDZ) |
+| Sprint 1 fast version | [Colab](https://colab.research.google.com/drive/1auWQjRgtrqyzef98wqq796sl927tCGMq) |
 
 ## GitHub
 | Repo | Link |
 |------|------|
-| cybertronai/sutro (main) | https://github.com/cybertronai/sutro |
-| sparse_parity_benchmark.py | https://github.com/cybertronai/sutro/blob/e132532f67f97f927d4700afb913e76d5cbdab02/sparse_parity_benchmark.py |
-| Karpathy makemore names.txt | https://github.com/karpathy/makemore/blob/master/names.txt |
+| cybertronai/sutro (main) | [GitHub](https://github.com/cybertronai/sutro) |
+| sparse_parity_benchmark.py | [GitHub](https://github.com/cybertronai/sutro/blob/e132532f67f97f927d4700afb913e76d5cbdab02/sparse_parity_benchmark.py) |
+| Karpathy makemore names.txt | [GitHub](https://github.com/karpathy/makemore/blob/master/names.txt) |
 
 ## Gemini Sessions
 | Session | Link |
 |---------|------|
-| Runtime estimation | https://gemini.google.com/share/45a7920017e2 |
-| ARD brainstorming | https://gemini.google.com/share/c99ec90874da |
-| ARD deep dive | https://gemini.google.com/share/90bda930129a |
+| Runtime estimation | [Gemini](https://gemini.google.com/share/45a7920017e2) |
+| ARD brainstorming | [Gemini](https://gemini.google.com/share/c99ec90874da) |
+| ARD deep dive | [Gemini](https://gemini.google.com/share/90bda930129a) |
 
 ## Other
 | Resource | Link |
 |----------|------|
-| Telegram group | https://t.me/sutro_group |
-| NotebookLM (sparse parity) | https://notebooklm.google.com/notebook/3eb7b53e-168f-409c-a679-2fb009119e2e |
-| Bill Daly talk (energy in GPUs) | https://youtu.be/rsxCZAE8QNA?si=8-kIJ1MuhxChRLgW&t=2457 |
-| AI Studio interactive tutorial | https://ai.studio/apps/eca3f37a-175a-4713-bb17-622b24e17d3a |
-| Fitting Larger Networks into Memory | https://medium.com/tensorflow/fitting-larger-networks-into-memory-583e3c758ff9 |
+| Telegram group | [Telegram](https://t.me/sutro_group) |
+| NotebookLM (sparse parity) | [NotebookLM](https://notebooklm.google.com/notebook/3eb7b53e-168f-409c-a679-2fb009119e2e) |
+| Bill Daly talk (energy in GPUs) | [YouTube](https://youtu.be/rsxCZAE8QNA?si=8-kIJ1MuhxChRLgW&t=2457) |
+| AI Studio interactive tutorial | [AI Studio](https://ai.studio/apps/eca3f37a-175a-4713-bb17-622b24e17d3a) |
+| Fitting Larger Networks into Memory | [Medium](https://medium.com/tensorflow/fitting-larger-networks-into-memory-583e3c758ff9) |

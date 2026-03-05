@@ -10,7 +10,7 @@ How we use Claude Code as a research automation tool for the Sutro Group.
 | [CLAUDE.md](claude-code-setup.md#claudemd) | Project instructions file that gives Claude context about the repo |
 | [Superpowers plugin](skills.md) | [obra/superpowers](https://github.com/obra/superpowers) — brainstorming, TDD, debugging, parallel agents, code review |
 | [Custom skills](skills.md#custom-skills) | Anti-slop guide, Ralph Wiggum |
-| [MCP servers](skills.md#mcp-servers) | drawio, macos-control, calendar, UI automation |
+| [MCP servers](skills.md#mcp-servers) | Extensible tool servers (Google Docs, browser, diagrams) |
 | [Anti-slop guide](anti-slop-guide.md) | Reference for eliminating AI writing patterns from prose |
 | [Automation scripts](automation.md) | `sync_google_docs.py` for pulling Google Docs, reference extraction |
 

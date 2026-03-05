@@ -59,25 +59,16 @@ A technique for maintaining persistent background loops in Claude Code sessions.
 
 ## MCP Servers
 
-Model Context Protocol servers extend Claude Code with new tools.
-
-### Currently Active
+Model Context Protocol (MCP) servers extend Claude Code with new tools. You configure them per-project or per-user. Some relevant ones for research work:
 
 | Server | What it provides |
 |--------|-----------------|
-| **drawio-mcp** | Create and edit diagrams (`.drawio.svg`) from Claude Code |
-| **macos-control** | Screenshot, mouse/keyboard control, screen automation |
-| **macos-automator** | AppleScript/JXA execution, app automation |
-| **apple-calendar** | Calendar event management |
-| **macos-ui-automation** | Accessibility-based UI element interaction |
-
-### Worth Adding
-
-| Server | Why |
-|--------|-----|
-| **Google Docs MCP** | Live read/write access to Google Docs (replace sync script) |
-| **Browser MCP** | Fetch web content, papers, arxiv results |
+| **Google Docs MCP** | Live read/write access to Google Docs (could replace `sync_google_docs.py`) |
+| **Browser MCP** | Fetch web content, papers, arxiv results directly |
 | **GitHub MCP** | Direct PR/issue management without `gh` CLI |
+| **drawio-mcp** | Create and edit diagrams from Claude Code |
+
+See the [Anthropic MCP docs](https://modelcontextprotocol.io/) for setup.
 
 ## Skills Worth Building
 
