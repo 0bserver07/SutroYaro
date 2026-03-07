@@ -1,0 +1,1108 @@
+{
+  "experiment": "exp_smt",
+  "description": "SMT/Constraint solver for sparse parity (Z3 + backtracking)",
+  "hypothesis": "Sparse parity encoded as constraints is trivial for SMT solvers",
+  "approach": "Program Synthesis / SMT Solver (#15)",
+  "z3_available": true,
+  "configs": {
+    "n20_k3": {
+      "n_bits": 20,
+      "k_sparse": 3,
+      "c_n_k": 1140,
+      "n_train": 500,
+      "z3": [
+        {
+          "seed": 42,
+          "found": [
+            0,
+            15,
+            17
+          ],
+          "secret": [
+            0,
+            15,
+            17
+          ],
+          "correct": true,
+          "solved": true,
+          "solve_time_s": 1.584132,
+          "n_constraints": 508,
+          "status": "SAT",
+          "test_accuracy": 1.0
+        },
+        {
+          "seed": 43,
+          "found": [
+            6,
+            9,
+            19
+          ],
+          "secret": [
+            6,
+            9,
+            19
+          ],
+          "correct": true,
+          "solved": true,
+          "solve_time_s": 1.249231,
+          "n_constraints": 508,
+          "status": "SAT",
+          "test_accuracy": 1.0
+        },
+        {
+          "seed": 44,
+          "found": [
+            9,
+            14,
+            15
+          ],
+          "secret": [
+            9,
+            14,
+            15
+          ],
+          "correct": true,
+          "solved": true,
+          "solve_time_s": 1.241246,
+          "n_constraints": 508,
+          "status": "SAT",
+          "test_accuracy": 1.0
+        }
+      ],
+      "backtrack": [
+        {
+          "seed": 42,
+          "found": [
+            0,
+            15,
+            17
+          ],
+          "secret": [
+            0,
+            15,
+            17
+          ],
+          "correct": true,
+          "solved": true,
+          "solve_time_s": 0.000561,
+          "nodes_explored": 2,
+          "status": "FOUND",
+          "test_accuracy": 1.0,
+          "memory_tracker": {
+            "total_floats_accessed": 21003,
+            "reads": 2,
+            "writes": 3,
+            "weighted_ard": 10500.0,
+            "total_floats_read": 10500,
+            "per_buffer": {
+              "x_train": {
+                "size": 10000,
+                "distances": [
+                  10500
+                ],
+                "avg_dist": 10500.0,
+                "min_dist": 10500,
+                "max_dist": 10500,
+                "read_count": 1
+              },
+              "y_train": {
+                "size": 500,
+                "distances": [
+                  10500
+                ],
+                "avg_dist": 10500.0,
+                "min_dist": 10500,
+                "max_dist": 10500,
+                "read_count": 1
+              }
+            }
+          }
+        },
+        {
+          "seed": 43,
+          "found": [
+            6,
+            9,
+            19
+          ],
+          "secret": [
+            6,
+            9,
+            19
+          ],
+          "correct": true,
+          "solved": true,
+          "solve_time_s": 0.002442,
+          "nodes_explored": 8,
+          "status": "FOUND",
+          "test_accuracy": 1.0,
+          "memory_tracker": {
+            "total_floats_accessed": 21003,
+            "reads": 2,
+            "writes": 3,
+            "weighted_ard": 10500.0,
+            "total_floats_read": 10500,
+            "per_buffer": {
+              "x_train": {
+                "size": 10000,
+                "distances": [
+                  10500
+                ],
+                "avg_dist": 10500.0,
+                "min_dist": 10500,
+                "max_dist": 10500,
+                "read_count": 1
+              },
+              "y_train": {
+                "size": 500,
+                "distances": [
+                  10500
+                ],
+                "avg_dist": 10500.0,
+                "min_dist": 10500,
+                "max_dist": 10500,
+                "read_count": 1
+              }
+            }
+          }
+        },
+        {
+          "seed": 44,
+          "found": [
+            9,
+            14,
+            15
+          ],
+          "secret": [
+            9,
+            14,
+            15
+          ],
+          "correct": true,
+          "solved": true,
+          "solve_time_s": 0.003008,
+          "nodes_explored": 11,
+          "status": "FOUND",
+          "test_accuracy": 1.0,
+          "memory_tracker": {
+            "total_floats_accessed": 21003,
+            "reads": 2,
+            "writes": 3,
+            "weighted_ard": 10500.0,
+            "total_floats_read": 10500,
+            "per_buffer": {
+              "x_train": {
+                "size": 10000,
+                "distances": [
+                  10500
+                ],
+                "avg_dist": 10500.0,
+                "min_dist": 10500,
+                "max_dist": 10500,
+                "read_count": 1
+              },
+              "y_train": {
+                "size": 500,
+                "distances": [
+                  10500
+                ],
+                "avg_dist": 10500.0,
+                "min_dist": 10500,
+                "max_dist": 10500,
+                "read_count": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "n50_k3": {
+      "n_bits": 50,
+      "k_sparse": 3,
+      "c_n_k": 19600,
+      "n_train": 500,
+      "z3": [
+        {
+          "seed": 42,
+          "found": [
+            13,
+            30,
+            39
+          ],
+          "secret": [
+            13,
+            30,
+            39
+          ],
+          "correct": true,
+          "solved": true,
+          "solve_time_s": 16.372404,
+          "n_constraints": 508,
+          "status": "SAT",
+          "test_accuracy": 1.0
+        },
+        {
+          "seed": 43,
+          "found": [
+            19,
+            28,
+            36
+          ],
+          "secret": [
+            19,
+            28,
+            36
+          ],
+          "correct": true,
+          "solved": true,
+          "solve_time_s": 18.171601,
+          "n_constraints": 508,
+          "status": "SAT",
+          "test_accuracy": 1.0
+        },
+        {
+          "seed": 44,
+          "found": [
+            6,
+            37,
+            47
+          ],
+          "secret": [
+            6,
+            37,
+            47
+          ],
+          "correct": true,
+          "solved": true,
+          "solve_time_s": 15.690141,
+          "n_constraints": 508,
+          "status": "SAT",
+          "test_accuracy": 1.0
+        }
+      ],
+      "backtrack": [
+        {
+          "seed": 42,
+          "found": [
+            13,
+            30,
+            39
+          ],
+          "secret": [
+            13,
+            30,
+            39
+          ],
+          "correct": true,
+          "solved": true,
+          "solve_time_s": 0.039592,
+          "nodes_explored": 15,
+          "status": "FOUND",
+          "test_accuracy": 1.0,
+          "memory_tracker": {
+            "total_floats_accessed": 51003,
+            "reads": 2,
+            "writes": 3,
+            "weighted_ard": 25500.0,
+            "total_floats_read": 25500,
+            "per_buffer": {
+              "x_train": {
+                "size": 25000,
+                "distances": [
+                  25500
+                ],
+                "avg_dist": 25500.0,
+                "min_dist": 25500,
+                "max_dist": 25500,
+                "read_count": 1
+              },
+              "y_train": {
+                "size": 500,
+                "distances": [
+                  25500
+                ],
+                "avg_dist": 25500.0,
+                "min_dist": 25500,
+                "max_dist": 25500,
+                "read_count": 1
+              }
+            }
+          }
+        },
+        {
+          "seed": 43,
+          "found": [
+            19,
+            28,
+            36
+          ],
+          "secret": [
+            19,
+            28,
+            36
+          ],
+          "correct": true,
+          "solved": true,
+          "solve_time_s": 0.045272,
+          "nodes_explored": 21,
+          "status": "FOUND",
+          "test_accuracy": 1.0,
+          "memory_tracker": {
+            "total_floats_accessed": 51003,
+            "reads": 2,
+            "writes": 3,
+            "weighted_ard": 25500.0,
+            "total_floats_read": 25500,
+            "per_buffer": {
+              "x_train": {
+                "size": 25000,
+                "distances": [
+                  25500
+                ],
+                "avg_dist": 25500.0,
+                "min_dist": 25500,
+                "max_dist": 25500,
+                "read_count": 1
+              },
+              "y_train": {
+                "size": 500,
+                "distances": [
+                  25500
+                ],
+                "avg_dist": 25500.0,
+                "min_dist": 25500,
+                "max_dist": 25500,
+                "read_count": 1
+              }
+            }
+          }
+        },
+        {
+          "seed": 44,
+          "found": [
+            6,
+            37,
+            47
+          ],
+          "secret": [
+            6,
+            37,
+            47
+          ],
+          "correct": true,
+          "solved": true,
+          "solve_time_s": 0.018509,
+          "nodes_explored": 8,
+          "status": "FOUND",
+          "test_accuracy": 1.0,
+          "memory_tracker": {
+            "total_floats_accessed": 51003,
+            "reads": 2,
+            "writes": 3,
+            "weighted_ard": 25500.0,
+            "total_floats_read": 25500,
+            "per_buffer": {
+              "x_train": {
+                "size": 25000,
+                "distances": [
+                  25500
+                ],
+                "avg_dist": 25500.0,
+                "min_dist": 25500,
+                "max_dist": 25500,
+                "read_count": 1
+              },
+              "y_train": {
+                "size": 500,
+                "distances": [
+                  25500
+                ],
+                "avg_dist": 25500.0,
+                "min_dist": 25500,
+                "max_dist": 25500,
+                "read_count": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "n100_k3": {
+      "n_bits": 100,
+      "k_sparse": 3,
+      "c_n_k": 161700,
+      "n_train": 500,
+      "z3": [
+        {
+          "seed": 42,
+          "found": [
+            53,
+            70,
+            83
+          ],
+          "secret": [
+            53,
+            70,
+            83
+          ],
+          "correct": true,
+          "solved": true,
+          "solve_time_s": 155.543694,
+          "n_constraints": 508,
+          "status": "SAT",
+          "test_accuracy": 1.0
+        },
+        {
+          "seed": 43,
+          "found": [
+            2,
+            15,
+            20
+          ],
+          "secret": [
+            2,
+            15,
+            20
+          ],
+          "correct": true,
+          "solved": true,
+          "solve_time_s": 65.015694,
+          "n_constraints": 508,
+          "status": "SAT",
+          "test_accuracy": 1.0
+        },
+        {
+          "seed": 44,
+          "found": [
+            27,
+            42,
+            54
+          ],
+          "secret": [
+            27,
+            42,
+            54
+          ],
+          "correct": true,
+          "solved": true,
+          "solve_time_s": 303.685763,
+          "n_constraints": 508,
+          "status": "SAT",
+          "test_accuracy": 1.0
+        }
+      ],
+      "backtrack": [
+        {
+          "seed": 42,
+          "found": [
+            53,
+            70,
+            83
+          ],
+          "secret": [
+            53,
+            70,
+            83
+          ],
+          "correct": true,
+          "solved": true,
+          "solve_time_s": 0.325095,
+          "nodes_explored": 55,
+          "status": "FOUND",
+          "test_accuracy": 1.0,
+          "memory_tracker": {
+            "total_floats_accessed": 101003,
+            "reads": 2,
+            "writes": 3,
+            "weighted_ard": 50500.0,
+            "total_floats_read": 50500,
+            "per_buffer": {
+              "x_train": {
+                "size": 50000,
+                "distances": [
+                  50500
+                ],
+                "avg_dist": 50500.0,
+                "min_dist": 50500,
+                "max_dist": 50500,
+                "read_count": 1
+              },
+              "y_train": {
+                "size": 500,
+                "distances": [
+                  50500
+                ],
+                "avg_dist": 50500.0,
+                "min_dist": 50500,
+                "max_dist": 50500,
+                "read_count": 1
+              }
+            }
+          }
+        },
+        {
+          "seed": 43,
+          "found": [
+            2,
+            15,
+            20
+          ],
+          "secret": [
+            2,
+            15,
+            20
+          ],
+          "correct": true,
+          "solved": true,
+          "solve_time_s": 0.021851,
+          "nodes_explored": 4,
+          "status": "FOUND",
+          "test_accuracy": 1.0,
+          "memory_tracker": {
+            "total_floats_accessed": 101003,
+            "reads": 2,
+            "writes": 3,
+            "weighted_ard": 50500.0,
+            "total_floats_read": 50500,
+            "per_buffer": {
+              "x_train": {
+                "size": 50000,
+                "distances": [
+                  50500
+                ],
+                "avg_dist": 50500.0,
+                "min_dist": 50500,
+                "max_dist": 50500,
+                "read_count": 1
+              },
+              "y_train": {
+                "size": 500,
+                "distances": [
+                  50500
+                ],
+                "avg_dist": 50500.0,
+                "min_dist": 50500,
+                "max_dist": 50500,
+                "read_count": 1
+              }
+            }
+          }
+        },
+        {
+          "seed": 44,
+          "found": [
+            27,
+            42,
+            54
+          ],
+          "secret": [
+            27,
+            42,
+            54
+          ],
+          "correct": true,
+          "solved": true,
+          "solve_time_s": 0.199668,
+          "nodes_explored": 29,
+          "status": "FOUND",
+          "test_accuracy": 1.0,
+          "memory_tracker": {
+            "total_floats_accessed": 101003,
+            "reads": 2,
+            "writes": 3,
+            "weighted_ard": 50500.0,
+            "total_floats_read": 50500,
+            "per_buffer": {
+              "x_train": {
+                "size": 50000,
+                "distances": [
+                  50500
+                ],
+                "avg_dist": 50500.0,
+                "min_dist": 50500,
+                "max_dist": 50500,
+                "read_count": 1
+              },
+              "y_train": {
+                "size": 500,
+                "distances": [
+                  50500
+                ],
+                "avg_dist": 50500.0,
+                "min_dist": 50500,
+                "max_dist": 50500,
+                "read_count": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "n20_k5": {
+      "n_bits": 20,
+      "k_sparse": 5,
+      "c_n_k": 15504,
+      "n_train": 2000,
+      "z3": [
+        {
+          "seed": 42,
+          "found": [
+            0,
+            1,
+            8,
+            15,
+            17
+          ],
+          "secret": [
+            0,
+            1,
+            8,
+            15,
+            17
+          ],
+          "correct": true,
+          "solved": true,
+          "solve_time_s": 39.682393,
+          "n_constraints": 2014,
+          "status": "SAT",
+          "test_accuracy": 1.0
+        },
+        {
+          "seed": 43,
+          "found": [
+            5,
+            6,
+            9,
+            14,
+            19
+          ],
+          "secret": [
+            5,
+            6,
+            9,
+            14,
+            19
+          ],
+          "correct": true,
+          "solved": true,
+          "solve_time_s": 35.07746,
+          "n_constraints": 2014,
+          "status": "SAT",
+          "test_accuracy": 1.0
+        },
+        {
+          "seed": 44,
+          "found": [
+            2,
+            5,
+            9,
+            14,
+            15
+          ],
+          "secret": [
+            2,
+            5,
+            9,
+            14,
+            15
+          ],
+          "correct": true,
+          "solved": true,
+          "solve_time_s": 29.349077,
+          "n_constraints": 2014,
+          "status": "SAT",
+          "test_accuracy": 1.0
+        }
+      ],
+      "backtrack": [
+        {
+          "seed": 42,
+          "found": [
+            0,
+            1,
+            8,
+            15,
+            17
+          ],
+          "secret": [
+            0,
+            1,
+            8,
+            15,
+            17
+          ],
+          "correct": true,
+          "solved": true,
+          "solve_time_s": 0.003465,
+          "nodes_explored": 10,
+          "status": "FOUND",
+          "test_accuracy": 1.0,
+          "memory_tracker": {
+            "total_floats_accessed": 84005,
+            "reads": 2,
+            "writes": 3,
+            "weighted_ard": 42000.0,
+            "total_floats_read": 42000,
+            "per_buffer": {
+              "x_train": {
+                "size": 40000,
+                "distances": [
+                  42000
+                ],
+                "avg_dist": 42000.0,
+                "min_dist": 42000,
+                "max_dist": 42000,
+                "read_count": 1
+              },
+              "y_train": {
+                "size": 2000,
+                "distances": [
+                  42000
+                ],
+                "avg_dist": 42000.0,
+                "min_dist": 42000,
+                "max_dist": 42000,
+                "read_count": 1
+              }
+            }
+          }
+        },
+        {
+          "seed": 43,
+          "found": [
+            5,
+            6,
+            9,
+            14,
+            19
+          ],
+          "secret": [
+            5,
+            6,
+            9,
+            14,
+            19
+          ],
+          "correct": true,
+          "solved": true,
+          "solve_time_s": 0.082112,
+          "nodes_explored": 611,
+          "status": "FOUND",
+          "test_accuracy": 1.0,
+          "memory_tracker": {
+            "total_floats_accessed": 84005,
+            "reads": 2,
+            "writes": 3,
+            "weighted_ard": 42000.0,
+            "total_floats_read": 42000,
+            "per_buffer": {
+              "x_train": {
+                "size": 40000,
+                "distances": [
+                  42000
+                ],
+                "avg_dist": 42000.0,
+                "min_dist": 42000,
+                "max_dist": 42000,
+                "read_count": 1
+              },
+              "y_train": {
+                "size": 2000,
+                "distances": [
+                  42000
+                ],
+                "avg_dist": 42000.0,
+                "min_dist": 42000,
+                "max_dist": 42000,
+                "read_count": 1
+              }
+            }
+          }
+        },
+        {
+          "seed": 44,
+          "found": [
+            2,
+            5,
+            9,
+            14,
+            15
+          ],
+          "secret": [
+            2,
+            5,
+            9,
+            14,
+            15
+          ],
+          "correct": true,
+          "solved": true,
+          "solve_time_s": 0.056614,
+          "nodes_explored": 325,
+          "status": "FOUND",
+          "test_accuracy": 1.0,
+          "memory_tracker": {
+            "total_floats_accessed": 84005,
+            "reads": 2,
+            "writes": 3,
+            "weighted_ard": 42000.0,
+            "total_floats_read": 42000,
+            "per_buffer": {
+              "x_train": {
+                "size": 40000,
+                "distances": [
+                  42000
+                ],
+                "avg_dist": 42000.0,
+                "min_dist": 42000,
+                "max_dist": 42000,
+                "read_count": 1
+              },
+              "y_train": {
+                "size": 2000,
+                "distances": [
+                  42000
+                ],
+                "avg_dist": 42000.0,
+                "min_dist": 42000,
+                "max_dist": 42000,
+                "read_count": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "sample_complexity": {
+      "n_bits": 20,
+      "k_sparse": 3,
+      "min_unique_samples": 10,
+      "details": [
+        {
+          "n_samples": 4,
+          "solved": true,
+          "correct": false,
+          "found": [
+            0,
+            1,
+            2
+          ],
+          "secret": [
+            0,
+            15,
+            17
+          ],
+          "solve_time": 1.9e-05
+        },
+        {
+          "n_samples": 5,
+          "solved": true,
+          "correct": false,
+          "found": [
+            0,
+            1,
+            2
+          ],
+          "secret": [
+            0,
+            15,
+            17
+          ],
+          "solve_time": 2.6e-05
+        },
+        {
+          "n_samples": 6,
+          "solved": true,
+          "correct": false,
+          "found": [
+            0,
+            1,
+            2
+          ],
+          "secret": [
+            0,
+            15,
+            17
+          ],
+          "solve_time": 1.5e-05
+        },
+        {
+          "n_samples": 7,
+          "solved": true,
+          "correct": false,
+          "found": [
+            0,
+            5,
+            7
+          ],
+          "secret": [
+            0,
+            15,
+            17
+          ],
+          "solve_time": 0.000161
+        },
+        {
+          "n_samples": 8,
+          "solved": true,
+          "correct": false,
+          "found": [
+            0,
+            5,
+            7
+          ],
+          "secret": [
+            0,
+            15,
+            17
+          ],
+          "solve_time": 0.000154
+        },
+        {
+          "n_samples": 9,
+          "solved": true,
+          "correct": false,
+          "found": [
+            0,
+            6,
+            9
+          ],
+          "secret": [
+            0,
+            15,
+            17
+          ],
+          "solve_time": 0.00018
+        },
+        {
+          "n_samples": 10,
+          "solved": true,
+          "correct": true,
+          "found": [
+            0,
+            15,
+            17
+          ],
+          "secret": [
+            0,
+            15,
+            17
+          ],
+          "solve_time": 0.000336
+        },
+        {
+          "n_samples": 11,
+          "solved": true,
+          "correct": true,
+          "found": [
+            0,
+            15,
+            17
+          ],
+          "secret": [
+            0,
+            15,
+            17
+          ],
+          "solve_time": 0.000365
+        },
+        {
+          "n_samples": 12,
+          "solved": true,
+          "correct": true,
+          "found": [
+            0,
+            15,
+            17
+          ],
+          "secret": [
+            0,
+            15,
+            17
+          ],
+          "solve_time": 0.000483
+        },
+        {
+          "n_samples": 13,
+          "solved": true,
+          "correct": true,
+          "found": [
+            0,
+            15,
+            17
+          ],
+          "secret": [
+            0,
+            15,
+            17
+          ],
+          "solve_time": 0.00038
+        },
+        {
+          "n_samples": 15,
+          "solved": true,
+          "correct": true,
+          "found": [
+            0,
+            15,
+            17
+          ],
+          "secret": [
+            0,
+            15,
+            17
+          ],
+          "solve_time": 0.00035
+        },
+        {
+          "n_samples": 30,
+          "solved": true,
+          "correct": true,
+          "found": [
+            0,
+            15,
+            17
+          ],
+          "secret": [
+            0,
+            15,
+            17
+          ],
+          "solve_time": 0.000416
+        },
+        {
+          "n_samples": 60,
+          "solved": true,
+          "correct": true,
+          "found": [
+            0,
+            15,
+            17
+          ],
+          "secret": [
+            0,
+            15,
+            17
+          ],
+          "solve_time": 0.000693
+        },
+        {
+          "n_samples": 150,
+          "solved": true,
+          "correct": true,
+          "found": [
+            0,
+            15,
+            17
+          ],
+          "secret": [
+            0,
+            15,
+            17
+          ],
+          "solve_time": 0.000547
+        }
+      ]
+    }
+  }
+}

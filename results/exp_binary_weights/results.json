@@ -1,0 +1,1980 @@
+{
+  "experiment": "exp_binary_weights",
+  "description": "BinaryConnect (Courbariaux 2015): binary weights with straight-through estimator",
+  "hypothesis": "Binary weights can solve sparse parity with 32x less memory at inference",
+  "approach": "Binary weights (+1/-1) with float32 shadow weights for gradient accumulation",
+  "configs": {
+    "n3_k3": {
+      "label": "n3_k3_sanity",
+      "n_bits": 3,
+      "k_sparse": 3,
+      "hidden": 100,
+      "lr": 0.1,
+      "wd": 0.01,
+      "n_train": 100,
+      "n_test": 100,
+      "binary": [
+        {
+          "method": "binary_weights",
+          "best_test_acc": 1.0,
+          "solve_epoch": 1,
+          "total_epochs": 1,
+          "elapsed_s": 0.001,
+          "n_bits": 3,
+          "hidden": 100,
+          "lr": 0.1,
+          "wd": 0.01,
+          "tracker": {
+            "total_floats_accessed": 32345,
+            "reads": 26,
+            "writes": 22,
+            "weighted_ard": 4667.236629667003,
+            "total_floats_read": 17838,
+            "per_buffer": {
+              "W1_float": {
+                "size": 300,
+                "distances": [
+                  629,
+                  31142
+                ],
+                "avg_dist": 15885.5,
+                "min_dist": 629,
+                "max_dist": 31142,
+                "read_count": 2
+              },
+              "W2_float": {
+                "size": 100,
+                "distances": [
+                  629,
+                  31842
+                ],
+                "avg_dist": 16235.5,
+                "min_dist": 629,
+                "max_dist": 31842,
+                "read_count": 2
+              },
+              "W1_bin": {
+                "size": 9,
+                "distances": [
+                  12
+                ],
+                "avg_dist": 12.0,
+                "min_dist": 12,
+                "max_dist": 12,
+                "read_count": 1
+              },
+              "x_batch": {
+                "size": 96,
+                "distances": [
+                  549,
+                  29845
+                ],
+                "avg_dist": 15197.0,
+                "min_dist": 549,
+                "max_dist": 29845,
+                "read_count": 2
+              },
+              "b1": {
+                "size": 100,
+                "distances": [
+                  746,
+                  31442
+                ],
+                "avg_dist": 16094.0,
+                "min_dist": 746,
+                "max_dist": 31442,
+                "read_count": 2
+              },
+              "h_pre": {
+                "size": 3200,
+                "distances": [
+                  3200
+                ],
+                "avg_dist": 3200.0,
+                "min_dist": 3200,
+                "max_dist": 3200,
+                "read_count": 1
+              },
+              "h": {
+                "size": 3200,
+                "distances": [
+                  3200,
+                  6564
+                ],
+                "avg_dist": 4882.0,
+                "min_dist": 3200,
+                "max_dist": 6564,
+                "read_count": 2
+              },
+              "W2_bin": {
+                "size": 3,
+                "distances": [
+                  13008,
+                  16473
+                ],
+                "avg_dist": 14740.5,
+                "min_dist": 13008,
+                "max_dist": 16473,
+                "read_count": 2
+              },
+              "b2": {
+                "size": 1,
+                "distances": [
+                  13549,
+                  31843
+                ],
+                "avg_dist": 22696.0,
+                "min_dist": 13549,
+                "max_dist": 31843,
+                "read_count": 2
+              },
+              "out": {
+                "size": 32,
+                "distances": [
+                  32
+                ],
+                "avg_dist": 32.0,
+                "min_dist": 32,
+                "max_dist": 32,
+                "read_count": 1
+              },
+              "y_batch": {
+                "size": 32,
+                "distances": [
+                  13517
+                ],
+                "avg_dist": 13517.0,
+                "min_dist": 13517,
+                "max_dist": 13517,
+                "read_count": 1
+              },
+              "dout": {
+                "size": 32,
+                "distances": [
+                  32,
+                  3368
+                ],
+                "avg_dist": 1700.0,
+                "min_dist": 32,
+                "max_dist": 3368,
+                "read_count": 2
+              },
+              "dh": {
+                "size": 3200,
+                "distances": [
+                  3200
+                ],
+                "avg_dist": 3200.0,
+                "min_dist": 3200,
+                "max_dist": 3200,
+                "read_count": 1
+              },
+              "dh_pre": {
+                "size": 3200,
+                "distances": [
+                  3200
+                ],
+                "avg_dist": 3200.0,
+                "min_dist": 3200,
+                "max_dist": 3200,
+                "read_count": 1
+              },
+              "dW1": {
+                "size": 300,
+                "distances": [
+                  400
+                ],
+                "avg_dist": 400.0,
+                "min_dist": 400,
+                "max_dist": 400,
+                "read_count": 1
+              },
+              "db1_grad": {
+                "size": 100,
+                "distances": [
+                  1000
+                ],
+                "avg_dist": 1000.0,
+                "min_dist": 1000,
+                "max_dist": 1000,
+                "read_count": 1
+              },
+              "dW2": {
+                "size": 100,
+                "distances": [
+                  14632
+                ],
+                "avg_dist": 14632.0,
+                "min_dist": 14632,
+                "max_dist": 14632,
+                "read_count": 1
+              },
+              "db2": {
+                "size": 1,
+                "distances": [
+                  14832
+                ],
+                "avg_dist": 14832.0,
+                "min_dist": 14832,
+                "max_dist": 14832,
+                "read_count": 1
+              }
+            }
+          },
+          "seed": 42,
+          "secret": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "method": "binary_weights",
+          "best_test_acc": 1.0,
+          "solve_epoch": 1,
+          "total_epochs": 1,
+          "elapsed_s": 0.0,
+          "n_bits": 3,
+          "hidden": 100,
+          "lr": 0.1,
+          "wd": 0.01,
+          "tracker": null,
+          "seed": 43,
+          "secret": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "method": "binary_weights",
+          "best_test_acc": 1.0,
+          "solve_epoch": 1,
+          "total_epochs": 1,
+          "elapsed_s": 0.0,
+          "n_bits": 3,
+          "hidden": 100,
+          "lr": 0.1,
+          "wd": 0.01,
+          "tracker": null,
+          "seed": 44,
+          "secret": [
+            0,
+            1,
+            2
+          ]
+        }
+      ],
+      "float32": [
+        {
+          "method": "float32_baseline",
+          "best_test_acc": 1.0,
+          "solve_epoch": 80,
+          "total_epochs": 80,
+          "elapsed_s": 0.032,
+          "n_bits": 3,
+          "hidden": 100,
+          "lr": 0.1,
+          "wd": 0.01,
+          "tracker": {
+            "total_floats_accessed": 31582,
+            "reads": 23,
+            "writes": 20,
+            "weighted_ard": 7679.236205614958,
+            "total_floats_read": 17489,
+            "per_buffer": {
+              "W1": {
+                "size": 300,
+                "distances": [
+                  629,
+                  30379
+                ],
+                "avg_dist": 15504.0,
+                "min_dist": 629,
+                "max_dist": 30379,
+                "read_count": 2
+              },
+              "x_batch": {
+                "size": 96,
+                "distances": [
+                  428,
+                  29082
+                ],
+                "avg_dist": 14755.0,
+                "min_dist": 428,
+                "max_dist": 29082,
+                "read_count": 2
+              },
+              "b1": {
+                "size": 100,
+                "distances": [
+                  625,
+                  30679
+                ],
+                "avg_dist": 15652.0,
+                "min_dist": 625,
+                "max_dist": 30679,
+                "read_count": 2
+              },
+              "h": {
+                "size": 3200,
+                "distances": [
+                  3200,
+                  6657
+                ],
+                "avg_dist": 4928.5,
+                "min_dist": 3200,
+                "max_dist": 6657,
+                "read_count": 2
+              },
+              "W2": {
+                "size": 100,
+                "distances": [
+                  10425,
+                  13983,
+                  31079
+                ],
+                "avg_dist": 18495.666666666668,
+                "min_dist": 10425,
+                "max_dist": 31079,
+                "read_count": 3
+              },
+              "b2": {
+                "size": 1,
+                "distances": [
+                  10325,
+                  31080
+                ],
+                "avg_dist": 20702.5,
+                "min_dist": 10325,
+                "max_dist": 31080,
+                "read_count": 2
+              },
+              "out": {
+                "size": 32,
+                "distances": [
+                  32
+                ],
+                "avg_dist": 32.0,
+                "min_dist": 32,
+                "max_dist": 32,
+                "read_count": 1
+              },
+              "y_batch": {
+                "size": 32,
+                "distances": [
+                  10293
+                ],
+                "avg_dist": 10293.0,
+                "min_dist": 10293,
+                "max_dist": 10293,
+                "read_count": 1
+              },
+              "dout": {
+                "size": 30,
+                "distances": [
+                  30
+                ],
+                "avg_dist": 30.0,
+                "min_dist": 30,
+                "max_dist": 30,
+                "read_count": 1
+              },
+              "dh": {
+                "size": 3000,
+                "distances": [
+                  3000
+                ],
+                "avg_dist": 3000.0,
+                "min_dist": 3000,
+                "max_dist": 3000,
+                "read_count": 1
+              },
+              "h_pre": {
+                "size": 3200,
+                "distances": [
+                  19258
+                ],
+                "avg_dist": 19258.0,
+                "min_dist": 19258,
+                "max_dist": 19258,
+                "read_count": 1
+              },
+              "dh_pre": {
+                "size": 3000,
+                "distances": [
+                  3000
+                ],
+                "avg_dist": 3000.0,
+                "min_dist": 3000,
+                "max_dist": 3000,
+                "read_count": 1
+              },
+              "dW1": {
+                "size": 300,
+                "distances": [
+                  400
+                ],
+                "avg_dist": 400.0,
+                "min_dist": 400,
+                "max_dist": 400,
+                "read_count": 1
+              },
+              "db1_grad": {
+                "size": 100,
+                "distances": [
+                  1000
+                ],
+                "avg_dist": 1000.0,
+                "min_dist": 1000,
+                "max_dist": 1000,
+                "read_count": 1
+              },
+              "dW2": {
+                "size": 100,
+                "distances": [
+                  17097
+                ],
+                "avg_dist": 17097.0,
+                "min_dist": 17097,
+                "max_dist": 17097,
+                "read_count": 1
+              },
+              "db2": {
+                "size": 1,
+                "distances": [
+                  17297
+                ],
+                "avg_dist": 17297.0,
+                "min_dist": 17297,
+                "max_dist": 17297,
+                "read_count": 1
+              }
+            }
+          },
+          "seed": 42,
+          "secret": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "method": "float32_baseline",
+          "best_test_acc": 1.0,
+          "solve_epoch": 95,
+          "total_epochs": 95,
+          "elapsed_s": 0.029,
+          "n_bits": 3,
+          "hidden": 100,
+          "lr": 0.1,
+          "wd": 0.01,
+          "tracker": null,
+          "seed": 43,
+          "secret": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "method": "float32_baseline",
+          "best_test_acc": 1.0,
+          "solve_epoch": 30,
+          "total_epochs": 30,
+          "elapsed_s": 0.012,
+          "n_bits": 3,
+          "hidden": 100,
+          "lr": 0.1,
+          "wd": 0.01,
+          "tracker": null,
+          "seed": 44,
+          "secret": [
+            0,
+            1,
+            2
+          ]
+        }
+      ]
+    },
+    "n20_k3_h200": {
+      "label": "n20_k3_h200",
+      "n_bits": 20,
+      "k_sparse": 3,
+      "hidden": 200,
+      "lr": 0.1,
+      "wd": 0.01,
+      "n_train": 1000,
+      "n_test": 500,
+      "binary": [
+        {
+          "method": "binary_weights",
+          "best_test_acc": 0.56,
+          "solve_epoch": -1,
+          "total_epochs": 200,
+          "elapsed_s": 1.681,
+          "n_bits": 20,
+          "hidden": 200,
+          "lr": 0.1,
+          "wd": 0.01,
+          "tracker": {
+            "total_floats_accessed": 71964,
+            "reads": 26,
+            "writes": 22,
+            "weighted_ard": 13726.063347843694,
+            "total_floats_read": 39512,
+            "per_buffer": {
+              "W1_float": {
+                "size": 4000,
+                "distances": [
+                  5073,
+                  62761
+                ],
+                "avg_dist": 33917.0,
+                "min_dist": 5073,
+                "max_dist": 62761,
+                "read_count": 2
+              },
+              "W2_float": {
+                "size": 200,
+                "distances": [
+                  5073,
+                  67561
+                ],
+                "avg_dist": 36317.0,
+                "min_dist": 5073,
+                "max_dist": 67561,
+                "read_count": 2
+              },
+              "W1_bin": {
+                "size": 125,
+                "distances": [
+                  131
+                ],
+                "avg_dist": 131.0,
+                "min_dist": 131,
+                "max_dist": 131,
+                "read_count": 1
+              },
+              "x_batch": {
+                "size": 640,
+                "distances": [
+                  5128,
+                  49520
+                ],
+                "avg_dist": 27324.0,
+                "min_dist": 5128,
+                "max_dist": 49520,
+                "read_count": 2
+              },
+              "b1": {
+                "size": 200,
+                "distances": [
+                  5969,
+                  66761
+                ],
+                "avg_dist": 36365.0,
+                "min_dist": 5969,
+                "max_dist": 66761,
+                "read_count": 2
+              },
+              "h_pre": {
+                "size": 6400,
+                "distances": [
+                  6400
+                ],
+                "avg_dist": 6400.0,
+                "min_dist": 6400,
+                "max_dist": 6400,
+                "read_count": 1
+              },
+              "h": {
+                "size": 6400,
+                "distances": [
+                  6400,
+                  12931
+                ],
+                "avg_dist": 9665.5,
+                "min_dist": 6400,
+                "max_dist": 12931,
+                "read_count": 2
+              },
+              "W2_bin": {
+                "size": 6,
+                "distances": [
+                  26571,
+                  33303
+                ],
+                "avg_dist": 29937.0,
+                "min_dist": 26571,
+                "max_dist": 33303,
+                "read_count": 2
+              },
+              "b2": {
+                "size": 1,
+                "distances": [
+                  31575,
+                  67562
+                ],
+                "avg_dist": 49568.5,
+                "min_dist": 31575,
+                "max_dist": 67562,
+                "read_count": 2
+              },
+              "out": {
+                "size": 32,
+                "distances": [
+                  32
+                ],
+                "avg_dist": 32.0,
+                "min_dist": 32,
+                "max_dist": 32,
+                "read_count": 1
+              },
+              "y_batch": {
+                "size": 32,
+                "distances": [
+                  30999
+                ],
+                "avg_dist": 30999.0,
+                "min_dist": 30999,
+                "max_dist": 30999,
+                "read_count": 1
+              },
+              "dout": {
+                "size": 14,
+                "distances": [
+                  14,
+                  6635
+                ],
+                "avg_dist": 3324.5,
+                "min_dist": 14,
+                "max_dist": 6635,
+                "read_count": 2
+              },
+              "dh": {
+                "size": 2800,
+                "distances": [
+                  2800
+                ],
+                "avg_dist": 2800.0,
+                "min_dist": 2800,
+                "max_dist": 2800,
+                "read_count": 1
+              },
+              "dh_pre": {
+                "size": 2800,
+                "distances": [
+                  2800
+                ],
+                "avg_dist": 2800.0,
+                "min_dist": 2800,
+                "max_dist": 2800,
+                "read_count": 1
+              },
+              "dW1": {
+                "size": 4000,
+                "distances": [
+                  4200
+                ],
+                "avg_dist": 4200.0,
+                "min_dist": 4200,
+                "max_dist": 4200,
+                "read_count": 1
+              },
+              "db1_grad": {
+                "size": 200,
+                "distances": [
+                  12200
+                ],
+                "avg_dist": 12200.0,
+                "min_dist": 12200,
+                "max_dist": 12200,
+                "read_count": 1
+              },
+              "dW2": {
+                "size": 200,
+                "distances": [
+                  28861
+                ],
+                "avg_dist": 28861.0,
+                "min_dist": 28861,
+                "max_dist": 28861,
+                "read_count": 1
+              },
+              "db2": {
+                "size": 1,
+                "distances": [
+                  29261
+                ],
+                "avg_dist": 29261.0,
+                "min_dist": 29261,
+                "max_dist": 29261,
+                "read_count": 1
+              }
+            }
+          },
+          "seed": 42,
+          "secret": [
+            0,
+            15,
+            17
+          ]
+        },
+        {
+          "method": "binary_weights",
+          "best_test_acc": 0.55,
+          "solve_epoch": -1,
+          "total_epochs": 200,
+          "elapsed_s": 1.438,
+          "n_bits": 20,
+          "hidden": 200,
+          "lr": 0.1,
+          "wd": 0.01,
+          "tracker": null,
+          "seed": 43,
+          "secret": [
+            6,
+            9,
+            19
+          ]
+        },
+        {
+          "method": "binary_weights",
+          "best_test_acc": 0.554,
+          "solve_epoch": -1,
+          "total_epochs": 200,
+          "elapsed_s": 1.407,
+          "n_bits": 20,
+          "hidden": 200,
+          "lr": 0.1,
+          "wd": 0.01,
+          "tracker": null,
+          "seed": 44,
+          "secret": [
+            9,
+            14,
+            15
+          ]
+        }
+      ],
+      "float32": [
+        {
+          "method": "float32_baseline",
+          "best_test_acc": 1.0,
+          "solve_epoch": 49,
+          "total_epochs": 49,
+          "elapsed_s": 0.264,
+          "n_bits": 20,
+          "hidden": 200,
+          "lr": 0.1,
+          "wd": 0.01,
+          "tracker": {
+            "total_floats_accessed": 83912,
+            "reads": 23,
+            "writes": 20,
+            "weighted_ard": 19103.29368527295,
+            "total_floats_read": 45576,
+            "per_buffer": {
+              "W1": {
+                "size": 4000,
+                "distances": [
+                  5073,
+                  74709
+                ],
+                "avg_dist": 39891.0,
+                "min_dist": 5073,
+                "max_dist": 74709,
+                "read_count": 2
+              },
+              "x_batch": {
+                "size": 640,
+                "distances": [
+                  4672,
+                  61468
+                ],
+                "avg_dist": 33070.0,
+                "min_dist": 4672,
+                "max_dist": 61468,
+                "read_count": 2
+              },
+              "b1": {
+                "size": 200,
+                "distances": [
+                  5513,
+                  78709
+                ],
+                "avg_dist": 42111.0,
+                "min_dist": 5513,
+                "max_dist": 78709,
+                "read_count": 2
+              },
+              "h": {
+                "size": 6400,
+                "distances": [
+                  6400,
+                  13155
+                ],
+                "avg_dist": 9777.5,
+                "min_dist": 6400,
+                "max_dist": 13155,
+                "read_count": 2
+              },
+              "W2": {
+                "size": 200,
+                "distances": [
+                  25113,
+                  32069,
+                  79509
+                ],
+                "avg_dist": 45563.666666666664,
+                "min_dist": 25113,
+                "max_dist": 79509,
+                "read_count": 3
+              },
+              "b2": {
+                "size": 1,
+                "distances": [
+                  24913,
+                  79510
+                ],
+                "avg_dist": 52211.5,
+                "min_dist": 24913,
+                "max_dist": 79510,
+                "read_count": 2
+              },
+              "out": {
+                "size": 32,
+                "distances": [
+                  32
+                ],
+                "avg_dist": 32.0,
+                "min_dist": 32,
+                "max_dist": 32,
+                "read_count": 1
+              },
+              "y_batch": {
+                "size": 32,
+                "distances": [
+                  24337
+                ],
+                "avg_dist": 24337.0,
+                "min_dist": 24337,
+                "max_dist": 24337,
+                "read_count": 1
+              },
+              "dout": {
+                "size": 29,
+                "distances": [
+                  29
+                ],
+                "avg_dist": 29.0,
+                "min_dist": 29,
+                "max_dist": 29,
+                "read_count": 1
+              },
+              "dh": {
+                "size": 5800,
+                "distances": [
+                  5800
+                ],
+                "avg_dist": 5800.0,
+                "min_dist": 5800,
+                "max_dist": 5800,
+                "read_count": 1
+              },
+              "h_pre": {
+                "size": 6400,
+                "distances": [
+                  37956
+                ],
+                "avg_dist": 37956.0,
+                "min_dist": 37956,
+                "max_dist": 37956,
+                "read_count": 1
+              },
+              "dh_pre": {
+                "size": 5800,
+                "distances": [
+                  5800
+                ],
+                "avg_dist": 5800.0,
+                "min_dist": 5800,
+                "max_dist": 5800,
+                "read_count": 1
+              },
+              "dW1": {
+                "size": 4000,
+                "distances": [
+                  4200
+                ],
+                "avg_dist": 4200.0,
+                "min_dist": 4200,
+                "max_dist": 4200,
+                "read_count": 1
+              },
+              "db1_grad": {
+                "size": 200,
+                "distances": [
+                  12200
+                ],
+                "avg_dist": 12200.0,
+                "min_dist": 12200,
+                "max_dist": 12200,
+                "read_count": 1
+              },
+              "dW2": {
+                "size": 200,
+                "distances": [
+                  47441
+                ],
+                "avg_dist": 47441.0,
+                "min_dist": 47441,
+                "max_dist": 47441,
+                "read_count": 1
+              },
+              "db2": {
+                "size": 1,
+                "distances": [
+                  47841
+                ],
+                "avg_dist": 47841.0,
+                "min_dist": 47841,
+                "max_dist": 47841,
+                "read_count": 1
+              }
+            }
+          },
+          "seed": 42,
+          "secret": [
+            0,
+            15,
+            17
+          ]
+        },
+        {
+          "method": "float32_baseline",
+          "best_test_acc": 1.0,
+          "solve_epoch": 41,
+          "total_epochs": 41,
+          "elapsed_s": 0.128,
+          "n_bits": 20,
+          "hidden": 200,
+          "lr": 0.1,
+          "wd": 0.01,
+          "tracker": null,
+          "seed": 43,
+          "secret": [
+            6,
+            9,
+            19
+          ]
+        },
+        {
+          "method": "float32_baseline",
+          "best_test_acc": 1.0,
+          "solve_epoch": 28,
+          "total_epochs": 28,
+          "elapsed_s": 0.086,
+          "n_bits": 20,
+          "hidden": 200,
+          "lr": 0.1,
+          "wd": 0.01,
+          "tracker": null,
+          "seed": 44,
+          "secret": [
+            9,
+            14,
+            15
+          ]
+        }
+      ]
+    },
+    "n20_k3_h1000_lr001": {
+      "label": "n20_k3_h1000_lr001",
+      "n_bits": 20,
+      "k_sparse": 3,
+      "hidden": 1000,
+      "lr": 0.01,
+      "wd": 0.01,
+      "n_train": 1000,
+      "n_test": 500,
+      "binary": [
+        {
+          "method": "binary_weights",
+          "best_test_acc": 0.606,
+          "solve_epoch": -1,
+          "total_epochs": 200,
+          "elapsed_s": 5.112,
+          "n_bits": 20,
+          "hidden": 1000,
+          "lr": 0.01,
+          "wd": 0.01,
+          "tracker": {
+            "total_floats_accessed": 363448,
+            "reads": 26,
+            "writes": 22,
+            "weighted_ard": 65811.2852555688,
+            "total_floats_read": 198068,
+            "per_buffer": {
+              "W1_float": {
+                "size": 20000,
+                "distances": [
+                  22673,
+                  317445
+                ],
+                "avg_dist": 170059.0,
+                "min_dist": 22673,
+                "max_dist": 317445,
+                "read_count": 2
+              },
+              "W2_float": {
+                "size": 1000,
+                "distances": [
+                  22673,
+                  341445
+                ],
+                "avg_dist": 182059.0,
+                "min_dist": 22673,
+                "max_dist": 341445,
+                "read_count": 2
+              },
+              "W1_bin": {
+                "size": 625,
+                "distances": [
+                  656
+                ],
+                "avg_dist": 656.0,
+                "min_dist": 656,
+                "max_dist": 656,
+                "read_count": 1
+              },
+              "x_batch": {
+                "size": 640,
+                "distances": [
+                  22953,
+                  253804
+                ],
+                "avg_dist": 138378.5,
+                "min_dist": 22953,
+                "max_dist": 253804,
+                "read_count": 2
+              },
+              "b1": {
+                "size": 1000,
+                "distances": [
+                  24594,
+                  337445
+                ],
+                "avg_dist": 181019.5,
+                "min_dist": 24594,
+                "max_dist": 337445,
+                "read_count": 2
+              },
+              "h_pre": {
+                "size": 32000,
+                "distances": [
+                  32000
+                ],
+                "avg_dist": 32000.0,
+                "min_dist": 32000,
+                "max_dist": 32000,
+                "read_count": 1
+              },
+              "h": {
+                "size": 32000,
+                "distances": [
+                  32000,
+                  64162
+                ],
+                "avg_dist": 48081.0,
+                "min_dist": 32000,
+                "max_dist": 64162,
+                "read_count": 2
+              },
+              "W2_bin": {
+                "size": 31,
+                "distances": [
+                  130296,
+                  163459
+                ],
+                "avg_dist": 146877.5,
+                "min_dist": 130296,
+                "max_dist": 163459,
+                "read_count": 2
+              },
+              "b2": {
+                "size": 1,
+                "distances": [
+                  152625,
+                  341446
+                ],
+                "avg_dist": 247035.5,
+                "min_dist": 152625,
+                "max_dist": 341446,
+                "read_count": 2
+              },
+              "out": {
+                "size": 32,
+                "distances": [
+                  32
+                ],
+                "avg_dist": 32.0,
+                "min_dist": 32,
+                "max_dist": 32,
+                "read_count": 1
+              },
+              "y_batch": {
+                "size": 32,
+                "distances": [
+                  152049
+                ],
+                "avg_dist": 152049.0,
+                "min_dist": 152049,
+                "max_dist": 152049,
+                "read_count": 1
+              },
+              "dout": {
+                "size": 17,
+                "distances": [
+                  17,
+                  33066
+                ],
+                "avg_dist": 16541.5,
+                "min_dist": 17,
+                "max_dist": 33066,
+                "read_count": 2
+              },
+              "dh": {
+                "size": 17000,
+                "distances": [
+                  17000
+                ],
+                "avg_dist": 17000.0,
+                "min_dist": 17000,
+                "max_dist": 17000,
+                "read_count": 1
+              },
+              "dh_pre": {
+                "size": 17000,
+                "distances": [
+                  17000
+                ],
+                "avg_dist": 17000.0,
+                "min_dist": 17000,
+                "max_dist": 17000,
+                "read_count": 1
+              },
+              "dW1": {
+                "size": 20000,
+                "distances": [
+                  21000
+                ],
+                "avg_dist": 21000.0,
+                "min_dist": 21000,
+                "max_dist": 21000,
+                "read_count": 1
+              },
+              "db1_grad": {
+                "size": 1000,
+                "distances": [
+                  61000
+                ],
+                "avg_dist": 61000.0,
+                "min_dist": 61000,
+                "max_dist": 61000,
+                "read_count": 1
+              },
+              "dW2": {
+                "size": 1000,
+                "distances": [
+                  153689
+                ],
+                "avg_dist": 153689.0,
+                "min_dist": 153689,
+                "max_dist": 153689,
+                "read_count": 1
+              },
+              "db2": {
+                "size": 1,
+                "distances": [
+                  155689
+                ],
+                "avg_dist": 155689.0,
+                "min_dist": 155689,
+                "max_dist": 155689,
+                "read_count": 1
+              }
+            }
+          },
+          "seed": 42,
+          "secret": [
+            0,
+            15,
+            17
+          ]
+        },
+        {
+          "method": "binary_weights",
+          "best_test_acc": 0.602,
+          "solve_epoch": -1,
+          "total_epochs": 200,
+          "elapsed_s": 5.577,
+          "n_bits": 20,
+          "hidden": 1000,
+          "lr": 0.01,
+          "wd": 0.01,
+          "tracker": null,
+          "seed": 43,
+          "secret": [
+            6,
+            9,
+            19
+          ]
+        },
+        {
+          "method": "binary_weights",
+          "best_test_acc": 0.582,
+          "solve_epoch": -1,
+          "total_epochs": 200,
+          "elapsed_s": 5.181,
+          "n_bits": 20,
+          "hidden": 1000,
+          "lr": 0.01,
+          "wd": 0.01,
+          "tracker": null,
+          "seed": 44,
+          "secret": [
+            9,
+            14,
+            15
+          ]
+        }
+      ],
+      "float32": [
+        {
+          "method": "float32_baseline",
+          "best_test_acc": 0.574,
+          "solve_epoch": -1,
+          "total_epochs": 200,
+          "elapsed_s": 1.778,
+          "n_bits": 20,
+          "hidden": 1000,
+          "lr": 0.01,
+          "wd": 0.01,
+          "tracker": {
+            "total_floats_accessed": 399106,
+            "reads": 23,
+            "writes": 20,
+            "weighted_ard": 91467.19831956852,
+            "total_floats_read": 216373,
+            "per_buffer": {
+              "W1": {
+                "size": 20000,
+                "distances": [
+                  22673,
+                  353103
+                ],
+                "avg_dist": 187888.0,
+                "min_dist": 22673,
+                "max_dist": 353103,
+                "read_count": 2
+              },
+              "x_batch": {
+                "size": 640,
+                "distances": [
+                  20672,
+                  289462
+                ],
+                "avg_dist": 155067.0,
+                "min_dist": 20672,
+                "max_dist": 289462,
+                "read_count": 2
+              },
+              "b1": {
+                "size": 1000,
+                "distances": [
+                  22313,
+                  373103
+                ],
+                "avg_dist": 197708.0,
+                "min_dist": 22313,
+                "max_dist": 373103,
+                "read_count": 2
+              },
+              "h": {
+                "size": 32000,
+                "distances": [
+                  32000,
+                  65149
+                ],
+                "avg_dist": 48574.5,
+                "min_dist": 32000,
+                "max_dist": 65149,
+                "read_count": 2
+              },
+              "W2": {
+                "size": 1000,
+                "distances": [
+                  120313,
+                  154463,
+                  377103
+                ],
+                "avg_dist": 217293.0,
+                "min_dist": 120313,
+                "max_dist": 377103,
+                "read_count": 3
+              },
+              "b2": {
+                "size": 1,
+                "distances": [
+                  119313,
+                  377104
+                ],
+                "avg_dist": 248208.5,
+                "min_dist": 119313,
+                "max_dist": 377104,
+                "read_count": 2
+              },
+              "out": {
+                "size": 32,
+                "distances": [
+                  32
+                ],
+                "avg_dist": 32.0,
+                "min_dist": 32,
+                "max_dist": 32,
+                "read_count": 1
+              },
+              "y_batch": {
+                "size": 32,
+                "distances": [
+                  118737
+                ],
+                "avg_dist": 118737.0,
+                "min_dist": 118737,
+                "max_dist": 118737,
+                "read_count": 1
+              },
+              "dout": {
+                "size": 26,
+                "distances": [
+                  26
+                ],
+                "avg_dist": 26.0,
+                "min_dist": 26,
+                "max_dist": 26,
+                "read_count": 1
+              },
+              "dh": {
+                "size": 26000,
+                "distances": [
+                  26000
+                ],
+                "avg_dist": 26000.0,
+                "min_dist": 26000,
+                "max_dist": 26000,
+                "read_count": 1
+              },
+              "h_pre": {
+                "size": 32000,
+                "distances": [
+                  183150
+                ],
+                "avg_dist": 183150.0,
+                "min_dist": 183150,
+                "max_dist": 183150,
+                "read_count": 1
+              },
+              "dh_pre": {
+                "size": 26000,
+                "distances": [
+                  26000
+                ],
+                "avg_dist": 26000.0,
+                "min_dist": 26000,
+                "max_dist": 26000,
+                "read_count": 1
+              },
+              "dW1": {
+                "size": 20000,
+                "distances": [
+                  21000
+                ],
+                "avg_dist": 21000.0,
+                "min_dist": 21000,
+                "max_dist": 21000,
+                "read_count": 1
+              },
+              "db1_grad": {
+                "size": 1000,
+                "distances": [
+                  61000
+                ],
+                "avg_dist": 61000.0,
+                "min_dist": 61000,
+                "max_dist": 61000,
+                "read_count": 1
+              },
+              "dW2": {
+                "size": 1000,
+                "distances": [
+                  222641
+                ],
+                "avg_dist": 222641.0,
+                "min_dist": 222641,
+                "max_dist": 222641,
+                "read_count": 1
+              },
+              "db2": {
+                "size": 1,
+                "distances": [
+                  224641
+                ],
+                "avg_dist": 224641.0,
+                "min_dist": 224641,
+                "max_dist": 224641,
+                "read_count": 1
+              }
+            }
+          },
+          "seed": 42,
+          "secret": [
+            0,
+            15,
+            17
+          ]
+        },
+        {
+          "method": "float32_baseline",
+          "best_test_acc": 0.54,
+          "solve_epoch": -1,
+          "total_epochs": 200,
+          "elapsed_s": 1.774,
+          "n_bits": 20,
+          "hidden": 1000,
+          "lr": 0.01,
+          "wd": 0.01,
+          "tracker": null,
+          "seed": 43,
+          "secret": [
+            6,
+            9,
+            19
+          ]
+        },
+        {
+          "method": "float32_baseline",
+          "best_test_acc": 0.614,
+          "solve_epoch": -1,
+          "total_epochs": 200,
+          "elapsed_s": 2.146,
+          "n_bits": 20,
+          "hidden": 1000,
+          "lr": 0.01,
+          "wd": 0.01,
+          "tracker": null,
+          "seed": 44,
+          "secret": [
+            9,
+            14,
+            15
+          ]
+        }
+      ]
+    },
+    "n20_k3_h1000_lr01": {
+      "label": "n20_k3_h1000_lr01",
+      "n_bits": 20,
+      "k_sparse": 3,
+      "hidden": 1000,
+      "lr": 0.1,
+      "wd": 0.01,
+      "n_train": 1000,
+      "n_test": 500,
+      "binary": [
+        {
+          "method": "binary_weights",
+          "best_test_acc": 0.554,
+          "solve_epoch": -1,
+          "total_epochs": 200,
+          "elapsed_s": 5.138,
+          "n_bits": 20,
+          "hidden": 1000,
+          "lr": 0.1,
+          "wd": 0.01,
+          "tracker": {
+            "total_floats_accessed": 363448,
+            "reads": 26,
+            "writes": 22,
+            "weighted_ard": 65811.2852555688,
+            "total_floats_read": 198068,
+            "per_buffer": {
+              "W1_float": {
+                "size": 20000,
+                "distances": [
+                  22673,
+                  317445
+                ],
+                "avg_dist": 170059.0,
+                "min_dist": 22673,
+                "max_dist": 317445,
+                "read_count": 2
+              },
+              "W2_float": {
+                "size": 1000,
+                "distances": [
+                  22673,
+                  341445
+                ],
+                "avg_dist": 182059.0,
+                "min_dist": 22673,
+                "max_dist": 341445,
+                "read_count": 2
+              },
+              "W1_bin": {
+                "size": 625,
+                "distances": [
+                  656
+                ],
+                "avg_dist": 656.0,
+                "min_dist": 656,
+                "max_dist": 656,
+                "read_count": 1
+              },
+              "x_batch": {
+                "size": 640,
+                "distances": [
+                  22953,
+                  253804
+                ],
+                "avg_dist": 138378.5,
+                "min_dist": 22953,
+                "max_dist": 253804,
+                "read_count": 2
+              },
+              "b1": {
+                "size": 1000,
+                "distances": [
+                  24594,
+                  337445
+                ],
+                "avg_dist": 181019.5,
+                "min_dist": 24594,
+                "max_dist": 337445,
+                "read_count": 2
+              },
+              "h_pre": {
+                "size": 32000,
+                "distances": [
+                  32000
+                ],
+                "avg_dist": 32000.0,
+                "min_dist": 32000,
+                "max_dist": 32000,
+                "read_count": 1
+              },
+              "h": {
+                "size": 32000,
+                "distances": [
+                  32000,
+                  64162
+                ],
+                "avg_dist": 48081.0,
+                "min_dist": 32000,
+                "max_dist": 64162,
+                "read_count": 2
+              },
+              "W2_bin": {
+                "size": 31,
+                "distances": [
+                  130296,
+                  163459
+                ],
+                "avg_dist": 146877.5,
+                "min_dist": 130296,
+                "max_dist": 163459,
+                "read_count": 2
+              },
+              "b2": {
+                "size": 1,
+                "distances": [
+                  152625,
+                  341446
+                ],
+                "avg_dist": 247035.5,
+                "min_dist": 152625,
+                "max_dist": 341446,
+                "read_count": 2
+              },
+              "out": {
+                "size": 32,
+                "distances": [
+                  32
+                ],
+                "avg_dist": 32.0,
+                "min_dist": 32,
+                "max_dist": 32,
+                "read_count": 1
+              },
+              "y_batch": {
+                "size": 32,
+                "distances": [
+                  152049
+                ],
+                "avg_dist": 152049.0,
+                "min_dist": 152049,
+                "max_dist": 152049,
+                "read_count": 1
+              },
+              "dout": {
+                "size": 17,
+                "distances": [
+                  17,
+                  33066
+                ],
+                "avg_dist": 16541.5,
+                "min_dist": 17,
+                "max_dist": 33066,
+                "read_count": 2
+              },
+              "dh": {
+                "size": 17000,
+                "distances": [
+                  17000
+                ],
+                "avg_dist": 17000.0,
+                "min_dist": 17000,
+                "max_dist": 17000,
+                "read_count": 1
+              },
+              "dh_pre": {
+                "size": 17000,
+                "distances": [
+                  17000
+                ],
+                "avg_dist": 17000.0,
+                "min_dist": 17000,
+                "max_dist": 17000,
+                "read_count": 1
+              },
+              "dW1": {
+                "size": 20000,
+                "distances": [
+                  21000
+                ],
+                "avg_dist": 21000.0,
+                "min_dist": 21000,
+                "max_dist": 21000,
+                "read_count": 1
+              },
+              "db1_grad": {
+                "size": 1000,
+                "distances": [
+                  61000
+                ],
+                "avg_dist": 61000.0,
+                "min_dist": 61000,
+                "max_dist": 61000,
+                "read_count": 1
+              },
+              "dW2": {
+                "size": 1000,
+                "distances": [
+                  153689
+                ],
+                "avg_dist": 153689.0,
+                "min_dist": 153689,
+                "max_dist": 153689,
+                "read_count": 1
+              },
+              "db2": {
+                "size": 1,
+                "distances": [
+                  155689
+                ],
+                "avg_dist": 155689.0,
+                "min_dist": 155689,
+                "max_dist": 155689,
+                "read_count": 1
+              }
+            }
+          },
+          "seed": 42,
+          "secret": [
+            0,
+            15,
+            17
+          ]
+        },
+        {
+          "method": "binary_weights",
+          "best_test_acc": 0.544,
+          "solve_epoch": -1,
+          "total_epochs": 200,
+          "elapsed_s": 4.978,
+          "n_bits": 20,
+          "hidden": 1000,
+          "lr": 0.1,
+          "wd": 0.01,
+          "tracker": null,
+          "seed": 43,
+          "secret": [
+            6,
+            9,
+            19
+          ]
+        },
+        {
+          "method": "binary_weights",
+          "best_test_acc": 0.548,
+          "solve_epoch": -1,
+          "total_epochs": 200,
+          "elapsed_s": 4.927,
+          "n_bits": 20,
+          "hidden": 1000,
+          "lr": 0.1,
+          "wd": 0.01,
+          "tracker": null,
+          "seed": 44,
+          "secret": [
+            9,
+            14,
+            15
+          ]
+        }
+      ],
+      "float32": [
+        {
+          "method": "float32_baseline",
+          "best_test_acc": 1.0,
+          "solve_epoch": 48,
+          "total_epochs": 48,
+          "elapsed_s": 0.402,
+          "n_bits": 20,
+          "hidden": 1000,
+          "lr": 0.1,
+          "wd": 0.01,
+          "tracker": {
+            "total_floats_accessed": 399106,
+            "reads": 23,
+            "writes": 20,
+            "weighted_ard": 91467.19831956852,
+            "total_floats_read": 216373,
+            "per_buffer": {
+              "W1": {
+                "size": 20000,
+                "distances": [
+                  22673,
+                  353103
+                ],
+                "avg_dist": 187888.0,
+                "min_dist": 22673,
+                "max_dist": 353103,
+                "read_count": 2
+              },
+              "x_batch": {
+                "size": 640,
+                "distances": [
+                  20672,
+                  289462
+                ],
+                "avg_dist": 155067.0,
+                "min_dist": 20672,
+                "max_dist": 289462,
+                "read_count": 2
+              },
+              "b1": {
+                "size": 1000,
+                "distances": [
+                  22313,
+                  373103
+                ],
+                "avg_dist": 197708.0,
+                "min_dist": 22313,
+                "max_dist": 373103,
+                "read_count": 2
+              },
+              "h": {
+                "size": 32000,
+                "distances": [
+                  32000,
+                  65149
+                ],
+                "avg_dist": 48574.5,
+                "min_dist": 32000,
+                "max_dist": 65149,
+                "read_count": 2
+              },
+              "W2": {
+                "size": 1000,
+                "distances": [
+                  120313,
+                  154463,
+                  377103
+                ],
+                "avg_dist": 217293.0,
+                "min_dist": 120313,
+                "max_dist": 377103,
+                "read_count": 3
+              },
+              "b2": {
+                "size": 1,
+                "distances": [
+                  119313,
+                  377104
+                ],
+                "avg_dist": 248208.5,
+                "min_dist": 119313,
+                "max_dist": 377104,
+                "read_count": 2
+              },
+              "out": {
+                "size": 32,
+                "distances": [
+                  32
+                ],
+                "avg_dist": 32.0,
+                "min_dist": 32,
+                "max_dist": 32,
+                "read_count": 1
+              },
+              "y_batch": {
+                "size": 32,
+                "distances": [
+                  118737
+                ],
+                "avg_dist": 118737.0,
+                "min_dist": 118737,
+                "max_dist": 118737,
+                "read_count": 1
+              },
+              "dout": {
+                "size": 26,
+                "distances": [
+                  26
+                ],
+                "avg_dist": 26.0,
+                "min_dist": 26,
+                "max_dist": 26,
+                "read_count": 1
+              },
+              "dh": {
+                "size": 26000,
+                "distances": [
+                  26000
+                ],
+                "avg_dist": 26000.0,
+                "min_dist": 26000,
+                "max_dist": 26000,
+                "read_count": 1
+              },
+              "h_pre": {
+                "size": 32000,
+                "distances": [
+                  183150
+                ],
+                "avg_dist": 183150.0,
+                "min_dist": 183150,
+                "max_dist": 183150,
+                "read_count": 1
+              },
+              "dh_pre": {
+                "size": 26000,
+                "distances": [
+                  26000
+                ],
+                "avg_dist": 26000.0,
+                "min_dist": 26000,
+                "max_dist": 26000,
+                "read_count": 1
+              },
+              "dW1": {
+                "size": 20000,
+                "distances": [
+                  21000
+                ],
+                "avg_dist": 21000.0,
+                "min_dist": 21000,
+                "max_dist": 21000,
+                "read_count": 1
+              },
+              "db1_grad": {
+                "size": 1000,
+                "distances": [
+                  61000
+                ],
+                "avg_dist": 61000.0,
+                "min_dist": 61000,
+                "max_dist": 61000,
+                "read_count": 1
+              },
+              "dW2": {
+                "size": 1000,
+                "distances": [
+                  222641
+                ],
+                "avg_dist": 222641.0,
+                "min_dist": 222641,
+                "max_dist": 222641,
+                "read_count": 1
+              },
+              "db2": {
+                "size": 1,
+                "distances": [
+                  224641
+                ],
+                "avg_dist": 224641.0,
+                "min_dist": 224641,
+                "max_dist": 224641,
+                "read_count": 1
+              }
+            }
+          },
+          "seed": 42,
+          "secret": [
+            0,
+            15,
+            17
+          ]
+        },
+        {
+          "method": "float32_baseline",
+          "best_test_acc": 1.0,
+          "solve_epoch": 56,
+          "total_epochs": 56,
+          "elapsed_s": 0.401,
+          "n_bits": 20,
+          "hidden": 1000,
+          "lr": 0.1,
+          "wd": 0.01,
+          "tracker": null,
+          "seed": 43,
+          "secret": [
+            6,
+            9,
+            19
+          ]
+        },
+        {
+          "method": "float32_baseline",
+          "best_test_acc": 1.0,
+          "solve_epoch": 48,
+          "total_epochs": 48,
+          "elapsed_s": 0.354,
+          "n_bits": 20,
+          "hidden": 1000,
+          "lr": 0.1,
+          "wd": 0.01,
+          "tracker": null,
+          "seed": 44,
+          "secret": [
+            9,
+            14,
+            15
+          ]
+        }
+      ]
+    }
+  }
+}

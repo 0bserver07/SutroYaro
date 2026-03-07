@@ -1,0 +1,2824 @@
+{
+  "experiment": "exp_predictive_coding",
+  "description": "Predictive coding network for sparse parity -- local learning vs backprop",
+  "hypothesis": "PC local learning yields lower ARD than backprop due to smaller working sets per layer update",
+  "approach": "Predictive Coding (Rao & Ballard 1999, Millidge et al. 2021)",
+  "configs": {
+    "n3_k3": {
+      "pc": [
+        {
+          "label": "PC n=3/k=3 seed=42",
+          "n_bits": 3,
+          "k_sparse": 3,
+          "hidden": 100,
+          "n_train": 50,
+          "n_test": 50,
+          "lr": 0.01,
+          "wd": 0.001,
+          "n_inference_iters": 15,
+          "inf_lr": 0.1,
+          "max_epochs": 100,
+          "seed": 42,
+          "best_train_acc": 0.62,
+          "best_test_acc": 0.54,
+          "converge_epoch": null,
+          "elapsed_s": 8.765,
+          "ard": {
+            "total_floats_accessed": 25342,
+            "reads": 226,
+            "writes": 103,
+            "weighted_ard": 8440.86554192229,
+            "total_floats_read": 19560,
+            "per_buffer": {
+              "x": {
+                "size": 3,
+                "distances": [
+                  4,
+                  1209,
+                  2724,
+                  4239,
+                  5754,
+                  7269,
+                  8784,
+                  10299,
+                  11814,
+                  13329,
+                  14844,
+                  16359,
+                  17874,
+                  19389,
+                  20904,
+                  22419
+                ],
+                "avg_dist": 11075.875,
+                "min_dist": 4,
+                "max_dist": 22419,
+                "read_count": 16
+              },
+              "W1": {
+                "size": 300,
+                "distances": [
+                  508,
+                  1310,
+                  2123,
+                  2825,
+                  3638,
+                  4340,
+                  5153,
+                  5855,
+                  6668,
+                  7370,
+                  8183,
+                  8885,
+                  9698,
+                  10400,
+                  11213,
+                  11915,
+                  12728,
+                  13430,
+                  14243,
+                  14945,
+                  15758,
+                  16460,
+                  17273,
+                  17975,
+                  18788,
+                  19490,
+                  20303,
+                  21005,
+                  21818,
+                  22520,
+                  23333,
+                  24138
+                ],
+                "avg_dist": 12321.59375,
+                "min_dist": 508,
+                "max_dist": 24138,
+                "read_count": 32
+              },
+              "b1": {
+                "size": 100,
+                "distances": [
+                  508,
+                  24538
+                ],
+                "avg_dist": 12523.0,
+                "min_dist": 508,
+                "max_dist": 24538,
+                "read_count": 2
+              },
+              "mu1": {
+                "size": 100,
+                "distances": [
+                  100,
+                  602,
+                  809,
+                  401,
+                  608,
+                  401,
+                  608,
+                  401,
+                  608,
+                  401,
+                  608,
+                  401,
+                  608,
+                  401,
+                  608,
+                  401,
+                  608,
+                  401,
+                  608,
+                  401,
+                  608,
+                  401,
+                  608,
+                  401,
+                  608,
+                  401,
+                  608,
+                  401,
+                  608,
+                  401,
+                  608,
+                  104,
+                  1105
+                ],
+                "avg_dist": 510.4848484848485,
+                "min_dist": 100,
+                "max_dist": 1105,
+                "read_count": 33
+              },
+              "W2": {
+                "size": 100,
+                "distances": [
+                  808,
+                  1316,
+                  2024,
+                  2831,
+                  3539,
+                  4346,
+                  5054,
+                  5861,
+                  6569,
+                  7376,
+                  8084,
+                  8891,
+                  9599,
+                  10406,
+                  11114,
+                  11921,
+                  12629,
+                  13436,
+                  14144,
+                  14951,
+                  15659,
+                  16466,
+                  17174,
+                  17981,
+                  18689,
+                  19496,
+                  20204,
+                  21011,
+                  21719,
+                  22526,
+                  23234,
+                  24739
+                ],
+                "avg_dist": 12306.15625,
+                "min_dist": 808,
+                "max_dist": 24739,
+                "read_count": 32
+              },
+              "b2": {
+                "size": 1,
+                "distances": [
+                  808,
+                  24840
+                ],
+                "avg_dist": 12824.0,
+                "min_dist": 808,
+                "max_dist": 24840,
+                "read_count": 2
+              },
+              "mu2": {
+                "size": 1,
+                "distances": [
+                  507,
+                  709,
+                  507,
+                  709,
+                  507,
+                  709,
+                  507,
+                  709,
+                  507,
+                  709,
+                  507,
+                  709,
+                  507,
+                  709,
+                  507,
+                  709,
+                  507,
+                  709,
+                  507,
+                  709,
+                  507,
+                  709,
+                  507,
+                  709,
+                  507,
+                  709,
+                  507,
+                  709,
+                  507,
+                  709
+                ],
+                "avg_dist": 608.0,
+                "min_dist": 507,
+                "max_dist": 709,
+                "read_count": 30
+              },
+              "y": {
+                "size": 1,
+                "distances": [
+                  1513,
+                  3028,
+                  4543,
+                  6058,
+                  7573,
+                  9088,
+                  10603,
+                  12118,
+                  13633,
+                  15148,
+                  16663,
+                  18178,
+                  19693,
+                  21208,
+                  22723
+                ],
+                "avg_dist": 12118.0,
+                "min_dist": 1513,
+                "max_dist": 22723,
+                "read_count": 15
+              },
+              "e1": {
+                "size": 100,
+                "distances": [
+                  103,
+                  103,
+                  103,
+                  103,
+                  103,
+                  103,
+                  103,
+                  103,
+                  103,
+                  103,
+                  103,
+                  103,
+                  103,
+                  103,
+                  103,
+                  1611
+                ],
+                "avg_dist": 197.25,
+                "min_dist": 103,
+                "max_dist": 1611,
+                "read_count": 16
+              },
+              "e0": {
+                "size": 3,
+                "distances": [
+                  407,
+                  407,
+                  407,
+                  407,
+                  407,
+                  407,
+                  407,
+                  407,
+                  407,
+                  407,
+                  407,
+                  407,
+                  407,
+                  407,
+                  407,
+                  1112
+                ],
+                "avg_dist": 451.0625,
+                "min_dist": 407,
+                "max_dist": 1112,
+                "read_count": 16
+              },
+              "e2": {
+                "size": 1,
+                "distances": [
+                  404,
+                  404,
+                  404,
+                  404,
+                  404,
+                  404,
+                  404,
+                  404,
+                  404,
+                  404,
+                  404,
+                  404,
+                  404,
+                  404,
+                  404,
+                  1809,
+                  2110
+                ],
+                "avg_dist": 587.0,
+                "min_dist": 404,
+                "max_dist": 2110,
+                "read_count": 17
+              },
+              "mu1_pre": {
+                "size": 100,
+                "distances": [
+                  1616,
+                  1415,
+                  1415,
+                  1415,
+                  1415,
+                  1415,
+                  1415,
+                  1415,
+                  1415,
+                  1415,
+                  1415,
+                  1415,
+                  1415,
+                  1415,
+                  1415
+                ],
+                "avg_dist": 1428.4,
+                "min_dist": 1415,
+                "max_dist": 1616,
+                "read_count": 15
+              }
+            }
+          }
+        },
+        {
+          "label": "PC n=3/k=3 seed=43",
+          "n_bits": 3,
+          "k_sparse": 3,
+          "hidden": 100,
+          "n_train": 50,
+          "n_test": 50,
+          "lr": 0.01,
+          "wd": 0.001,
+          "n_inference_iters": 15,
+          "inf_lr": 0.1,
+          "max_epochs": 100,
+          "seed": 43,
+          "best_train_acc": 0.68,
+          "best_test_acc": 0.62,
+          "converge_epoch": null,
+          "elapsed_s": 9.34,
+          "ard": {
+            "total_floats_accessed": 25342,
+            "reads": 226,
+            "writes": 103,
+            "weighted_ard": 8440.86554192229,
+            "total_floats_read": 19560,
+            "per_buffer": {
+              "x": {
+                "size": 3,
+                "distances": [
+                  4,
+                  1209,
+                  2724,
+                  4239,
+                  5754,
+                  7269,
+                  8784,
+                  10299,
+                  11814,
+                  13329,
+                  14844,
+                  16359,
+                  17874,
+                  19389,
+                  20904,
+                  22419
+                ],
+                "avg_dist": 11075.875,
+                "min_dist": 4,
+                "max_dist": 22419,
+                "read_count": 16
+              },
+              "W1": {
+                "size": 300,
+                "distances": [
+                  508,
+                  1310,
+                  2123,
+                  2825,
+                  3638,
+                  4340,
+                  5153,
+                  5855,
+                  6668,
+                  7370,
+                  8183,
+                  8885,
+                  9698,
+                  10400,
+                  11213,
+                  11915,
+                  12728,
+                  13430,
+                  14243,
+                  14945,
+                  15758,
+                  16460,
+                  17273,
+                  17975,
+                  18788,
+                  19490,
+                  20303,
+                  21005,
+                  21818,
+                  22520,
+                  23333,
+                  24138
+                ],
+                "avg_dist": 12321.59375,
+                "min_dist": 508,
+                "max_dist": 24138,
+                "read_count": 32
+              },
+              "b1": {
+                "size": 100,
+                "distances": [
+                  508,
+                  24538
+                ],
+                "avg_dist": 12523.0,
+                "min_dist": 508,
+                "max_dist": 24538,
+                "read_count": 2
+              },
+              "mu1": {
+                "size": 100,
+                "distances": [
+                  100,
+                  602,
+                  809,
+                  401,
+                  608,
+                  401,
+                  608,
+                  401,
+                  608,
+                  401,
+                  608,
+                  401,
+                  608,
+                  401,
+                  608,
+                  401,
+                  608,
+                  401,
+                  608,
+                  401,
+                  608,
+                  401,
+                  608,
+                  401,
+                  608,
+                  401,
+                  608,
+                  401,
+                  608,
+                  401,
+                  608,
+                  104,
+                  1105
+                ],
+                "avg_dist": 510.4848484848485,
+                "min_dist": 100,
+                "max_dist": 1105,
+                "read_count": 33
+              },
+              "W2": {
+                "size": 100,
+                "distances": [
+                  808,
+                  1316,
+                  2024,
+                  2831,
+                  3539,
+                  4346,
+                  5054,
+                  5861,
+                  6569,
+                  7376,
+                  8084,
+                  8891,
+                  9599,
+                  10406,
+                  11114,
+                  11921,
+                  12629,
+                  13436,
+                  14144,
+                  14951,
+                  15659,
+                  16466,
+                  17174,
+                  17981,
+                  18689,
+                  19496,
+                  20204,
+                  21011,
+                  21719,
+                  22526,
+                  23234,
+                  24739
+                ],
+                "avg_dist": 12306.15625,
+                "min_dist": 808,
+                "max_dist": 24739,
+                "read_count": 32
+              },
+              "b2": {
+                "size": 1,
+                "distances": [
+                  808,
+                  24840
+                ],
+                "avg_dist": 12824.0,
+                "min_dist": 808,
+                "max_dist": 24840,
+                "read_count": 2
+              },
+              "mu2": {
+                "size": 1,
+                "distances": [
+                  507,
+                  709,
+                  507,
+                  709,
+                  507,
+                  709,
+                  507,
+                  709,
+                  507,
+                  709,
+                  507,
+                  709,
+                  507,
+                  709,
+                  507,
+                  709,
+                  507,
+                  709,
+                  507,
+                  709,
+                  507,
+                  709,
+                  507,
+                  709,
+                  507,
+                  709,
+                  507,
+                  709,
+                  507,
+                  709
+                ],
+                "avg_dist": 608.0,
+                "min_dist": 507,
+                "max_dist": 709,
+                "read_count": 30
+              },
+              "y": {
+                "size": 1,
+                "distances": [
+                  1513,
+                  3028,
+                  4543,
+                  6058,
+                  7573,
+                  9088,
+                  10603,
+                  12118,
+                  13633,
+                  15148,
+                  16663,
+                  18178,
+                  19693,
+                  21208,
+                  22723
+                ],
+                "avg_dist": 12118.0,
+                "min_dist": 1513,
+                "max_dist": 22723,
+                "read_count": 15
+              },
+              "e1": {
+                "size": 100,
+                "distances": [
+                  103,
+                  103,
+                  103,
+                  103,
+                  103,
+                  103,
+                  103,
+                  103,
+                  103,
+                  103,
+                  103,
+                  103,
+                  103,
+                  103,
+                  103,
+                  1611
+                ],
+                "avg_dist": 197.25,
+                "min_dist": 103,
+                "max_dist": 1611,
+                "read_count": 16
+              },
+              "e0": {
+                "size": 3,
+                "distances": [
+                  407,
+                  407,
+                  407,
+                  407,
+                  407,
+                  407,
+                  407,
+                  407,
+                  407,
+                  407,
+                  407,
+                  407,
+                  407,
+                  407,
+                  407,
+                  1112
+                ],
+                "avg_dist": 451.0625,
+                "min_dist": 407,
+                "max_dist": 1112,
+                "read_count": 16
+              },
+              "e2": {
+                "size": 1,
+                "distances": [
+                  404,
+                  404,
+                  404,
+                  404,
+                  404,
+                  404,
+                  404,
+                  404,
+                  404,
+                  404,
+                  404,
+                  404,
+                  404,
+                  404,
+                  404,
+                  1809,
+                  2110
+                ],
+                "avg_dist": 587.0,
+                "min_dist": 404,
+                "max_dist": 2110,
+                "read_count": 17
+              },
+              "mu1_pre": {
+                "size": 100,
+                "distances": [
+                  1616,
+                  1415,
+                  1415,
+                  1415,
+                  1415,
+                  1415,
+                  1415,
+                  1415,
+                  1415,
+                  1415,
+                  1415,
+                  1415,
+                  1415,
+                  1415,
+                  1415
+                ],
+                "avg_dist": 1428.4,
+                "min_dist": 1415,
+                "max_dist": 1616,
+                "read_count": 15
+              }
+            }
+          }
+        },
+        {
+          "label": "PC n=3/k=3 seed=44",
+          "n_bits": 3,
+          "k_sparse": 3,
+          "hidden": 100,
+          "n_train": 50,
+          "n_test": 50,
+          "lr": 0.01,
+          "wd": 0.001,
+          "n_inference_iters": 15,
+          "inf_lr": 0.1,
+          "max_epochs": 100,
+          "seed": 44,
+          "best_train_acc": 0.52,
+          "best_test_acc": 0.5,
+          "converge_epoch": null,
+          "elapsed_s": 10.578,
+          "ard": {
+            "total_floats_accessed": 25342,
+            "reads": 226,
+            "writes": 103,
+            "weighted_ard": 8440.86554192229,
+            "total_floats_read": 19560,
+            "per_buffer": {
+              "x": {
+                "size": 3,
+                "distances": [
+                  4,
+                  1209,
+                  2724,
+                  4239,
+                  5754,
+                  7269,
+                  8784,
+                  10299,
+                  11814,
+                  13329,
+                  14844,
+                  16359,
+                  17874,
+                  19389,
+                  20904,
+                  22419
+                ],
+                "avg_dist": 11075.875,
+                "min_dist": 4,
+                "max_dist": 22419,
+                "read_count": 16
+              },
+              "W1": {
+                "size": 300,
+                "distances": [
+                  508,
+                  1310,
+                  2123,
+                  2825,
+                  3638,
+                  4340,
+                  5153,
+                  5855,
+                  6668,
+                  7370,
+                  8183,
+                  8885,
+                  9698,
+                  10400,
+                  11213,
+                  11915,
+                  12728,
+                  13430,
+                  14243,
+                  14945,
+                  15758,
+                  16460,
+                  17273,
+                  17975,
+                  18788,
+                  19490,
+                  20303,
+                  21005,
+                  21818,
+                  22520,
+                  23333,
+                  24138
+                ],
+                "avg_dist": 12321.59375,
+                "min_dist": 508,
+                "max_dist": 24138,
+                "read_count": 32
+              },
+              "b1": {
+                "size": 100,
+                "distances": [
+                  508,
+                  24538
+                ],
+                "avg_dist": 12523.0,
+                "min_dist": 508,
+                "max_dist": 24538,
+                "read_count": 2
+              },
+              "mu1": {
+                "size": 100,
+                "distances": [
+                  100,
+                  602,
+                  809,
+                  401,
+                  608,
+                  401,
+                  608,
+                  401,
+                  608,
+                  401,
+                  608,
+                  401,
+                  608,
+                  401,
+                  608,
+                  401,
+                  608,
+                  401,
+                  608,
+                  401,
+                  608,
+                  401,
+                  608,
+                  401,
+                  608,
+                  401,
+                  608,
+                  401,
+                  608,
+                  401,
+                  608,
+                  104,
+                  1105
+                ],
+                "avg_dist": 510.4848484848485,
+                "min_dist": 100,
+                "max_dist": 1105,
+                "read_count": 33
+              },
+              "W2": {
+                "size": 100,
+                "distances": [
+                  808,
+                  1316,
+                  2024,
+                  2831,
+                  3539,
+                  4346,
+                  5054,
+                  5861,
+                  6569,
+                  7376,
+                  8084,
+                  8891,
+                  9599,
+                  10406,
+                  11114,
+                  11921,
+                  12629,
+                  13436,
+                  14144,
+                  14951,
+                  15659,
+                  16466,
+                  17174,
+                  17981,
+                  18689,
+                  19496,
+                  20204,
+                  21011,
+                  21719,
+                  22526,
+                  23234,
+                  24739
+                ],
+                "avg_dist": 12306.15625,
+                "min_dist": 808,
+                "max_dist": 24739,
+                "read_count": 32
+              },
+              "b2": {
+                "size": 1,
+                "distances": [
+                  808,
+                  24840
+                ],
+                "avg_dist": 12824.0,
+                "min_dist": 808,
+                "max_dist": 24840,
+                "read_count": 2
+              },
+              "mu2": {
+                "size": 1,
+                "distances": [
+                  507,
+                  709,
+                  507,
+                  709,
+                  507,
+                  709,
+                  507,
+                  709,
+                  507,
+                  709,
+                  507,
+                  709,
+                  507,
+                  709,
+                  507,
+                  709,
+                  507,
+                  709,
+                  507,
+                  709,
+                  507,
+                  709,
+                  507,
+                  709,
+                  507,
+                  709,
+                  507,
+                  709,
+                  507,
+                  709
+                ],
+                "avg_dist": 608.0,
+                "min_dist": 507,
+                "max_dist": 709,
+                "read_count": 30
+              },
+              "y": {
+                "size": 1,
+                "distances": [
+                  1513,
+                  3028,
+                  4543,
+                  6058,
+                  7573,
+                  9088,
+                  10603,
+                  12118,
+                  13633,
+                  15148,
+                  16663,
+                  18178,
+                  19693,
+                  21208,
+                  22723
+                ],
+                "avg_dist": 12118.0,
+                "min_dist": 1513,
+                "max_dist": 22723,
+                "read_count": 15
+              },
+              "e1": {
+                "size": 100,
+                "distances": [
+                  103,
+                  103,
+                  103,
+                  103,
+                  103,
+                  103,
+                  103,
+                  103,
+                  103,
+                  103,
+                  103,
+                  103,
+                  103,
+                  103,
+                  103,
+                  1611
+                ],
+                "avg_dist": 197.25,
+                "min_dist": 103,
+                "max_dist": 1611,
+                "read_count": 16
+              },
+              "e0": {
+                "size": 3,
+                "distances": [
+                  407,
+                  407,
+                  407,
+                  407,
+                  407,
+                  407,
+                  407,
+                  407,
+                  407,
+                  407,
+                  407,
+                  407,
+                  407,
+                  407,
+                  407,
+                  1112
+                ],
+                "avg_dist": 451.0625,
+                "min_dist": 407,
+                "max_dist": 1112,
+                "read_count": 16
+              },
+              "e2": {
+                "size": 1,
+                "distances": [
+                  404,
+                  404,
+                  404,
+                  404,
+                  404,
+                  404,
+                  404,
+                  404,
+                  404,
+                  404,
+                  404,
+                  404,
+                  404,
+                  404,
+                  404,
+                  1809,
+                  2110
+                ],
+                "avg_dist": 587.0,
+                "min_dist": 404,
+                "max_dist": 2110,
+                "read_count": 17
+              },
+              "mu1_pre": {
+                "size": 100,
+                "distances": [
+                  1616,
+                  1415,
+                  1415,
+                  1415,
+                  1415,
+                  1415,
+                  1415,
+                  1415,
+                  1415,
+                  1415,
+                  1415,
+                  1415,
+                  1415,
+                  1415,
+                  1415
+                ],
+                "avg_dist": 1428.4,
+                "min_dist": 1415,
+                "max_dist": 1616,
+                "read_count": 15
+              }
+            }
+          }
+        }
+      ],
+      "bp": [
+        {
+          "best_test_acc": 1.0,
+          "converged_epoch": 2,
+          "ard": {
+            "total_floats_accessed": 1412,
+            "reads": 9,
+            "writes": 9,
+            "weighted_ard": 447.34844192634563,
+            "total_floats_read": 706,
+            "per_buffer": {
+              "x": {
+                "size": 3,
+                "distances": [
+                  4
+                ],
+                "avg_dist": 4.0,
+                "min_dist": 4,
+                "max_dist": 4,
+                "read_count": 1
+              },
+              "W1": {
+                "size": 300,
+                "distances": [
+                  508
+                ],
+                "avg_dist": 508.0,
+                "min_dist": 508,
+                "max_dist": 508,
+                "read_count": 1
+              },
+              "b1": {
+                "size": 100,
+                "distances": [
+                  508
+                ],
+                "avg_dist": 508.0,
+                "min_dist": 508,
+                "max_dist": 508,
+                "read_count": 1
+              },
+              "h_pre": {
+                "size": 100,
+                "distances": [
+                  100
+                ],
+                "avg_dist": 100.0,
+                "min_dist": 100,
+                "max_dist": 100,
+                "read_count": 1
+              },
+              "h": {
+                "size": 100,
+                "distances": [
+                  100
+                ],
+                "avg_dist": 100.0,
+                "min_dist": 100,
+                "max_dist": 100,
+                "read_count": 1
+              },
+              "W2": {
+                "size": 100,
+                "distances": [
+                  908
+                ],
+                "avg_dist": 908.0,
+                "min_dist": 908,
+                "max_dist": 908,
+                "read_count": 1
+              },
+              "b2": {
+                "size": 1,
+                "distances": [
+                  908
+                ],
+                "avg_dist": 908.0,
+                "min_dist": 908,
+                "max_dist": 908,
+                "read_count": 1
+              },
+              "out": {
+                "size": 1,
+                "distances": [
+                  1
+                ],
+                "avg_dist": 1.0,
+                "min_dist": 1,
+                "max_dist": 1,
+                "read_count": 1
+              },
+              "y": {
+                "size": 1,
+                "distances": [
+                  907
+                ],
+                "avg_dist": 907.0,
+                "min_dist": 907,
+                "max_dist": 907,
+                "read_count": 1
+              }
+            }
+          },
+          "seed": 42
+        },
+        {
+          "best_test_acc": 1.0,
+          "converged_epoch": 2,
+          "ard": {
+            "total_floats_accessed": 1412,
+            "reads": 9,
+            "writes": 9,
+            "weighted_ard": 447.34844192634563,
+            "total_floats_read": 706,
+            "per_buffer": {
+              "x": {
+                "size": 3,
+                "distances": [
+                  4
+                ],
+                "avg_dist": 4.0,
+                "min_dist": 4,
+                "max_dist": 4,
+                "read_count": 1
+              },
+              "W1": {
+                "size": 300,
+                "distances": [
+                  508
+                ],
+                "avg_dist": 508.0,
+                "min_dist": 508,
+                "max_dist": 508,
+                "read_count": 1
+              },
+              "b1": {
+                "size": 100,
+                "distances": [
+                  508
+                ],
+                "avg_dist": 508.0,
+                "min_dist": 508,
+                "max_dist": 508,
+                "read_count": 1
+              },
+              "h_pre": {
+                "size": 100,
+                "distances": [
+                  100
+                ],
+                "avg_dist": 100.0,
+                "min_dist": 100,
+                "max_dist": 100,
+                "read_count": 1
+              },
+              "h": {
+                "size": 100,
+                "distances": [
+                  100
+                ],
+                "avg_dist": 100.0,
+                "min_dist": 100,
+                "max_dist": 100,
+                "read_count": 1
+              },
+              "W2": {
+                "size": 100,
+                "distances": [
+                  908
+                ],
+                "avg_dist": 908.0,
+                "min_dist": 908,
+                "max_dist": 908,
+                "read_count": 1
+              },
+              "b2": {
+                "size": 1,
+                "distances": [
+                  908
+                ],
+                "avg_dist": 908.0,
+                "min_dist": 908,
+                "max_dist": 908,
+                "read_count": 1
+              },
+              "out": {
+                "size": 1,
+                "distances": [
+                  1
+                ],
+                "avg_dist": 1.0,
+                "min_dist": 1,
+                "max_dist": 1,
+                "read_count": 1
+              },
+              "y": {
+                "size": 1,
+                "distances": [
+                  907
+                ],
+                "avg_dist": 907.0,
+                "min_dist": 907,
+                "max_dist": 907,
+                "read_count": 1
+              }
+            }
+          },
+          "seed": 43
+        },
+        {
+          "best_test_acc": 1.0,
+          "converged_epoch": 3,
+          "ard": {
+            "total_floats_accessed": 1412,
+            "reads": 9,
+            "writes": 9,
+            "weighted_ard": 447.34844192634563,
+            "total_floats_read": 706,
+            "per_buffer": {
+              "x": {
+                "size": 3,
+                "distances": [
+                  4
+                ],
+                "avg_dist": 4.0,
+                "min_dist": 4,
+                "max_dist": 4,
+                "read_count": 1
+              },
+              "W1": {
+                "size": 300,
+                "distances": [
+                  508
+                ],
+                "avg_dist": 508.0,
+                "min_dist": 508,
+                "max_dist": 508,
+                "read_count": 1
+              },
+              "b1": {
+                "size": 100,
+                "distances": [
+                  508
+                ],
+                "avg_dist": 508.0,
+                "min_dist": 508,
+                "max_dist": 508,
+                "read_count": 1
+              },
+              "h_pre": {
+                "size": 100,
+                "distances": [
+                  100
+                ],
+                "avg_dist": 100.0,
+                "min_dist": 100,
+                "max_dist": 100,
+                "read_count": 1
+              },
+              "h": {
+                "size": 100,
+                "distances": [
+                  100
+                ],
+                "avg_dist": 100.0,
+                "min_dist": 100,
+                "max_dist": 100,
+                "read_count": 1
+              },
+              "W2": {
+                "size": 100,
+                "distances": [
+                  908
+                ],
+                "avg_dist": 908.0,
+                "min_dist": 908,
+                "max_dist": 908,
+                "read_count": 1
+              },
+              "b2": {
+                "size": 1,
+                "distances": [
+                  908
+                ],
+                "avg_dist": 908.0,
+                "min_dist": 908,
+                "max_dist": 908,
+                "read_count": 1
+              },
+              "out": {
+                "size": 1,
+                "distances": [
+                  1
+                ],
+                "avg_dist": 1.0,
+                "min_dist": 1,
+                "max_dist": 1,
+                "read_count": 1
+              },
+              "y": {
+                "size": 1,
+                "distances": [
+                  907
+                ],
+                "avg_dist": 907.0,
+                "min_dist": 907,
+                "max_dist": 907,
+                "read_count": 1
+              }
+            }
+          },
+          "seed": 44
+        }
+      ],
+      "summary": {
+        "pc_avg_acc": 0.5533333333333333,
+        "bp_avg_acc": 1.0,
+        "pc_avg_ard": 8440.86554192229,
+        "bp_avg_ard": 447.34844192634563,
+        "ard_ratio": 0.05299793483316975
+      }
+    },
+    "n20_k3": {
+      "pc": [
+        {
+          "label": "PC n=20/k=3 seed=42",
+          "n_bits": 20,
+          "k_sparse": 3,
+          "hidden": 1000,
+          "n_train": 500,
+          "n_test": 200,
+          "lr": 0.1,
+          "wd": 0.01,
+          "n_inference_iters": 15,
+          "inf_lr": 0.05,
+          "max_epochs": 50,
+          "seed": 42,
+          "best_train_acc": 0.498,
+          "best_test_acc": 0.485,
+          "converge_epoch": null,
+          "elapsed_s": 124.54,
+          "ard": {
+            "total_floats_accessed": 830058,
+            "reads": 226,
+            "writes": 103,
+            "weighted_ard": 370004.6672144729,
+            "total_floats_read": 738704,
+            "per_buffer": {
+              "x": {
+                "size": 20,
+                "distances": [
+                  21,
+                  46043,
+                  95109,
+                  144175,
+                  193241,
+                  242307,
+                  291373,
+                  340439,
+                  389505,
+                  438571,
+                  487637,
+                  536703,
+                  585769,
+                  634835,
+                  683901,
+                  732967
+                ],
+                "avg_dist": 365162.25,
+                "min_dist": 21,
+                "max_dist": 732967,
+                "read_count": 16
+              },
+              "W1": {
+                "size": 20000,
+                "distances": [
+                  22042,
+                  47044,
+                  72108,
+                  96110,
+                  121174,
+                  145176,
+                  170240,
+                  194242,
+                  219306,
+                  243308,
+                  268372,
+                  292374,
+                  317438,
+                  341440,
+                  366504,
+                  390506,
+                  415570,
+                  439572,
+                  464636,
+                  488638,
+                  513702,
+                  537704,
+                  562768,
+                  586770,
+                  611834,
+                  635836,
+                  660900,
+                  684902,
+                  709966,
+                  733968,
+                  759032,
+                  784054
+                ],
+                "avg_dist": 403038.625,
+                "min_dist": 22042,
+                "max_dist": 784054,
+                "read_count": 32
+              },
+              "b1": {
+                "size": 1000,
+                "distances": [
+                  22042,
+                  805054
+                ],
+                "avg_dist": 413548.0,
+                "min_dist": 22042,
+                "max_dist": 805054,
+                "read_count": 2
+              },
+              "mu1": {
+                "size": 1000,
+                "distances": [
+                  1000,
+                  23002,
+                  25043,
+                  21001,
+                  23042,
+                  21001,
+                  23042,
+                  21001,
+                  23042,
+                  21001,
+                  23042,
+                  21001,
+                  23042,
+                  21001,
+                  23042,
+                  21001,
+                  23042,
+                  21001,
+                  23042,
+                  21001,
+                  23042,
+                  21001,
+                  23042,
+                  21001,
+                  23042,
+                  21001,
+                  23042,
+                  21001,
+                  23042,
+                  21001,
+                  23042,
+                  1021,
+                  45022
+                ],
+                "avg_dist": 21566.363636363636,
+                "min_dist": 1000,
+                "max_dist": 45022,
+                "read_count": 33
+              },
+              "W2": {
+                "size": 1000,
+                "distances": [
+                  25042,
+                  47084,
+                  71109,
+                  96150,
+                  120175,
+                  145216,
+                  169241,
+                  194282,
+                  218307,
+                  243348,
+                  267373,
+                  292414,
+                  316439,
+                  341480,
+                  365505,
+                  390546,
+                  414571,
+                  439612,
+                  463637,
+                  488678,
+                  512703,
+                  537744,
+                  561769,
+                  586810,
+                  610835,
+                  635876,
+                  659901,
+                  684942,
+                  708967,
+                  734008,
+                  758033,
+                  807055
+                ],
+                "avg_dist": 403401.625,
+                "min_dist": 25042,
+                "max_dist": 807055,
+                "read_count": 32
+              },
+              "b2": {
+                "size": 1,
+                "distances": [
+                  25042,
+                  808056
+                ],
+                "avg_dist": 416549.0,
+                "min_dist": 25042,
+                "max_dist": 808056,
+                "read_count": 2
+              },
+              "mu2": {
+                "size": 1,
+                "distances": [
+                  22041,
+                  24043,
+                  22041,
+                  24043,
+                  22041,
+                  24043,
+                  22041,
+                  24043,
+                  22041,
+                  24043,
+                  22041,
+                  24043,
+                  22041,
+                  24043,
+                  22041,
+                  24043,
+                  22041,
+                  24043,
+                  22041,
+                  24043,
+                  22041,
+                  24043,
+                  22041,
+                  24043,
+                  22041,
+                  24043,
+                  22041,
+                  24043,
+                  22041,
+                  24043
+                ],
+                "avg_dist": 23042.0,
+                "min_dist": 22041,
+                "max_dist": 24043,
+                "read_count": 30
+              },
+              "y": {
+                "size": 1,
+                "distances": [
+                  49064,
+                  98130,
+                  147196,
+                  196262,
+                  245328,
+                  294394,
+                  343460,
+                  392526,
+                  441592,
+                  490658,
+                  539724,
+                  588790,
+                  637856,
+                  686922,
+                  735988
+                ],
+                "avg_dist": 392526.0,
+                "min_dist": 49064,
+                "max_dist": 735988,
+                "read_count": 15
+              },
+              "e1": {
+                "size": 1000,
+                "distances": [
+                  1003,
+                  1003,
+                  1003,
+                  1003,
+                  1003,
+                  1003,
+                  1003,
+                  1003,
+                  1003,
+                  1003,
+                  1003,
+                  1003,
+                  1003,
+                  1003,
+                  1003,
+                  67045
+                ],
+                "avg_dist": 5130.625,
+                "min_dist": 1003,
+                "max_dist": 67045,
+                "read_count": 16
+              },
+              "e0": {
+                "size": 20,
+                "distances": [
+                  4024,
+                  4024,
+                  4024,
+                  4024,
+                  4024,
+                  4024,
+                  4024,
+                  4024,
+                  4024,
+                  4024,
+                  4024,
+                  4024,
+                  4024,
+                  4024,
+                  4024,
+                  28046
+                ],
+                "avg_dist": 5525.375,
+                "min_dist": 4024,
+                "max_dist": 28046,
+                "read_count": 16
+              },
+              "e2": {
+                "size": 1,
+                "distances": [
+                  21021,
+                  21021,
+                  21021,
+                  21021,
+                  21021,
+                  21021,
+                  21021,
+                  21021,
+                  21021,
+                  21021,
+                  21021,
+                  21021,
+                  21021,
+                  21021,
+                  21021,
+                  69043,
+                  72044
+                ],
+                "avg_dist": 26847.176470588234,
+                "min_dist": 21021,
+                "max_dist": 72044,
+                "read_count": 17
+              },
+              "mu1_pre": {
+                "size": 1000,
+                "distances": [
+                  50067,
+                  48066,
+                  48066,
+                  48066,
+                  48066,
+                  48066,
+                  48066,
+                  48066,
+                  48066,
+                  48066,
+                  48066,
+                  48066,
+                  48066,
+                  48066,
+                  48066
+                ],
+                "avg_dist": 48199.4,
+                "min_dist": 48066,
+                "max_dist": 50067,
+                "read_count": 15
+              }
+            }
+          }
+        },
+        {
+          "label": "PC n=20/k=3 seed=43",
+          "n_bits": 20,
+          "k_sparse": 3,
+          "hidden": 1000,
+          "n_train": 500,
+          "n_test": 200,
+          "lr": 0.1,
+          "wd": 0.01,
+          "n_inference_iters": 15,
+          "inf_lr": 0.05,
+          "max_epochs": 50,
+          "seed": 43,
+          "best_train_acc": 0.47,
+          "best_test_acc": 0.49,
+          "converge_epoch": null,
+          "elapsed_s": 127.376,
+          "ard": {
+            "total_floats_accessed": 830058,
+            "reads": 226,
+            "writes": 103,
+            "weighted_ard": 370004.6672144729,
+            "total_floats_read": 738704,
+            "per_buffer": {
+              "x": {
+                "size": 20,
+                "distances": [
+                  21,
+                  46043,
+                  95109,
+                  144175,
+                  193241,
+                  242307,
+                  291373,
+                  340439,
+                  389505,
+                  438571,
+                  487637,
+                  536703,
+                  585769,
+                  634835,
+                  683901,
+                  732967
+                ],
+                "avg_dist": 365162.25,
+                "min_dist": 21,
+                "max_dist": 732967,
+                "read_count": 16
+              },
+              "W1": {
+                "size": 20000,
+                "distances": [
+                  22042,
+                  47044,
+                  72108,
+                  96110,
+                  121174,
+                  145176,
+                  170240,
+                  194242,
+                  219306,
+                  243308,
+                  268372,
+                  292374,
+                  317438,
+                  341440,
+                  366504,
+                  390506,
+                  415570,
+                  439572,
+                  464636,
+                  488638,
+                  513702,
+                  537704,
+                  562768,
+                  586770,
+                  611834,
+                  635836,
+                  660900,
+                  684902,
+                  709966,
+                  733968,
+                  759032,
+                  784054
+                ],
+                "avg_dist": 403038.625,
+                "min_dist": 22042,
+                "max_dist": 784054,
+                "read_count": 32
+              },
+              "b1": {
+                "size": 1000,
+                "distances": [
+                  22042,
+                  805054
+                ],
+                "avg_dist": 413548.0,
+                "min_dist": 22042,
+                "max_dist": 805054,
+                "read_count": 2
+              },
+              "mu1": {
+                "size": 1000,
+                "distances": [
+                  1000,
+                  23002,
+                  25043,
+                  21001,
+                  23042,
+                  21001,
+                  23042,
+                  21001,
+                  23042,
+                  21001,
+                  23042,
+                  21001,
+                  23042,
+                  21001,
+                  23042,
+                  21001,
+                  23042,
+                  21001,
+                  23042,
+                  21001,
+                  23042,
+                  21001,
+                  23042,
+                  21001,
+                  23042,
+                  21001,
+                  23042,
+                  21001,
+                  23042,
+                  21001,
+                  23042,
+                  1021,
+                  45022
+                ],
+                "avg_dist": 21566.363636363636,
+                "min_dist": 1000,
+                "max_dist": 45022,
+                "read_count": 33
+              },
+              "W2": {
+                "size": 1000,
+                "distances": [
+                  25042,
+                  47084,
+                  71109,
+                  96150,
+                  120175,
+                  145216,
+                  169241,
+                  194282,
+                  218307,
+                  243348,
+                  267373,
+                  292414,
+                  316439,
+                  341480,
+                  365505,
+                  390546,
+                  414571,
+                  439612,
+                  463637,
+                  488678,
+                  512703,
+                  537744,
+                  561769,
+                  586810,
+                  610835,
+                  635876,
+                  659901,
+                  684942,
+                  708967,
+                  734008,
+                  758033,
+                  807055
+                ],
+                "avg_dist": 403401.625,
+                "min_dist": 25042,
+                "max_dist": 807055,
+                "read_count": 32
+              },
+              "b2": {
+                "size": 1,
+                "distances": [
+                  25042,
+                  808056
+                ],
+                "avg_dist": 416549.0,
+                "min_dist": 25042,
+                "max_dist": 808056,
+                "read_count": 2
+              },
+              "mu2": {
+                "size": 1,
+                "distances": [
+                  22041,
+                  24043,
+                  22041,
+                  24043,
+                  22041,
+                  24043,
+                  22041,
+                  24043,
+                  22041,
+                  24043,
+                  22041,
+                  24043,
+                  22041,
+                  24043,
+                  22041,
+                  24043,
+                  22041,
+                  24043,
+                  22041,
+                  24043,
+                  22041,
+                  24043,
+                  22041,
+                  24043,
+                  22041,
+                  24043,
+                  22041,
+                  24043,
+                  22041,
+                  24043
+                ],
+                "avg_dist": 23042.0,
+                "min_dist": 22041,
+                "max_dist": 24043,
+                "read_count": 30
+              },
+              "y": {
+                "size": 1,
+                "distances": [
+                  49064,
+                  98130,
+                  147196,
+                  196262,
+                  245328,
+                  294394,
+                  343460,
+                  392526,
+                  441592,
+                  490658,
+                  539724,
+                  588790,
+                  637856,
+                  686922,
+                  735988
+                ],
+                "avg_dist": 392526.0,
+                "min_dist": 49064,
+                "max_dist": 735988,
+                "read_count": 15
+              },
+              "e1": {
+                "size": 1000,
+                "distances": [
+                  1003,
+                  1003,
+                  1003,
+                  1003,
+                  1003,
+                  1003,
+                  1003,
+                  1003,
+                  1003,
+                  1003,
+                  1003,
+                  1003,
+                  1003,
+                  1003,
+                  1003,
+                  67045
+                ],
+                "avg_dist": 5130.625,
+                "min_dist": 1003,
+                "max_dist": 67045,
+                "read_count": 16
+              },
+              "e0": {
+                "size": 20,
+                "distances": [
+                  4024,
+                  4024,
+                  4024,
+                  4024,
+                  4024,
+                  4024,
+                  4024,
+                  4024,
+                  4024,
+                  4024,
+                  4024,
+                  4024,
+                  4024,
+                  4024,
+                  4024,
+                  28046
+                ],
+                "avg_dist": 5525.375,
+                "min_dist": 4024,
+                "max_dist": 28046,
+                "read_count": 16
+              },
+              "e2": {
+                "size": 1,
+                "distances": [
+                  21021,
+                  21021,
+                  21021,
+                  21021,
+                  21021,
+                  21021,
+                  21021,
+                  21021,
+                  21021,
+                  21021,
+                  21021,
+                  21021,
+                  21021,
+                  21021,
+                  21021,
+                  69043,
+                  72044
+                ],
+                "avg_dist": 26847.176470588234,
+                "min_dist": 21021,
+                "max_dist": 72044,
+                "read_count": 17
+              },
+              "mu1_pre": {
+                "size": 1000,
+                "distances": [
+                  50067,
+                  48066,
+                  48066,
+                  48066,
+                  48066,
+                  48066,
+                  48066,
+                  48066,
+                  48066,
+                  48066,
+                  48066,
+                  48066,
+                  48066,
+                  48066,
+                  48066
+                ],
+                "avg_dist": 48199.4,
+                "min_dist": 48066,
+                "max_dist": 50067,
+                "read_count": 15
+              }
+            }
+          }
+        },
+        {
+          "label": "PC n=20/k=3 seed=44",
+          "n_bits": 20,
+          "k_sparse": 3,
+          "hidden": 1000,
+          "n_train": 500,
+          "n_test": 200,
+          "lr": 0.1,
+          "wd": 0.01,
+          "n_inference_iters": 15,
+          "inf_lr": 0.05,
+          "max_epochs": 50,
+          "seed": 44,
+          "best_train_acc": 0.51,
+          "best_test_acc": 0.56,
+          "converge_epoch": null,
+          "elapsed_s": 138.052,
+          "ard": {
+            "total_floats_accessed": 830058,
+            "reads": 226,
+            "writes": 103,
+            "weighted_ard": 370004.6672144729,
+            "total_floats_read": 738704,
+            "per_buffer": {
+              "x": {
+                "size": 20,
+                "distances": [
+                  21,
+                  46043,
+                  95109,
+                  144175,
+                  193241,
+                  242307,
+                  291373,
+                  340439,
+                  389505,
+                  438571,
+                  487637,
+                  536703,
+                  585769,
+                  634835,
+                  683901,
+                  732967
+                ],
+                "avg_dist": 365162.25,
+                "min_dist": 21,
+                "max_dist": 732967,
+                "read_count": 16
+              },
+              "W1": {
+                "size": 20000,
+                "distances": [
+                  22042,
+                  47044,
+                  72108,
+                  96110,
+                  121174,
+                  145176,
+                  170240,
+                  194242,
+                  219306,
+                  243308,
+                  268372,
+                  292374,
+                  317438,
+                  341440,
+                  366504,
+                  390506,
+                  415570,
+                  439572,
+                  464636,
+                  488638,
+                  513702,
+                  537704,
+                  562768,
+                  586770,
+                  611834,
+                  635836,
+                  660900,
+                  684902,
+                  709966,
+                  733968,
+                  759032,
+                  784054
+                ],
+                "avg_dist": 403038.625,
+                "min_dist": 22042,
+                "max_dist": 784054,
+                "read_count": 32
+              },
+              "b1": {
+                "size": 1000,
+                "distances": [
+                  22042,
+                  805054
+                ],
+                "avg_dist": 413548.0,
+                "min_dist": 22042,
+                "max_dist": 805054,
+                "read_count": 2
+              },
+              "mu1": {
+                "size": 1000,
+                "distances": [
+                  1000,
+                  23002,
+                  25043,
+                  21001,
+                  23042,
+                  21001,
+                  23042,
+                  21001,
+                  23042,
+                  21001,
+                  23042,
+                  21001,
+                  23042,
+                  21001,
+                  23042,
+                  21001,
+                  23042,
+                  21001,
+                  23042,
+                  21001,
+                  23042,
+                  21001,
+                  23042,
+                  21001,
+                  23042,
+                  21001,
+                  23042,
+                  21001,
+                  23042,
+                  21001,
+                  23042,
+                  1021,
+                  45022
+                ],
+                "avg_dist": 21566.363636363636,
+                "min_dist": 1000,
+                "max_dist": 45022,
+                "read_count": 33
+              },
+              "W2": {
+                "size": 1000,
+                "distances": [
+                  25042,
+                  47084,
+                  71109,
+                  96150,
+                  120175,
+                  145216,
+                  169241,
+                  194282,
+                  218307,
+                  243348,
+                  267373,
+                  292414,
+                  316439,
+                  341480,
+                  365505,
+                  390546,
+                  414571,
+                  439612,
+                  463637,
+                  488678,
+                  512703,
+                  537744,
+                  561769,
+                  586810,
+                  610835,
+                  635876,
+                  659901,
+                  684942,
+                  708967,
+                  734008,
+                  758033,
+                  807055
+                ],
+                "avg_dist": 403401.625,
+                "min_dist": 25042,
+                "max_dist": 807055,
+                "read_count": 32
+              },
+              "b2": {
+                "size": 1,
+                "distances": [
+                  25042,
+                  808056
+                ],
+                "avg_dist": 416549.0,
+                "min_dist": 25042,
+                "max_dist": 808056,
+                "read_count": 2
+              },
+              "mu2": {
+                "size": 1,
+                "distances": [
+                  22041,
+                  24043,
+                  22041,
+                  24043,
+                  22041,
+                  24043,
+                  22041,
+                  24043,
+                  22041,
+                  24043,
+                  22041,
+                  24043,
+                  22041,
+                  24043,
+                  22041,
+                  24043,
+                  22041,
+                  24043,
+                  22041,
+                  24043,
+                  22041,
+                  24043,
+                  22041,
+                  24043,
+                  22041,
+                  24043,
+                  22041,
+                  24043,
+                  22041,
+                  24043
+                ],
+                "avg_dist": 23042.0,
+                "min_dist": 22041,
+                "max_dist": 24043,
+                "read_count": 30
+              },
+              "y": {
+                "size": 1,
+                "distances": [
+                  49064,
+                  98130,
+                  147196,
+                  196262,
+                  245328,
+                  294394,
+                  343460,
+                  392526,
+                  441592,
+                  490658,
+                  539724,
+                  588790,
+                  637856,
+                  686922,
+                  735988
+                ],
+                "avg_dist": 392526.0,
+                "min_dist": 49064,
+                "max_dist": 735988,
+                "read_count": 15
+              },
+              "e1": {
+                "size": 1000,
+                "distances": [
+                  1003,
+                  1003,
+                  1003,
+                  1003,
+                  1003,
+                  1003,
+                  1003,
+                  1003,
+                  1003,
+                  1003,
+                  1003,
+                  1003,
+                  1003,
+                  1003,
+                  1003,
+                  67045
+                ],
+                "avg_dist": 5130.625,
+                "min_dist": 1003,
+                "max_dist": 67045,
+                "read_count": 16
+              },
+              "e0": {
+                "size": 20,
+                "distances": [
+                  4024,
+                  4024,
+                  4024,
+                  4024,
+                  4024,
+                  4024,
+                  4024,
+                  4024,
+                  4024,
+                  4024,
+                  4024,
+                  4024,
+                  4024,
+                  4024,
+                  4024,
+                  28046
+                ],
+                "avg_dist": 5525.375,
+                "min_dist": 4024,
+                "max_dist": 28046,
+                "read_count": 16
+              },
+              "e2": {
+                "size": 1,
+                "distances": [
+                  21021,
+                  21021,
+                  21021,
+                  21021,
+                  21021,
+                  21021,
+                  21021,
+                  21021,
+                  21021,
+                  21021,
+                  21021,
+                  21021,
+                  21021,
+                  21021,
+                  21021,
+                  69043,
+                  72044
+                ],
+                "avg_dist": 26847.176470588234,
+                "min_dist": 21021,
+                "max_dist": 72044,
+                "read_count": 17
+              },
+              "mu1_pre": {
+                "size": 1000,
+                "distances": [
+                  50067,
+                  48066,
+                  48066,
+                  48066,
+                  48066,
+                  48066,
+                  48066,
+                  48066,
+                  48066,
+                  48066,
+                  48066,
+                  48066,
+                  48066,
+                  48066,
+                  48066
+                ],
+                "avg_dist": 48199.4,
+                "min_dist": 48066,
+                "max_dist": 50067,
+                "read_count": 15
+              }
+            }
+          }
+        }
+      ],
+      "bp": [
+        {
+          "best_test_acc": 1.0,
+          "converged_epoch": 6,
+          "ard": {
+            "total_floats_accessed": 48046,
+            "reads": 9,
+            "writes": 9,
+            "weighted_ard": 20437.767431211756,
+            "total_floats_read": 24023,
+            "per_buffer": {
+              "x": {
+                "size": 20,
+                "distances": [
+                  21
+                ],
+                "avg_dist": 21.0,
+                "min_dist": 21,
+                "max_dist": 21,
+                "read_count": 1
+              },
+              "W1": {
+                "size": 20000,
+                "distances": [
+                  22042
+                ],
+                "avg_dist": 22042.0,
+                "min_dist": 22042,
+                "max_dist": 22042,
+                "read_count": 1
+              },
+              "b1": {
+                "size": 1000,
+                "distances": [
+                  22042
+                ],
+                "avg_dist": 22042.0,
+                "min_dist": 22042,
+                "max_dist": 22042,
+                "read_count": 1
+              },
+              "h_pre": {
+                "size": 1000,
+                "distances": [
+                  1000
+                ],
+                "avg_dist": 1000.0,
+                "min_dist": 1000,
+                "max_dist": 1000,
+                "read_count": 1
+              },
+              "h": {
+                "size": 1000,
+                "distances": [
+                  1000
+                ],
+                "avg_dist": 1000.0,
+                "min_dist": 1000,
+                "max_dist": 1000,
+                "read_count": 1
+              },
+              "W2": {
+                "size": 1000,
+                "distances": [
+                  26042
+                ],
+                "avg_dist": 26042.0,
+                "min_dist": 26042,
+                "max_dist": 26042,
+                "read_count": 1
+              },
+              "b2": {
+                "size": 1,
+                "distances": [
+                  26042
+                ],
+                "avg_dist": 26042.0,
+                "min_dist": 26042,
+                "max_dist": 26042,
+                "read_count": 1
+              },
+              "out": {
+                "size": 1,
+                "distances": [
+                  1
+                ],
+                "avg_dist": 1.0,
+                "min_dist": 1,
+                "max_dist": 1,
+                "read_count": 1
+              },
+              "y": {
+                "size": 1,
+                "distances": [
+                  26024
+                ],
+                "avg_dist": 26024.0,
+                "min_dist": 26024,
+                "max_dist": 26024,
+                "read_count": 1
+              }
+            }
+          },
+          "seed": 42
+        },
+        {
+          "best_test_acc": 0.995,
+          "converged_epoch": 5,
+          "ard": {
+            "total_floats_accessed": 48046,
+            "reads": 9,
+            "writes": 9,
+            "weighted_ard": 20437.767431211756,
+            "total_floats_read": 24023,
+            "per_buffer": {
+              "x": {
+                "size": 20,
+                "distances": [
+                  21
+                ],
+                "avg_dist": 21.0,
+                "min_dist": 21,
+                "max_dist": 21,
+                "read_count": 1
+              },
+              "W1": {
+                "size": 20000,
+                "distances": [
+                  22042
+                ],
+                "avg_dist": 22042.0,
+                "min_dist": 22042,
+                "max_dist": 22042,
+                "read_count": 1
+              },
+              "b1": {
+                "size": 1000,
+                "distances": [
+                  22042
+                ],
+                "avg_dist": 22042.0,
+                "min_dist": 22042,
+                "max_dist": 22042,
+                "read_count": 1
+              },
+              "h_pre": {
+                "size": 1000,
+                "distances": [
+                  1000
+                ],
+                "avg_dist": 1000.0,
+                "min_dist": 1000,
+                "max_dist": 1000,
+                "read_count": 1
+              },
+              "h": {
+                "size": 1000,
+                "distances": [
+                  1000
+                ],
+                "avg_dist": 1000.0,
+                "min_dist": 1000,
+                "max_dist": 1000,
+                "read_count": 1
+              },
+              "W2": {
+                "size": 1000,
+                "distances": [
+                  26042
+                ],
+                "avg_dist": 26042.0,
+                "min_dist": 26042,
+                "max_dist": 26042,
+                "read_count": 1
+              },
+              "b2": {
+                "size": 1,
+                "distances": [
+                  26042
+                ],
+                "avg_dist": 26042.0,
+                "min_dist": 26042,
+                "max_dist": 26042,
+                "read_count": 1
+              },
+              "out": {
+                "size": 1,
+                "distances": [
+                  1
+                ],
+                "avg_dist": 1.0,
+                "min_dist": 1,
+                "max_dist": 1,
+                "read_count": 1
+              },
+              "y": {
+                "size": 1,
+                "distances": [
+                  26024
+                ],
+                "avg_dist": 26024.0,
+                "min_dist": 26024,
+                "max_dist": 26024,
+                "read_count": 1
+              }
+            }
+          },
+          "seed": 43
+        },
+        {
+          "best_test_acc": 1.0,
+          "converged_epoch": 5,
+          "ard": {
+            "total_floats_accessed": 48046,
+            "reads": 9,
+            "writes": 9,
+            "weighted_ard": 20437.767431211756,
+            "total_floats_read": 24023,
+            "per_buffer": {
+              "x": {
+                "size": 20,
+                "distances": [
+                  21
+                ],
+                "avg_dist": 21.0,
+                "min_dist": 21,
+                "max_dist": 21,
+                "read_count": 1
+              },
+              "W1": {
+                "size": 20000,
+                "distances": [
+                  22042
+                ],
+                "avg_dist": 22042.0,
+                "min_dist": 22042,
+                "max_dist": 22042,
+                "read_count": 1
+              },
+              "b1": {
+                "size": 1000,
+                "distances": [
+                  22042
+                ],
+                "avg_dist": 22042.0,
+                "min_dist": 22042,
+                "max_dist": 22042,
+                "read_count": 1
+              },
+              "h_pre": {
+                "size": 1000,
+                "distances": [
+                  1000
+                ],
+                "avg_dist": 1000.0,
+                "min_dist": 1000,
+                "max_dist": 1000,
+                "read_count": 1
+              },
+              "h": {
+                "size": 1000,
+                "distances": [
+                  1000
+                ],
+                "avg_dist": 1000.0,
+                "min_dist": 1000,
+                "max_dist": 1000,
+                "read_count": 1
+              },
+              "W2": {
+                "size": 1000,
+                "distances": [
+                  26042
+                ],
+                "avg_dist": 26042.0,
+                "min_dist": 26042,
+                "max_dist": 26042,
+                "read_count": 1
+              },
+              "b2": {
+                "size": 1,
+                "distances": [
+                  26042
+                ],
+                "avg_dist": 26042.0,
+                "min_dist": 26042,
+                "max_dist": 26042,
+                "read_count": 1
+              },
+              "out": {
+                "size": 1,
+                "distances": [
+                  1
+                ],
+                "avg_dist": 1.0,
+                "min_dist": 1,
+                "max_dist": 1,
+                "read_count": 1
+              },
+              "y": {
+                "size": 1,
+                "distances": [
+                  26024
+                ],
+                "avg_dist": 26024.0,
+                "min_dist": 26024,
+                "max_dist": 26024,
+                "read_count": 1
+              }
+            }
+          },
+          "seed": 44
+        }
+      ],
+      "summary": {
+        "pc_avg_acc": 0.5116666666666667,
+        "bp_avg_acc": 0.9983333333333334,
+        "pc_avg_ard": 370004.66721447295,
+        "bp_avg_ard": 20437.767431211756,
+        "ard_ratio": 0.05523651251503003
+      }
+    }
+  }
+}

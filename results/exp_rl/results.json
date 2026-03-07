@@ -1,0 +1,376 @@
+{
+  "experiment": "exp_rl",
+  "description": "RL bit querying for sparse parity \u2014 bandit and sequential Q-learning",
+  "hypothesis": "RL agent learns to query exactly the k secret bits, minimizing memory reads",
+  "approach": "Reinforcement Learning \u2014 Bit Querying (#16)",
+  "configs": {
+    "n10_k3": {
+      "n_bits": 10,
+      "k_sparse": 3,
+      "c_n_k": 120,
+      "n_train": 500,
+      "bandit_ucb": [
+        {
+          "method": "bandit_ucb",
+          "best_arm": [
+            1,
+            5,
+            8
+          ],
+          "best_mean_reward": 1.0,
+          "full_accuracy": 1.0,
+          "solved": "True",
+          "found_at_episode": 120,
+          "total_episodes": 1000,
+          "n_arms": 120,
+          "elapsed_s": 0.0316,
+          "memory": {
+            "total_floats_accessed": 300000,
+            "reads": 1000,
+            "writes": 1000,
+            "weighted_ard": 16022.1,
+            "total_floats_read": 150000,
+            "per_buffer": "(omitted for size)"
+          },
+          "secret": [
+            1,
+            5,
+            8
+          ],
+          "correct": true
+        },
+        {
+          "method": "bandit_ucb",
+          "best_arm": [
+            3,
+            6,
+            9
+          ],
+          "best_mean_reward": 1.0,
+          "full_accuracy": 1.0,
+          "solved": "True",
+          "found_at_episode": 120,
+          "total_episodes": 1000,
+          "n_arms": 120,
+          "elapsed_s": 0.0307,
+          "memory": {
+            "total_floats_accessed": 300000,
+            "reads": 1000,
+            "writes": 1000,
+            "weighted_ard": 15305.4,
+            "total_floats_read": 150000,
+            "per_buffer": "(omitted for size)"
+          },
+          "secret": [
+            3,
+            6,
+            9
+          ],
+          "correct": true
+        },
+        {
+          "method": "bandit_ucb",
+          "best_arm": [
+            2,
+            7,
+            9
+          ],
+          "best_mean_reward": 1.0,
+          "full_accuracy": 1.0,
+          "solved": "True",
+          "found_at_episode": 120,
+          "total_episodes": 1000,
+          "n_arms": 120,
+          "elapsed_s": 0.0387,
+          "memory": {
+            "total_floats_accessed": 300000,
+            "reads": 1000,
+            "writes": 1000,
+            "weighted_ard": 15108.0,
+            "total_floats_read": 150000,
+            "per_buffer": "(omitted for size)"
+          },
+          "secret": [
+            2,
+            7,
+            9
+          ],
+          "correct": true
+        }
+      ],
+      "sequential_qlearning": [
+        {
+          "method": "sequential_qlearning",
+          "learned_bits": [
+            1,
+            5,
+            8
+          ],
+          "test_accuracy": 1.0,
+          "final_rolling_accuracy": 0.992,
+          "solved": true,
+          "convergence_episode": 3656,
+          "total_episodes": 20000,
+          "q_table_size": 414,
+          "elapsed_s": 0.5818,
+          "memory": {
+            "total_floats_accessed": 120000,
+            "reads": 60000,
+            "writes": 60000,
+            "weighted_ard": 1.0,
+            "total_floats_read": 60000,
+            "per_buffer": "(omitted for size)"
+          },
+          "secret": [
+            1,
+            5,
+            8
+          ],
+          "correct": true
+        },
+        {
+          "method": "sequential_qlearning",
+          "learned_bits": [
+            3,
+            6,
+            9
+          ],
+          "test_accuracy": 1.0,
+          "final_rolling_accuracy": 0.99,
+          "solved": true,
+          "convergence_episode": 4169,
+          "total_episodes": 20000,
+          "q_table_size": 399,
+          "elapsed_s": 0.5942,
+          "memory": {
+            "total_floats_accessed": 120000,
+            "reads": 60000,
+            "writes": 60000,
+            "weighted_ard": 1.0,
+            "total_floats_read": 60000,
+            "per_buffer": "(omitted for size)"
+          },
+          "secret": [
+            3,
+            6,
+            9
+          ],
+          "correct": true
+        },
+        {
+          "method": "sequential_qlearning",
+          "learned_bits": [
+            2,
+            7,
+            9
+          ],
+          "test_accuracy": 1.0,
+          "final_rolling_accuracy": 0.994,
+          "solved": true,
+          "convergence_episode": 4377,
+          "total_episodes": 20000,
+          "q_table_size": 403,
+          "elapsed_s": 0.6407,
+          "memory": {
+            "total_floats_accessed": 120000,
+            "reads": 60000,
+            "writes": 60000,
+            "weighted_ard": 1.0,
+            "total_floats_read": 60000,
+            "per_buffer": "(omitted for size)"
+          },
+          "secret": [
+            2,
+            7,
+            9
+          ],
+          "correct": true
+        }
+      ]
+    },
+    "n20_k3": {
+      "n_bits": 20,
+      "k_sparse": 3,
+      "c_n_k": 1140,
+      "n_train": 500,
+      "bandit_ucb": [
+        {
+          "method": "bandit_ucb",
+          "best_arm": [
+            0,
+            15,
+            17
+          ],
+          "best_mean_reward": 1.0,
+          "full_accuracy": 1.0,
+          "solved": "True",
+          "found_at_episode": 1140,
+          "total_episodes": 3000,
+          "n_arms": 1140,
+          "elapsed_s": 0.1303,
+          "memory": {
+            "total_floats_accessed": 900000,
+            "reads": 3000,
+            "writes": 3000,
+            "weighted_ard": 83395.5,
+            "total_floats_read": 450000,
+            "per_buffer": "(omitted for size)"
+          },
+          "secret": [
+            0,
+            15,
+            17
+          ],
+          "correct": true
+        },
+        {
+          "method": "bandit_ucb",
+          "best_arm": [
+            6,
+            9,
+            19
+          ],
+          "best_mean_reward": 1.0,
+          "full_accuracy": 1.0,
+          "solved": "True",
+          "found_at_episode": 1140,
+          "total_episodes": 3000,
+          "n_arms": 1140,
+          "elapsed_s": 0.1144,
+          "memory": {
+            "total_floats_accessed": 900000,
+            "reads": 3000,
+            "writes": 3000,
+            "weighted_ard": 118141.2,
+            "total_floats_read": 450000,
+            "per_buffer": "(omitted for size)"
+          },
+          "secret": [
+            6,
+            9,
+            19
+          ],
+          "correct": true
+        },
+        {
+          "method": "bandit_ucb",
+          "best_arm": [
+            9,
+            14,
+            15
+          ],
+          "best_mean_reward": 1.0,
+          "full_accuracy": 1.0,
+          "solved": "True",
+          "found_at_episode": 1140,
+          "total_episodes": 3000,
+          "n_arms": 1140,
+          "elapsed_s": 0.1229,
+          "memory": {
+            "total_floats_accessed": 900000,
+            "reads": 3000,
+            "writes": 3000,
+            "weighted_ard": 69389.0,
+            "total_floats_read": 450000,
+            "per_buffer": "(omitted for size)"
+          },
+          "secret": [
+            9,
+            14,
+            15
+          ],
+          "correct": true
+        }
+      ],
+      "sequential_qlearning": [
+        {
+          "method": "sequential_qlearning",
+          "learned_bits": [
+            0,
+            15,
+            17
+          ],
+          "test_accuracy": 1.0,
+          "final_rolling_accuracy": 0.984,
+          "solved": true,
+          "convergence_episode": 9526,
+          "total_episodes": 50000,
+          "q_table_size": 1759,
+          "elapsed_s": 2.2714,
+          "memory": {
+            "total_floats_accessed": 300000,
+            "reads": 150000,
+            "writes": 150000,
+            "weighted_ard": 1.0,
+            "total_floats_read": 150000,
+            "per_buffer": "(omitted for size)"
+          },
+          "secret": [
+            0,
+            15,
+            17
+          ],
+          "correct": true
+        },
+        {
+          "method": "sequential_qlearning",
+          "learned_bits": [
+            6,
+            9,
+            19
+          ],
+          "test_accuracy": 1.0,
+          "final_rolling_accuracy": 0.982,
+          "solved": true,
+          "convergence_episode": 11907,
+          "total_episodes": 50000,
+          "q_table_size": 2045,
+          "elapsed_s": 2.4146,
+          "memory": {
+            "total_floats_accessed": 300000,
+            "reads": 150000,
+            "writes": 150000,
+            "weighted_ard": 1.0,
+            "total_floats_read": 150000,
+            "per_buffer": "(omitted for size)"
+          },
+          "secret": [
+            6,
+            9,
+            19
+          ],
+          "correct": true
+        },
+        {
+          "method": "sequential_qlearning",
+          "learned_bits": [
+            9,
+            14,
+            15
+          ],
+          "test_accuracy": 1.0,
+          "final_rolling_accuracy": 0.992,
+          "solved": true,
+          "convergence_episode": 5122,
+          "total_episodes": 50000,
+          "q_table_size": 1442,
+          "elapsed_s": 2.5233,
+          "memory": {
+            "total_floats_accessed": 300000,
+            "reads": 150000,
+            "writes": 150000,
+            "weighted_ard": 1.0,
+            "total_floats_read": 150000,
+            "per_buffer": "(omitted for size)"
+          },
+          "secret": [
+            9,
+            14,
+            15
+          ],
+          "correct": true
+        }
+      ]
+    }
+  }
+}

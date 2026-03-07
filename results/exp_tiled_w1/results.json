@@ -1,0 +1,3527 @@
+{
+  "experiment": "exp_tiled_w1",
+  "description": "Tiled W1 updates to reduce ARD by keeping W1 tiles in L1 cache",
+  "hypothesis": "Tiling W1 along hidden dim reduces reuse distance for W1 reads",
+  "n_bits": 20,
+  "k_sparse": 3,
+  "hidden_ard": 1000,
+  "hidden_acc": 500,
+  "tile_sizes": [
+    50,
+    100,
+    250,
+    500
+  ],
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "w1_total_floats": 20000,
+  "w1_total_bytes": 80000,
+  "ard_measurement": {
+    "baseline": [
+      {
+        "seed": 42,
+        "ard": 20437.767431211756,
+        "tracker_summary": {
+          "weighted_ard": 20437.767431211756,
+          "total_floats_accessed": 48046,
+          "reads": 9,
+          "writes": 9
+        },
+        "tracker_per_buffer": {
+          "x": {
+            "size": 20,
+            "avg_dist": 21.0,
+            "read_count": 1
+          },
+          "W1": {
+            "size": 20000,
+            "avg_dist": 22042.0,
+            "read_count": 1
+          },
+          "b1": {
+            "size": 1000,
+            "avg_dist": 22042.0,
+            "read_count": 1
+          },
+          "h_pre": {
+            "size": 1000,
+            "avg_dist": 1000.0,
+            "read_count": 1
+          },
+          "h": {
+            "size": 1000,
+            "avg_dist": 1000.0,
+            "read_count": 1
+          },
+          "W2": {
+            "size": 1000,
+            "avg_dist": 26042.0,
+            "read_count": 1
+          },
+          "b2": {
+            "size": 1,
+            "avg_dist": 26042.0,
+            "read_count": 1
+          },
+          "out": {
+            "size": 1,
+            "avg_dist": 1.0,
+            "read_count": 1
+          },
+          "y": {
+            "size": 1,
+            "avg_dist": 26024.0,
+            "read_count": 1
+          }
+        }
+      },
+      {
+        "seed": 43,
+        "ard": 35919.798744509586,
+        "tracker_summary": {
+          "weighted_ard": 35919.798744509586,
+          "total_floats_accessed": 102073,
+          "reads": 24,
+          "writes": 18
+        },
+        "tracker_per_buffer": {
+          "x": {
+            "size": 20,
+            "avg_dist": 17035.0,
+            "read_count": 2
+          },
+          "W1": {
+            "size": 20000,
+            "avg_dist": 39056.0,
+            "read_count": 2
+          },
+          "b1": {
+            "size": 1000,
+            "avg_dist": 49556.0,
+            "read_count": 2
+          },
+          "h_pre": {
+            "size": 1000,
+            "avg_dist": 5504.0,
+            "read_count": 2
+          },
+          "h": {
+            "size": 1000,
+            "avg_dist": 2003.0,
+            "read_count": 2
+          },
+          "W2": {
+            "size": 1000,
+            "avg_dist": 44720.3,
+            "read_count": 3
+          },
+          "b2": {
+            "size": 1,
+            "avg_dist": 53056.5,
+            "read_count": 2
+          },
+          "out": {
+            "size": 1,
+            "avg_dist": 1.0,
+            "read_count": 1
+          },
+          "y": {
+            "size": 1,
+            "avg_dist": 26024.0,
+            "read_count": 1
+          },
+          "dout": {
+            "size": 1,
+            "avg_dist": 1502.0,
+            "read_count": 2
+          },
+          "dh": {
+            "size": 1000,
+            "avg_dist": 1000.0,
+            "read_count": 1
+          },
+          "dh_pre": {
+            "size": 1000,
+            "avg_dist": 21510.0,
+            "read_count": 2
+          },
+          "dW2": {
+            "size": 1000,
+            "avg_dist": 50022.0,
+            "read_count": 1
+          },
+          "db2": {
+            "size": 1,
+            "avg_dist": 52022.0,
+            "read_count": 1
+          }
+        }
+      },
+      {
+        "seed": 44,
+        "ard": 35919.798744509586,
+        "tracker_summary": {
+          "weighted_ard": 35919.798744509586,
+          "total_floats_accessed": 102073,
+          "reads": 24,
+          "writes": 18
+        },
+        "tracker_per_buffer": {
+          "x": {
+            "size": 20,
+            "avg_dist": 17035.0,
+            "read_count": 2
+          },
+          "W1": {
+            "size": 20000,
+            "avg_dist": 39056.0,
+            "read_count": 2
+          },
+          "b1": {
+            "size": 1000,
+            "avg_dist": 49556.0,
+            "read_count": 2
+          },
+          "h_pre": {
+            "size": 1000,
+            "avg_dist": 5504.0,
+            "read_count": 2
+          },
+          "h": {
+            "size": 1000,
+            "avg_dist": 2003.0,
+            "read_count": 2
+          },
+          "W2": {
+            "size": 1000,
+            "avg_dist": 44720.3,
+            "read_count": 3
+          },
+          "b2": {
+            "size": 1,
+            "avg_dist": 53056.5,
+            "read_count": 2
+          },
+          "out": {
+            "size": 1,
+            "avg_dist": 1.0,
+            "read_count": 1
+          },
+          "y": {
+            "size": 1,
+            "avg_dist": 26024.0,
+            "read_count": 1
+          },
+          "dout": {
+            "size": 1,
+            "avg_dist": 1502.0,
+            "read_count": 2
+          },
+          "dh": {
+            "size": 1000,
+            "avg_dist": 1000.0,
+            "read_count": 1
+          },
+          "dh_pre": {
+            "size": 1000,
+            "avg_dist": 21510.0,
+            "read_count": 2
+          },
+          "dW2": {
+            "size": 1000,
+            "avg_dist": 50022.0,
+            "read_count": 1
+          },
+          "db2": {
+            "size": 1,
+            "avg_dist": 52022.0,
+            "read_count": 1
+          }
+        }
+      }
+    ],
+    "tiled": {
+      "T50": [
+        {
+          "seed": 42,
+          "tile_size": 50,
+          "n_tiles": 20,
+          "tile_kb": 3.9,
+          "ard": 22131.75539892636,
+          "tracker_summary": {
+            "weighted_ard": 22131.75539892636,
+            "total_floats_accessed": 48426,
+            "reads": 104,
+            "writes": 85
+          },
+          "tracker_per_buffer": {
+            "x": {
+              "size": 20,
+              "avg_dist": 11611.0,
+              "read_count": 20
+            },
+            "W1_tile0": {
+              "size": 1000,
+              "avg_dist": 22042.0,
+              "read_count": 1
+            },
+            "b1_tile0": {
+              "size": 50,
+              "avg_dist": 22042.0,
+              "read_count": 1
+            },
+            "h_pre_tile0": {
+              "size": 50,
+              "avg_dist": 50.0,
+              "read_count": 1
+            },
+            "W1_tile1": {
+              "size": 1000,
+              "avg_dist": 22212.0,
+              "read_count": 1
+            },
+            "b1_tile1": {
+              "size": 50,
+              "avg_dist": 22212.0,
+              "read_count": 1
+            },
+            "h_pre_tile1": {
+              "size": 50,
+              "avg_dist": 50.0,
+              "read_count": 1
+            },
+            "W1_tile2": {
+              "size": 1000,
+              "avg_dist": 22382.0,
+              "read_count": 1
+            },
+            "b1_tile2": {
+              "size": 50,
+              "avg_dist": 22382.0,
+              "read_count": 1
+            },
+            "h_pre_tile2": {
+              "size": 50,
+              "avg_dist": 50.0,
+              "read_count": 1
+            },
+            "W1_tile3": {
+              "size": 1000,
+              "avg_dist": 22552.0,
+              "read_count": 1
+            },
+            "b1_tile3": {
+              "size": 50,
+              "avg_dist": 22552.0,
+              "read_count": 1
+            },
+            "h_pre_tile3": {
+              "size": 50,
+              "avg_dist": 50.0,
+              "read_count": 1
+            },
+            "W1_tile4": {
+              "size": 1000,
+              "avg_dist": 22722.0,
+              "read_count": 1
+            },
+            "b1_tile4": {
+              "size": 50,
+              "avg_dist": 22722.0,
+              "read_count": 1
+            },
+            "h_pre_tile4": {
+              "size": 50,
+              "avg_dist": 50.0,
+              "read_count": 1
+            },
+            "W1_tile5": {
+              "size": 1000,
+              "avg_dist": 22892.0,
+              "read_count": 1
+            },
+            "b1_tile5": {
+              "size": 50,
+              "avg_dist": 22892.0,
+              "read_count": 1
+            },
+            "h_pre_tile5": {
+              "size": 50,
+              "avg_dist": 50.0,
+              "read_count": 1
+            },
+            "W1_tile6": {
+              "size": 1000,
+              "avg_dist": 23062.0,
+              "read_count": 1
+            },
+            "b1_tile6": {
+              "size": 50,
+              "avg_dist": 23062.0,
+              "read_count": 1
+            },
+            "h_pre_tile6": {
+              "size": 50,
+              "avg_dist": 50.0,
+              "read_count": 1
+            },
+            "W1_tile7": {
+              "size": 1000,
+              "avg_dist": 23232.0,
+              "read_count": 1
+            },
+            "b1_tile7": {
+              "size": 50,
+              "avg_dist": 23232.0,
+              "read_count": 1
+            },
+            "h_pre_tile7": {
+              "size": 50,
+              "avg_dist": 50.0,
+              "read_count": 1
+            },
+            "W1_tile8": {
+              "size": 1000,
+              "avg_dist": 23402.0,
+              "read_count": 1
+            },
+            "b1_tile8": {
+              "size": 50,
+              "avg_dist": 23402.0,
+              "read_count": 1
+            },
+            "h_pre_tile8": {
+              "size": 50,
+              "avg_dist": 50.0,
+              "read_count": 1
+            },
+            "W1_tile9": {
+              "size": 1000,
+              "avg_dist": 23572.0,
+              "read_count": 1
+            },
+            "b1_tile9": {
+              "size": 50,
+              "avg_dist": 23572.0,
+              "read_count": 1
+            },
+            "h_pre_tile9": {
+              "size": 50,
+              "avg_dist": 50.0,
+              "read_count": 1
+            },
+            "W1_tile10": {
+              "size": 1000,
+              "avg_dist": 23742.0,
+              "read_count": 1
+            },
+            "b1_tile10": {
+              "size": 50,
+              "avg_dist": 23742.0,
+              "read_count": 1
+            },
+            "h_pre_tile10": {
+              "size": 50,
+              "avg_dist": 50.0,
+              "read_count": 1
+            },
+            "W1_tile11": {
+              "size": 1000,
+              "avg_dist": 23912.0,
+              "read_count": 1
+            },
+            "b1_tile11": {
+              "size": 50,
+              "avg_dist": 23912.0,
+              "read_count": 1
+            },
+            "h_pre_tile11": {
+              "size": 50,
+              "avg_dist": 50.0,
+              "read_count": 1
+            },
+            "W1_tile12": {
+              "size": 1000,
+              "avg_dist": 24082.0,
+              "read_count": 1
+            },
+            "b1_tile12": {
+              "size": 50,
+              "avg_dist": 24082.0,
+              "read_count": 1
+            },
+            "h_pre_tile12": {
+              "size": 50,
+              "avg_dist": 50.0,
+              "read_count": 1
+            },
+            "W1_tile13": {
+              "size": 1000,
+              "avg_dist": 24252.0,
+              "read_count": 1
+            },
+            "b1_tile13": {
+              "size": 50,
+              "avg_dist": 24252.0,
+              "read_count": 1
+            },
+            "h_pre_tile13": {
+              "size": 50,
+              "avg_dist": 50.0,
+              "read_count": 1
+            },
+            "W1_tile14": {
+              "size": 1000,
+              "avg_dist": 24422.0,
+              "read_count": 1
+            },
+            "b1_tile14": {
+              "size": 50,
+              "avg_dist": 24422.0,
+              "read_count": 1
+            },
+            "h_pre_tile14": {
+              "size": 50,
+              "avg_dist": 50.0,
+              "read_count": 1
+            },
+            "W1_tile15": {
+              "size": 1000,
+              "avg_dist": 24592.0,
+              "read_count": 1
+            },
+            "b1_tile15": {
+              "size": 50,
+              "avg_dist": 24592.0,
+              "read_count": 1
+            },
+            "h_pre_tile15": {
+              "size": 50,
+              "avg_dist": 50.0,
+              "read_count": 1
+            },
+            "W1_tile16": {
+              "size": 1000,
+              "avg_dist": 24762.0,
+              "read_count": 1
+            },
+            "b1_tile16": {
+              "size": 50,
+              "avg_dist": 24762.0,
+              "read_count": 1
+            },
+            "h_pre_tile16": {
+              "size": 50,
+              "avg_dist": 50.0,
+              "read_count": 1
+            },
+            "W1_tile17": {
+              "size": 1000,
+              "avg_dist": 24932.0,
+              "read_count": 1
+            },
+            "b1_tile17": {
+              "size": 50,
+              "avg_dist": 24932.0,
+              "read_count": 1
+            },
+            "h_pre_tile17": {
+              "size": 50,
+              "avg_dist": 50.0,
+              "read_count": 1
+            },
+            "W1_tile18": {
+              "size": 1000,
+              "avg_dist": 25102.0,
+              "read_count": 1
+            },
+            "b1_tile18": {
+              "size": 50,
+              "avg_dist": 25102.0,
+              "read_count": 1
+            },
+            "h_pre_tile18": {
+              "size": 50,
+              "avg_dist": 50.0,
+              "read_count": 1
+            },
+            "W1_tile19": {
+              "size": 1000,
+              "avg_dist": 25272.0,
+              "read_count": 1
+            },
+            "b1_tile19": {
+              "size": 50,
+              "avg_dist": 25272.0,
+              "read_count": 1
+            },
+            "h_pre_tile19": {
+              "size": 50,
+              "avg_dist": 50.0,
+              "read_count": 1
+            },
+            "h_tile0": {
+              "size": 50,
+              "avg_dist": 23230.0,
+              "read_count": 1
+            },
+            "h_tile1": {
+              "size": 50,
+              "avg_dist": 22060.0,
+              "read_count": 1
+            },
+            "h_tile2": {
+              "size": 50,
+              "avg_dist": 20890.0,
+              "read_count": 1
+            },
+            "h_tile3": {
+              "size": 50,
+              "avg_dist": 19720.0,
+              "read_count": 1
+            },
+            "h_tile4": {
+              "size": 50,
+              "avg_dist": 18550.0,
+              "read_count": 1
+            },
+            "h_tile5": {
+              "size": 50,
+              "avg_dist": 17380.0,
+              "read_count": 1
+            },
+            "h_tile6": {
+              "size": 50,
+              "avg_dist": 16210.0,
+              "read_count": 1
+            },
+            "h_tile7": {
+              "size": 50,
+              "avg_dist": 15040.0,
+              "read_count": 1
+            },
+            "h_tile8": {
+              "size": 50,
+              "avg_dist": 13870.0,
+              "read_count": 1
+            },
+            "h_tile9": {
+              "size": 50,
+              "avg_dist": 12700.0,
+              "read_count": 1
+            },
+            "h_tile10": {
+              "size": 50,
+              "avg_dist": 11530.0,
+              "read_count": 1
+            },
+            "h_tile11": {
+              "size": 50,
+              "avg_dist": 10360.0,
+              "read_count": 1
+            },
+            "h_tile12": {
+              "size": 50,
+              "avg_dist": 9190.0,
+              "read_count": 1
+            },
+            "h_tile13": {
+              "size": 50,
+              "avg_dist": 8020.0,
+              "read_count": 1
+            },
+            "h_tile14": {
+              "size": 50,
+              "avg_dist": 6850.0,
+              "read_count": 1
+            },
+            "h_tile15": {
+              "size": 50,
+              "avg_dist": 5680.0,
+              "read_count": 1
+            },
+            "h_tile16": {
+              "size": 50,
+              "avg_dist": 4510.0,
+              "read_count": 1
+            },
+            "h_tile17": {
+              "size": 50,
+              "avg_dist": 3340.0,
+              "read_count": 1
+            },
+            "h_tile18": {
+              "size": 50,
+              "avg_dist": 2170.0,
+              "read_count": 1
+            },
+            "h_tile19": {
+              "size": 50,
+              "avg_dist": 1000.0,
+              "read_count": 1
+            },
+            "W2": {
+              "size": 1000,
+              "avg_dist": 26422.0,
+              "read_count": 1
+            },
+            "b2": {
+              "size": 1,
+              "avg_dist": 26422.0,
+              "read_count": 1
+            },
+            "out": {
+              "size": 1,
+              "avg_dist": 1.0,
+              "read_count": 1
+            },
+            "y": {
+              "size": 1,
+              "avg_dist": 26404.0,
+              "read_count": 1
+            }
+          }
+        },
+        {
+          "seed": 43,
+          "tile_size": 50,
+          "n_tiles": 20,
+          "tile_kb": 3.9,
+          "ard": 40672.26057151514,
+          "tracker_summary": {
+            "weighted_ard": 40672.26057151514,
+            "total_floats_accessed": 102833,
+            "reads": 251,
+            "writes": 151
+          },
+          "tracker_per_buffer": {
+            "x": {
+              "size": 20,
+              "avg_dist": 32377.5,
+              "read_count": 40
+            },
+            "W1_tile0": {
+              "size": 1000,
+              "avg_dist": 37346.0,
+              "read_count": 2
+            },
+            "b1_tile0": {
+              "size": 50,
+              "avg_dist": 37871.0,
+              "read_count": 2
+            },
+            "h_pre_tile0": {
+              "size": 50,
+              "avg_dist": 14719.0,
+              "read_count": 2
+            },
+            "W1_tile1": {
+              "size": 1000,
+              "avg_dist": 38091.0,
+              "read_count": 2
+            },
+            "b1_tile1": {
+              "size": 50,
+              "avg_dist": 38616.0,
+              "read_count": 2
+            },
+            "h_pre_tile1": {
+              "size": 50,
+              "avg_dist": 15294.0,
+              "read_count": 2
+            },
+            "W1_tile2": {
+              "size": 1000,
+              "avg_dist": 38836.0,
+              "read_count": 2
+            },
+            "b1_tile2": {
+              "size": 50,
+              "avg_dist": 39361.0,
+              "read_count": 2
+            },
+            "h_pre_tile2": {
+              "size": 50,
+              "avg_dist": 15869.0,
+              "read_count": 2
+            },
+            "W1_tile3": {
+              "size": 1000,
+              "avg_dist": 39581.0,
+              "read_count": 2
+            },
+            "b1_tile3": {
+              "size": 50,
+              "avg_dist": 40106.0,
+              "read_count": 2
+            },
+            "h_pre_tile3": {
+              "size": 50,
+              "avg_dist": 16444.0,
+              "read_count": 2
+            },
+            "W1_tile4": {
+              "size": 1000,
+              "avg_dist": 40326.0,
+              "read_count": 2
+            },
+            "b1_tile4": {
+              "size": 50,
+              "avg_dist": 40851.0,
+              "read_count": 2
+            },
+            "h_pre_tile4": {
+              "size": 50,
+              "avg_dist": 17019.0,
+              "read_count": 2
+            },
+            "W1_tile5": {
+              "size": 1000,
+              "avg_dist": 41071.0,
+              "read_count": 2
+            },
+            "b1_tile5": {
+              "size": 50,
+              "avg_dist": 41596.0,
+              "read_count": 2
+            },
+            "h_pre_tile5": {
+              "size": 50,
+              "avg_dist": 17594.0,
+              "read_count": 2
+            },
+            "W1_tile6": {
+              "size": 1000,
+              "avg_dist": 41816.0,
+              "read_count": 2
+            },
+            "b1_tile6": {
+              "size": 50,
+              "avg_dist": 42341.0,
+              "read_count": 2
+            },
+            "h_pre_tile6": {
+              "size": 50,
+              "avg_dist": 18169.0,
+              "read_count": 2
+            },
+            "W1_tile7": {
+              "size": 1000,
+              "avg_dist": 42561.0,
+              "read_count": 2
+            },
+            "b1_tile7": {
+              "size": 50,
+              "avg_dist": 43086.0,
+              "read_count": 2
+            },
+            "h_pre_tile7": {
+              "size": 50,
+              "avg_dist": 18744.0,
+              "read_count": 2
+            },
+            "W1_tile8": {
+              "size": 1000,
+              "avg_dist": 43306.0,
+              "read_count": 2
+            },
+            "b1_tile8": {
+              "size": 50,
+              "avg_dist": 43831.0,
+              "read_count": 2
+            },
+            "h_pre_tile8": {
+              "size": 50,
+              "avg_dist": 19319.0,
+              "read_count": 2
+            },
+            "W1_tile9": {
+              "size": 1000,
+              "avg_dist": 44051.0,
+              "read_count": 2
+            },
+            "b1_tile9": {
+              "size": 50,
+              "avg_dist": 44576.0,
+              "read_count": 2
+            },
+            "h_pre_tile9": {
+              "size": 50,
+              "avg_dist": 19894.0,
+              "read_count": 2
+            },
+            "W1_tile10": {
+              "size": 1000,
+              "avg_dist": 44796.0,
+              "read_count": 2
+            },
+            "b1_tile10": {
+              "size": 50,
+              "avg_dist": 45321.0,
+              "read_count": 2
+            },
+            "h_pre_tile10": {
+              "size": 50,
+              "avg_dist": 20469.0,
+              "read_count": 2
+            },
+            "W1_tile11": {
+              "size": 1000,
+              "avg_dist": 45541.0,
+              "read_count": 2
+            },
+            "b1_tile11": {
+              "size": 50,
+              "avg_dist": 46066.0,
+              "read_count": 2
+            },
+            "h_pre_tile11": {
+              "size": 50,
+              "avg_dist": 21044.0,
+              "read_count": 2
+            },
+            "W1_tile12": {
+              "size": 1000,
+              "avg_dist": 46286.0,
+              "read_count": 2
+            },
+            "b1_tile12": {
+              "size": 50,
+              "avg_dist": 46811.0,
+              "read_count": 2
+            },
+            "h_pre_tile12": {
+              "size": 50,
+              "avg_dist": 21619.0,
+              "read_count": 2
+            },
+            "W1_tile13": {
+              "size": 1000,
+              "avg_dist": 47031.0,
+              "read_count": 2
+            },
+            "b1_tile13": {
+              "size": 50,
+              "avg_dist": 47556.0,
+              "read_count": 2
+            },
+            "h_pre_tile13": {
+              "size": 50,
+              "avg_dist": 22194.0,
+              "read_count": 2
+            },
+            "W1_tile14": {
+              "size": 1000,
+              "avg_dist": 47776.0,
+              "read_count": 2
+            },
+            "b1_tile14": {
+              "size": 50,
+              "avg_dist": 48301.0,
+              "read_count": 2
+            },
+            "h_pre_tile14": {
+              "size": 50,
+              "avg_dist": 22769.0,
+              "read_count": 2
+            },
+            "W1_tile15": {
+              "size": 1000,
+              "avg_dist": 48521.0,
+              "read_count": 2
+            },
+            "b1_tile15": {
+              "size": 50,
+              "avg_dist": 49046.0,
+              "read_count": 2
+            },
+            "h_pre_tile15": {
+              "size": 50,
+              "avg_dist": 23344.0,
+              "read_count": 2
+            },
+            "W1_tile16": {
+              "size": 1000,
+              "avg_dist": 49266.0,
+              "read_count": 2
+            },
+            "b1_tile16": {
+              "size": 50,
+              "avg_dist": 49791.0,
+              "read_count": 2
+            },
+            "h_pre_tile16": {
+              "size": 50,
+              "avg_dist": 23919.0,
+              "read_count": 2
+            },
+            "W1_tile17": {
+              "size": 1000,
+              "avg_dist": 50011.0,
+              "read_count": 2
+            },
+            "b1_tile17": {
+              "size": 50,
+              "avg_dist": 50536.0,
+              "read_count": 2
+            },
+            "h_pre_tile17": {
+              "size": 50,
+              "avg_dist": 24494.0,
+              "read_count": 2
+            },
+            "W1_tile18": {
+              "size": 1000,
+              "avg_dist": 50756.0,
+              "read_count": 2
+            },
+            "b1_tile18": {
+              "size": 50,
+              "avg_dist": 51281.0,
+              "read_count": 2
+            },
+            "h_pre_tile18": {
+              "size": 50,
+              "avg_dist": 25069.0,
+              "read_count": 2
+            },
+            "W1_tile19": {
+              "size": 1000,
+              "avg_dist": 51501.0,
+              "read_count": 2
+            },
+            "b1_tile19": {
+              "size": 50,
+              "avg_dist": 52026.0,
+              "read_count": 2
+            },
+            "h_pre_tile19": {
+              "size": 50,
+              "avg_dist": 25644.0,
+              "read_count": 2
+            },
+            "h_tile0": {
+              "size": 50,
+              "avg_dist": 24233.0,
+              "read_count": 2
+            },
+            "h_tile1": {
+              "size": 50,
+              "avg_dist": 23063.0,
+              "read_count": 2
+            },
+            "h_tile2": {
+              "size": 50,
+              "avg_dist": 21893.0,
+              "read_count": 2
+            },
+            "h_tile3": {
+              "size": 50,
+              "avg_dist": 20723.0,
+              "read_count": 2
+            },
+            "h_tile4": {
+              "size": 50,
+              "avg_dist": 19553.0,
+              "read_count": 2
+            },
+            "h_tile5": {
+              "size": 50,
+              "avg_dist": 18383.0,
+              "read_count": 2
+            },
+            "h_tile6": {
+              "size": 50,
+              "avg_dist": 17213.0,
+              "read_count": 2
+            },
+            "h_tile7": {
+              "size": 50,
+              "avg_dist": 16043.0,
+              "read_count": 2
+            },
+            "h_tile8": {
+              "size": 50,
+              "avg_dist": 14873.0,
+              "read_count": 2
+            },
+            "h_tile9": {
+              "size": 50,
+              "avg_dist": 13703.0,
+              "read_count": 2
+            },
+            "h_tile10": {
+              "size": 50,
+              "avg_dist": 12533.0,
+              "read_count": 2
+            },
+            "h_tile11": {
+              "size": 50,
+              "avg_dist": 11363.0,
+              "read_count": 2
+            },
+            "h_tile12": {
+              "size": 50,
+              "avg_dist": 10193.0,
+              "read_count": 2
+            },
+            "h_tile13": {
+              "size": 50,
+              "avg_dist": 9023.0,
+              "read_count": 2
+            },
+            "h_tile14": {
+              "size": 50,
+              "avg_dist": 7853.0,
+              "read_count": 2
+            },
+            "h_tile15": {
+              "size": 50,
+              "avg_dist": 6683.0,
+              "read_count": 2
+            },
+            "h_tile16": {
+              "size": 50,
+              "avg_dist": 5513.0,
+              "read_count": 2
+            },
+            "h_tile17": {
+              "size": 50,
+              "avg_dist": 4343.0,
+              "read_count": 2
+            },
+            "h_tile18": {
+              "size": 50,
+              "avg_dist": 3173.0,
+              "read_count": 2
+            },
+            "h_tile19": {
+              "size": 50,
+              "avg_dist": 2003.0,
+              "read_count": 2
+            },
+            "W2": {
+              "size": 1000,
+              "avg_dist": 45227.0,
+              "read_count": 3
+            },
+            "b2": {
+              "size": 1,
+              "avg_dist": 53626.5,
+              "read_count": 2
+            },
+            "out": {
+              "size": 1,
+              "avg_dist": 1.0,
+              "read_count": 1
+            },
+            "y": {
+              "size": 1,
+              "avg_dist": 26404.0,
+              "read_count": 1
+            },
+            "dout": {
+              "size": 1,
+              "avg_dist": 1502.0,
+              "read_count": 2
+            },
+            "dh_pre_tile0": {
+              "size": 50,
+              "avg_dist": 1085.0,
+              "read_count": 2
+            },
+            "dh_pre_tile1": {
+              "size": 50,
+              "avg_dist": 1085.0,
+              "read_count": 2
+            },
+            "dh_pre_tile2": {
+              "size": 50,
+              "avg_dist": 1085.0,
+              "read_count": 2
+            },
+            "dh_pre_tile3": {
+              "size": 50,
+              "avg_dist": 1085.0,
+              "read_count": 2
+            },
+            "dh_pre_tile4": {
+              "size": 50,
+              "avg_dist": 1085.0,
+              "read_count": 2
+            },
+            "dh_pre_tile5": {
+              "size": 50,
+              "avg_dist": 1085.0,
+              "read_count": 2
+            },
+            "dh_pre_tile6": {
+              "size": 50,
+              "avg_dist": 1085.0,
+              "read_count": 2
+            },
+            "dh_pre_tile7": {
+              "size": 50,
+              "avg_dist": 1085.0,
+              "read_count": 2
+            },
+            "dh_pre_tile8": {
+              "size": 50,
+              "avg_dist": 1085.0,
+              "read_count": 2
+            },
+            "dh_pre_tile9": {
+              "size": 50,
+              "avg_dist": 1085.0,
+              "read_count": 2
+            },
+            "dh_pre_tile10": {
+              "size": 50,
+              "avg_dist": 1085.0,
+              "read_count": 2
+            },
+            "dh_pre_tile11": {
+              "size": 50,
+              "avg_dist": 1085.0,
+              "read_count": 2
+            },
+            "dh_pre_tile12": {
+              "size": 50,
+              "avg_dist": 1085.0,
+              "read_count": 2
+            },
+            "dh_pre_tile13": {
+              "size": 50,
+              "avg_dist": 1085.0,
+              "read_count": 2
+            },
+            "dh_pre_tile14": {
+              "size": 50,
+              "avg_dist": 1085.0,
+              "read_count": 2
+            },
+            "dh_pre_tile15": {
+              "size": 50,
+              "avg_dist": 1085.0,
+              "read_count": 2
+            },
+            "dh_pre_tile16": {
+              "size": 50,
+              "avg_dist": 1085.0,
+              "read_count": 2
+            },
+            "dh_pre_tile17": {
+              "size": 50,
+              "avg_dist": 1085.0,
+              "read_count": 2
+            },
+            "dh_pre_tile18": {
+              "size": 50,
+              "avg_dist": 1085.0,
+              "read_count": 2
+            },
+            "dh_pre_tile19": {
+              "size": 50,
+              "avg_dist": 1085.0,
+              "read_count": 2
+            },
+            "dW2": {
+              "size": 1000,
+              "avg_dist": 50402.0,
+              "read_count": 1
+            },
+            "db2": {
+              "size": 1,
+              "avg_dist": 52402.0,
+              "read_count": 1
+            }
+          }
+        },
+        {
+          "seed": 44,
+          "tile_size": 50,
+          "n_tiles": 20,
+          "tile_kb": 3.9,
+          "ard": 40672.26057151514,
+          "tracker_summary": {
+            "weighted_ard": 40672.26057151514,
+            "total_floats_accessed": 102833,
+            "reads": 251,
+            "writes": 151
+          },
+          "tracker_per_buffer": {
+            "x": {
+              "size": 20,
+              "avg_dist": 32377.5,
+              "read_count": 40
+            },
+            "W1_tile0": {
+              "size": 1000,
+              "avg_dist": 37346.0,
+              "read_count": 2
+            },
+            "b1_tile0": {
+              "size": 50,
+              "avg_dist": 37871.0,
+              "read_count": 2
+            },
+            "h_pre_tile0": {
+              "size": 50,
+              "avg_dist": 14719.0,
+              "read_count": 2
+            },
+            "W1_tile1": {
+              "size": 1000,
+              "avg_dist": 38091.0,
+              "read_count": 2
+            },
+            "b1_tile1": {
+              "size": 50,
+              "avg_dist": 38616.0,
+              "read_count": 2
+            },
+            "h_pre_tile1": {
+              "size": 50,
+              "avg_dist": 15294.0,
+              "read_count": 2
+            },
+            "W1_tile2": {
+              "size": 1000,
+              "avg_dist": 38836.0,
+              "read_count": 2
+            },
+            "b1_tile2": {
+              "size": 50,
+              "avg_dist": 39361.0,
+              "read_count": 2
+            },
+            "h_pre_tile2": {
+              "size": 50,
+              "avg_dist": 15869.0,
+              "read_count": 2
+            },
+            "W1_tile3": {
+              "size": 1000,
+              "avg_dist": 39581.0,
+              "read_count": 2
+            },
+            "b1_tile3": {
+              "size": 50,
+              "avg_dist": 40106.0,
+              "read_count": 2
+            },
+            "h_pre_tile3": {
+              "size": 50,
+              "avg_dist": 16444.0,
+              "read_count": 2
+            },
+            "W1_tile4": {
+              "size": 1000,
+              "avg_dist": 40326.0,
+              "read_count": 2
+            },
+            "b1_tile4": {
+              "size": 50,
+              "avg_dist": 40851.0,
+              "read_count": 2
+            },
+            "h_pre_tile4": {
+              "size": 50,
+              "avg_dist": 17019.0,
+              "read_count": 2
+            },
+            "W1_tile5": {
+              "size": 1000,
+              "avg_dist": 41071.0,
+              "read_count": 2
+            },
+            "b1_tile5": {
+              "size": 50,
+              "avg_dist": 41596.0,
+              "read_count": 2
+            },
+            "h_pre_tile5": {
+              "size": 50,
+              "avg_dist": 17594.0,
+              "read_count": 2
+            },
+            "W1_tile6": {
+              "size": 1000,
+              "avg_dist": 41816.0,
+              "read_count": 2
+            },
+            "b1_tile6": {
+              "size": 50,
+              "avg_dist": 42341.0,
+              "read_count": 2
+            },
+            "h_pre_tile6": {
+              "size": 50,
+              "avg_dist": 18169.0,
+              "read_count": 2
+            },
+            "W1_tile7": {
+              "size": 1000,
+              "avg_dist": 42561.0,
+              "read_count": 2
+            },
+            "b1_tile7": {
+              "size": 50,
+              "avg_dist": 43086.0,
+              "read_count": 2
+            },
+            "h_pre_tile7": {
+              "size": 50,
+              "avg_dist": 18744.0,
+              "read_count": 2
+            },
+            "W1_tile8": {
+              "size": 1000,
+              "avg_dist": 43306.0,
+              "read_count": 2
+            },
+            "b1_tile8": {
+              "size": 50,
+              "avg_dist": 43831.0,
+              "read_count": 2
+            },
+            "h_pre_tile8": {
+              "size": 50,
+              "avg_dist": 19319.0,
+              "read_count": 2
+            },
+            "W1_tile9": {
+              "size": 1000,
+              "avg_dist": 44051.0,
+              "read_count": 2
+            },
+            "b1_tile9": {
+              "size": 50,
+              "avg_dist": 44576.0,
+              "read_count": 2
+            },
+            "h_pre_tile9": {
+              "size": 50,
+              "avg_dist": 19894.0,
+              "read_count": 2
+            },
+            "W1_tile10": {
+              "size": 1000,
+              "avg_dist": 44796.0,
+              "read_count": 2
+            },
+            "b1_tile10": {
+              "size": 50,
+              "avg_dist": 45321.0,
+              "read_count": 2
+            },
+            "h_pre_tile10": {
+              "size": 50,
+              "avg_dist": 20469.0,
+              "read_count": 2
+            },
+            "W1_tile11": {
+              "size": 1000,
+              "avg_dist": 45541.0,
+              "read_count": 2
+            },
+            "b1_tile11": {
+              "size": 50,
+              "avg_dist": 46066.0,
+              "read_count": 2
+            },
+            "h_pre_tile11": {
+              "size": 50,
+              "avg_dist": 21044.0,
+              "read_count": 2
+            },
+            "W1_tile12": {
+              "size": 1000,
+              "avg_dist": 46286.0,
+              "read_count": 2
+            },
+            "b1_tile12": {
+              "size": 50,
+              "avg_dist": 46811.0,
+              "read_count": 2
+            },
+            "h_pre_tile12": {
+              "size": 50,
+              "avg_dist": 21619.0,
+              "read_count": 2
+            },
+            "W1_tile13": {
+              "size": 1000,
+              "avg_dist": 47031.0,
+              "read_count": 2
+            },
+            "b1_tile13": {
+              "size": 50,
+              "avg_dist": 47556.0,
+              "read_count": 2
+            },
+            "h_pre_tile13": {
+              "size": 50,
+              "avg_dist": 22194.0,
+              "read_count": 2
+            },
+            "W1_tile14": {
+              "size": 1000,
+              "avg_dist": 47776.0,
+              "read_count": 2
+            },
+            "b1_tile14": {
+              "size": 50,
+              "avg_dist": 48301.0,
+              "read_count": 2
+            },
+            "h_pre_tile14": {
+              "size": 50,
+              "avg_dist": 22769.0,
+              "read_count": 2
+            },
+            "W1_tile15": {
+              "size": 1000,
+              "avg_dist": 48521.0,
+              "read_count": 2
+            },
+            "b1_tile15": {
+              "size": 50,
+              "avg_dist": 49046.0,
+              "read_count": 2
+            },
+            "h_pre_tile15": {
+              "size": 50,
+              "avg_dist": 23344.0,
+              "read_count": 2
+            },
+            "W1_tile16": {
+              "size": 1000,
+              "avg_dist": 49266.0,
+              "read_count": 2
+            },
+            "b1_tile16": {
+              "size": 50,
+              "avg_dist": 49791.0,
+              "read_count": 2
+            },
+            "h_pre_tile16": {
+              "size": 50,
+              "avg_dist": 23919.0,
+              "read_count": 2
+            },
+            "W1_tile17": {
+              "size": 1000,
+              "avg_dist": 50011.0,
+              "read_count": 2
+            },
+            "b1_tile17": {
+              "size": 50,
+              "avg_dist": 50536.0,
+              "read_count": 2
+            },
+            "h_pre_tile17": {
+              "size": 50,
+              "avg_dist": 24494.0,
+              "read_count": 2
+            },
+            "W1_tile18": {
+              "size": 1000,
+              "avg_dist": 50756.0,
+              "read_count": 2
+            },
+            "b1_tile18": {
+              "size": 50,
+              "avg_dist": 51281.0,
+              "read_count": 2
+            },
+            "h_pre_tile18": {
+              "size": 50,
+              "avg_dist": 25069.0,
+              "read_count": 2
+            },
+            "W1_tile19": {
+              "size": 1000,
+              "avg_dist": 51501.0,
+              "read_count": 2
+            },
+            "b1_tile19": {
+              "size": 50,
+              "avg_dist": 52026.0,
+              "read_count": 2
+            },
+            "h_pre_tile19": {
+              "size": 50,
+              "avg_dist": 25644.0,
+              "read_count": 2
+            },
+            "h_tile0": {
+              "size": 50,
+              "avg_dist": 24233.0,
+              "read_count": 2
+            },
+            "h_tile1": {
+              "size": 50,
+              "avg_dist": 23063.0,
+              "read_count": 2
+            },
+            "h_tile2": {
+              "size": 50,
+              "avg_dist": 21893.0,
+              "read_count": 2
+            },
+            "h_tile3": {
+              "size": 50,
+              "avg_dist": 20723.0,
+              "read_count": 2
+            },
+            "h_tile4": {
+              "size": 50,
+              "avg_dist": 19553.0,
+              "read_count": 2
+            },
+            "h_tile5": {
+              "size": 50,
+              "avg_dist": 18383.0,
+              "read_count": 2
+            },
+            "h_tile6": {
+              "size": 50,
+              "avg_dist": 17213.0,
+              "read_count": 2
+            },
+            "h_tile7": {
+              "size": 50,
+              "avg_dist": 16043.0,
+              "read_count": 2
+            },
+            "h_tile8": {
+              "size": 50,
+              "avg_dist": 14873.0,
+              "read_count": 2
+            },
+            "h_tile9": {
+              "size": 50,
+              "avg_dist": 13703.0,
+              "read_count": 2
+            },
+            "h_tile10": {
+              "size": 50,
+              "avg_dist": 12533.0,
+              "read_count": 2
+            },
+            "h_tile11": {
+              "size": 50,
+              "avg_dist": 11363.0,
+              "read_count": 2
+            },
+            "h_tile12": {
+              "size": 50,
+              "avg_dist": 10193.0,
+              "read_count": 2
+            },
+            "h_tile13": {
+              "size": 50,
+              "avg_dist": 9023.0,
+              "read_count": 2
+            },
+            "h_tile14": {
+              "size": 50,
+              "avg_dist": 7853.0,
+              "read_count": 2
+            },
+            "h_tile15": {
+              "size": 50,
+              "avg_dist": 6683.0,
+              "read_count": 2
+            },
+            "h_tile16": {
+              "size": 50,
+              "avg_dist": 5513.0,
+              "read_count": 2
+            },
+            "h_tile17": {
+              "size": 50,
+              "avg_dist": 4343.0,
+              "read_count": 2
+            },
+            "h_tile18": {
+              "size": 50,
+              "avg_dist": 3173.0,
+              "read_count": 2
+            },
+            "h_tile19": {
+              "size": 50,
+              "avg_dist": 2003.0,
+              "read_count": 2
+            },
+            "W2": {
+              "size": 1000,
+              "avg_dist": 45227.0,
+              "read_count": 3
+            },
+            "b2": {
+              "size": 1,
+              "avg_dist": 53626.5,
+              "read_count": 2
+            },
+            "out": {
+              "size": 1,
+              "avg_dist": 1.0,
+              "read_count": 1
+            },
+            "y": {
+              "size": 1,
+              "avg_dist": 26404.0,
+              "read_count": 1
+            },
+            "dout": {
+              "size": 1,
+              "avg_dist": 1502.0,
+              "read_count": 2
+            },
+            "dh_pre_tile0": {
+              "size": 50,
+              "avg_dist": 1085.0,
+              "read_count": 2
+            },
+            "dh_pre_tile1": {
+              "size": 50,
+              "avg_dist": 1085.0,
+              "read_count": 2
+            },
+            "dh_pre_tile2": {
+              "size": 50,
+              "avg_dist": 1085.0,
+              "read_count": 2
+            },
+            "dh_pre_tile3": {
+              "size": 50,
+              "avg_dist": 1085.0,
+              "read_count": 2
+            },
+            "dh_pre_tile4": {
+              "size": 50,
+              "avg_dist": 1085.0,
+              "read_count": 2
+            },
+            "dh_pre_tile5": {
+              "size": 50,
+              "avg_dist": 1085.0,
+              "read_count": 2
+            },
+            "dh_pre_tile6": {
+              "size": 50,
+              "avg_dist": 1085.0,
+              "read_count": 2
+            },
+            "dh_pre_tile7": {
+              "size": 50,
+              "avg_dist": 1085.0,
+              "read_count": 2
+            },
+            "dh_pre_tile8": {
+              "size": 50,
+              "avg_dist": 1085.0,
+              "read_count": 2
+            },
+            "dh_pre_tile9": {
+              "size": 50,
+              "avg_dist": 1085.0,
+              "read_count": 2
+            },
+            "dh_pre_tile10": {
+              "size": 50,
+              "avg_dist": 1085.0,
+              "read_count": 2
+            },
+            "dh_pre_tile11": {
+              "size": 50,
+              "avg_dist": 1085.0,
+              "read_count": 2
+            },
+            "dh_pre_tile12": {
+              "size": 50,
+              "avg_dist": 1085.0,
+              "read_count": 2
+            },
+            "dh_pre_tile13": {
+              "size": 50,
+              "avg_dist": 1085.0,
+              "read_count": 2
+            },
+            "dh_pre_tile14": {
+              "size": 50,
+              "avg_dist": 1085.0,
+              "read_count": 2
+            },
+            "dh_pre_tile15": {
+              "size": 50,
+              "avg_dist": 1085.0,
+              "read_count": 2
+            },
+            "dh_pre_tile16": {
+              "size": 50,
+              "avg_dist": 1085.0,
+              "read_count": 2
+            },
+            "dh_pre_tile17": {
+              "size": 50,
+              "avg_dist": 1085.0,
+              "read_count": 2
+            },
+            "dh_pre_tile18": {
+              "size": 50,
+              "avg_dist": 1085.0,
+              "read_count": 2
+            },
+            "dh_pre_tile19": {
+              "size": 50,
+              "avg_dist": 1085.0,
+              "read_count": 2
+            },
+            "dW2": {
+              "size": 1000,
+              "avg_dist": 50402.0,
+              "read_count": 1
+            },
+            "db2": {
+              "size": 1,
+              "avg_dist": 52402.0,
+              "read_count": 1
+            }
+          }
+        }
+      ],
+      "T100": [
+        {
+          "seed": 42,
+          "tile_size": 100,
+          "n_tiles": 10,
+          "tile_kb": 7.8,
+          "ard": 22026.96471511796,
+          "tracker_summary": {
+            "weighted_ard": 22026.96471511796,
+            "total_floats_accessed": 48226,
+            "reads": 54,
+            "writes": 45
+          },
+          "tracker_per_buffer": {
+            "x": {
+              "size": 20,
+              "avg_dist": 10911.0,
+              "read_count": 10
+            },
+            "W1_tile0": {
+              "size": 2000,
+              "avg_dist": 22042.0,
+              "read_count": 1
+            },
+            "b1_tile0": {
+              "size": 100,
+              "avg_dist": 22042.0,
+              "read_count": 1
+            },
+            "h_pre_tile0": {
+              "size": 100,
+              "avg_dist": 100.0,
+              "read_count": 1
+            },
+            "W1_tile1": {
+              "size": 2000,
+              "avg_dist": 22362.0,
+              "read_count": 1
+            },
+            "b1_tile1": {
+              "size": 100,
+              "avg_dist": 22362.0,
+              "read_count": 1
+            },
+            "h_pre_tile1": {
+              "size": 100,
+              "avg_dist": 100.0,
+              "read_count": 1
+            },
+            "W1_tile2": {
+              "size": 2000,
+              "avg_dist": 22682.0,
+              "read_count": 1
+            },
+            "b1_tile2": {
+              "size": 100,
+              "avg_dist": 22682.0,
+              "read_count": 1
+            },
+            "h_pre_tile2": {
+              "size": 100,
+              "avg_dist": 100.0,
+              "read_count": 1
+            },
+            "W1_tile3": {
+              "size": 2000,
+              "avg_dist": 23002.0,
+              "read_count": 1
+            },
+            "b1_tile3": {
+              "size": 100,
+              "avg_dist": 23002.0,
+              "read_count": 1
+            },
+            "h_pre_tile3": {
+              "size": 100,
+              "avg_dist": 100.0,
+              "read_count": 1
+            },
+            "W1_tile4": {
+              "size": 2000,
+              "avg_dist": 23322.0,
+              "read_count": 1
+            },
+            "b1_tile4": {
+              "size": 100,
+              "avg_dist": 23322.0,
+              "read_count": 1
+            },
+            "h_pre_tile4": {
+              "size": 100,
+              "avg_dist": 100.0,
+              "read_count": 1
+            },
+            "W1_tile5": {
+              "size": 2000,
+              "avg_dist": 23642.0,
+              "read_count": 1
+            },
+            "b1_tile5": {
+              "size": 100,
+              "avg_dist": 23642.0,
+              "read_count": 1
+            },
+            "h_pre_tile5": {
+              "size": 100,
+              "avg_dist": 100.0,
+              "read_count": 1
+            },
+            "W1_tile6": {
+              "size": 2000,
+              "avg_dist": 23962.0,
+              "read_count": 1
+            },
+            "b1_tile6": {
+              "size": 100,
+              "avg_dist": 23962.0,
+              "read_count": 1
+            },
+            "h_pre_tile6": {
+              "size": 100,
+              "avg_dist": 100.0,
+              "read_count": 1
+            },
+            "W1_tile7": {
+              "size": 2000,
+              "avg_dist": 24282.0,
+              "read_count": 1
+            },
+            "b1_tile7": {
+              "size": 100,
+              "avg_dist": 24282.0,
+              "read_count": 1
+            },
+            "h_pre_tile7": {
+              "size": 100,
+              "avg_dist": 100.0,
+              "read_count": 1
+            },
+            "W1_tile8": {
+              "size": 2000,
+              "avg_dist": 24602.0,
+              "read_count": 1
+            },
+            "b1_tile8": {
+              "size": 100,
+              "avg_dist": 24602.0,
+              "read_count": 1
+            },
+            "h_pre_tile8": {
+              "size": 100,
+              "avg_dist": 100.0,
+              "read_count": 1
+            },
+            "W1_tile9": {
+              "size": 2000,
+              "avg_dist": 24922.0,
+              "read_count": 1
+            },
+            "b1_tile9": {
+              "size": 100,
+              "avg_dist": 24922.0,
+              "read_count": 1
+            },
+            "h_pre_tile9": {
+              "size": 100,
+              "avg_dist": 100.0,
+              "read_count": 1
+            },
+            "h_tile0": {
+              "size": 100,
+              "avg_dist": 21880.0,
+              "read_count": 1
+            },
+            "h_tile1": {
+              "size": 100,
+              "avg_dist": 19560.0,
+              "read_count": 1
+            },
+            "h_tile2": {
+              "size": 100,
+              "avg_dist": 17240.0,
+              "read_count": 1
+            },
+            "h_tile3": {
+              "size": 100,
+              "avg_dist": 14920.0,
+              "read_count": 1
+            },
+            "h_tile4": {
+              "size": 100,
+              "avg_dist": 12600.0,
+              "read_count": 1
+            },
+            "h_tile5": {
+              "size": 100,
+              "avg_dist": 10280.0,
+              "read_count": 1
+            },
+            "h_tile6": {
+              "size": 100,
+              "avg_dist": 7960.0,
+              "read_count": 1
+            },
+            "h_tile7": {
+              "size": 100,
+              "avg_dist": 5640.0,
+              "read_count": 1
+            },
+            "h_tile8": {
+              "size": 100,
+              "avg_dist": 3320.0,
+              "read_count": 1
+            },
+            "h_tile9": {
+              "size": 100,
+              "avg_dist": 1000.0,
+              "read_count": 1
+            },
+            "W2": {
+              "size": 1000,
+              "avg_dist": 26222.0,
+              "read_count": 1
+            },
+            "b2": {
+              "size": 1,
+              "avg_dist": 26222.0,
+              "read_count": 1
+            },
+            "out": {
+              "size": 1,
+              "avg_dist": 1.0,
+              "read_count": 1
+            },
+            "y": {
+              "size": 1,
+              "avg_dist": 26204.0,
+              "read_count": 1
+            }
+          }
+        },
+        {
+          "seed": 43,
+          "tile_size": 100,
+          "n_tiles": 10,
+          "tile_kb": 7.8,
+          "ard": 40340.66181998588,
+          "tracker_summary": {
+            "weighted_ard": 40340.66181998588,
+            "total_floats_accessed": 102433,
+            "reads": 131,
+            "writes": 81
+          },
+          "tracker_per_buffer": {
+            "x": {
+              "size": 20,
+              "avg_dist": 31390.0,
+              "read_count": 20
+            },
+            "W1_tile0": {
+              "size": 2000,
+              "avg_dist": 37346.0,
+              "read_count": 2
+            },
+            "b1_tile0": {
+              "size": 100,
+              "avg_dist": 38396.0,
+              "read_count": 2
+            },
+            "h_pre_tile0": {
+              "size": 100,
+              "avg_dist": 14144.0,
+              "read_count": 2
+            },
+            "W1_tile1": {
+              "size": 2000,
+              "avg_dist": 38816.0,
+              "read_count": 2
+            },
+            "b1_tile1": {
+              "size": 100,
+              "avg_dist": 39866.0,
+              "read_count": 2
+            },
+            "h_pre_tile1": {
+              "size": 100,
+              "avg_dist": 15294.0,
+              "read_count": 2
+            },
+            "W1_tile2": {
+              "size": 2000,
+              "avg_dist": 40286.0,
+              "read_count": 2
+            },
+            "b1_tile2": {
+              "size": 100,
+              "avg_dist": 41336.0,
+              "read_count": 2
+            },
+            "h_pre_tile2": {
+              "size": 100,
+              "avg_dist": 16444.0,
+              "read_count": 2
+            },
+            "W1_tile3": {
+              "size": 2000,
+              "avg_dist": 41756.0,
+              "read_count": 2
+            },
+            "b1_tile3": {
+              "size": 100,
+              "avg_dist": 42806.0,
+              "read_count": 2
+            },
+            "h_pre_tile3": {
+              "size": 100,
+              "avg_dist": 17594.0,
+              "read_count": 2
+            },
+            "W1_tile4": {
+              "size": 2000,
+              "avg_dist": 43226.0,
+              "read_count": 2
+            },
+            "b1_tile4": {
+              "size": 100,
+              "avg_dist": 44276.0,
+              "read_count": 2
+            },
+            "h_pre_tile4": {
+              "size": 100,
+              "avg_dist": 18744.0,
+              "read_count": 2
+            },
+            "W1_tile5": {
+              "size": 2000,
+              "avg_dist": 44696.0,
+              "read_count": 2
+            },
+            "b1_tile5": {
+              "size": 100,
+              "avg_dist": 45746.0,
+              "read_count": 2
+            },
+            "h_pre_tile5": {
+              "size": 100,
+              "avg_dist": 19894.0,
+              "read_count": 2
+            },
+            "W1_tile6": {
+              "size": 2000,
+              "avg_dist": 46166.0,
+              "read_count": 2
+            },
+            "b1_tile6": {
+              "size": 100,
+              "avg_dist": 47216.0,
+              "read_count": 2
+            },
+            "h_pre_tile6": {
+              "size": 100,
+              "avg_dist": 21044.0,
+              "read_count": 2
+            },
+            "W1_tile7": {
+              "size": 2000,
+              "avg_dist": 47636.0,
+              "read_count": 2
+            },
+            "b1_tile7": {
+              "size": 100,
+              "avg_dist": 48686.0,
+              "read_count": 2
+            },
+            "h_pre_tile7": {
+              "size": 100,
+              "avg_dist": 22194.0,
+              "read_count": 2
+            },
+            "W1_tile8": {
+              "size": 2000,
+              "avg_dist": 49106.0,
+              "read_count": 2
+            },
+            "b1_tile8": {
+              "size": 100,
+              "avg_dist": 50156.0,
+              "read_count": 2
+            },
+            "h_pre_tile8": {
+              "size": 100,
+              "avg_dist": 23344.0,
+              "read_count": 2
+            },
+            "W1_tile9": {
+              "size": 2000,
+              "avg_dist": 50576.0,
+              "read_count": 2
+            },
+            "b1_tile9": {
+              "size": 100,
+              "avg_dist": 51626.0,
+              "read_count": 2
+            },
+            "h_pre_tile9": {
+              "size": 100,
+              "avg_dist": 24494.0,
+              "read_count": 2
+            },
+            "h_tile0": {
+              "size": 100,
+              "avg_dist": 22883.0,
+              "read_count": 2
+            },
+            "h_tile1": {
+              "size": 100,
+              "avg_dist": 20563.0,
+              "read_count": 2
+            },
+            "h_tile2": {
+              "size": 100,
+              "avg_dist": 18243.0,
+              "read_count": 2
+            },
+            "h_tile3": {
+              "size": 100,
+              "avg_dist": 15923.0,
+              "read_count": 2
+            },
+            "h_tile4": {
+              "size": 100,
+              "avg_dist": 13603.0,
+              "read_count": 2
+            },
+            "h_tile5": {
+              "size": 100,
+              "avg_dist": 11283.0,
+              "read_count": 2
+            },
+            "h_tile6": {
+              "size": 100,
+              "avg_dist": 8963.0,
+              "read_count": 2
+            },
+            "h_tile7": {
+              "size": 100,
+              "avg_dist": 6643.0,
+              "read_count": 2
+            },
+            "h_tile8": {
+              "size": 100,
+              "avg_dist": 4323.0,
+              "read_count": 2
+            },
+            "h_tile9": {
+              "size": 100,
+              "avg_dist": 2003.0,
+              "read_count": 2
+            },
+            "W2": {
+              "size": 1000,
+              "avg_dist": 44960.3,
+              "read_count": 3
+            },
+            "b2": {
+              "size": 1,
+              "avg_dist": 53326.5,
+              "read_count": 2
+            },
+            "out": {
+              "size": 1,
+              "avg_dist": 1.0,
+              "read_count": 1
+            },
+            "y": {
+              "size": 1,
+              "avg_dist": 26204.0,
+              "read_count": 1
+            },
+            "dout": {
+              "size": 1,
+              "avg_dist": 1502.0,
+              "read_count": 2
+            },
+            "dh_pre_tile0": {
+              "size": 100,
+              "avg_dist": 2160.0,
+              "read_count": 2
+            },
+            "dh_pre_tile1": {
+              "size": 100,
+              "avg_dist": 2160.0,
+              "read_count": 2
+            },
+            "dh_pre_tile2": {
+              "size": 100,
+              "avg_dist": 2160.0,
+              "read_count": 2
+            },
+            "dh_pre_tile3": {
+              "size": 100,
+              "avg_dist": 2160.0,
+              "read_count": 2
+            },
+            "dh_pre_tile4": {
+              "size": 100,
+              "avg_dist": 2160.0,
+              "read_count": 2
+            },
+            "dh_pre_tile5": {
+              "size": 100,
+              "avg_dist": 2160.0,
+              "read_count": 2
+            },
+            "dh_pre_tile6": {
+              "size": 100,
+              "avg_dist": 2160.0,
+              "read_count": 2
+            },
+            "dh_pre_tile7": {
+              "size": 100,
+              "avg_dist": 2160.0,
+              "read_count": 2
+            },
+            "dh_pre_tile8": {
+              "size": 100,
+              "avg_dist": 2160.0,
+              "read_count": 2
+            },
+            "dh_pre_tile9": {
+              "size": 100,
+              "avg_dist": 2160.0,
+              "read_count": 2
+            },
+            "dW2": {
+              "size": 1000,
+              "avg_dist": 50202.0,
+              "read_count": 1
+            },
+            "db2": {
+              "size": 1,
+              "avg_dist": 52202.0,
+              "read_count": 1
+            }
+          }
+        },
+        {
+          "seed": 44,
+          "tile_size": 100,
+          "n_tiles": 10,
+          "tile_kb": 7.8,
+          "ard": 40340.66181998588,
+          "tracker_summary": {
+            "weighted_ard": 40340.66181998588,
+            "total_floats_accessed": 102433,
+            "reads": 131,
+            "writes": 81
+          },
+          "tracker_per_buffer": {
+            "x": {
+              "size": 20,
+              "avg_dist": 31390.0,
+              "read_count": 20
+            },
+            "W1_tile0": {
+              "size": 2000,
+              "avg_dist": 37346.0,
+              "read_count": 2
+            },
+            "b1_tile0": {
+              "size": 100,
+              "avg_dist": 38396.0,
+              "read_count": 2
+            },
+            "h_pre_tile0": {
+              "size": 100,
+              "avg_dist": 14144.0,
+              "read_count": 2
+            },
+            "W1_tile1": {
+              "size": 2000,
+              "avg_dist": 38816.0,
+              "read_count": 2
+            },
+            "b1_tile1": {
+              "size": 100,
+              "avg_dist": 39866.0,
+              "read_count": 2
+            },
+            "h_pre_tile1": {
+              "size": 100,
+              "avg_dist": 15294.0,
+              "read_count": 2
+            },
+            "W1_tile2": {
+              "size": 2000,
+              "avg_dist": 40286.0,
+              "read_count": 2
+            },
+            "b1_tile2": {
+              "size": 100,
+              "avg_dist": 41336.0,
+              "read_count": 2
+            },
+            "h_pre_tile2": {
+              "size": 100,
+              "avg_dist": 16444.0,
+              "read_count": 2
+            },
+            "W1_tile3": {
+              "size": 2000,
+              "avg_dist": 41756.0,
+              "read_count": 2
+            },
+            "b1_tile3": {
+              "size": 100,
+              "avg_dist": 42806.0,
+              "read_count": 2
+            },
+            "h_pre_tile3": {
+              "size": 100,
+              "avg_dist": 17594.0,
+              "read_count": 2
+            },
+            "W1_tile4": {
+              "size": 2000,
+              "avg_dist": 43226.0,
+              "read_count": 2
+            },
+            "b1_tile4": {
+              "size": 100,
+              "avg_dist": 44276.0,
+              "read_count": 2
+            },
+            "h_pre_tile4": {
+              "size": 100,
+              "avg_dist": 18744.0,
+              "read_count": 2
+            },
+            "W1_tile5": {
+              "size": 2000,
+              "avg_dist": 44696.0,
+              "read_count": 2
+            },
+            "b1_tile5": {
+              "size": 100,
+              "avg_dist": 45746.0,
+              "read_count": 2
+            },
+            "h_pre_tile5": {
+              "size": 100,
+              "avg_dist": 19894.0,
+              "read_count": 2
+            },
+            "W1_tile6": {
+              "size": 2000,
+              "avg_dist": 46166.0,
+              "read_count": 2
+            },
+            "b1_tile6": {
+              "size": 100,
+              "avg_dist": 47216.0,
+              "read_count": 2
+            },
+            "h_pre_tile6": {
+              "size": 100,
+              "avg_dist": 21044.0,
+              "read_count": 2
+            },
+            "W1_tile7": {
+              "size": 2000,
+              "avg_dist": 47636.0,
+              "read_count": 2
+            },
+            "b1_tile7": {
+              "size": 100,
+              "avg_dist": 48686.0,
+              "read_count": 2
+            },
+            "h_pre_tile7": {
+              "size": 100,
+              "avg_dist": 22194.0,
+              "read_count": 2
+            },
+            "W1_tile8": {
+              "size": 2000,
+              "avg_dist": 49106.0,
+              "read_count": 2
+            },
+            "b1_tile8": {
+              "size": 100,
+              "avg_dist": 50156.0,
+              "read_count": 2
+            },
+            "h_pre_tile8": {
+              "size": 100,
+              "avg_dist": 23344.0,
+              "read_count": 2
+            },
+            "W1_tile9": {
+              "size": 2000,
+              "avg_dist": 50576.0,
+              "read_count": 2
+            },
+            "b1_tile9": {
+              "size": 100,
+              "avg_dist": 51626.0,
+              "read_count": 2
+            },
+            "h_pre_tile9": {
+              "size": 100,
+              "avg_dist": 24494.0,
+              "read_count": 2
+            },
+            "h_tile0": {
+              "size": 100,
+              "avg_dist": 22883.0,
+              "read_count": 2
+            },
+            "h_tile1": {
+              "size": 100,
+              "avg_dist": 20563.0,
+              "read_count": 2
+            },
+            "h_tile2": {
+              "size": 100,
+              "avg_dist": 18243.0,
+              "read_count": 2
+            },
+            "h_tile3": {
+              "size": 100,
+              "avg_dist": 15923.0,
+              "read_count": 2
+            },
+            "h_tile4": {
+              "size": 100,
+              "avg_dist": 13603.0,
+              "read_count": 2
+            },
+            "h_tile5": {
+              "size": 100,
+              "avg_dist": 11283.0,
+              "read_count": 2
+            },
+            "h_tile6": {
+              "size": 100,
+              "avg_dist": 8963.0,
+              "read_count": 2
+            },
+            "h_tile7": {
+              "size": 100,
+              "avg_dist": 6643.0,
+              "read_count": 2
+            },
+            "h_tile8": {
+              "size": 100,
+              "avg_dist": 4323.0,
+              "read_count": 2
+            },
+            "h_tile9": {
+              "size": 100,
+              "avg_dist": 2003.0,
+              "read_count": 2
+            },
+            "W2": {
+              "size": 1000,
+              "avg_dist": 44960.3,
+              "read_count": 3
+            },
+            "b2": {
+              "size": 1,
+              "avg_dist": 53326.5,
+              "read_count": 2
+            },
+            "out": {
+              "size": 1,
+              "avg_dist": 1.0,
+              "read_count": 1
+            },
+            "y": {
+              "size": 1,
+              "avg_dist": 26204.0,
+              "read_count": 1
+            },
+            "dout": {
+              "size": 1,
+              "avg_dist": 1502.0,
+              "read_count": 2
+            },
+            "dh_pre_tile0": {
+              "size": 100,
+              "avg_dist": 2160.0,
+              "read_count": 2
+            },
+            "dh_pre_tile1": {
+              "size": 100,
+              "avg_dist": 2160.0,
+              "read_count": 2
+            },
+            "dh_pre_tile2": {
+              "size": 100,
+              "avg_dist": 2160.0,
+              "read_count": 2
+            },
+            "dh_pre_tile3": {
+              "size": 100,
+              "avg_dist": 2160.0,
+              "read_count": 2
+            },
+            "dh_pre_tile4": {
+              "size": 100,
+              "avg_dist": 2160.0,
+              "read_count": 2
+            },
+            "dh_pre_tile5": {
+              "size": 100,
+              "avg_dist": 2160.0,
+              "read_count": 2
+            },
+            "dh_pre_tile6": {
+              "size": 100,
+              "avg_dist": 2160.0,
+              "read_count": 2
+            },
+            "dh_pre_tile7": {
+              "size": 100,
+              "avg_dist": 2160.0,
+              "read_count": 2
+            },
+            "dh_pre_tile8": {
+              "size": 100,
+              "avg_dist": 2160.0,
+              "read_count": 2
+            },
+            "dh_pre_tile9": {
+              "size": 100,
+              "avg_dist": 2160.0,
+              "read_count": 2
+            },
+            "dW2": {
+              "size": 1000,
+              "avg_dist": 50202.0,
+              "read_count": 1
+            },
+            "db2": {
+              "size": 1,
+              "avg_dist": 52202.0,
+              "read_count": 1
+            }
+          }
+        }
+      ],
+      "T250": [
+        {
+          "seed": 42,
+          "tile_size": 250,
+          "n_tiles": 4,
+          "tile_kb": 19.5,
+          "ard": 21754.77585848939,
+          "tracker_summary": {
+            "weighted_ard": 21754.77585848939,
+            "total_floats_accessed": 48106,
+            "reads": 24,
+            "writes": 21
+          },
+          "tracker_per_buffer": {
+            "x": {
+              "size": 20,
+              "avg_dist": 9051.0,
+              "read_count": 4
+            },
+            "W1_tile0": {
+              "size": 5000,
+              "avg_dist": 22042.0,
+              "read_count": 1
+            },
+            "b1_tile0": {
+              "size": 250,
+              "avg_dist": 22042.0,
+              "read_count": 1
+            },
+            "h_pre_tile0": {
+              "size": 250,
+              "avg_dist": 250.0,
+              "read_count": 1
+            },
+            "W1_tile1": {
+              "size": 5000,
+              "avg_dist": 22812.0,
+              "read_count": 1
+            },
+            "b1_tile1": {
+              "size": 250,
+              "avg_dist": 22812.0,
+              "read_count": 1
+            },
+            "h_pre_tile1": {
+              "size": 250,
+              "avg_dist": 250.0,
+              "read_count": 1
+            },
+            "W1_tile2": {
+              "size": 5000,
+              "avg_dist": 23582.0,
+              "read_count": 1
+            },
+            "b1_tile2": {
+              "size": 250,
+              "avg_dist": 23582.0,
+              "read_count": 1
+            },
+            "h_pre_tile2": {
+              "size": 250,
+              "avg_dist": 250.0,
+              "read_count": 1
+            },
+            "W1_tile3": {
+              "size": 5000,
+              "avg_dist": 24352.0,
+              "read_count": 1
+            },
+            "b1_tile3": {
+              "size": 250,
+              "avg_dist": 24352.0,
+              "read_count": 1
+            },
+            "h_pre_tile3": {
+              "size": 250,
+              "avg_dist": 250.0,
+              "read_count": 1
+            },
+            "h_tile0": {
+              "size": 250,
+              "avg_dist": 18310.0,
+              "read_count": 1
+            },
+            "h_tile1": {
+              "size": 250,
+              "avg_dist": 12540.0,
+              "read_count": 1
+            },
+            "h_tile2": {
+              "size": 250,
+              "avg_dist": 6770.0,
+              "read_count": 1
+            },
+            "h_tile3": {
+              "size": 250,
+              "avg_dist": 1000.0,
+              "read_count": 1
+            },
+            "W2": {
+              "size": 1000,
+              "avg_dist": 26102.0,
+              "read_count": 1
+            },
+            "b2": {
+              "size": 1,
+              "avg_dist": 26102.0,
+              "read_count": 1
+            },
+            "out": {
+              "size": 1,
+              "avg_dist": 1.0,
+              "read_count": 1
+            },
+            "y": {
+              "size": 1,
+              "avg_dist": 26084.0,
+              "read_count": 1
+            }
+          }
+        },
+        {
+          "seed": 43,
+          "tile_size": 250,
+          "n_tiles": 4,
+          "tile_kb": 19.5,
+          "ard": 39657.66986792417,
+          "tracker_summary": {
+            "weighted_ard": 39657.66986792417,
+            "total_floats_accessed": 102193,
+            "reads": 59,
+            "writes": 39
+          },
+          "tracker_per_buffer": {
+            "x": {
+              "size": 20,
+              "avg_dist": 28907.5,
+              "read_count": 8
+            },
+            "W1_tile0": {
+              "size": 5000,
+              "avg_dist": 37586.0,
+              "read_count": 2
+            },
+            "b1_tile0": {
+              "size": 250,
+              "avg_dist": 40211.0,
+              "read_count": 2
+            },
+            "h_pre_tile0": {
+              "size": 250,
+              "avg_dist": 12659.0,
+              "read_count": 2
+            },
+            "W1_tile1": {
+              "size": 5000,
+              "avg_dist": 41231.0,
+              "read_count": 2
+            },
+            "b1_tile1": {
+              "size": 250,
+              "avg_dist": 43856.0,
+              "read_count": 2
+            },
+            "h_pre_tile1": {
+              "size": 250,
+              "avg_dist": 15534.0,
+              "read_count": 2
+            },
+            "W1_tile2": {
+              "size": 5000,
+              "avg_dist": 44876.0,
+              "read_count": 2
+            },
+            "b1_tile2": {
+              "size": 250,
+              "avg_dist": 47501.0,
+              "read_count": 2
+            },
+            "h_pre_tile2": {
+              "size": 250,
+              "avg_dist": 18409.0,
+              "read_count": 2
+            },
+            "W1_tile3": {
+              "size": 5000,
+              "avg_dist": 48521.0,
+              "read_count": 2
+            },
+            "b1_tile3": {
+              "size": 250,
+              "avg_dist": 51146.0,
+              "read_count": 2
+            },
+            "h_pre_tile3": {
+              "size": 250,
+              "avg_dist": 21284.0,
+              "read_count": 2
+            },
+            "h_tile0": {
+              "size": 250,
+              "avg_dist": 19313.0,
+              "read_count": 2
+            },
+            "h_tile1": {
+              "size": 250,
+              "avg_dist": 13543.0,
+              "read_count": 2
+            },
+            "h_tile2": {
+              "size": 250,
+              "avg_dist": 7773.0,
+              "read_count": 2
+            },
+            "h_tile3": {
+              "size": 250,
+              "avg_dist": 2003.0,
+              "read_count": 2
+            },
+            "W2": {
+              "size": 1000,
+              "avg_dist": 44800.3,
+              "read_count": 3
+            },
+            "b2": {
+              "size": 1,
+              "avg_dist": 53146.5,
+              "read_count": 2
+            },
+            "out": {
+              "size": 1,
+              "avg_dist": 1.0,
+              "read_count": 1
+            },
+            "y": {
+              "size": 1,
+              "avg_dist": 26084.0,
+              "read_count": 1
+            },
+            "dout": {
+              "size": 1,
+              "avg_dist": 1502.0,
+              "read_count": 2
+            },
+            "dh_pre_tile0": {
+              "size": 250,
+              "avg_dist": 5385.0,
+              "read_count": 2
+            },
+            "dh_pre_tile1": {
+              "size": 250,
+              "avg_dist": 5385.0,
+              "read_count": 2
+            },
+            "dh_pre_tile2": {
+              "size": 250,
+              "avg_dist": 5385.0,
+              "read_count": 2
+            },
+            "dh_pre_tile3": {
+              "size": 250,
+              "avg_dist": 5385.0,
+              "read_count": 2
+            },
+            "dW2": {
+              "size": 1000,
+              "avg_dist": 50082.0,
+              "read_count": 1
+            },
+            "db2": {
+              "size": 1,
+              "avg_dist": 52082.0,
+              "read_count": 1
+            }
+          }
+        },
+        {
+          "seed": 44,
+          "tile_size": 250,
+          "n_tiles": 4,
+          "tile_kb": 19.5,
+          "ard": 39657.66986792417,
+          "tracker_summary": {
+            "weighted_ard": 39657.66986792417,
+            "total_floats_accessed": 102193,
+            "reads": 59,
+            "writes": 39
+          },
+          "tracker_per_buffer": {
+            "x": {
+              "size": 20,
+              "avg_dist": 28907.5,
+              "read_count": 8
+            },
+            "W1_tile0": {
+              "size": 5000,
+              "avg_dist": 37586.0,
+              "read_count": 2
+            },
+            "b1_tile0": {
+              "size": 250,
+              "avg_dist": 40211.0,
+              "read_count": 2
+            },
+            "h_pre_tile0": {
+              "size": 250,
+              "avg_dist": 12659.0,
+              "read_count": 2
+            },
+            "W1_tile1": {
+              "size": 5000,
+              "avg_dist": 41231.0,
+              "read_count": 2
+            },
+            "b1_tile1": {
+              "size": 250,
+              "avg_dist": 43856.0,
+              "read_count": 2
+            },
+            "h_pre_tile1": {
+              "size": 250,
+              "avg_dist": 15534.0,
+              "read_count": 2
+            },
+            "W1_tile2": {
+              "size": 5000,
+              "avg_dist": 44876.0,
+              "read_count": 2
+            },
+            "b1_tile2": {
+              "size": 250,
+              "avg_dist": 47501.0,
+              "read_count": 2
+            },
+            "h_pre_tile2": {
+              "size": 250,
+              "avg_dist": 18409.0,
+              "read_count": 2
+            },
+            "W1_tile3": {
+              "size": 5000,
+              "avg_dist": 48521.0,
+              "read_count": 2
+            },
+            "b1_tile3": {
+              "size": 250,
+              "avg_dist": 51146.0,
+              "read_count": 2
+            },
+            "h_pre_tile3": {
+              "size": 250,
+              "avg_dist": 21284.0,
+              "read_count": 2
+            },
+            "h_tile0": {
+              "size": 250,
+              "avg_dist": 19313.0,
+              "read_count": 2
+            },
+            "h_tile1": {
+              "size": 250,
+              "avg_dist": 13543.0,
+              "read_count": 2
+            },
+            "h_tile2": {
+              "size": 250,
+              "avg_dist": 7773.0,
+              "read_count": 2
+            },
+            "h_tile3": {
+              "size": 250,
+              "avg_dist": 2003.0,
+              "read_count": 2
+            },
+            "W2": {
+              "size": 1000,
+              "avg_dist": 44800.3,
+              "read_count": 3
+            },
+            "b2": {
+              "size": 1,
+              "avg_dist": 53146.5,
+              "read_count": 2
+            },
+            "out": {
+              "size": 1,
+              "avg_dist": 1.0,
+              "read_count": 1
+            },
+            "y": {
+              "size": 1,
+              "avg_dist": 26084.0,
+              "read_count": 1
+            },
+            "dout": {
+              "size": 1,
+              "avg_dist": 1502.0,
+              "read_count": 2
+            },
+            "dh_pre_tile0": {
+              "size": 250,
+              "avg_dist": 5385.0,
+              "read_count": 2
+            },
+            "dh_pre_tile1": {
+              "size": 250,
+              "avg_dist": 5385.0,
+              "read_count": 2
+            },
+            "dh_pre_tile2": {
+              "size": 250,
+              "avg_dist": 5385.0,
+              "read_count": 2
+            },
+            "dh_pre_tile3": {
+              "size": 250,
+              "avg_dist": 5385.0,
+              "read_count": 2
+            },
+            "dW2": {
+              "size": 1000,
+              "avg_dist": 50082.0,
+              "read_count": 1
+            },
+            "db2": {
+              "size": 1,
+              "avg_dist": 52082.0,
+              "read_count": 1
+            }
+          }
+        }
+      ],
+      "T500": [
+        {
+          "seed": 42,
+          "tile_size": 500,
+          "n_tiles": 2,
+          "tile_kb": 39.1,
+          "ard": 21314.201513954165,
+          "tracker_summary": {
+            "weighted_ard": 21314.201513954165,
+            "total_floats_accessed": 48066,
+            "reads": 14,
+            "writes": 13
+          },
+          "tracker_per_buffer": {
+            "x": {
+              "size": 20,
+              "avg_dist": 6031.0,
+              "read_count": 2
+            },
+            "W1_tile0": {
+              "size": 10000,
+              "avg_dist": 22042.0,
+              "read_count": 1
+            },
+            "b1_tile0": {
+              "size": 500,
+              "avg_dist": 22042.0,
+              "read_count": 1
+            },
+            "h_pre_tile0": {
+              "size": 500,
+              "avg_dist": 500.0,
+              "read_count": 1
+            },
+            "W1_tile1": {
+              "size": 10000,
+              "avg_dist": 23562.0,
+              "read_count": 1
+            },
+            "b1_tile1": {
+              "size": 500,
+              "avg_dist": 23562.0,
+              "read_count": 1
+            },
+            "h_pre_tile1": {
+              "size": 500,
+              "avg_dist": 500.0,
+              "read_count": 1
+            },
+            "h_tile0": {
+              "size": 500,
+              "avg_dist": 12520.0,
+              "read_count": 1
+            },
+            "h_tile1": {
+              "size": 500,
+              "avg_dist": 1000.0,
+              "read_count": 1
+            },
+            "W2": {
+              "size": 1000,
+              "avg_dist": 26062.0,
+              "read_count": 1
+            },
+            "b2": {
+              "size": 1,
+              "avg_dist": 26062.0,
+              "read_count": 1
+            },
+            "out": {
+              "size": 1,
+              "avg_dist": 1.0,
+              "read_count": 1
+            },
+            "y": {
+              "size": 1,
+              "avg_dist": 26044.0,
+              "read_count": 1
+            }
+          }
+        },
+        {
+          "seed": 43,
+          "tile_size": 500,
+          "n_tiles": 2,
+          "tile_kb": 39.1,
+          "ard": 38622.50972411542,
+          "tracker_summary": {
+            "weighted_ard": 38622.50972411542,
+            "total_floats_accessed": 102113,
+            "reads": 35,
+            "writes": 25
+          },
+          "tracker_per_buffer": {
+            "x": {
+              "size": 20,
+              "avg_dist": 24930.0,
+              "read_count": 4
+            },
+            "W1_tile0": {
+              "size": 10000,
+              "avg_dist": 38066.0,
+              "read_count": 2
+            },
+            "b1_tile0": {
+              "size": 500,
+              "avg_dist": 43316.0,
+              "read_count": 2
+            },
+            "h_pre_tile0": {
+              "size": 500,
+              "avg_dist": 10264.0,
+              "read_count": 2
+            },
+            "W1_tile1": {
+              "size": 10000,
+              "avg_dist": 45336.0,
+              "read_count": 2
+            },
+            "b1_tile1": {
+              "size": 500,
+              "avg_dist": 50586.0,
+              "read_count": 2
+            },
+            "h_pre_tile1": {
+              "size": 500,
+              "avg_dist": 16014.0,
+              "read_count": 2
+            },
+            "h_tile0": {
+              "size": 500,
+              "avg_dist": 13523.0,
+              "read_count": 2
+            },
+            "h_tile1": {
+              "size": 500,
+              "avg_dist": 2003.0,
+              "read_count": 2
+            },
+            "W2": {
+              "size": 1000,
+              "avg_dist": 44747.0,
+              "read_count": 3
+            },
+            "b2": {
+              "size": 1,
+              "avg_dist": 53086.5,
+              "read_count": 2
+            },
+            "out": {
+              "size": 1,
+              "avg_dist": 1.0,
+              "read_count": 1
+            },
+            "y": {
+              "size": 1,
+              "avg_dist": 26044.0,
+              "read_count": 1
+            },
+            "dout": {
+              "size": 1,
+              "avg_dist": 1502.0,
+              "read_count": 2
+            },
+            "dh_pre_tile0": {
+              "size": 500,
+              "avg_dist": 10760.0,
+              "read_count": 2
+            },
+            "dh_pre_tile1": {
+              "size": 500,
+              "avg_dist": 10760.0,
+              "read_count": 2
+            },
+            "dW2": {
+              "size": 1000,
+              "avg_dist": 50042.0,
+              "read_count": 1
+            },
+            "db2": {
+              "size": 1,
+              "avg_dist": 52042.0,
+              "read_count": 1
+            }
+          }
+        },
+        {
+          "seed": 44,
+          "tile_size": 500,
+          "n_tiles": 2,
+          "tile_kb": 39.1,
+          "ard": 38622.50972411542,
+          "tracker_summary": {
+            "weighted_ard": 38622.50972411542,
+            "total_floats_accessed": 102113,
+            "reads": 35,
+            "writes": 25
+          },
+          "tracker_per_buffer": {
+            "x": {
+              "size": 20,
+              "avg_dist": 24930.0,
+              "read_count": 4
+            },
+            "W1_tile0": {
+              "size": 10000,
+              "avg_dist": 38066.0,
+              "read_count": 2
+            },
+            "b1_tile0": {
+              "size": 500,
+              "avg_dist": 43316.0,
+              "read_count": 2
+            },
+            "h_pre_tile0": {
+              "size": 500,
+              "avg_dist": 10264.0,
+              "read_count": 2
+            },
+            "W1_tile1": {
+              "size": 10000,
+              "avg_dist": 45336.0,
+              "read_count": 2
+            },
+            "b1_tile1": {
+              "size": 500,
+              "avg_dist": 50586.0,
+              "read_count": 2
+            },
+            "h_pre_tile1": {
+              "size": 500,
+              "avg_dist": 16014.0,
+              "read_count": 2
+            },
+            "h_tile0": {
+              "size": 500,
+              "avg_dist": 13523.0,
+              "read_count": 2
+            },
+            "h_tile1": {
+              "size": 500,
+              "avg_dist": 2003.0,
+              "read_count": 2
+            },
+            "W2": {
+              "size": 1000,
+              "avg_dist": 44747.0,
+              "read_count": 3
+            },
+            "b2": {
+              "size": 1,
+              "avg_dist": 53086.5,
+              "read_count": 2
+            },
+            "out": {
+              "size": 1,
+              "avg_dist": 1.0,
+              "read_count": 1
+            },
+            "y": {
+              "size": 1,
+              "avg_dist": 26044.0,
+              "read_count": 1
+            },
+            "dout": {
+              "size": 1,
+              "avg_dist": 1502.0,
+              "read_count": 2
+            },
+            "dh_pre_tile0": {
+              "size": 500,
+              "avg_dist": 10760.0,
+              "read_count": 2
+            },
+            "dh_pre_tile1": {
+              "size": 500,
+              "avg_dist": 10760.0,
+              "read_count": 2
+            },
+            "dW2": {
+              "size": 1000,
+              "avg_dist": 50042.0,
+              "read_count": 1
+            },
+            "db2": {
+              "size": 1,
+              "avg_dist": 52042.0,
+              "read_count": 1
+            }
+          }
+        }
+      ]
+    }
+  },
+  "accuracy_verification": {
+    "baseline": [
+      {
+        "seed": 42,
+        "best_test_acc": 1.0,
+        "epochs": 11,
+        "elapsed_s": 7.276
+      },
+      {
+        "seed": 43,
+        "best_test_acc": 1.0,
+        "epochs": 9,
+        "elapsed_s": 6.285
+      },
+      {
+        "seed": 44,
+        "best_test_acc": 0.995,
+        "epochs": 50,
+        "elapsed_s": 29.197
+      }
+    ],
+    "tiled": {
+      "T50": [
+        {
+          "seed": 42,
+          "tile_size": 50,
+          "best_test_acc": 1.0,
+          "epochs": 11,
+          "elapsed_s": 7.513
+        },
+        {
+          "seed": 43,
+          "tile_size": 50,
+          "best_test_acc": 1.0,
+          "epochs": 9,
+          "elapsed_s": 6.35
+        },
+        {
+          "seed": 44,
+          "tile_size": 50,
+          "best_test_acc": 0.995,
+          "epochs": 50,
+          "elapsed_s": 28.918
+        }
+      ],
+      "T100": [
+        {
+          "seed": 42,
+          "tile_size": 100,
+          "best_test_acc": 1.0,
+          "epochs": 11,
+          "elapsed_s": 7.387
+        },
+        {
+          "seed": 43,
+          "tile_size": 100,
+          "best_test_acc": 1.0,
+          "epochs": 9,
+          "elapsed_s": 6.468
+        },
+        {
+          "seed": 44,
+          "tile_size": 100,
+          "best_test_acc": 0.995,
+          "epochs": 50,
+          "elapsed_s": 28.722
+        }
+      ],
+      "T250": [
+        {
+          "seed": 42,
+          "tile_size": 250,
+          "best_test_acc": 1.0,
+          "epochs": 11,
+          "elapsed_s": 7.409
+        },
+        {
+          "seed": 43,
+          "tile_size": 250,
+          "best_test_acc": 1.0,
+          "epochs": 9,
+          "elapsed_s": 6.408
+        },
+        {
+          "seed": 44,
+          "tile_size": 250,
+          "best_test_acc": 0.995,
+          "epochs": 50,
+          "elapsed_s": 29.465
+        }
+      ],
+      "T500": [
+        {
+          "seed": 42,
+          "tile_size": 500,
+          "best_test_acc": 1.0,
+          "epochs": 11,
+          "elapsed_s": 7.374
+        },
+        {
+          "seed": 43,
+          "tile_size": 500,
+          "best_test_acc": 1.0,
+          "epochs": 9,
+          "elapsed_s": 6.396
+        },
+        {
+          "seed": 44,
+          "tile_size": 500,
+          "best_test_acc": 0.995,
+          "epochs": 50,
+          "elapsed_s": 28.125
+        }
+      ]
+    }
+  },
+  "summary": {
+    "avg_baseline_ard": 30759.121640076977,
+    "avg_baseline_acc": 0.9983333333333334,
+    "tiled_ard_summary": [
+      {
+        "tile_size": 50,
+        "avg_ard": 34492.09218065222,
+        "change_pct": 12.1,
+        "tile_kb": 3.9,
+        "n_tiles": 20
+      },
+      {
+        "tile_size": 100,
+        "avg_ard": 34236.09611836324,
+        "change_pct": 11.3,
+        "tile_kb": 7.8,
+        "n_tiles": 10
+      },
+      {
+        "tile_size": 250,
+        "avg_ard": 33690.038531445905,
+        "change_pct": 9.5,
+        "tile_kb": 19.5,
+        "n_tiles": 4
+      },
+      {
+        "tile_size": 500,
+        "avg_ard": 32853.07365406167,
+        "change_pct": 6.8,
+        "tile_kb": 39.1,
+        "n_tiles": 2
+      }
+    ]
+  }
+}

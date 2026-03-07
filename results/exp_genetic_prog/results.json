@@ -1,0 +1,438 @@
+{
+  "experiment": "exp_genetic_prog",
+  "approach": "#14 Genetic Programming",
+  "description": "Evolve symbolic expression trees that compute sparse parity. Zero parameters, zero ARD.",
+  "configs": {
+    "n20_k3": {
+      "n_bits": 20,
+      "k_sparse": 3,
+      "c_n_k": 1140,
+      "n_train": 1000,
+      "n_test": 2000,
+      "pop_size": 200,
+      "max_generations": 200,
+      "max_depth": 6,
+      "results": [
+        {
+          "seed": 42,
+          "secret": [
+            0,
+            15,
+            17
+          ],
+          "found_vars": [
+            0,
+            15,
+            17
+          ],
+          "correct_vars": true,
+          "solved": true,
+          "train_acc": 1.0,
+          "val_acc": 1.0,
+          "test_acc": 1.0,
+          "generations": 32,
+          "elapsed_s": 0.444,
+          "program": "mul(x[0], mul(x[15], x[17]))",
+          "tree_depth": 3,
+          "tree_size": 5,
+          "n_parameters": 0,
+          "ard": 6000.0,
+          "memory": {
+            "total_floats_accessed": 14000,
+            "reads": 1,
+            "writes": 2,
+            "weighted_ard": 6000.0,
+            "total_floats_read": 6000,
+            "per_buffer": {
+              "input_x": {
+                "size": 6000,
+                "distances": [
+                  6000
+                ],
+                "avg_dist": 6000.0,
+                "min_dist": 6000,
+                "max_dist": 6000,
+                "read_count": 1
+              }
+            }
+          }
+        },
+        {
+          "seed": 43,
+          "secret": [
+            6,
+            9,
+            19
+          ],
+          "found_vars": [
+            6,
+            9,
+            18,
+            19
+          ],
+          "correct_vars": false,
+          "solved": true,
+          "train_acc": 1.0,
+          "val_acc": 1.0,
+          "test_acc": 1.0,
+          "generations": 154,
+          "elapsed_s": 2.0351,
+          "program": "mul(mul(x[19], mul(mul(x[18], x[18]), x[6])), x[9])",
+          "tree_depth": 5,
+          "tree_size": 9,
+          "n_parameters": 0,
+          "ard": 8000.0,
+          "memory": {
+            "total_floats_accessed": 18000,
+            "reads": 1,
+            "writes": 2,
+            "weighted_ard": 8000.0,
+            "total_floats_read": 8000,
+            "per_buffer": {
+              "input_x": {
+                "size": 8000,
+                "distances": [
+                  8000
+                ],
+                "avg_dist": 8000.0,
+                "min_dist": 8000,
+                "max_dist": 8000,
+                "read_count": 1
+              }
+            }
+          }
+        },
+        {
+          "seed": 44,
+          "secret": [
+            9,
+            14,
+            15
+          ],
+          "found_vars": [
+            9,
+            14,
+            15
+          ],
+          "correct_vars": true,
+          "solved": true,
+          "train_acc": 1.0,
+          "val_acc": 1.0,
+          "test_acc": 1.0,
+          "generations": 39,
+          "elapsed_s": 0.4726,
+          "program": "mul(sign(mul(x[9], x[14])), x[15])",
+          "tree_depth": 4,
+          "tree_size": 6,
+          "n_parameters": 0,
+          "ard": 6000.0,
+          "memory": {
+            "total_floats_accessed": 14000,
+            "reads": 1,
+            "writes": 2,
+            "weighted_ard": 6000.0,
+            "total_floats_read": 6000,
+            "per_buffer": {
+              "input_x": {
+                "size": 6000,
+                "distances": [
+                  6000
+                ],
+                "avg_dist": 6000.0,
+                "min_dist": 6000,
+                "max_dist": 6000,
+                "read_count": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "n50_k3": {
+      "n_bits": 50,
+      "k_sparse": 3,
+      "c_n_k": 19600,
+      "n_train": 1000,
+      "n_test": 2000,
+      "pop_size": 200,
+      "max_generations": 500,
+      "max_depth": 6,
+      "results": [
+        {
+          "seed": 42,
+          "secret": [
+            13,
+            30,
+            39
+          ],
+          "found_vars": [
+            28
+          ],
+          "correct_vars": false,
+          "solved": false,
+          "train_acc": 0.534,
+          "val_acc": 0.525,
+          "test_acc": 0.5,
+          "generations": 500,
+          "elapsed_s": 5.9076,
+          "program": "x[28]",
+          "tree_depth": 1,
+          "tree_size": 1,
+          "n_parameters": 0,
+          "ard": 2000.0,
+          "memory": {
+            "total_floats_accessed": 6000,
+            "reads": 1,
+            "writes": 2,
+            "weighted_ard": 2000.0,
+            "total_floats_read": 2000,
+            "per_buffer": {
+              "input_x": {
+                "size": 2000,
+                "distances": [
+                  2000
+                ],
+                "avg_dist": 2000.0,
+                "min_dist": 2000,
+                "max_dist": 2000,
+                "read_count": 1
+              }
+            }
+          }
+        },
+        {
+          "seed": 43,
+          "secret": [
+            19,
+            28,
+            36
+          ],
+          "found_vars": [
+            31
+          ],
+          "correct_vars": false,
+          "solved": false,
+          "train_acc": 0.545,
+          "val_acc": 0.524,
+          "test_acc": 0.5075,
+          "generations": 500,
+          "elapsed_s": 4.6721,
+          "program": "x[31]",
+          "tree_depth": 1,
+          "tree_size": 1,
+          "n_parameters": 0,
+          "ard": 2000.0,
+          "memory": {
+            "total_floats_accessed": 6000,
+            "reads": 1,
+            "writes": 2,
+            "weighted_ard": 2000.0,
+            "total_floats_read": 2000,
+            "per_buffer": {
+              "input_x": {
+                "size": 2000,
+                "distances": [
+                  2000
+                ],
+                "avg_dist": 2000.0,
+                "min_dist": 2000,
+                "max_dist": 2000,
+                "read_count": 1
+              }
+            }
+          }
+        },
+        {
+          "seed": 44,
+          "secret": [
+            6,
+            37,
+            47
+          ],
+          "found_vars": [
+            4,
+            17
+          ],
+          "correct_vars": false,
+          "solved": false,
+          "train_acc": 0.54,
+          "val_acc": 0.515,
+          "test_acc": 0.4985,
+          "generations": 500,
+          "elapsed_s": 4.9001,
+          "program": "mul(x[4], x[17])",
+          "tree_depth": 2,
+          "tree_size": 3,
+          "n_parameters": 0,
+          "ard": 4000.0,
+          "memory": {
+            "total_floats_accessed": 10000,
+            "reads": 1,
+            "writes": 2,
+            "weighted_ard": 4000.0,
+            "total_floats_read": 4000,
+            "per_buffer": {
+              "input_x": {
+                "size": 4000,
+                "distances": [
+                  4000
+                ],
+                "avg_dist": 4000.0,
+                "min_dist": 4000,
+                "max_dist": 4000,
+                "read_count": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "n20_k5": {
+      "n_bits": 20,
+      "k_sparse": 5,
+      "c_n_k": 15504,
+      "n_train": 2000,
+      "n_test": 2000,
+      "pop_size": 200,
+      "max_generations": 500,
+      "max_depth": 8,
+      "results": [
+        {
+          "seed": 42,
+          "secret": [
+            0,
+            1,
+            8,
+            15,
+            17
+          ],
+          "found_vars": [
+            8,
+            16
+          ],
+          "correct_vars": false,
+          "solved": false,
+          "train_acc": 0.546,
+          "val_acc": 0.517,
+          "test_acc": 0.488,
+          "generations": 500,
+          "elapsed_s": 6.4079,
+          "program": "mul(neg(mul(-1.0, x[8])), x[16])",
+          "tree_depth": 4,
+          "tree_size": 6,
+          "n_parameters": 0,
+          "ard": 4000.0,
+          "memory": {
+            "total_floats_accessed": 10000,
+            "reads": 1,
+            "writes": 2,
+            "weighted_ard": 4000.0,
+            "total_floats_read": 4000,
+            "per_buffer": {
+              "input_x": {
+                "size": 4000,
+                "distances": [
+                  4000
+                ],
+                "avg_dist": 4000.0,
+                "min_dist": 4000,
+                "max_dist": 4000,
+                "read_count": 1
+              }
+            }
+          }
+        },
+        {
+          "seed": 43,
+          "secret": [
+            5,
+            6,
+            9,
+            14,
+            19
+          ],
+          "found_vars": [
+            2,
+            15
+          ],
+          "correct_vars": false,
+          "solved": false,
+          "train_acc": 0.53,
+          "val_acc": 0.501,
+          "test_acc": 0.502,
+          "generations": 500,
+          "elapsed_s": 5.95,
+          "program": "mul(x[15], x[2])",
+          "tree_depth": 2,
+          "tree_size": 3,
+          "n_parameters": 0,
+          "ard": 4000.0,
+          "memory": {
+            "total_floats_accessed": 10000,
+            "reads": 1,
+            "writes": 2,
+            "weighted_ard": 4000.0,
+            "total_floats_read": 4000,
+            "per_buffer": {
+              "input_x": {
+                "size": 4000,
+                "distances": [
+                  4000
+                ],
+                "avg_dist": 4000.0,
+                "min_dist": 4000,
+                "max_dist": 4000,
+                "read_count": 1
+              }
+            }
+          }
+        },
+        {
+          "seed": 44,
+          "secret": [
+            2,
+            5,
+            9,
+            14,
+            15
+          ],
+          "found_vars": [
+            3,
+            18
+          ],
+          "correct_vars": false,
+          "solved": false,
+          "train_acc": 0.536,
+          "val_acc": 0.483,
+          "test_acc": 0.505,
+          "generations": 500,
+          "elapsed_s": 5.6569,
+          "program": "mul(x[3], mul(x[18], 1.0))",
+          "tree_depth": 3,
+          "tree_size": 5,
+          "n_parameters": 0,
+          "ard": 4000.0,
+          "memory": {
+            "total_floats_accessed": 10000,
+            "reads": 1,
+            "writes": 2,
+            "weighted_ard": 4000.0,
+            "total_floats_read": 4000,
+            "per_buffer": {
+              "input_x": {
+                "size": 4000,
+                "distances": [
+                  4000
+                ],
+                "avg_dist": 4000.0,
+                "min_dist": 4000,
+                "max_dist": 4000,
+                "read_count": 1
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

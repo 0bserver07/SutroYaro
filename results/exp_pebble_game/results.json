@@ -1,0 +1,201 @@
+{
+  "experiment": "exp_pebble_game",
+  "config": {
+    "n_bits": 20,
+    "k_sparse": 3,
+    "n_train": 500,
+    "n_test": 200,
+    "hidden": 1000,
+    "lr": 0.1,
+    "wd": 0.01,
+    "max_epochs": 30,
+    "seed": 42,
+    "patience": 10,
+    "batch_size": 1
+  },
+  "energy_model": {
+    "register_pJ": 5,
+    "L1_pJ": 20,
+    "L2_pJ": 100,
+    "HBM_pJ": 640,
+    "L1_capacity_floats": 16384,
+    "L2_capacity_floats": 65536,
+    "register_capacity_floats": 64
+  },
+  "graph": {
+    "n_ops": 15,
+    "n_initial_tensors": 6,
+    "initial_tensor_sizes": {
+      "W1": 20000,
+      "b1": 1000,
+      "W2": 1000,
+      "b2": 1,
+      "x": 20,
+      "y": 1
+    }
+  },
+  "enumeration": {
+    "exhaustive": false,
+    "n_orderings_evaluated": 5758
+  },
+  "energy_distribution": {
+    "min_uJ": 10.764315,
+    "max_uJ": 11.0846,
+    "mean_uJ": 10.922173570684265,
+    "median_uJ": 10.92452,
+    "std_uJ": 0.09611782009615928
+  },
+  "strategies": {
+    "standard": {
+      "energy_uJ": 11.00449,
+      "energy_pJ": 11004490.0,
+      "tier_breakdown": {
+        "L2": 10704400.0,
+        "L1": 300040.0,
+        "register": 50.0
+      },
+      "ordering": [
+        "fwd_linear1",
+        "fwd_relu",
+        "fwd_linear2",
+        "fwd_loss",
+        "bwd_loss",
+        "bwd_dW2",
+        "bwd_db2",
+        "bwd_dh",
+        "bwd_relu",
+        "bwd_dW1",
+        "bwd_db1",
+        "upd_W1",
+        "upd_b1",
+        "upd_W2",
+        "upd_b2"
+      ]
+    },
+    "fused": {
+      "energy_uJ": 10.84433,
+      "energy_pJ": 10844330.0,
+      "tier_breakdown": {
+        "L2": 10504200.0,
+        "L1": 340080.0,
+        "register": 50.0
+      },
+      "ordering": [
+        "fwd_linear1",
+        "fwd_relu",
+        "fwd_linear2",
+        "fwd_loss",
+        "bwd_loss",
+        "bwd_dW2",
+        "upd_W2",
+        "bwd_db2",
+        "upd_b2",
+        "bwd_dh",
+        "bwd_relu",
+        "bwd_dW1",
+        "upd_W1",
+        "bwd_db1",
+        "upd_b1"
+      ]
+    },
+    "perlayer": {
+      "energy_uJ": 10.84433,
+      "energy_pJ": 10844330.0,
+      "tier_breakdown": {
+        "L2": 10504200.0,
+        "L1": 340080.0,
+        "register": 50.0
+      },
+      "ordering": [
+        "fwd_linear1",
+        "fwd_relu",
+        "fwd_linear2",
+        "fwd_loss",
+        "bwd_loss",
+        "bwd_dW2",
+        "bwd_db2",
+        "upd_W2",
+        "upd_b2",
+        "bwd_dh",
+        "bwd_relu",
+        "bwd_dW1",
+        "bwd_db1",
+        "upd_W1",
+        "upd_b1"
+      ]
+    },
+    "optimal_pebble": {
+      "energy_uJ": 10.764315,
+      "energy_pJ": 10764315.0,
+      "tier_breakdown": {
+        "L2": 10404200.0,
+        "L1": 360060.0,
+        "register": 55.0
+      },
+      "ordering": [
+        "fwd_linear1",
+        "fwd_relu",
+        "fwd_linear2",
+        "fwd_loss",
+        "bwd_loss",
+        "bwd_dW2",
+        "bwd_db2",
+        "upd_b2",
+        "bwd_dh",
+        "bwd_relu",
+        "upd_W2",
+        "bwd_db1",
+        "upd_b1",
+        "bwd_dW1",
+        "upd_W1"
+      ]
+    }
+  },
+  "best_ordering": [
+    "fwd_linear1",
+    "fwd_relu",
+    "fwd_linear2",
+    "fwd_loss",
+    "bwd_loss",
+    "bwd_dW2",
+    "bwd_db2",
+    "upd_b2",
+    "bwd_dh",
+    "bwd_relu",
+    "upd_W2",
+    "bwd_db1",
+    "upd_b1",
+    "bwd_dW1",
+    "upd_W1"
+  ],
+  "training_results": {
+    "standard": {
+      "best_test_acc": 0.98,
+      "total_steps": 15000,
+      "elapsed_s": 105.36185097694397,
+      "epochs": 30,
+      "tracker_ard": 45275.211759463076
+    },
+    "fused": {
+      "best_test_acc": 0.57,
+      "total_steps": 15000,
+      "elapsed_s": 105.83803796768188,
+      "epochs": 30,
+      "tracker_ard": 42248.27115096353
+    },
+    "perlayer": {
+      "best_test_acc": 0.57,
+      "total_steps": 15000,
+      "elapsed_s": 105.69293880462646,
+      "epochs": 30,
+      "tracker_ard": 43328.63468420413
+    },
+    "optimal_pebble": {
+      "best_test_acc": 0.98,
+      "total_steps": 15000,
+      "elapsed_s": 104.02598667144775,
+      "epochs": 30,
+      "tracker_ard": 42033.75682975247
+    }
+  }
+}
