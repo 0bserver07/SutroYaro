@@ -2,6 +2,51 @@
 
 All notable changes to this research workspace.
 
+## [0.11.0] - 2026-03-07
+
+### Homepage and documentation refresh
+
+- Rewrote homepage as a proper introduction (was jumping straight to "SOLVED")
+- Updated context page with Phase 2 findings and timeline
+- Synced 8 Google Docs with upstream changes (new Bookmarks section, Yaroslav link)
+- Added "How to find things in Sutro Group" doc to sync config and nav
+- Fixed sync script to preserve cross-reference headers across re-syncs
+
+---
+
+## [0.10.0] - 2026-03-07
+
+### Review fixes and project documentation
+
+- Fixed RL bandit tracker bug (stale loop variable `i` instead of `arm_idx`)
+- Re-sorted TL;DR table by verdict tier then speed, ranked Target Propagation as #33
+- Updated CLAUDE.md with Phase 2 results, best methods table, Telegram sync reference
+- Added AGENTS.md documenting how 17 parallel Claude Code agents were used
+- Added `.env.example` for Telegram API credentials
+- Gitignored `messages.json` (contains real group messages)
+
+---
+
+## [0.9.0] - 2026-03-07
+
+### Phase 2: 17 experiments + Practitioner's Field Guide
+
+**Phase 2 experiments** dispatched 17 independent Claude Code agents in parallel, each testing a different algorithmic approach:
+
+- **Algebraic/Exact**: GF(2) Gaussian elimination (509 us, 240x faster than SGD), Kushilevitz-Mansour influence estimation (ARD 1,585, 724x better than Fourier), SMT backtracking
+- **Information-Theoretic**: Mutual Information, LASSO, MDL Compression, Random Projections -- all solve it, none beats Fourier meaningfully
+- **Local Learning Rules**: Hebbian, Predictive Coding, Equilibrium Propagation, Target Propagation -- all failed at chance level (parity requires k-th order interaction detection)
+- **Hardware-Aware**: Tiled W1 (software ARD worsened), Pebble Game (2.2% energy savings), Binary Weights (fails at n=20)
+- **Alternative Framings**: Genetic Programming (exact formula but doesn't scale), RL Bit Querying (ARD of 1 at inference), Decision Trees (greedy splitting can't find secret bits)
+
+**Practitioner's Field Guide** (`docs/research/survey.md`): 4,500-word survey ranking all 33 experiments with decision framework, 10 generalized principles, and full AI research methodology.
+
+**Telegram sync tooling**: `sync_telegram.ts` pulls messages from Sutro Group topic threads via MTProto. Full setup guide in docs/tooling/automation.md.
+
+Updated DISCOVERIES.md, mkdocs nav (survey + 17 findings pages), and research index.
+
+---
+
 ## [0.8.0] - 2026-03-04
 
 ### Blank-slate approaches (Round 3, no neural nets, no SGD)

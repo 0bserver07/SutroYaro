@@ -83,6 +83,13 @@ bun run sync_telegram.ts
 - Record everything -- failed hypotheses are findings too
 - Apply anti-slop writing rules to all prose (no em dashes, no AI vocabulary)
 
+## Before Pushing
+
+- **Update `docs/changelog.md`** with what changed (bump version, add section)
+- **Sync Google Docs** if meeting notes may have changed: `python3 src/sync_google_docs.py`
+- **Sync Telegram** if group discussion may have new messages: `bun run sync_telegram.ts`
+- **Check `docs/index.md`** if findings or status changed -- homepage should reflect current state
+
 ## People
 
 - **Yad** (repo creator, SutroYaro) — Built the Claude Code autonomous research lab, parallel agent experiments
