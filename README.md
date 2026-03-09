@@ -57,7 +57,45 @@ Each experiment produces:
 
 ## How Agent-Driven Research Works
 
-![Agent Workflow](docs/diagrams/agent-workflow.svg)
+```mermaid
+flowchart TD
+    H["Human (You)"] -->|writes specs| Docs
+    H -->|prompts| Lead
+
+    subgraph Repo["GitHub Repo (SutroYaro)"]
+        Docs["CLAUDE.md · DISCOVERIES.md · LAB.md\nproposed-approaches.md"]
+        Scripts["sync_telegram.ts · sync_google_docs.py\nexport_sessions.py"]
+    end
+
+    Lead["Lead Agent\n(Claude Code)"] -->|reads first| Docs
+    Scripts -->|feeds context| Lead
+
+    Lead -->|1. reads docs| Step1["Survey problem space\n(27 approaches)"]
+    Step1 -->|2. dispatches| Agents
+
+    subgraph Agents["Isolated Sub-Agents (x17, parallel)"]
+        A1["GF(2)"]
+        A2["Hebbian"]
+        A3["RL Bandit"]
+        A4["..."]
+    end
+
+    Agents -->|each produces| Out["experiment.py · results.json · findings.md"]
+    Out -->|feeds back into| Docs
+
+    style H fill:#fff2cc,stroke:#d6b656,color:#333
+    style Repo fill:#f0f4ff,stroke:#6c8ebf,color:#333
+    style Docs fill:#e1d5e7,stroke:#9673a6,color:#333
+    style Scripts fill:#d5e8d4,stroke:#82b366,color:#333
+    style Lead fill:#ffe6cc,stroke:#d79b00,color:#333
+    style Step1 fill:#fff2cc,stroke:#d6b656,color:#333
+    style Agents fill:#fce4ec,stroke:#b85450,color:#333
+    style A1 fill:#f8cecc,stroke:#b85450,color:#333
+    style A2 fill:#f8cecc,stroke:#b85450,color:#333
+    style A3 fill:#f8cecc,stroke:#b85450,color:#333
+    style A4 fill:#f8cecc,stroke:#b85450,color:#333
+    style Out fill:#d5e8d4,stroke:#82b366,color:#333
+```
 
 The human writes specs (CLAUDE.md, DISCOVERIES.md, LAB.md). The lead agent reads those first, surveys the problem space, then dispatches isolated sub-agents in parallel. Each sub-agent gets one approach, the experiment template, and shared modules. No sub-agent sees another's results or the knowledge base. Read-only access to benchmark code prevents agents from gaming the metrics. Outputs feed back into DISCOVERIES.md for the next round.
 
