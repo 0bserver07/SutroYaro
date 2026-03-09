@@ -111,6 +111,7 @@ def export_session(jsonl_path, output_dir):
                 continue
 
             entry_type = entry.get("type", "")
+            timestamp = entry.get("timestamp", "")
 
             # Extract from nested message format
             msg = entry.get("message", {})
@@ -133,7 +134,7 @@ def export_session(jsonl_path, output_dir):
             if not text:
                 continue
 
-            messages.append((role, text))
+            messages.append((role, text, timestamp))
 
     if not messages:
         return None
@@ -158,14 +159,39 @@ def export_session(jsonl_path, output_dir):
         lines.append(f"# Agent: {meta['agent']}")
     lines.append(f"# Branch: {meta['branch']}")
     lines.append(f"# Messages: {len(messages)}")
+
+    # Compute session duration from first/last timestamps
+    timestamps = [t for _, _, t in messages if t]
+    first_ts = last_ts = None
+    if timestamps:
+        try:
+            first_ts = datetime.fromisoformat(timestamps[0].replace("Z", "+00:00"))
+            last_ts = datetime.fromisoformat(timestamps[-1].replace("Z", "+00:00"))
+        except (ValueError, IndexError):
+            pass
+    if first_ts:
+        lines.append(f"# Started: {first_ts.strftime('%Y-%m-%d %H:%M:%S UTC')}")
+    if first_ts and last_ts:
+        duration = last_ts - first_ts
+        mins = int(duration.total_seconds() // 60)
+        secs = int(duration.total_seconds() % 60)
+        lines.append(f"# Duration: {mins}m {secs}s")
+
     lines.append(f"# Exported: {datetime.now().strftime('%Y-%m-%d %H:%M')}")
     lines.append("")
     lines.append("=" * 80)
     lines.append("")
 
-    for role, text in messages:
+    for role, text, ts in messages:
         label = "YOU" if role in ("user", "human") else "CLAUDE" if role == "assistant" else role.upper()
-        lines.append(f"--- {label} ---")
+        ts_str = ""
+        if ts:
+            try:
+                t = datetime.fromisoformat(ts.replace("Z", "+00:00"))
+                ts_str = f" [{t.strftime('%H:%M:%S')}]"
+            except ValueError:
+                pass
+        lines.append(f"--- {label}{ts_str} ---")
         lines.append("")
         lines.append(text)
         lines.append("")
@@ -175,6 +201,11 @@ def export_session(jsonl_path, output_dir):
     output_path.write_text("\n".join(lines))
     meta["messages"] = len(messages)
     meta["output"] = str(output_path.relative_to(REPO_ROOT))
+    if first_ts and last_ts:
+        duration = last_ts - first_ts
+        meta["duration_mins"] = int(duration.total_seconds() // 60)
+    if first_ts:
+        meta["started"] = first_ts.strftime("%Y-%m-%d %H:%M")
     return meta
 
 
@@ -250,12 +281,14 @@ def main():
         "",
         f"Exported {len(exported)} sessions from Claude Code on {datetime.now().strftime('%Y-%m-%d %H:%M')}.",
         "",
-        "| Team | Agent | Messages | File |",
-        "|------|-------|----------|------|",
+        "| Team | Agent | Messages | Duration | Started | File |",
+        "|------|-------|----------|----------|---------|------|",
     ]
     for s in exported:
         fname = Path(s["output"]).name
-        lines.append(f"| {s['team'] or '-'} | {s['agent'] or '-'} | {s['messages']} | [{fname}]({fname}) |")
+        dur = f"{s['duration_mins']}m" if s.get("duration_mins") is not None else "-"
+        started = s.get("started", "-")
+        lines.append(f"| {s['team'] or '-'} | {s['agent'] or '-'} | {s['messages']} | {dur} | {started} | [{fname}]({fname}) |")
     lines.append("")
 
     index_path.write_text("\n".join(lines))

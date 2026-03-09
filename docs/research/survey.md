@@ -264,6 +264,14 @@ flowchart TD
 
 ## 7. The AI Research Process
 
+The 33 experiments ran in two phases with different structures:
+
+- **Phase 1** (16 experiments, sequential): Each experiment built on findings from the previous one. A human operator (Yad) decided what to try next based on results, then wrote the spec. The agent implemented, ran, and documented each experiment. Key pivot decisions (abandoning incremental ARD optimization after Phase 1 stalled, building the cache simulator when the ARD metric looked wrong, switching to blank-slate approaches) were human calls, not agent calls.
+
+- **Phase 2** (17 experiments, parallel): 17 independent agents dispatched simultaneously. Each received an approach description, the experiment template, shared module APIs, and three test configs. No agent saw another agent's results. The agents had read-only access to the benchmark code. They could not modify the objective function, data generation, or accuracy measurement.
+
+Both phases shared one design: **DISCOVERIES.md as persistent memory**. This file accumulated proven facts from every completed experiment. Every agent read it before starting. No agent repeated known-bad configurations (LR=0.5, GrokFast, WD>=0.1) because the file documented those as failures. This is the mechanism that prevents wasted work across sessions.
+
 ### 7a. The Agentic Loop
 
 Each experiment followed a standardized pipeline. The template file (_template.py) defines a baseline run, an experiment run, a comparison table, and JSON output. Shared modules provide consistent infrastructure:
