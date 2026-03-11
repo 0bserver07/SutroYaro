@@ -7,11 +7,13 @@ This is a research workspace for the **Sutro Group**, a study group exploring en
 ## Read These First
 
 - **LAB.md** — Protocol for running experiments (templates, lifecycle, rules)
+- **AGENT.md** — Machine-executable experiment loop for autonomous sessions
 - **DISCOVERIES.md** — What's proven so far (read before every experiment)
 - **CONTRIBUTING.md** — How external contributors submit experiments and findings
 - **TODO.md** — Open research tasks
 - **docs/tasks/INDEX.md** — Current task tracker with priorities
 - **docs/research/survey.md** — Practitioner's Field Guide ranking all 33 experiments
+- **docs/research/peer-research-protocol.md** — Full design doc for multi-researcher autonomous research
 
 ## Core Concepts
 
@@ -55,6 +57,23 @@ Solves in ~40 epochs / 0.12s with numpy (`fast.py`).
 - All 4 local learning rules (Hebbian, Predictive Coding, Equilibrium Propagation, Target Propagation) fail at chance level -- parity requires k-th order interaction detection
 - Information-theoretic methods (MI, LASSO, MDL, Random Projections) all solve it but none beats Fourier meaningfully
 - RL sequential Q-learning achieves ARD of 1 at inference (reads exactly k=3 bits per prediction)
+
+## Autonomous Research Infrastructure
+
+| File | Purpose |
+|------|---------|
+| `AGENT.md` | Agent-executable experiment loop (machine protocol) |
+| `src/harness.py` | Locked evaluation harness (DO NOT MODIFY in experiment PRs) |
+| `research/search_space.yaml` | Bounded mutation space per challenge |
+| `research/questions.yaml` | Dependency graph of open research questions |
+| `research/log.jsonl` | Append-only experiment log (machine-readable) |
+| `results/scoreboard.tsv` | Human-readable leaderboard (auto-generated) |
+| `checks/env_check.py` | Pre-flight environment check |
+| `checks/baseline_check.py` | Re-establish baselines on this machine |
+| `bin/run-agent` | Launch autonomous agent cycle |
+| `bin/merge-findings` | Import contributor log entries via PR |
+
+See [docs/research/peer-research-protocol.md](docs/research/peer-research-protocol.md) for the full design.
 
 ## Automation
 
@@ -111,7 +130,7 @@ Multiple people contribute via PRs (fork and branch). See [CONTRIBUTING.md](CONT
 - **`contributions/`** — Drop raw results here in any format. No template needed.
 - **`findings/_template.md`** — Standalone findings template for structured reports.
 - **`DISCOVERIES.md`** — Shared knowledge base. Anyone can PR new bullets.
-- **Metric isolation (LAB.md rule #9)** — Never modify tracker.py, cache_tracker.py, data.py, config.py in experiment PRs.
+- **Metric isolation (LAB.md rule #9)** — Never modify tracker.py, cache_tracker.py, data.py, config.py, harness.py in experiment PRs.
 
 When reviewing PRs: check that results are reproducible, findings follow the template, and DISCOVERIES.md is updated if the experiment answers an open question.
 

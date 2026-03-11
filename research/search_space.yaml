@@ -1,0 +1,88 @@
+# Search Space: what the agent is allowed to vary
+# To add new methods/parameters, a human edits this file and commits.
+
+# --- Sparse Parity ---
+
+challenge: sparse-parity
+version: 1
+
+methods:
+  # Neural net approaches
+  - sgd             # standard backprop (fast.py)
+  - perlayer        # per-layer forward-backward
+  - sign_sgd        # sign of gradient, fixed step
+  - curriculum      # train small n first, expand
+  - forward_forward  # Hinton's FF (known to fail at n=20)
+
+  # Algebraic / exact
+  - gf2             # Gaussian elimination over GF(2)
+  - km              # Kushilevitz-Mansour influence
+  - smt             # constraint solver / backtracking
+  - fourier         # Walsh-Hadamard correlation
+
+  # Information-theoretic
+  - lasso           # L1 on interaction features
+  - mdl             # minimum description length
+  - mutual_info     # mutual information
+  - random_proj     # Monte Carlo Fourier subsampling
+
+  # Alternative framings
+  - rl              # reinforcement learning bit querying
+  - genetic_prog    # symbolic regression
+  - evolutionary    # random/evolutionary subset search
+
+parameters:
+  n_bits: [3, 10, 20, 30, 50, 100]
+  k_sparse: [3, 5, 7, 10]
+  hidden: [64, 200, 400, 1000]
+  lr: [0.001, 0.01, 0.1, 0.5]
+  wd: [0.0, 0.001, 0.01, 0.05, 0.1]
+  batch_size: [1, 8, 32, 128]
+  n_train: [20, 100, 500, 1000, 5000, 20000]
+  max_epochs: [10, 50, 200, 500]
+  seed: [42, 123, 456, 789, 1337]
+
+  # Method-specific
+  influence_samples: [3, 5, 10, 20]  # for km
+  n_projections: [50, 100, 500]      # for random_proj
+  alpha: [0.001, 0.01, 0.1, 1.0]    # for lasso
+  population_size: [50, 100, 200]    # for evolutionary
+  max_depth: [3, 5, 10]              # for genetic_prog
+
+metrics:
+  primary: ard
+  secondary:
+    - dmc
+    - time_s
+    - accuracy
+    - total_floats
+  locked_in: src/harness.py
+
+# --- nanoGPT (future) ---
+# Uncomment when the group moves to the next challenge.
+#
+# challenge: nanogpt
+# version: 1
+#
+# methods:
+#   - standard_adam
+#   - muon
+#   - sign_sgd
+#   - per_layer
+#   - curriculum
+#
+# parameters:
+#   n_layers: [2, 4, 6, 8, 12]
+#   n_heads: [2, 4, 8]
+#   d_model: [64, 128, 256, 512]
+#   lr: [0.0001, 0.0003, 0.001, 0.003]
+#   batch_size: [4, 8, 16, 32]
+#   context_length: [64, 128, 256]
+#   weight_decay: [0.0, 0.01, 0.1]
+#   warmup_steps: [0, 100, 500]
+#   time_budget_s: [60, 120, 300]
+#
+# metrics:
+#   primary: val_bpb
+#   secondary: [ard, dmc, time_s, peak_memory_mb]
+#   locked_in: src/harness.py

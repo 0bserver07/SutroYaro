@@ -1,0 +1,100 @@
+#!/usr/bin/env python3
+"""
+Merge a contributor's log.jsonl entries into the shared log.
+
+Deduplicates by experiment ID. Appends new entries only.
+Optionally regenerates results/scoreboard.tsv.
+
+Usage:
+    bin/merge-findings path/to/contributor-log.jsonl
+    bin/merge-findings path/to/contributor-log.jsonl --scoreboard
+"""
+
+import sys
+import os
+import json
+import argparse
+
+REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SHARED_LOG = os.path.join(REPO_ROOT, "research", "log.jsonl")
+SCOREBOARD = os.path.join(REPO_ROOT, "results", "scoreboard.tsv")
+
+
+def load_log(path):
+    entries = []
+    if not os.path.exists(path):
+        return entries
+    with open(path) as f:
+        for line in f:
+            line = line.strip()
+            if line:
+                entries.append(json.loads(line))
+    return entries
+
+
+def save_log(path, entries):
+    with open(path, "w") as f:
+        for entry in entries:
+            f.write(json.dumps(entry, separators=(",", ":")) + "\n")
+
+
+def merge(shared_entries, new_entries):
+    existing_ids = {e["id"] for e in shared_entries}
+    added = []
+    for entry in new_entries:
+        if entry["id"] not in existing_ids:
+            shared_entries.append(entry)
+            existing_ids.add(entry["id"])
+            added.append(entry["id"])
+    return added
+
+
+def generate_scoreboard(entries):
+    lines = ["id\tresearcher\tdate\tchallenge\tmethod\tclass\taccuracy\tard\tdmc\ttime_s\thypothesis"]
+    for e in sorted(entries, key=lambda x: x.get("date", "")):
+        r = e.get("result", {})
+        lines.append("\t".join([
+            str(e.get("id", "")),
+            str(e.get("researcher", "")),
+            str(e.get("date", "")),
+            str(e.get("challenge", "")),
+            str(e.get("method", "")),
+            str(e.get("class", "")),
+            str(r.get("accuracy", "")),
+            str(r.get("ard", "")),
+            str(r.get("dmc", "")),
+            str(r.get("time_s", "")),
+            str(e.get("hypothesis", ""))[:80],
+        ]))
+    return "\n".join(lines) + "\n"
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Merge contributor findings into shared log")
+    parser.add_argument("contributor_log", help="Path to contributor's log.jsonl")
+    parser.add_argument("--scoreboard", action="store_true", help="Regenerate scoreboard.tsv")
+    args = parser.parse_args()
+
+    shared = load_log(SHARED_LOG)
+    new = load_log(args.contributor_log)
+
+    print(f"Shared log: {len(shared)} entries")
+    print(f"Contributor log: {len(new)} entries")
+
+    added = merge(shared, new)
+
+    if added:
+        save_log(SHARED_LOG, shared)
+        print(f"Added {len(added)} new entries: {added}")
+    else:
+        print("No new entries to add.")
+
+    if args.scoreboard or added:
+        os.makedirs(os.path.dirname(SCOREBOARD), exist_ok=True)
+        with open(SCOREBOARD, "w") as f:
+            f.write(generate_scoreboard(shared))
+        print(f"Scoreboard written to {SCOREBOARD}")
+
+
+if __name__ == "__main__":
+    main()

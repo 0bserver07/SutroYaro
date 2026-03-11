@@ -1,0 +1,256 @@
+#!/usr/bin/env python3
+"""
+Analyze research/log.jsonl and print progress report.
+
+Reads the experiment log, computes statistics, and optionally
+generates a progress chart (requires matplotlib).
+
+Usage:
+    bin/analyze-log
+    bin/analyze-log --plot          # generates results/progress.png
+    bin/analyze-log --json          # machine-readable output
+"""
+
+import sys
+import os
+import json
+import argparse
+from collections import Counter
+from datetime import datetime
+
+REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+LOG_PATH = os.path.join(REPO_ROOT, "research", "log.jsonl")
+
+
+def load_log():
+    entries = []
+    with open(LOG_PATH) as f:
+        for line in f:
+            line = line.strip()
+            if line:
+                entries.append(json.loads(line))
+    return entries
+
+
+def analyze(entries):
+    total = len(entries)
+    classes = Counter(e.get("class", "UNKNOWN") for e in entries)
+    methods = Counter(e.get("method", "unknown") for e in entries)
+    researchers = Counter(e.get("researcher", "unknown") for e in entries)
+    challenges = Counter(e.get("challenge", "unknown") for e in entries)
+
+    # Date range
+    dates = [e.get("date", "") for e in entries if e.get("date")]
+    date_range = (min(dates), max(dates)) if dates else ("?", "?")
+
+    # Best results per metric
+    best_ard = None
+    best_time = None
+    for e in entries:
+        r = e.get("result", {})
+        ard = r.get("ard")
+        if ard is not None and ard > 0:
+            if best_ard is None or ard < best_ard["result"]["ard"]:
+                best_ard = e
+        t = r.get("time_s")
+        if t is not None and t > 0:
+            if best_time is None or t < best_time["result"]["time_s"]:
+                best_time = e
+
+    # WINs timeline (cumulative)
+    wins_by_date = {}
+    for e in entries:
+        if e.get("class") == "WIN":
+            d = e.get("date", "unknown")
+            wins_by_date[d] = wins_by_date.get(d, 0) + 1
+
+    # Running best ARD over time
+    ard_timeline = []
+    running_best = float("inf")
+    for e in entries:
+        r = e.get("result", {})
+        ard = r.get("ard")
+        if ard is not None and ard > 0:
+            if ard < running_best:
+                running_best = ard
+            ard_timeline.append({
+                "id": e["id"],
+                "method": e.get("method"),
+                "ard": ard,
+                "running_best": running_best,
+            })
+
+    return {
+        "total": total,
+        "classes": dict(classes),
+        "methods": dict(methods),
+        "researchers": dict(researchers),
+        "challenges": dict(challenges),
+        "date_range": date_range,
+        "best_ard": best_ard,
+        "best_time": best_time,
+        "wins_by_date": wins_by_date,
+        "ard_timeline": ard_timeline,
+        "keep_rate": round(classes.get("WIN", 0) / total * 100, 1) if total else 0,
+    }
+
+
+def print_report(stats):
+    print("=" * 70)
+    print("  EXPERIMENT LOG ANALYSIS")
+    print("=" * 70)
+    print(f"  Total experiments: {stats['total']}")
+    print(f"  Date range: {stats['date_range'][0]} to {stats['date_range'][1]}")
+    print(f"  WIN rate: {stats['keep_rate']}%")
+    print()
+
+    # Class breakdown
+    print("  Classification:")
+    for cls in ["WIN", "LOSS", "INCONCLUSIVE", "INVALID", "BASELINE"]:
+        count = stats["classes"].get(cls, 0)
+        bar = "#" * count
+        print(f"    {cls:<14} {count:>3}  {bar}")
+    print()
+
+    # Method distribution
+    print("  Methods tested:")
+    for method, count in sorted(stats["methods"].items(), key=lambda x: -x[1]):
+        print(f"    {method:<20} {count:>3}")
+    print()
+
+    # Best results
+    if stats["best_ard"]:
+        e = stats["best_ard"]
+        print(f"  Best ARD: {e['result']['ard']} ({e['method']}, {e['id']})")
+        print(f"    \"{e['hypothesis']}\"")
+    if stats["best_time"]:
+        e = stats["best_time"]
+        print(f"  Best time: {e['result']['time_s']}s ({e['method']}, {e['id']})")
+        print(f"    \"{e['hypothesis']}\"")
+    print()
+
+    # ARD progress
+    if stats["ard_timeline"]:
+        print("  ARD progress (running best):")
+        prev_best = float("inf")
+        for pt in stats["ard_timeline"]:
+            if pt["running_best"] < prev_best:
+                prev_best = pt["running_best"]
+                print(f"    {pt['id']:<10} {pt['method']:<16} "
+                      f"ARD={pt['ard']:>12,.1f}  best={pt['running_best']:>12,.1f}")
+    print()
+
+    # Wins by date
+    if stats["wins_by_date"]:
+        print("  Wins by date:")
+        for d, count in sorted(stats["wins_by_date"].items()):
+            bar = "#" * count
+            print(f"    {d}  {count:>2}  {bar}")
+    print("=" * 70)
+
+
+def plot_progress(stats):
+    try:
+        import matplotlib
+        matplotlib.use("Agg")
+        import matplotlib.pyplot as plt
+    except ImportError:
+        print("matplotlib not installed. Skipping plot.")
+        return
+
+    timeline = stats["ard_timeline"]
+    if not timeline:
+        print("No ARD data to plot.")
+        return
+
+    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(12, 8))
+
+    # Top: ARD per experiment + running best
+    xs = range(len(timeline))
+    ards = [pt["ard"] for pt in timeline]
+    bests = [pt["running_best"] for pt in timeline]
+
+    ax1.scatter(xs, ards, alpha=0.5, s=20, label="Individual experiments")
+    ax1.plot(xs, bests, "r-", linewidth=2, label="Running best")
+    ax1.set_yscale("log")
+    ax1.set_ylabel("ARD (log scale)")
+    ax1.set_xlabel("Experiment #")
+    ax1.set_title("ARD Progress Over Time")
+    ax1.legend()
+    ax1.grid(True, alpha=0.3)
+
+    # Annotate key wins
+    prev = float("inf")
+    for i, pt in enumerate(timeline):
+        if pt["running_best"] < prev:
+            prev = pt["running_best"]
+            if pt["ard"] < 10000:
+                ax1.annotate(f"{pt['method']}\n{pt['ard']:.0f}",
+                            (i, pt["ard"]),
+                            textcoords="offset points", xytext=(5, 10),
+                            fontsize=7, alpha=0.8)
+
+    # Bottom: class distribution as stacked bar by date
+    classes_by_date = {}
+    for e in load_log():
+        d = e.get("date", "unknown")
+        c = e.get("class", "UNKNOWN")
+        if d not in classes_by_date:
+            classes_by_date[d] = Counter()
+        classes_by_date[d][c] += 1
+
+    dates = sorted(classes_by_date.keys())
+    class_names = ["WIN", "LOSS", "INCONCLUSIVE", "INVALID", "BASELINE"]
+    colors = ["#2ecc71", "#e74c3c", "#f39c12", "#95a5a6", "#3498db"]
+
+    bottom = [0] * len(dates)
+    for cls, color in zip(class_names, colors):
+        values = [classes_by_date[d].get(cls, 0) for d in dates]
+        ax2.bar(dates, values, bottom=bottom, label=cls, color=color)
+        bottom = [b + v for b, v in zip(bottom, values)]
+
+    ax2.set_ylabel("Experiments")
+    ax2.set_title("Experiments by Date and Classification")
+    ax2.legend(loc="upper left")
+    ax2.grid(True, alpha=0.3, axis="y")
+
+    plt.tight_layout()
+    out_path = os.path.join(REPO_ROOT, "results", "progress.png")
+    plt.savefig(out_path, dpi=150)
+    print(f"Plot saved to {out_path}")
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Analyze experiment log")
+    parser.add_argument("--plot", action="store_true", help="Generate progress.png")
+    parser.add_argument("--json", action="store_true", help="Output as JSON")
+    args = parser.parse_args()
+
+    if not os.path.exists(LOG_PATH):
+        print(f"No log file at {LOG_PATH}")
+        sys.exit(1)
+
+    entries = load_log()
+    stats = analyze(entries)
+
+    if args.json:
+        # Remove non-serializable parts
+        output = {k: v for k, v in stats.items() if k not in ("best_ard", "best_time")}
+        if stats["best_ard"]:
+            output["best_ard"] = {"id": stats["best_ard"]["id"],
+                                   "method": stats["best_ard"]["method"],
+                                   "ard": stats["best_ard"]["result"]["ard"]}
+        if stats["best_time"]:
+            output["best_time"] = {"id": stats["best_time"]["id"],
+                                    "method": stats["best_time"]["method"],
+                                    "time_s": stats["best_time"]["result"]["time_s"]}
+        print(json.dumps(output, indent=2))
+    else:
+        print_report(stats)
+
+    if args.plot:
+        plot_progress(stats)
+
+
+if __name__ == "__main__":
+    main()
