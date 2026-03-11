@@ -16,7 +16,7 @@
         <link rel="prev" href="../">
       
       
-        <link rel="next" href="../navigation-thesis/">
+        <link rel="next" href="../friday-demo/">
       
       
         
@@ -435,6 +435,14 @@
       <li>
         <a href="./" class="md-tabs__dropdown-link md-tabs__dropdown-link--active">
           What's New (March 2026)
+        </a>
+      </li>
+    
+  
+    
+      <li>
+        <a href="../friday-demo/" class="md-tabs__dropdown-link">
+          Friday Demo
         </a>
       </li>
     
@@ -1863,6 +1871,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../friday-demo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Friday Demo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../navigation-thesis/" class="md-nav__link">
         
   
@@ -2021,10 +2057,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_8" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_9" >
         
           
-          <label class="md-nav__link" for="__nav_3_8" id="__nav_3_8_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3_9" id="__nav_3_9_label" tabindex="">
             
   
   
@@ -2042,8 +2078,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_8_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_8">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_9">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -3066,10 +3102,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_9" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_10" >
         
           
-          <label class="md-nav__link" for="__nav_3_9" id="__nav_3_9_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3_10" id="__nav_3_10_label" tabindex="">
             
   
   
@@ -3087,8 +3123,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_9_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_9">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_10">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -3977,8 +4013,8 @@
 <h1 id="whats-new-march-2026">What's New (March 2026)<a class="headerlink" href="#whats-new-march-2026" title="Permanent link">&para;</a></h1>
 <p>For the Sutro Group. If you want to run experiments on sparse parity (or the next challenge) using your own AI tool, this page tells you how.</p>
 <h2 id="what-we-added">What we added<a class="headerlink" href="#what-we-added" title="Permanent link">&para;</a></h2>
-<p>Before: each person ran experiments with their own tool, measured things differently, and results lived in scattered docs. Germain's agents rewrote the measurement code to get better scores instead of improving the algorithm.</p>
-<p>Now: everyone runs against the same locked harness. The harness measures ARD, DMC, and wall-clock time identically for every tool. Results go into one shared log. Nobody can game the metric.</p>
+<p>Before: each person ran experiments with their own tool, measured things differently, and results lived in scattered docs. Without a shared measurement standard, it was hard to compare results across people and tools.</p>
+<p>Now: everyone runs against the same locked harness. The harness measures ARD, DMC, and wall-clock time identically for every tool. Results go into one shared log. Numbers are directly comparable regardless of who ran them or what tool they used.</p>
 <p>The system has five parts:</p>
 <ul>
 <li><strong><code>src/harness.py</code></strong> -- locked evaluation. Runs GF(2), SGD, KM, Fourier, or SMT and returns accuracy, ARD, DMC, timing. Agents cannot modify this file.</li>
