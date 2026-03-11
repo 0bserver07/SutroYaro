@@ -1,10 +1,8 @@
 # Research as Navigation
 
-*Why coding agents are the right tool for scientific research, and what that means for how we build research systems.*
-
 ## The thesis in one sentence
 
-Research is primarily a navigation problem -- finding the right question, the right method, the right comparison -- and coding agents are the first tool that can navigate a research space autonomously because they can read state, execute experiments, write results, and loop.
+Research is primarily a navigation problem -- finding the right question and the right method -- and coding agents are the first tool that can do this autonomously because they read state, execute experiments, write results, and loop.
 
 ---
 
@@ -18,7 +16,7 @@ Imagine you're lost in a forest and you need to find a specific tree. You have t
 
 Most AI research tools do Option A. They take one approach and optimize it. Our system does Option B. The agent reads what's been tried (climbs the hill), picks the next experiment (chooses a direction), runs it (walks there), and checks the result (looks around again).
 
-The key insight: **the hill-climbing -- the navigation -- is the hard part.** Once you know what to try, running the experiment is easy. The 33 experiments in this project took 3 days of agent time. Figuring out *which* 33 to run, in *what order*, with *what comparisons* -- that's where all the value was.
+The hard part is the hill-climbing, the navigation. Once you know what to try, running the experiment is easy. The 33 experiments in this project took 3 days of agent time. Figuring out *which* 33 to run, in *what order*, with *what comparisons* -- that's where all the value was.
 
 ---
 
@@ -57,7 +55,7 @@ There are many AI tools. Why are coding agents (Claude Code, Gemini CLI, Antigra
 
 ### What makes coding agents different
 
-A coding agent has four capabilities that together enable research navigation:
+A coding agent has four capabilities that together make research navigation possible:
 
 | Capability | What it enables | Chatbot? | Notebook? | AutoML? | Coding agent? |
 |-----------|----------------|----------|-----------|---------|---------------|
@@ -123,7 +121,7 @@ This is Boyd's OODA loop (Observe, Orient, Decide, Act) applied to experimental 
 
 ### Why coding agents fit this loop
 
-The key property of coding agents is that they operate on the same substrate as the research artifacts. The agent reads Python files, writes Python files, runs Python experiments, and records results in files that it will read in the next iteration. There is no translation layer between the agent's "thinking" and the experimental work.
+The important property of coding agents is that they operate on the same substrate as the research artifacts. The agent reads Python files, writes Python files, runs Python experiments, and records results in files that it will read in the next iteration. There is no translation layer between the agent's "thinking" and the experimental work.
 
 Compare this to:
 
@@ -137,7 +135,7 @@ Compare this to:
 
 ### The customization thesis
 
-What makes coding agents particularly suited for research (as opposed to other automation tasks) is that their behavior is programmable through files:
+Coding agents fit research better than other automation tasks because their behavior is programmable through files:
 
 **AGENT.md** is a program written in natural language that specifies the navigation strategy. It tells the agent what to read, what loop to follow, how to classify results, and when to stop. Different research groups can write different AGENT.md files for different navigation strategies, the same way different labs have different research methodologies.
 
@@ -147,7 +145,7 @@ What makes coding agents particularly suited for research (as opposed to other a
 
 **Skills and plugins** extend the agent's capabilities. A skill that knows how to read arXiv papers, or query a citation database, or visualize training curves, makes the agent a better navigator. These are domain-specific navigation tools, not just general-purpose utilities.
 
-The thesis, then, is not just that coding agents can run experiments. It's that coding agents are the first tool that can be *programmed to navigate research spaces* -- and that research, at its core, is navigation.
+The thesis is that coding agents are the first tool that can be *programmed to navigate research spaces* -- and that research, at its core, is navigation.
 
 ### What this predicts
 
@@ -157,7 +155,7 @@ If research is navigation and coding agents are the right tool, then:
 
 2. **Multi-researcher systems outperform single-researcher systems** because they explore more of the space in parallel. This is why the peer research protocol exists -- not for throughput, but for coverage.
 
-3. **The most impactful improvement is better orientation, not faster execution.** Teaching the agent to reason about which experiment is most informative (information gain, dependency resolution, search tree pruning) will matter more than making experiments run faster.
+3. **Better orientation matters more than faster execution.** Teaching the agent to reason about which experiment is most informative (information gain, dependency resolution, search tree pruning) will matter more than making experiments run faster.
 
 4. **The research artifacts (DISCOVERIES.md, log.jsonl, questions.yaml) are more valuable than the code.** The code runs one experiment; the artifacts guide all future experiments. This is why we lock the harness and invest in knowledge accumulation.
 
