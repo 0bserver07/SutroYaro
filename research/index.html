@@ -1753,6 +1753,28 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#data-movement-complexity-dmc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Movement Complexity (DMC)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-roadmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Roadmap
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#the-giraffe-nerve-analogy" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3793,6 +3815,28 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#data-movement-complexity-dmc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Movement Complexity (DMC)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-roadmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Roadmap
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#the-giraffe-nerve-analogy" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3898,6 +3942,18 @@
 <td>Memory cost dominates energy</td>
 <td><a href="https://youtu.be/rsxCZAE8QNA?si=8-kIJ1MuhxChRLgW&amp;t=2457">YouTube</a></td>
 </tr>
+<tr>
+<td>DMC4ML (Ding et al.)</td>
+<td>2023</td>
+<td>Data Movement Complexity for ML</td>
+<td><a href="https://arxiv.org/abs/2312.14441">arXiv</a></td>
+</tr>
+<tr>
+<td>Demmel - Communication-Avoiding Algorithms</td>
+<td>2013</td>
+<td>Lower bounds on data movement</td>
+<td><a href="https://simons.berkeley.edu/sites/default/files/docs/827/demmelslides.pdf">slides</a></td>
+</tr>
 </tbody>
 </table>
 <h2 id="other-resources">Other Resources<a class="headerlink" href="#other-resources" title="Permanent link">&para;</a></h2>
@@ -3945,6 +4001,11 @@
 <h2 id="concepts">Concepts<a class="headerlink" href="#concepts" title="Permanent link">&para;</a></h2>
 <h3 id="average-reuse-distance-ard">Average Reuse Distance (ARD)<a class="headerlink" href="#average-reuse-distance-ard" title="Permanent link">&para;</a></h3>
 <p>Proxy metric for energy efficiency. Small ARD means data stays in fast cache. Large ARD means data must be fetched from external memory (HBM). Our CacheTracker extends this with LRU cache simulation for realistic estimates.</p>
+<h3 id="data-movement-complexity-dmc">Data Movement Complexity (DMC)<a class="headerlink" href="#data-movement-complexity-dmc" title="Permanent link">&para;</a></h3>
+<p>Added in v0.14.0 based on Yaroslav's <a href="../google-docs/yaroslav-knowledge-sprint-2/">Knowledge Sprint #2</a>. DMC = sum of sqrt(stack_distance) for all float accesses (Ding et al., <a href="https://arxiv.org/abs/2312.14441">arXiv:2312.14441</a>). Unlike ARD (which averages), DMC penalizes long-distance fetches sub-linearly through the square root, matching the physics of 2D chip layouts. The LRU cache lemma guarantees LRU is within 2x of optimal, so our LRU-based tracker gives realistic estimates.</p>
+<p>Baseline (n=20/k=3): ARD 4,104 / DMC 300,298.</p>
+<h3 id="the-roadmap">The Roadmap<a class="headerlink" href="#the-roadmap" title="Permanent link">&para;</a></h3>
+<p>Yaroslav's <a href="../google-docs/bigger-picture/">bigger picture</a> defines three axes: <strong>process</strong> (agent harnesses), <strong>metric</strong> (ARD to DMC to GPU), <strong>problem</strong> (sparse parity to nanoGPT). Take small steps along one axis at a time. The final exam is energy-efficient nanoGPT training.</p>
 <h3 id="the-giraffe-nerve-analogy">The Giraffe Nerve Analogy<a class="headerlink" href="#the-giraffe-nerve-analogy" title="Permanent link">&para;</a></h3>
 <p>Backpropagation is like the recurrent laryngeal nerve in giraffes: it works but is inefficient because of the global memory access pattern. The brain uses ~20 Watts with local update rules. We want to find the AI equivalent.</p>
 
