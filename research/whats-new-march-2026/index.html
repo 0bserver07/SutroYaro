@@ -16,7 +16,7 @@
         <link rel="prev" href="../">
       
       
-        <link rel="next" href="../friday-demo/">
+        <link rel="next" href="../navigation-thesis/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>What's New (March 2026) - SutroYaro</title>
+        <title>What's New - SutroYaro</title>
       
     
     
@@ -114,7 +114,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              What's New (March 2026)
+              What's New
             
           </span>
         </div>
@@ -434,15 +434,7 @@
     
       <li>
         <a href="./" class="md-tabs__dropdown-link md-tabs__dropdown-link--active">
-          What's New (March 2026)
-        </a>
-      </li>
-    
-  
-    
-      <li>
-        <a href="../friday-demo/" class="md-tabs__dropdown-link">
-          Friday Demo
+          What's New
         </a>
       </li>
     
@@ -1735,7 +1727,7 @@
   <span class="md-ellipsis">
     
   
-    What's New (March 2026)
+    What's New
   
 
     
@@ -1753,7 +1745,7 @@
   <span class="md-ellipsis">
     
   
-    What's New (March 2026)
+    What's New
   
 
     
@@ -1834,10 +1826,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#demo" class="md-nav__link">
+  <a href="#status" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Demo
+        Status
       
     </span>
   </a>
@@ -1859,34 +1851,6 @@
   
 </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../friday-demo/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Friday Demo
-  
-
-    
-  </span>
-  
-  
-
-      </a>
     </li>
   
 
@@ -2057,10 +2021,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_9" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_8" >
         
           
-          <label class="md-nav__link" for="__nav_3_9" id="__nav_3_9_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3_8" id="__nav_3_8_label" tabindex="">
             
   
   
@@ -2078,8 +2042,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_9_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_9">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_8">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -3102,10 +3066,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_10" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_9" >
         
           
-          <label class="md-nav__link" for="__nav_3_10" id="__nav_3_10_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3_9" id="__nav_3_9_label" tabindex="">
             
   
   
@@ -3123,8 +3087,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_10_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_10">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_9">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -3969,10 +3933,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#demo" class="md-nav__link">
+  <a href="#status" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Demo
+        Status
       
     </span>
   </a>
@@ -4098,20 +4062,18 @@
 <p>The short version: research is about finding the right experiment to run, not just running experiments faster. A coding agent (Claude Code, Gemini CLI, Codex, etc.) can read what's been tried, pick the next hypothesis, run it, log the result, and repeat. That loop is what makes autonomous research possible.</p>
 <p>The longer version, with examples from our 33 experiments: <a href="../navigation-thesis/">Research as Navigation</a></p>
 <p>One concrete example: we ran 4 local learning rules (Hebbian, Predictive Coding, Equilibrium Propagation, Target Propagation). All failed for the same reason -- parity is invisible to methods limited to local statistics. A smarter navigation protocol would have tested 1, understood why it failed, and skipped the other 3. That's the difference between running experiments and navigating a research space.</p>
-<h2 id="demo">Demo<a class="headerlink" href="#demo" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># The locked harness (solves 20-bit parity in 509 microseconds)</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nv">PYTHONPATH</span><span class="o">=</span>src<span class="w"> </span>python3<span class="w"> </span>src/harness.py<span class="w"> </span>--method<span class="w"> </span>gf2<span class="w"> </span>--n_bits<span class="w"> </span><span class="m">20</span><span class="w"> </span>--k_sparse<span class="w"> </span><span class="m">3</span><span class="w"> </span>--json
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c1"># 33 experiments at a glance</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>bin/analyze-log
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="c1"># Progress chart (ARD dropped from 17,000 to 1 across 33 experiments)</span>
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>bin/analyze-log<span class="w"> </span>--plot
-<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>open<span class="w"> </span>results/progress.png
-<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>
-<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="c1"># Five tools, one command</span>
-<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>bin/run-agent<span class="w"> </span>--help
-</code></pre></div>
+<h2 id="status">Status<a class="headerlink" href="#status" title="Permanent link">&para;</a></h2>
+<p>What's working:
+- Locked harness, all 5 methods verified
+- Pre-flight checks (env + baselines)
+- Experiment log with all 33 experiments
+- Progress report and chart generation
+- Tool-agnostic launcher (Claude Code and Gemini CLI tested)
+- Merge workflow for cross-researcher results</p>
+<p>Work in progress:
+- End-to-end test of a full autonomous cycle (harness and launcher work individually, full loop not yet run overnight)
+- Codex CLI and OpenCode integration (written from docs, not tested locally yet)
+- nanoGPT as the next challenge (protocol supports it, harness doesn't yet)</p>
 <h2 id="all-the-docs">All the docs<a class="headerlink" href="#all-the-docs" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
