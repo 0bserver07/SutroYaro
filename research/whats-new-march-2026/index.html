@@ -1771,10 +1771,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-changed" class="md-nav__link">
+  <a href="#what-we-added" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What changed
+        What we added
       
     </span>
   </a>
@@ -1782,10 +1782,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-30-second-version" class="md-nav__link">
+  <a href="#get-started" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The 30-second version
+        Get started
       
     </span>
   </a>
@@ -1793,10 +1793,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-to-try-it" class="md-nav__link">
+  <a href="#run-experiments-with-your-tool" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How to try it
+        Run experiments with your tool
       
     </span>
   </a>
@@ -1804,10 +1804,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#what-tool-should-i-use" class="md-nav__link">
+  <a href="#share-your-results" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What tool should I use?
+        Share your results
       
     </span>
   </a>
@@ -1815,10 +1815,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-results-get-shared" class="md-nav__link">
+  <a href="#why-we-built-it-this-way" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How results get shared
+        Why we built it this way
       
     </span>
   </a>
@@ -1826,10 +1826,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#key-pages" class="md-nav__link">
+  <a href="#demo" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Key pages
+        Demo
       
     </span>
   </a>
@@ -1837,10 +1837,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#for-fridays-demo" class="md-nav__link">
+  <a href="#all-the-docs" class="md-nav__link">
     <span class="md-ellipsis">
       
-        For Friday's demo
+        All the docs
       
     </span>
   </a>
@@ -3878,10 +3878,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-changed" class="md-nav__link">
+  <a href="#what-we-added" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What changed
+        What we added
       
     </span>
   </a>
@@ -3889,10 +3889,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-30-second-version" class="md-nav__link">
+  <a href="#get-started" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The 30-second version
+        Get started
       
     </span>
   </a>
@@ -3900,10 +3900,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-to-try-it" class="md-nav__link">
+  <a href="#run-experiments-with-your-tool" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How to try it
+        Run experiments with your tool
       
     </span>
   </a>
@@ -3911,10 +3911,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#what-tool-should-i-use" class="md-nav__link">
+  <a href="#share-your-results" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What tool should I use?
+        Share your results
       
     </span>
   </a>
@@ -3922,10 +3922,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-results-get-shared" class="md-nav__link">
+  <a href="#why-we-built-it-this-way" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How results get shared
+        Why we built it this way
       
     </span>
   </a>
@@ -3933,10 +3933,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#key-pages" class="md-nav__link">
+  <a href="#demo" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Key pages
+        Demo
       
     </span>
   </a>
@@ -3944,10 +3944,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#for-fridays-demo" class="md-nav__link">
+  <a href="#all-the-docs" class="md-nav__link">
     <span class="md-ellipsis">
       
-        For Friday's demo
+        All the docs
       
     </span>
   </a>
@@ -3975,100 +3975,146 @@
 
 
 <h1 id="whats-new-march-2026">What's New (March 2026)<a class="headerlink" href="#whats-new-march-2026" title="Permanent link">&para;</a></h1>
-<p>Quick summary for the group. If you want to run experiments with your own AI tool, start here.</p>
-<h2 id="what-changed">What changed<a class="headerlink" href="#what-changed" title="Permanent link">&para;</a></h2>
-<p>We built autonomous research infrastructure that any AI tool can use. Before this, experiments were run manually and results lived in scattered session docs. Now there's a protocol, a locked harness, and a machine-readable log.</p>
-<h2 id="the-30-second-version">The 30-second version<a class="headerlink" href="#the-30-second-version" title="Permanent link">&para;</a></h2>
-<ol>
-<li>A locked evaluation harness (<code>src/harness.py</code>) measures ARD, DMC, and timing the same way for everyone</li>
-<li>An agent protocol (<code>AGENT.md</code>) tells any AI tool how to run experiments</li>
-<li>A bash launcher (<code>bin/run-agent</code>) works with Claude Code, Gemini CLI, Codex CLI, OpenCode, or any CLI</li>
-<li>All 33 experiments are in a machine-readable log (<code>research/log.jsonl</code>)</li>
-<li>A progress report and chart are one command away (<code>bin/analyze-log</code>)</li>
-</ol>
-<h2 id="how-to-try-it">How to try it<a class="headerlink" href="#how-to-try-it" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Pull the latest</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>git<span class="w"> </span>pull
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># Check your environment</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nv">PYTHONPATH</span><span class="o">=</span>src<span class="w"> </span>python3<span class="w"> </span>checks/env_check.py
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nv">PYTHONPATH</span><span class="o">=</span>src<span class="w"> </span>python3<span class="w"> </span>checks/baseline_check.py
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="c1"># See the 33-experiment progress report</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>bin/analyze-log
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="c1"># Run one experiment with your tool of choice</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>bin/run-agent<span class="w"> </span>--tool<span class="w"> </span>gemini<span class="w"> </span>--max<span class="w"> </span><span class="m">1</span>
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>bin/run-agent<span class="w"> </span>--tool<span class="w"> </span>codex<span class="w"> </span>--max<span class="w"> </span><span class="m">1</span>
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>bin/run-agent<span class="w"> </span>--tool<span class="w"> </span>claude<span class="w"> </span>--max<span class="w"> </span><span class="m">1</span>
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
-<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="c1"># Or overnight (10 cycles, 5 experiments each)</span>
-<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>bin/run-agent<span class="w"> </span>--tool<span class="w"> </span>gemini<span class="w"> </span>--loop<span class="w"> </span><span class="m">10</span><span class="w"> </span>--max<span class="w"> </span><span class="m">5</span>
+<p>For the Sutro Group. If you want to run experiments on sparse parity (or the next challenge) using your own AI tool, this page tells you how.</p>
+<h2 id="what-we-added">What we added<a class="headerlink" href="#what-we-added" title="Permanent link">&para;</a></h2>
+<p>Before: each person ran experiments with their own tool, measured things differently, and results lived in scattered docs. Germain's agents rewrote the measurement code to get better scores instead of improving the algorithm.</p>
+<p>Now: everyone runs against the same locked harness. The harness measures ARD, DMC, and wall-clock time identically for every tool. Results go into one shared log. Nobody can game the metric.</p>
+<p>The system has five parts:</p>
+<ul>
+<li><strong><code>src/harness.py</code></strong> -- locked evaluation. Runs GF(2), SGD, KM, Fourier, or SMT and returns accuracy, ARD, DMC, timing. Agents cannot modify this file.</li>
+<li><strong><code>AGENT.md</code></strong> -- the protocol. Any AI tool reads this and knows what to do: pick a hypothesis, run it, classify the result (WIN/LOSS/INVALID), log it, repeat.</li>
+<li><strong><code>bin/run-agent</code></strong> -- a bash launcher that works with Claude Code, Gemini CLI, Codex CLI, OpenCode, or any other CLI. No hooks, no special setup.</li>
+<li><strong><code>research/log.jsonl</code></strong> -- machine-readable log of all 33 experiments so far. One JSON line per experiment.</li>
+<li><strong><code>bin/analyze-log</code></strong> -- prints a progress report and generates a chart.</li>
+</ul>
+<h2 id="get-started">Get started<a class="headerlink" href="#get-started" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># First time</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/0bserver07/SutroYaro.git
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">cd</span><span class="w"> </span>SutroYaro
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1"># Already have the repo</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">cd</span><span class="w"> </span>SutroYaro
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>git<span class="w"> </span>pull
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="c1"># Check your environment (needs Python 3.8+ and numpy)</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="nv">PYTHONPATH</span><span class="o">=</span>src<span class="w"> </span>python3<span class="w"> </span>checks/env_check.py
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="nv">PYTHONPATH</span><span class="o">=</span>src<span class="w"> </span>python3<span class="w"> </span>checks/baseline_check.py
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="c1"># See what 33 experiments look like</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>bin/analyze-log
 </code></pre></div>
-<p>No special setup beyond having your AI CLI installed and authenticated.</p>
-<h2 id="what-tool-should-i-use">What tool should I use?<a class="headerlink" href="#what-tool-should-i-use" title="Permanent link">&para;</a></h2>
-<p>Any of them. The protocol is the same regardless. Pick whatever you already have:</p>
+<h2 id="run-experiments-with-your-tool">Run experiments with your tool<a class="headerlink" href="#run-experiments-with-your-tool" title="Permanent link">&para;</a></h2>
+<p>Pick whichever AI CLI you already have installed:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>bin/run-agent<span class="w"> </span>--tool<span class="w"> </span>claude<span class="w"> </span>--max<span class="w"> </span><span class="m">5</span><span class="w">       </span><span class="c1"># Claude Code</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>bin/run-agent<span class="w"> </span>--tool<span class="w"> </span>gemini<span class="w"> </span>--max<span class="w"> </span><span class="m">5</span><span class="w">       </span><span class="c1"># Gemini CLI</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>bin/run-agent<span class="w"> </span>--tool<span class="w"> </span>codex<span class="w"> </span>--max<span class="w"> </span><span class="m">5</span><span class="w">        </span><span class="c1"># Codex CLI</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>bin/run-agent<span class="w"> </span>--tool<span class="w"> </span>opencode<span class="w"> </span>--max<span class="w"> </span><span class="m">5</span><span class="w">     </span><span class="c1"># OpenCode</span>
+</code></pre></div>
+<p>For Antigravity (which is an IDE, not a CLI):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>agy<span class="w"> </span>.
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="c1"># Then tell the agent: &quot;Read AGENT.md. Follow its protocol.&quot;</span>
+</code></pre></div>
+<p>For overnight runs, looped mode runs multiple short cycles. If one crashes, the next picks up from the file state:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>bin/run-agent<span class="w"> </span>--tool<span class="w"> </span>gemini<span class="w"> </span>--loop<span class="w"> </span><span class="m">10</span><span class="w"> </span>--max<span class="w"> </span><span class="m">5</span><span class="w">    </span><span class="c1"># 10 cycles, up to 5 experiments each</span>
+</code></pre></div>
+<p>Install links if you don't have one yet:</p>
 <table>
 <thead>
 <tr>
 <th>Tool</th>
 <th>Install</th>
-<th>Run</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Claude Code</td>
 <td><code>npm i -g @anthropic-ai/claude-code</code></td>
-<td><code>bin/run-agent --tool claude</code></td>
 </tr>
 <tr>
 <td>Gemini CLI</td>
 <td><code>npm i -g @google/gemini-cli</code></td>
-<td><code>bin/run-agent --tool gemini</code></td>
 </tr>
 <tr>
 <td>Codex CLI</td>
 <td><code>npm i -g @openai/codex</code></td>
-<td><code>bin/run-agent --tool codex</code></td>
 </tr>
 <tr>
 <td>OpenCode</td>
 <td><code>brew install opencode</code></td>
-<td><code>bin/run-agent --tool opencode</code></td>
 </tr>
 <tr>
 <td>Antigravity</td>
-<td>Download from antigravity.google</td>
-<td>Open project, tell agent "Read AGENT.md"</td>
+<td><a href="https://antigravity.google">antigravity.google</a></td>
 </tr>
 </tbody>
 </table>
-<p>Full setup details: <a href="../../tooling/agent-cli-guide/">Agent CLI Guide</a></p>
-<h2 id="how-results-get-shared">How results get shared<a class="headerlink" href="#how-results-get-shared" title="Permanent link">&para;</a></h2>
-<p>Each researcher runs experiments locally and produces log entries in <code>research/log.jsonl</code>. Submit a PR to merge your results into the shared log. The harness ensures everyone's numbers are comparable.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># After your run, check your results</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>bin/analyze-log
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># Submit via PR -- your log entries merge into the shared log</span>
-</code></pre></div>
-<h2 id="key-pages">Key pages<a class="headerlink" href="#key-pages" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="../../tooling/agent-cli-guide/">Agent CLI Guide</a> -- setup for each tool</li>
-<li><a href="../peer-research-protocol/">Peer Research Protocol</a> -- full design, nanoGPT proposal</li>
-<li><a href="../navigation-thesis/">Research as Navigation</a> -- why we built it this way</li>
-<li><a href="../survey/">Practitioner's Field Guide</a> -- all 33 experiments ranked</li>
-</ul>
-<h2 id="for-fridays-demo">For Friday's demo<a class="headerlink" href="#for-fridays-demo" title="Permanent link">&para;</a></h2>
-<p>The demo flow:</p>
+<p>Full setup and customization options per tool: <a href="../../tooling/agent-cli-guide/">Agent CLI Guide</a></p>
+<h2 id="share-your-results">Share your results<a class="headerlink" href="#share-your-results" title="Permanent link">&para;</a></h2>
+<p>After running experiments, your results are in <code>research/log.jsonl</code>. To merge them into the shared log:</p>
 <ol>
-<li><code>PYTHONPATH=src python3 src/harness.py --method gf2 --json</code> -- the locked harness in action</li>
-<li><code>bin/analyze-log</code> -- 33 experiments, 36.4% win rate, best ARD = 1 (RL)</li>
-<li><code>bin/analyze-log --plot</code> then <code>open results/progress.png</code> -- the ARD progress chart</li>
-<li><code>bin/run-agent --help</code> -- show 5 supported tools</li>
-<li>Walk through <code>AGENT.md</code> -- the protocol any AI follows</li>
+<li>Fork the repo (or create a branch)</li>
+<li>Run your experiments</li>
+<li>Submit a PR with your updated <code>log.jsonl</code> and any findings docs</li>
+<li><code>bin/merge-findings</code> deduplicates and integrates</li>
 </ol>
-<p>The pitch: "The tool doesn't matter. The protocol does. Any AI CLI can follow it. Results accumulate across everyone's runs."</p>
+<p>The locked harness is what makes this work. Everyone measures the same way, so Yad's Claude Code results are directly comparable to Yaroslav's Gemini results.</p>
+<h2 id="why-we-built-it-this-way">Why we built it this way<a class="headerlink" href="#why-we-built-it-this-way" title="Permanent link">&para;</a></h2>
+<p>The short version: research is about finding the right experiment to run, not just running experiments faster. A coding agent (Claude Code, Gemini CLI, Codex, etc.) can read what's been tried, pick the next hypothesis, run it, log the result, and repeat. That loop is what makes autonomous research possible.</p>
+<p>The longer version, with examples from our 33 experiments: <a href="../navigation-thesis/">Research as Navigation</a></p>
+<p>One concrete example: we ran 4 local learning rules (Hebbian, Predictive Coding, Equilibrium Propagation, Target Propagation). All failed for the same reason -- parity is invisible to methods limited to local statistics. A smarter navigation protocol would have tested 1, understood why it failed, and skipped the other 3. That's the difference between running experiments and navigating a research space.</p>
+<h2 id="demo">Demo<a class="headerlink" href="#demo" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># The locked harness (solves 20-bit parity in 509 microseconds)</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nv">PYTHONPATH</span><span class="o">=</span>src<span class="w"> </span>python3<span class="w"> </span>src/harness.py<span class="w"> </span>--method<span class="w"> </span>gf2<span class="w"> </span>--n_bits<span class="w"> </span><span class="m">20</span><span class="w"> </span>--k_sparse<span class="w"> </span><span class="m">3</span><span class="w"> </span>--json
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c1"># 33 experiments at a glance</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>bin/analyze-log
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="c1"># Progress chart (ARD dropped from 17,000 to 1 across 33 experiments)</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>bin/analyze-log<span class="w"> </span>--plot
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>open<span class="w"> </span>results/progress.png
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="c1"># Five tools, one command</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>bin/run-agent<span class="w"> </span>--help
+</code></pre></div>
+<h2 id="all-the-docs">All the docs<a class="headerlink" href="#all-the-docs" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Page</th>
+<th>What it covers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../../tooling/agent-cli-guide/">Agent CLI Guide</a></td>
+<td>Setup, install, customization for each AI tool</td>
+</tr>
+<tr>
+<td><a href="../peer-research-protocol/">Peer Research Protocol</a></td>
+<td>Full design: two-layer architecture, log schema, nanoGPT migration</td>
+</tr>
+<tr>
+<td><a href="../navigation-thesis/">Research as Navigation</a></td>
+<td>The thesis: research is navigation, coding agents are the right tool (ELI5 through PhD)</td>
+</tr>
+<tr>
+<td><a href="../survey/">Practitioner's Field Guide</a></td>
+<td>All 33 experiments ranked with methodology</td>
+</tr>
+<tr>
+<td><a href="https://github.com/0bserver07/SutroYaro/blob/main/AGENT.md">AGENT.md</a></td>
+<td>The protocol any AI tool follows</td>
+</tr>
+<tr>
+<td><a href="https://github.com/0bserver07/SutroYaro/blob/main/DISCOVERIES.md">DISCOVERIES.md</a></td>
+<td>Every proven fact from 33 experiments</td>
+</tr>
+<tr>
+<td><a href="https://github.com/0bserver07/SutroYaro/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a></td>
+<td>How to submit your results via PR</td>
+</tr>
+</tbody>
+</table>
 
 
 
