@@ -1,6 +1,6 @@
 # AGENTS.md
 
-This project was built with Claude Code (Anthropic's CLI agent).
+This project uses AI agents (Claude Code, Gemini, Replit, others) for research and accepts contributions from both humans and agents.
 
 ## How AI agents were used
 
@@ -10,15 +10,39 @@ This project was built with Claude Code (Anthropic's CLI agent).
 
 **Survey**: A single agent wrote the Practitioner's Field Guide (`docs/research/survey.md`) synthesizing all 33 experiments, with spec compliance and code quality review passes.
 
+**Meeting #8 onward**: Multiple group members run their own agent harnesses (Germain's Replit Research OS, Michael's Claude approach, Yaroslav's Gemini). Results flow in via PRs and the `contributions/` directory.
+
+## For agents reviewing PRs
+
+When reviewing a contributed experiment:
+
+1. Check that the experiment ran (results.json should match the findings doc)
+2. Check DISCOVERIES.md for prior work on the same question
+3. Verify the contributor didn't modify measurement code (tracker.py, cache_tracker.py, data.py, config.py)
+4. If the experiment answers an open question, check that DISCOVERIES.md is updated
+
+## For agents running experiments
+
+1. Read DISCOVERIES.md first
+2. Follow the template in `src/sparse_parity/experiments/_template.py`
+3. Report both ARD and DMC (Data Movement Complexity)
+4. Write findings to `findings/exp_{name}.md` using `findings/_template.md`
+5. Never modify measurement code (LAB.md rule #9)
+
 ## Key files
 
 | File | Purpose |
 |------|---------|
 | `CLAUDE.md` | Project instructions loaded at session start |
 | `LAB.md` | Experiment protocol (one hypothesis, baseline, commit discipline) |
-| `DISCOVERIES.md` | Accumulated knowledge base -- every agent reads this before starting |
+| `DISCOVERIES.md` | Shared knowledge base, anyone can PR new findings |
+| `CONTRIBUTING.md` | How humans and agents contribute (three effort levels) |
+| `contributions/` | Drop raw results here in any format |
+| `findings/_template.md` | Standalone findings template |
+| `docs/tasks/INDEX.md` | Current task tracker with priorities |
 | `docs/research/survey.md` | Full methodology in Section 7 (agentic loop, parallel dispatch, prompting strategies) |
 | `docs/tooling/anti-slop-guide.md` | Writing rules applied to all agent-generated prose |
+| `docs/tooling/sync-runbook.md` | Weekly/daily/per-session sync checklists |
 
 ## What worked
 
