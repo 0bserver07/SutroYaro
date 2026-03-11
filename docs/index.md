@@ -47,6 +47,7 @@ cp src/sparse_parity/experiments/_template.py src/sparse_parity/experiments/exp_
 | What | Where |
 |------|-------|
 | Full results and methodology | [Practitioner's Field Guide](research/survey.md) |
+| Autonomous research protocol | [Peer Research Protocol](research/peer-research-protocol.md) |
 | What's been proven so far | [DISCOVERIES.md](https://github.com/0bserver07/SutroYaro/blob/main/DISCOVERIES.md) |
 | Individual experiment findings | [Research > Findings](research/index.md) |
 | Group context and people | [Context](context.md) |
@@ -54,6 +55,7 @@ cp src/sparse_parity/experiments/_template.py src/sparse_parity/experiments/exp_
 | How we use Claude Code | [Tooling](tooling/index.md) |
 | Meeting notes and Google Docs | [Meetings](meetings/index.md) |
 | How this project uses AI agents | [AGENTS.md](https://github.com/0bserver07/SutroYaro/blob/main/AGENTS.md) |
+| How to contribute | [CONTRIBUTING.md](https://github.com/0bserver07/SutroYaro/blob/main/CONTRIBUTING.md) |
 
 ## Quick Links
 

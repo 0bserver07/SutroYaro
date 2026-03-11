@@ -77,6 +77,7 @@ nav:
           - Sync Runbook: tooling/sync-runbook.md
   - Research:
       - Overview: research/index.md
+      - Peer Research Protocol: research/peer-research-protocol.md
       - Literature Review: research/sparse-parity-literature.md
       - Proposed Approaches: research/proposed-approaches.md
       - Survey: research/survey.md
@@ -115,6 +116,7 @@ nav:
           - RL Bit Querying: findings/exp_rl.md
           - MDL Compression: findings/exp_mdl.md
           - Prompting Strategies: findings/prompting-strategies.md
+          - Session 2026-03-11: findings/session-2026-03-11.md
       - Plans:
           - Pipeline Design: plans/2026-03-03-sparse-parity-pipeline-design.md
           - Implementation Plan: plans/2026-03-03-sparse-parity-implementation.md

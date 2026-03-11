@@ -2,6 +2,23 @@
 
 Research notes and literature review for the Sutro Group.
 
+## Autonomous Research Infrastructure
+
+**[Peer Research Protocol](peer-research-protocol.md)** describes how SutroYaro runs autonomous, multi-researcher experiments. Multiple people use different AI tools (Claude Code, Replit, Gemini) on the same challenge. A locked evaluation harness ensures comparable results. A machine-readable experiment log accumulates findings across researchers.
+
+Key infrastructure:
+
+| Tool | What it does |
+|------|-------------|
+| `AGENT.md` | Machine-executable experiment loop for any AI agent |
+| `src/harness.py` | Locked evaluation (5 methods, CLI). Agents cannot modify. |
+| `bin/run-agent` | Tool-agnostic launcher with looped mode for overnight runs |
+| `bin/analyze-log` | Progress report and chart from experiment log |
+| `research/log.jsonl` | 33 experiments in machine-readable format |
+| `research/search_space.yaml` | What the agent can vary, per challenge |
+
+The protocol is challenge-agnostic: it works for sparse parity now and nanoGPT later. See the [full design doc](peer-research-protocol.md) for the nanoGPT migration proposal.
+
 ## Survey
 
 **[Sparse Parity: A Practitioner's Field Guide](survey.md)** ranks all 33 experiments (16 Phase 1 + 17 Phase 2), provides a decision framework for picking methods, and documents the full AI research process including parallel agent dispatch.
