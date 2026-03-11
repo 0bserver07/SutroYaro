@@ -2,6 +2,7 @@
 
 > Accumulated knowledge from all experiments. Read this before starting any new experiment.
 > Each entry is a proven fact with a source experiment.
+> **This is the shared knowledge base.** Anyone can add findings via PR. Format: one bullet, state the fact, cite the source.
 
 ## Proven Facts
 

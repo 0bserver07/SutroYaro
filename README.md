@@ -40,20 +40,20 @@ python3 -m pytest tests/ -v
 PYTHONPATH=src python3 src/sparse_parity/experiments/exp_sign_sgd.py
 ```
 
-## Running Your Own Experiments
+## Contributing
 
-This repo is set up for autonomous AI-assisted research. See [LAB.md](LAB.md) for the full protocol.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the full guide. The short version:
 
-1. Read [DISCOVERIES.md](DISCOVERIES.md) — what's proven, what's open
-2. Pick an open question
-3. Copy `src/sparse_parity/experiments/_template.py`
-4. Run, measure, write findings, commit
-5. Update DISCOVERIES.md with your result
+1. Fork the repo
+2. Read [DISCOVERIES.md](DISCOVERIES.md) so you don't repeat what's known
+3. Run an experiment (any tool: Claude Code, Replit, Gemini, plain Python)
+4. Submit a PR
 
-Each experiment produces:
-- `src/sparse_parity/experiments/exp_{name}.py` — the code
-- `findings/exp_{name}.md` — analysis (strict template)
-- `results/exp_{name}/results.json` — machine-readable metrics
+Three levels of effort:
+
+- **Low**: drop raw results in [`contributions/`](contributions/) (any format)
+- **Medium**: write a findings doc using [`findings/_template.md`](findings/_template.md)
+- **High**: code + results + findings following [LAB.md](LAB.md)
 
 ## How Agent-Driven Research Works
 

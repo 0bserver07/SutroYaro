@@ -6,7 +6,6 @@ Hypothesis: {If we do X, then Y because Z}
 Answers: {Which open question from DISCOVERIES.md}
 
 Usage:
-    cd /Users/yadkonrad/dev_dev/year26/feb26/SutroYaro
     PYTHONPATH=src python3 src/sparse_parity/experiments/{this_file}.py
 """
 
