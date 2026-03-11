@@ -1,109 +1,166 @@
 # SutroYaro
 
-Research workspace for the [Sutro Group](https://t.me/sutro_group) — energy-efficient AI training, meeting weekly at South Park Commons (SF).
+Research workspace for the [Sutro Group](https://t.me/sutro_group) -- energy-efficient AI training, meeting weekly at South Park Commons (SF).
 
 **Docs site**: https://0bserver07.github.io/SutroYaro/
 
 ## What This Is
 
-An autonomous research lab for the sparse parity challenge: learn XOR/parity from random numbers, scale to 20+ bits with noise, and measure/improve energy efficiency via Average Reuse Distance (ARD).
+An autonomous, multi-researcher research lab. Multiple people use different AI tools (Claude Code, Gemini CLI, Replit, Antigravity, plain Python) to run experiments on shared challenges. A locked evaluation harness ensures comparable results. A machine-readable log accumulates findings across researchers.
 
-We use Claude Code with parallel agent teams to run experiments, record findings, and accumulate knowledge automatically.
+Current challenge: **sparse parity** (learn XOR/parity from random {-1,+1} inputs). Next challenge: **nanoGPT** (energy-efficient training of Karpathy's nanoGPT).
 
-## Results
+## Results So Far
 
-**20-bit sparse parity (k=3) solved** — 100% accuracy in 0.12 seconds (numpy) across 5 seeds.
+33 experiments, 12 wins, 15 losses, 5 inconclusive. See the [Practitioner's Field Guide](https://0bserver07.github.io/SutroYaro/research/survey/) for the full ranked results.
 
-- LR=0.1, batch=32, hidden=200, n_train=1000
-- Classic grokking pattern: hidden progress invisible to loss metrics, then sharp phase transition
-- Per-layer forward-backward gives 3.8% ARD improvement for free
-- Forward-Forward algorithm has 25x worse ARD than backprop (opposite of hypothesis)
-- Curriculum learning (n=10→30→50) gives 14.6x speedup, cracks n=50 which direct training can't
-- Sign SGD solves k=5 2x faster; standard SGD also works with enough data (n_train=5000)
-- Weight decay 0.01 optimal, narrow working range [0.01, 0.05]
+| Method | Time (n=20/k=3) | ARD | What it proves |
+|--------|-----------------|-----|----------------|
+| GF(2) Gaussian Elimination | 509 us | ~500 | Parity is linear over GF(2). 240x faster than SGD. |
+| RL Bit Querying | -- | 1 | Reads exactly k=3 bits per prediction. Theoretical minimum. |
+| KM Influence Estimation | 0.006s | 1,585 | O(n) not O(C(n,k)). 724x better ARD than Fourier. |
+| SGD (baseline) | 0.12s | 17,976 | The neural net solves it, just the hard way. |
 
-See [DISCOVERIES.md](DISCOVERIES.md) for the full knowledge base and [changelog](https://0bserver07.github.io/SutroYaro/changelog/) for version history.
+All 4 local learning rules (Hebbian, Predictive Coding, Equilibrium Propagation, Target Propagation) failed at chance level. Parity requires k-th order interaction detection.
 
 ## Quick Start
 
 ```bash
-# Run the fast solver (numpy, <0.2s)
+git clone https://github.com/0bserver07/SutroYaro.git
+cd SutroYaro
+
+# Solve 20-bit sparse parity in 0.12s (SGD)
 PYTHONPATH=src python3 -m sparse_parity.fast
 
-# Run the full pipeline (pure Python, 3 training variants, ARD comparison)
-PYTHONPATH=src python3 -m sparse_parity.run
+# Solve it in 509 microseconds (GF(2))
+PYTHONPATH=src python3 src/sparse_parity/experiments/exp_gf2.py
 
-# Run tests
-python3 -m pytest tests/ -v
+# Run the locked evaluation harness
+PYTHONPATH=src python3 src/harness.py --method gf2 --n_bits 20 --k_sparse 3
 
-# Run a specific experiment
-PYTHONPATH=src python3 src/sparse_parity/experiments/exp_sign_sgd.py
+# Check your environment
+PYTHONPATH=src python3 checks/env_check.py
+PYTHONPATH=src python3 checks/baseline_check.py
 ```
+
+## Run Autonomous Experiments
+
+The lab runs with any AI CLI. No hooks or special setup needed -- it's a bash loop.
+
+```bash
+# Single cycle with Claude Code
+bin/run-agent --tool claude --max 10
+
+# Single cycle with Gemini CLI
+bin/run-agent --tool gemini --max 10
+
+# Overnight: 10 cycles, 5 experiments each (resilient to crashes)
+bin/run-agent --loop 10 --max 5 --tool claude
+
+# Any CLI via env var
+AI_CMD="my-ai-tool -p" bin/run-agent --tool custom --max 5
+```
+
+Each cycle: fresh AI context, reads accumulated file state (log, findings, TODO), runs experiments, logs results. If a cycle crashes, the next picks up from the files.
+
+**Antigravity** is an IDE, not a CLI -- use it manually by opening the project and following AGENT.md. Or use Gemini CLI for headless runs from the same Google ecosystem.
+
+After a run:
+```bash
+bin/analyze-log          # text report with win rate, method stats
+bin/analyze-log --plot   # generates results/progress.png
+```
+
+## How It Works
+
+```
+AGENT.md                  # What the AI agent follows (the loop)
+src/harness.py            # Locked evaluation (agents CANNOT modify)
+research/search_space.yaml  # What can be changed and to what values
+research/questions.yaml   # Dependency graph of open questions
+research/log.jsonl        # All 33 experiments, machine-readable
+TODO.md                   # Hypothesis queue (checkboxes)
+DISCOVERIES.md            # Proven facts (read before every experiment)
+```
+
+The agent reads AGENT.md, picks a hypothesis from TODO.md, designs a single-variable experiment within search_space.yaml bounds, runs it against the locked harness, classifies the result (WIN/LOSS/INVALID/INCONCLUSIVE), logs to log.jsonl, and repeats.
+
+Safety mechanisms:
+- **Harness integrity**: SHA256 verified before and after each run
+- **Circuit breaker**: halts if 5+ INVALID in last 20 experiments
+- **Metric isolation**: agents cannot modify tracker.py, harness.py, or data.py
+- **Lock file**: PID-based, prevents concurrent cycles, detects orphaned locks
+
+## Multi-Researcher Workflow
+
+Multiple people run independent experiments, then merge via PR:
+
+```
+Yad (Claude Code)     Germain (Replit)     Yaroslav (Gemini)
+     |                      |                     |
+     v                      v                     v
+  log.jsonl (local)    log.jsonl (local)    log.jsonl (local)
+     |                      |                     |
+     +----------- PR -------+-------- PR ---------+
+                            |
+                    Shared log.jsonl
+                    Shared DISCOVERIES.md
+                    Shared scoreboard.tsv
+```
+
+```bash
+# Merge a contributor's results
+bin/merge-findings path/to/their-log.jsonl
+
+# Regenerate the scoreboard
+bin/merge-findings research/log.jsonl --scoreboard
+```
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the full guide. Three levels of effort:
+- **Low**: drop raw results in `contributions/` (any format)
+- **Medium**: write a findings doc using `findings/_template.md`
+- **High**: code + results + findings following [LAB.md](LAB.md)
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for the full guide. The short version:
+See [CONTRIBUTING.md](CONTRIBUTING.md) and [docs/research/peer-research-protocol.md](docs/research/peer-research-protocol.md) for the full protocol design including the nanoGPT migration proposal.
 
-1. Fork the repo
-2. Read [DISCOVERIES.md](DISCOVERIES.md) so you don't repeat what's known
-3. Run an experiment (any tool: Claude Code, Replit, Gemini, plain Python)
-4. Submit a PR
-
-Three levels of effort:
-
-- **Low**: drop raw results in [`contributions/`](contributions/) (any format)
-- **Medium**: write a findings doc using [`findings/_template.md`](findings/_template.md)
-- **High**: code + results + findings following [LAB.md](LAB.md)
-
-## How Agent-Driven Research Works
-
-![Agent Workflow](docs/diagrams/agent-workflow.png)
-
-The human writes specs (CLAUDE.md, DISCOVERIES.md, LAB.md). The lead agent reads those first, surveys the problem space, then dispatches isolated sub-agents in parallel. Each sub-agent gets one approach, the experiment template, and shared modules. No sub-agent sees another's results or the knowledge base. Read-only access to benchmark code prevents agents from gaming the metrics. Outputs feed back into DISCOVERIES.md for the next round.
-
-Three automation scripts feed live context to the agents:
-
-- `sync_google_docs.py` pulls the group's Google Docs into local markdown
-- `sync_telegram.ts` pulls Telegram thread messages into JSON (one-way, read-only)
-- `.traces/export_sessions.py` exports agent conversation traces with timestamps (audit trail)
-
-The files that make this work:
-
-- `CLAUDE.md` — problem context, constraints, current best config
-- `DISCOVERIES.md` — accumulated proven facts from all experiments (shared memory across agents)
-- `LAB.md` — experiment protocol, templates, lifecycle
-- `proposed-approaches.md` — candidate methods generated during survey step
-- `_template.py` — experiment code starter
-- `findings/*.md` — structured experiment reports
-
-For parallel execution, we use Claude Code's team agents feature: a lead agent reads DISCOVERIES.md, creates tasks, and dispatches worker agents that each run an independent experiment.
-
-See [findings/prompting-strategies.md](findings/prompting-strategies.md) for detailed prompting lessons.
-
-## Structure
+## Project Structure
 
 ```
-LAB.md              # Lab protocol for autonomous sessions
-DISCOVERIES.md      # Accumulated knowledge base
-TODO.md             # Open research tasks
+AGENT.md                # Agent-executable experiment loop
+LAB.md                  # Human experiment protocol
+DISCOVERIES.md          # Accumulated knowledge (33 proven facts)
+TODO.md                 # Hypothesis queue
 
-src/sparse_parity/
-  fast.py           # Numpy-accelerated solver (0.12s)
-  config.py         # Experiment configuration
-  data.py           # Dataset generation
-  model.py          # MLP model + forward pass
-  tracker.py        # ARD measurement (MemTracker)
-  cache_tracker.py  # Cache-aware ARD (CacheTracker)
-  train.py          # Standard backprop
-  train_fused.py    # Fused layer-wise updates
-  train_perlayer.py # Per-layer forward-backward
-  run.py            # Full pipeline runner
-  experiments/      # All experiment scripts
+src/
+  harness.py            # Locked evaluation harness (5 methods, CLI)
+  sparse_parity/
+    fast.py             # Numpy solver (0.12s)
+    tracker.py          # ARD/DMC measurement (MemTracker)
+    cache_tracker.py    # Cache-aware energy model
+    experiments/        # All 33 experiment scripts
 
-findings/           # Experiment reports (13 so far)
-results/            # JSON metrics per experiment
-research/           # Literature review
-docs/               # MkDocs site source
+research/
+  search_space.yaml     # Bounded mutation space per challenge
+  questions.yaml        # Dependency graph of open questions
+  log.jsonl             # Machine-readable experiment log
+
+results/
+  scoreboard.tsv        # Auto-generated leaderboard
+  progress.png          # ARD progress chart
+
+checks/
+  env_check.py          # Pre-flight environment verification
+  baseline_check.py     # Re-establish baselines per machine
+
+bin/
+  run-agent             # Tool-agnostic autonomous launcher
+  merge-findings        # Import contributor results
+  analyze-log           # Progress report + charts
+
+docs/                   # MkDocs site source
+findings/               # One markdown report per experiment
 ```
 
 ## Links

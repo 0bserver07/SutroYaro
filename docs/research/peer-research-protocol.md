@@ -132,6 +132,27 @@ bin/analyze-log          # text report
 bin/analyze-log --plot   # generates results/progress.png
 ```
 
+## Tool compatibility
+
+The system is designed to work with any AI tool that can read files, run Python, and write files. The `bin/run-agent` launcher handles the CLI differences.
+
+| Tool | Headless? | How it works | Notes |
+|------|-----------|-------------|-------|
+| **Claude Code** | Yes (`claude -p`) | `bin/run-agent --tool claude` | Full tool permissions via `--allowedTools`. 200 turn limit per cycle. |
+| **Gemini CLI** | Yes (`gemini -p --yolo`) | `bin/run-agent --tool gemini` | `--yolo` skips confirmation prompts. Free tier: 60 req/min, 1K req/day. 1M token context. |
+| **Antigravity** | No (IDE only) | Open project manually, follow AGENT.md | `agy` opens the IDE. Use Manager View to dispatch parallel agents on different hypotheses. Cannot be driven by bash loop. |
+| **Replit Agent** | No (web IDE) | Follow AGENT.md in Replit chat | Germain's setup. Works but no headless mode for `bin/run-agent`. |
+| **Custom CLI** | Depends | `AI_CMD="my-tool -p" bin/run-agent --tool custom` | Any CLI that accepts a prompt on stdin or via flag. |
+
+For GUI tools (Antigravity, Replit, Cursor), the workflow is manual:
+
+1. Open the project in the IDE
+2. Tell the agent: "Read AGENT.md. Follow its protocol. Your researcher ID is [name]."
+3. The agent reads the same files and follows the same loop
+4. Results go into the same log.jsonl and are mergeable via PR
+
+The locked harness and file-based state mean results are comparable regardless of which tool produced them. That's the point.
+
 ## The log.jsonl schema
 
 Each line is one experiment. The schema is challenge-agnostic so it works for sparse parity now and nanoGPT later.
