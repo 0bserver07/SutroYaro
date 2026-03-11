@@ -46,15 +46,16 @@ cp src/sparse_parity/experiments/_template.py src/sparse_parity/experiments/exp_
 
 | What | Where |
 |------|-------|
-| Full results and methodology | [Practitioner's Field Guide](research/survey.md) |
-| Autonomous research protocol | [Peer Research Protocol](research/peer-research-protocol.md) |
+| **New here? Start here** | [What's New (March 2026)](research/whats-new-march-2026.md) |
+| Run experiments with any AI tool | [Agent CLI Guide](tooling/agent-cli-guide.md) |
+| Why we built it this way | [Research as Navigation](research/navigation-thesis.md) |
+| Full protocol design | [Peer Research Protocol](research/peer-research-protocol.md) |
+| All 33 experiments ranked | [Practitioner's Field Guide](research/survey.md) |
 | What's been proven so far | [DISCOVERIES.md](https://github.com/0bserver07/SutroYaro/blob/main/DISCOVERIES.md) |
 | Individual experiment findings | [Research > Findings](research/index.md) |
 | Group context and people | [Context](context.md) |
-| Goals and success criteria | [Goals](goals.md) |
-| How we use Claude Code | [Tooling](tooling/index.md) |
+| Tooling and setup | [Tooling](tooling/index.md) |
 | Meeting notes and Google Docs | [Meetings](meetings/index.md) |
-| How this project uses AI agents | [AGENTS.md](https://github.com/0bserver07/SutroYaro/blob/main/AGENTS.md) |
 | How to contribute | [CONTRIBUTING.md](https://github.com/0bserver07/SutroYaro/blob/main/CONTRIBUTING.md) |
 
 ## Quick Links
