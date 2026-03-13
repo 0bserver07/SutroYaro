@@ -19,6 +19,7 @@ The human writes specs (CLAUDE.md, DISCOVERIES.md, LAB.md). The lead agent reads
 | [MCP servers](skills.md#mcp-servers) | Extensible tool servers (Google Docs, browser, diagrams) |
 | [Anti-slop guide](anti-slop-guide.md) | Reference for eliminating AI writing patterns from prose |
 | [Automation scripts](automation.md) | `sync_google_docs.py` for pulling Google Docs, `sync_telegram.ts` for pulling Telegram threads, session trace export |
+| [Sync runbook](sync-runbook.md) | Weekly/daily/per-session checklists for keeping the knowledge base current |
 
 ## What Worked
 

@@ -1,0 +1,259 @@
+#!/usr/bin/env bash
+# Launch autonomous research agent cycles.
+#
+# Usage:
+#   bin/run-agent                          # single cycle, claude, 20 experiments
+#   bin/run-agent --loop 5                 # 5 cycles (resilient to crashes)
+#   bin/run-agent --tool gemini            # use gemini CLI instead of claude
+#   bin/run-agent --tool claude --loop 10 --max 5 --researcher yad-agent
+#
+# The loop mode runs multiple short cycles instead of one long session.
+# Each cycle sees its own fresh context but reads accumulated file state
+# (log.jsonl, TODO.md, findings docs) from previous cycles.
+# If one cycle crashes, the next picks up from the file state.
+#
+# Supported tools: claude, gemini, custom (set AI_CMD env var)
+#
+# Prerequisites:
+#   - AI CLI installed and authenticated
+#   - PYTHONPATH=src python3 checks/env_check.py passes
+
+set -euo pipefail
+
+REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$REPO_ROOT"
+
+# --- Parse arguments ---
+
+MAX_EXPERIMENTS=20
+RESEARCHER="yad-agent"
+LOOP_COUNT=1
+AI_TOOL="claude"
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --loop)     LOOP_COUNT="$2"; shift 2 ;;
+        --max)      MAX_EXPERIMENTS="$2"; shift 2 ;;
+        --tool)     AI_TOOL="$2"; shift 2 ;;
+        --researcher) RESEARCHER="$2"; shift 2 ;;
+        -h|--help)
+            echo "Usage: bin/run-agent [--loop N] [--max N] [--tool claude|gemini|custom] [--researcher NAME]"
+            echo ""
+            echo "  --loop N        Run N cycles (default: 1). Each cycle is a fresh AI session."
+            echo "  --max N         Max experiments per cycle (default: 20)"
+            echo "  --tool NAME     AI CLI to use (default: claude)"
+            echo "                    claude   - Claude Code (claude -p)"
+            echo "                    gemini   - Gemini CLI (gemini -p --yolo)"
+            echo "                    codex    - Codex CLI (codex -q)"
+            echo "                    opencode - OpenCode (opencode)"
+            echo "                    custom   - Set AI_CMD env var to your CLI command"
+            echo "  --researcher ID Researcher ID for log entries (default: yad-agent)"
+            echo ""
+            echo "Note: Antigravity (agy) is an IDE, not a CLI. Use it manually by"
+            echo "opening the project and following AGENT.md."
+            exit 0
+            ;;
+        *)          echo "Unknown option: $1"; exit 1 ;;
+    esac
+done
+
+LOCK_FILE="research/.agent-lock"
+HARNESS_FILE="src/harness.py"
+LEDGER="research/log.jsonl"
+
+# --- Build the tool-specific launch command ---
+
+build_prompt() {
+    local harness_hash="$1"
+    cat <<EOF
+You are an autonomous research agent for the SutroYaro sparse parity project.
+
+Read AGENT.md and follow its protocol exactly. Your researcher ID is '${RESEARCHER}'.
+
+Run up to ${MAX_EXPERIMENTS} experiments this cycle. For each:
+1. Pick the top unchecked hypothesis from TODO.md
+2. Design a single-variable experiment using search_space.yaml
+3. Run via src/harness.py
+4. Log to research/log.jsonl
+5. Write findings doc
+6. Update TODO.md and DISCOVERIES.md
+
+Start by reading: AGENT.md, DISCOVERIES.md, research/search_space.yaml, research/questions.yaml, TODO.md
+
+Harness SHA256 at session start: ${harness_hash}
+If harness.py has changed, STOP immediately.
+
+Do not push to git. Commit locally only.
+
+When the TODO.md queue has no unchecked items, output exactly: QUEUE EMPTY
+EOF
+}
+
+launch_cycle() {
+    local prompt="$1"
+    local logfile="$2"
+
+    case "$AI_TOOL" in
+        claude)
+            claude -p "$prompt" \
+                --allowedTools "Bash,Read,Write,Edit,Glob,Grep" \
+                --max-turns 200 \
+                2>&1 | tee "$logfile"
+            ;;
+        gemini)
+            gemini -p "$prompt" --yolo \
+                2>&1 | tee "$logfile"
+            ;;
+        codex)
+            codex -q "$prompt" \
+                2>&1 | tee "$logfile"
+            ;;
+        opencode)
+            opencode "$prompt" \
+                2>&1 | tee "$logfile"
+            ;;
+        *)
+            # Custom: use AI_CMD env var
+            if [ -z "${AI_CMD:-}" ]; then
+                echo "ERROR: Unknown tool '$AI_TOOL' and AI_CMD not set."
+                echo "Set AI_CMD to your AI CLI command, e.g.: AI_CMD='my-ai-cli --prompt'"
+                exit 1
+            fi
+            echo "$prompt" | $AI_CMD \
+                2>&1 | tee "$logfile"
+            ;;
+    esac
+}
+
+# --- Safety checks (run once before the loop) ---
+
+# Lock file: prevent concurrent cycles (with PID liveness check)
+if [ -f "$LOCK_FILE" ]; then
+    LOCK_PID=$(cat "$LOCK_FILE" 2>/dev/null || echo "")
+    LOCK_AGE=$(( $(date +%s) - $(stat -f %m "$LOCK_FILE" 2>/dev/null || echo 0) ))
+
+    if [ -n "$LOCK_PID" ] && kill -0 "$LOCK_PID" 2>/dev/null; then
+        if [ "$LOCK_AGE" -lt 7200 ]; then
+            echo "ERROR: Agent cycle still running (PID $LOCK_PID, age ${LOCK_AGE}s)"
+            echo "Remove $LOCK_FILE manually if this is wrong."
+            exit 1
+        else
+            echo "WARNING: Stale lock held by PID $LOCK_PID for ${LOCK_AGE}s. Removing."
+            rm -f "$LOCK_FILE"
+        fi
+    else
+        echo "WARNING: Orphaned lock for dead PID $LOCK_PID. Removing."
+        rm -f "$LOCK_FILE"
+    fi
+fi
+
+echo "$$" > "$LOCK_FILE"
+trap 'rm -f "$LOCK_FILE"' EXIT
+
+# Harness integrity
+HARNESS_HASH=$(shasum -a 256 "$HARNESS_FILE" | cut -d' ' -f1)
+echo "Harness SHA256: $HARNESS_HASH"
+
+# Pre-flight checks
+echo "Running environment check..."
+PYTHONPATH=src python3 checks/env_check.py || {
+    echo "ERROR: Environment check failed."
+    exit 1
+}
+
+echo "Running baseline check..."
+PYTHONPATH=src python3 checks/baseline_check.py || {
+    echo "ERROR: Baseline check failed."
+    exit 1
+}
+
+# --- The loop ---
+
+echo ""
+echo "Starting research loop: $LOOP_COUNT cycles, up to $MAX_EXPERIMENTS experiments each"
+echo "Tool: $AI_TOOL | Researcher: $RESEARCHER"
+echo "Started at $(date)"
+echo ""
+
+TOTAL_COMPLETED=0
+
+for (( i=1; i<=LOOP_COUNT; i++ )); do
+    echo "--- Cycle $i/$LOOP_COUNT ---"
+
+    # Circuit breaker: check INVALID rate
+    if [ -f "$LEDGER" ]; then
+        RECENT_INVALIDS=$(tail -20 "$LEDGER" | grep -c '"INVALID"' || echo "0")
+        if [ "$RECENT_INVALIDS" -ge 5 ]; then
+            echo "CIRCUIT BREAKER: $RECENT_INVALIDS INVALID in last 20. Stopping."
+            break
+        fi
+    fi
+
+    # Check for pending hypotheses
+    if ! grep -q '\- \[ \]' TODO.md 2>/dev/null; then
+        echo "Queue empty. No unchecked hypotheses in TODO.md."
+        break
+    fi
+
+    PENDING=$(grep -c '\- \[ \]' TODO.md || echo "0")
+    echo "Pending hypotheses: $PENDING"
+
+    # Verify harness hasn't been tampered with
+    CURRENT_HASH=$(shasum -a 256 "$HARNESS_FILE" | cut -d' ' -f1)
+    if [ "$HARNESS_HASH" != "$CURRENT_HASH" ]; then
+        echo "ERROR: harness.py was modified! Stopping."
+        echo "Before: $HARNESS_HASH"
+        echo "After:  $CURRENT_HASH"
+        break
+    fi
+
+    # Build prompt and launch
+    PROMPT=$(build_prompt "$HARNESS_HASH")
+    LOGFILE="research/.agent-session-$(date +%Y%m%d_%H%M%S).log"
+
+    # Launch the AI session (allow failures -- the loop continues)
+    set +e
+    launch_cycle "$PROMPT" "$LOGFILE"
+    EXIT_CODE=$?
+    set -e
+
+    if [ $EXIT_CODE -ne 0 ]; then
+        echo "Cycle $i exited with code $EXIT_CODE. Continuing to next cycle."
+    fi
+
+    # Check if queue was emptied (look for signal in output)
+    if grep -q "QUEUE EMPTY" "$LOGFILE" 2>/dev/null; then
+        echo "Agent signaled QUEUE EMPTY. Done."
+        break
+    fi
+
+    TOTAL_COMPLETED=$((TOTAL_COMPLETED + 1))
+
+    # Brief pause between cycles to let files settle
+    if [ "$i" -lt "$LOOP_COUNT" ]; then
+        sleep 2
+    fi
+done
+
+echo ""
+echo "Research loop completed at $(date)"
+echo "Cycles run: $TOTAL_COMPLETED"
+
+# Count new experiments added during this run
+if [ -f "$LEDGER" ]; then
+    FINAL_ENTRIES=$(wc -l < "$LEDGER" | tr -d ' ')
+    echo "Total log entries: $FINAL_ENTRIES"
+fi
+
+# Post-flight harness check
+POST_HASH=$(shasum -a 256 "$HARNESS_FILE" | cut -d' ' -f1)
+if [ "$HARNESS_HASH" != "$POST_HASH" ]; then
+    echo ""
+    echo "WARNING: harness.py was modified during the run!"
+    echo "Before: $HARNESS_HASH"
+    echo "After:  $POST_HASH"
+    echo "Review changes before committing."
+fi
+
+echo ""
+echo "Run 'bin/analyze-log' to see results."

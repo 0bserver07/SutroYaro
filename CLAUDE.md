@@ -7,14 +7,19 @@ This is a research workspace for the **Sutro Group**, a study group exploring en
 ## Read These First
 
 - **LAB.md** — Protocol for running experiments (templates, lifecycle, rules)
+- **AGENT.md** — Machine-executable experiment loop for autonomous sessions
 - **DISCOVERIES.md** — What's proven so far (read before every experiment)
+- **CONTRIBUTING.md** — How external contributors submit experiments and findings
 - **TODO.md** — Open research tasks
+- **docs/tasks/INDEX.md** — Current task tracker with priorities
 - **docs/research/survey.md** — Practitioner's Field Guide ranking all 33 experiments
+- **docs/research/peer-research-protocol.md** — Full design doc for multi-researcher autonomous research
 
 ## Core Concepts
 
 - **Sparse Parity**: The benchmark task — learn XOR/parity from random {-1,+1} inputs. n=20 bits, k=3 secret, 17 noise. The "drosophila" of energy-efficient training.
 - **Average Reuse Distance (ARD)**: Proxy metric for energy efficiency. Small ARD = data stays in cache = cheap. Large ARD = expensive external memory access.
+- **Data Movement Complexity (DMC)**: Better proxy metric (Ding et al., arXiv:2312.14441). DMC = sum of sqrt(stack_distance) for all float accesses. Tracks alongside ARD in MemTracker. Baseline: ARD 4,104 / DMC 300,298.
 - **Cache Energy Model**: register 5pJ, L1 (64KB) 20pJ, L2 (256KB) 100pJ, HBM 640pJ per float access (Bill Dally numbers).
 - **CacheTracker**: Extended MemTracker with LRU cache simulation for realistic energy estimates.
 
@@ -53,6 +58,23 @@ Solves in ~40 epochs / 0.12s with numpy (`fast.py`).
 - Information-theoretic methods (MI, LASSO, MDL, Random Projections) all solve it but none beats Fourier meaningfully
 - RL sequential Q-learning achieves ARD of 1 at inference (reads exactly k=3 bits per prediction)
 
+## Autonomous Research Infrastructure
+
+| File | Purpose |
+|------|---------|
+| `AGENT.md` | Agent-executable experiment loop (machine protocol) |
+| `src/harness.py` | Locked evaluation harness (DO NOT MODIFY in experiment PRs) |
+| `research/search_space.yaml` | Bounded mutation space per challenge |
+| `research/questions.yaml` | Dependency graph of open research questions |
+| `research/log.jsonl` | Append-only experiment log (machine-readable) |
+| `results/scoreboard.tsv` | Human-readable leaderboard (auto-generated) |
+| `checks/env_check.py` | Pre-flight environment check |
+| `checks/baseline_check.py` | Re-establish baselines on this machine |
+| `bin/run-agent` | Launch autonomous agent cycle |
+| `bin/merge-findings` | Import contributor log entries via PR |
+
+See [docs/research/peer-research-protocol.md](docs/research/peer-research-protocol.md) for the full design.
+
 ## Automation
 
 | Script | What it does | Docs |
@@ -89,6 +111,9 @@ bun run sync_telegram.ts
 - **Sync Google Docs** if meeting notes may have changed: `python3 src/sync_google_docs.py`
 - **Sync Telegram** if group discussion may have new messages: `bun run sync_telegram.ts`
 - **Check `docs/index.md`** if findings or status changed -- homepage should reflect current state
+- **Check GitHub** for PRs/issues: `gh pr list --repo 0bserver07/SutroYaro`
+
+Full sync workflow: [docs/tooling/sync-runbook.md](docs/tooling/sync-runbook.md)
 
 ## People
 
@@ -97,6 +122,17 @@ bun run sync_telegram.ts
 - **Emmett** — Aster agentic loop framework, 2x energy improvement on microgpt
 - **G B** — Architecture experiments (depth-1/hidden-64, ARD ~33-35)
 - **Germaine**, **Andy**, **Seth**, **Barak**, **Jamie Simon** — Group members
+
+## Contributing
+
+Multiple people contribute via PRs (fork and branch). See [CONTRIBUTING.md](CONTRIBUTING.md) for the full guide.
+
+- **`contributions/`** — Drop raw results here in any format. No template needed.
+- **`findings/_template.md`** — Standalone findings template for structured reports.
+- **`DISCOVERIES.md`** — Shared knowledge base. Anyone can PR new bullets.
+- **Metric isolation (LAB.md rule #9)** — Never modify tracker.py, cache_tracker.py, data.py, config.py, harness.py in experiment PRs.
+
+When reviewing PRs: check that results are reproducible, findings follow the template, and DISCOVERIES.md is updated if the experiment answers an open question.
 
 ## Related Repos
 

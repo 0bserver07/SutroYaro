@@ -1,0 +1,34 @@
+id	researcher	date	challenge	method	class	accuracy	ard	dmc	time_s	hypothesis
+yad-001	yad	2026-03-03	sparse-parity	sgd	BASELINE	1.0	None		None	Fix hyperparams to trigger phase transition on n=20/k=3
+yad-002	yad	2026-03-03	sparse-parity	sgd	LOSS	1.0	None		None	GrokFast accelerates grokking when hyperparams already correct
+yad-003	yad	2026-03-04	sparse-parity	perlayer	WIN	0.995	17299		None	Per-layer forward-backward reduces ARD on winning config
+yad-004	yad	2026-03-04	sparse-parity	sgd	LOSS	1.0	17976		None	Batch=32 improves ARD via parameter reuse
+yad-005	yad	2026-03-04	sparse-parity	perlayer	WIN	0.995	17299		None	Per-layer converges on 20-bit with winning config
+yad-006	yad	2026-03-04	sparse-parity	sgd	LOSS	0.54	None		None	Find where SGD breaks on scaling
+yad-007	yad	2026-03-04	sparse-parity	forward_forward	LOSS	0.585	277256		None	Forward-Forward has lower ARD than backprop
+yad-008	yad	2026-03-04	sparse-parity	sgd	LOSS	0.5	None		None	Higher weight decay accelerates grokking
+yad-009	yad	2026-03-04	sparse-parity	curriculum	WIN	0.95	None		None	Curriculum (n=10 then n=50) bypasses scaling wall
+yad-010	yad	2026-03-04	sparse-parity	perlayer	INCONCLUSIVE	1.0	None		None	Per-layer + batch=32 combine for ARD improvement
+yad-011	yad	2026-03-04	sparse-parity	sgd	INCONCLUSIVE	1.0	None		None	Cache model shows batch wins on locality
+yad-012	yad	2026-03-04	sparse-parity	sign_sgd	WIN	1.0	None		None	Sign SGD solves k=5 faster than standard SGD
+yad-013	yad	2026-03-04	sparse-parity	evolutionary	WIN	1.0	None		0.011	Random/evolutionary search over k-subsets
+yad-014	yad	2026-03-04	sparse-parity	sgd	INCONCLUSIVE	1.0	None		None	Feature selection methods beat brute-force
+yad-015	yad	2026-03-04	sparse-parity	fourier	WIN	1.0	1147375		0.009	Walsh-Hadamard Fourier correlation finds secret
+yad-016	yad	2026-03-06	sparse-parity	mutual_info	LOSS	1.0	1147375		0.033	Mutual information detects parity better than Fourier
+yad-017	yad	2026-03-06	sparse-parity	lasso	WIN	1.0	None		0.005	LASSO on interaction features finds parity
+yad-018	yad	2026-03-06	sparse-parity	sgd	LOSS	0.925	None		None	Decision trees learn parity via greedy splits
+yad-019	yad	2026-03-06	sparse-parity	gf2	WIN	1.0	500		0.000509	GF(2) Gaussian elimination solves parity algebraically
+yad-020	yad	2026-03-06	sparse-parity	random_proj	INCONCLUSIVE	1.0	None		None	Monte Carlo Fourier subsampling reduces eval count
+yad-021	yad	2026-03-06	sparse-parity	km	WIN	1.0	1585		0.006	KM influence estimation finds secret in O(n)
+yad-022	yad	2026-03-06	sparse-parity	sgd	LOSS	0.5	None		None	Hebbian learning detects parity via local correlations
+yad-023	yad	2026-03-06	sparse-parity	sgd	LOSS	0.55	370000		None	Predictive coding has lower ARD than backprop
+yad-024	yad	2026-03-06	sparse-parity	sgd	LOSS	0.6	None		None	Equilibrium propagation solves parity with local updates
+yad-025	yad	2026-03-06	sparse-parity	sgd	LOSS	0.55	None		None	Target propagation uses local targets for layer-wise learning
+yad-026	yad	2026-03-06	sparse-parity	sgd	LOSS	1.0	19200		None	Tiled W1 updates reduce ARD via cache locality
+yad-027	yad	2026-03-06	sparse-parity	sgd	INCONCLUSIVE	1.0	None		None	Pebble game finds optimal execution order for energy
+yad-028	yad	2026-03-06	sparse-parity	sgd	LOSS	0.55	None		None	Binary weights solve parity with fewer ops
+yad-029	yad	2026-03-06	sparse-parity	genetic_prog	WIN	1.0	0		None	GP evolves exact symbolic solution
+yad-030	yad	2026-03-06	sparse-parity	smt	WIN	1.0	2000		0.002	SMT/backtracking constraint solver finds secret
+yad-031	yad	2026-03-06	sparse-parity	rl	WIN	1.0	1		None	RL learns to query only the relevant bits
+yad-032	yad	2026-03-06	sparse-parity	mdl	LOSS	1.0	None		0.012	MDL finds secret via compression
+yad-033	yad	2026-03-11	sparse-parity	sgd	LOSS	1.0	2129		None	Germain's hidden=64 is a locality win

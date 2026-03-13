@@ -43,5 +43,35 @@
     "url": "https://docs.google.com/document/d/1q0dTP7Z6xaCT9Qy7NOf_QreZpQ4ZvTiwzuXiwRZG20c/edit",
     "name": "how-to-search",
     "description": "How to find things in Sutro Group"
+  },
+  {
+    "url": "https://docs.google.com/document/d/12AnIc4XWH0OBloZCgShaaqg3oASXBVF3kLjegHhH0FI/edit",
+    "name": "meeting-8-notes",
+    "description": "Meeting #8: Notes (09 Mar 2026)"
+  },
+  {
+    "url": "https://docs.google.com/document/d/1oSTIM0h1-THnb3fZ6Cz5o86DQx6n44si1q4BkP2lfSA/edit",
+    "name": "bigger-picture",
+    "description": "The Bigger Picture (homework context)"
+  },
+  {
+    "url": "https://docs.google.com/document/d/105FkE_U5_cXA1o8sxMGrj1NuTxysfSBTZsLB7vift-M/edit",
+    "name": "yaroslav-knowledge-sprint-2",
+    "description": "Yaroslav Knowledge Sprint #2"
+  },
+  {
+    "url": "https://docs.google.com/document/d/1jNN7NOssLRjrF6H0DGN61q5nGtuZVwnOwiTiLLToj7M/edit",
+    "name": "yaroslav-verification",
+    "description": "Yaroslav Verification of GF(2) Correctness"
+  },
+  {
+    "url": "https://docs.google.com/document/d/13uAQfG_ola3vt1hHFo3A8ThUeV-nBVQK/edit",
+    "name": "michael-claude-approach",
+    "description": "Michael's Claude Approach"
+  },
+  {
+    "url": "https://docs.google.com/document/d/1s3tv_9dGgULZgLWy8Vx6_FR_B2hzOcLVGH_jAqcRQ9I/edit",
+    "name": "meeting-8-ai-notes",
+    "description": "Meeting #8 AI-generated Notes"
   }
 ]

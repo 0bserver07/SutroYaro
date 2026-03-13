@@ -74,8 +74,13 @@ nav:
           - Skills & Plugins: tooling/skills.md
           - Anti-Slop Guide: tooling/anti-slop-guide.md
           - Automation Scripts: tooling/automation.md
+          - Sync Runbook: tooling/sync-runbook.md
+          - Agent CLI Guide: tooling/agent-cli-guide.md
   - Research:
       - Overview: research/index.md
+      - "What's New": research/whats-new-march-2026.md
+      - Research as Navigation: research/navigation-thesis.md
+      - Peer Research Protocol: research/peer-research-protocol.md
       - Literature Review: research/sparse-parity-literature.md
       - Proposed Approaches: research/proposed-approaches.md
       - Survey: research/survey.md
@@ -115,6 +120,8 @@ nav:
           - RL Bit Querying: findings/exp_rl.md
           - MDL Compression: findings/exp_mdl.md
           - Prompting Strategies: findings/prompting-strategies.md
+          - Session 2026-03-11: findings/session-2026-03-11.md
+          - Friday Demo: research/friday-demo.md
       - Plans:
           - Pipeline Design: plans/2026-03-03-sparse-parity-pipeline-design.md
           - Implementation Plan: plans/2026-03-03-sparse-parity-implementation.md
@@ -132,6 +139,12 @@ nav:
           - Meeting 6 - Emmett Results: google-docs/meeting-6-emmett-results.md
           - Meeting 6 - Notes: google-docs/meeting-6-notes.md
           - Meeting 7 - Notes: google-docs/meeting-7-notes.md
+          - Meeting 8 - Notes: google-docs/meeting-8-notes.md
+          - Meeting 8 - AI Notes: google-docs/meeting-8-ai-notes.md
+          - Yaroslav Knowledge Sprint 2: google-docs/yaroslav-knowledge-sprint-2.md
+          - Yaroslav Verification (GF2): google-docs/yaroslav-verification.md
+          - Michael's Claude Approach: google-docs/michael-claude-approach.md
+          - The Bigger Picture: google-docs/bigger-picture.md
           - How to Search: google-docs/how-to-search.md
   - Changelog: changelog.md
 

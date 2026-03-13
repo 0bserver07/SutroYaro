@@ -55,6 +55,8 @@ After pulling new docs:
 3. Update `docs/meetings/index.md` and `docs/meetings/notes.md` with local links
 4. Run `python3 -m mkdocs build` to verify
 
+See the [sync runbook](sync-runbook.md) for weekly/daily/per-session checklists.
+
 ## sync_telegram.ts
 
 Pulls messages from a Telegram group topic thread into a local JSON file. Used to sync the Sutro Group's "Sparse Parity" discussion thread.

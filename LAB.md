@@ -138,13 +138,15 @@ See `src/sparse_parity/experiments/_template.py` for the code template.
 6. **Keep runtime < 5 minutes** — reduce hidden/epochs if needed
 7. **Commit locally, don't push** — the human decides when to push
 8. **Leave a "Next" section** — so the next session knows what to try
+9. **Metric isolation** — never modify measurement code (tracker.py, cache_tracker.py, data.py, config.py). Agents that rewrite evaluation code to get better scores are gaming the metric, not improving the algorithm. Learned from Germain's experience where agents rewrote ARD measurement code instead of optimizing the actual training loop.
 
 ## Current Baselines
 
-| Config | Method | Accuracy | ARD | Time | Reference |
-|--------|--------|----------|-----|------|-----------|
-| n=20, k=3 | numpy SGD (fast.py) | 100% | — | 0.12s | fast.py |
-| n=20, k=3 | standard (LR=0.1, batch=32) | 100% | 17,976 | — | exp_a |
+| Config | Method | Accuracy | ARD | DMC | Time | Reference |
+|--------|--------|----------|-----|-----|------|-----------|
+| n=20, k=3 | numpy SGD (fast.py) | 100% | — | — | 0.12s | fast.py |
+| n=20, k=3 | standard (LR=0.1, batch=32) | 100% | 17,976 | — | — | exp_a |
+| n=20, k=3 | standard (single sample, tracked) | 100% | 4,104 | 300,298 | 1.78s | baseline |
 | n=20, k=3 | perlayer (LR=0.1) | 99.5% | 17,299 | — | exp_c |
 | n=20, k=3 | forward-forward | 58.5% | 277,256 | — | exp_e |
 | n=20, k=5 | sign SGD (n_train=5000) | >90% | — | — | exp_sign_sgd |

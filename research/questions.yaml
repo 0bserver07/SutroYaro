@@ -1,0 +1,118 @@
+# Research Questions: dependency graph
+# An agent cannot investigate a question until its dependencies are resolved.
+
+# --- Phase 1: SGD optimization (all resolved) ---
+
+- id: Q0.1
+  question: Can standard SGD solve n=20/k=3 sparse parity?
+  depends_on: []
+  resolved_by: [exp1]
+  answer: Yes. LR=0.1, batch=32, WD=0.01. 100% accuracy in ~40 epochs.
+
+- id: Q1.1
+  question: Does per-layer update reduce ARD?
+  depends_on: [Q0.1]
+  resolved_by: [exp_a, exp_c]
+  answer: Yes, 3.8% improvement. But W1 dominance caps further gains at ~10%.
+
+- id: Q1.2
+  question: Does batching improve ARD?
+  depends_on: [Q0.1]
+  resolved_by: [exp_b, exp_cache_ard]
+  answer: Not in raw ARD (17x worse). Batch wins on total traffic (13% fewer floats). L2 cache eliminates all misses for both.
+
+- id: Q1.3
+  question: Where does SGD break on scaling?
+  depends_on: [Q0.1]
+  resolved_by: [exp_d, exp_sign_sgd]
+  answer: Breaks at n^k > 100K steps. k=5 works with enough data (n_train=5000). Practical frontier is further than theory predicts.
+
+- id: Q1.4
+  question: Can curriculum learning bypass the scaling wall?
+  depends_on: [Q1.3]
+  resolved_by: [exp_curriculum]
+  answer: Yes. n-curriculum gives 14.6x speedup on n=50/k=3. Transfer is instant after W1 expansion.
+
+# --- Phase 2: broad method search (all resolved) ---
+
+- id: Q2.1
+  question: Can algebraic methods solve parity faster than SGD?
+  depends_on: [Q0.1]
+  resolved_by: [exp_gf2, exp_km, exp_smt]
+  answer: Yes. GF(2) solves in 500us (240x faster), is k-independent. KM has 724x better ARD than Fourier.
+
+- id: Q2.2
+  question: Do local learning rules work on parity?
+  depends_on: [Q0.1]
+  resolved_by: [exp_hebbian, exp_predictive_coding, exp_equilibrium_prop, exp_target_prop]
+  answer: No. All fail at chance level. Parity requires k-th order interaction detection, invisible to local statistics.
+
+- id: Q2.3
+  question: Can information-theoretic methods beat Fourier?
+  depends_on: [Q0.1]
+  resolved_by: [exp_mutual_info, exp_lasso, exp_mdl, exp_random_proj]
+  answer: No. All solve it but none beats Fourier meaningfully. LASSO is competitive (0.005s). MDL is noise-robust.
+
+# --- Phase 3: open questions ---
+
+- id: Q3.1
+  question: Can tiled W1 updates improve hardware energy (not just software ARD)?
+  depends_on: [Q1.1]
+  resolved_by: []
+  prior: "exp_tiled_w1 showed software ARD increased 6.8-12.1%. Hardware cache benefits not captured by MemTracker."
+
+- id: Q3.2
+  question: Can GF(2) handle noisy labels?
+  depends_on: [Q2.1]
+  resolved_by: []
+  prior: "GF(2) assumes exact parity. Noise corrupts the linear system."
+
+- id: Q3.3
+  question: What is the total energy cost of KM-find-then-verify?
+  depends_on: [Q2.1]
+  resolved_by: []
+  prior: "KM finds candidates in 0.006s with ARD 1585. Verification with small net is untested."
+
+- id: Q3.4
+  question: At what network depth does predictive coding beat backprop on ARD?
+  depends_on: [Q2.2]
+  resolved_by: []
+  prior: "At 2 layers, PC is 18x worse. Hypothesis: advantage appears at 10+ layers."
+
+- id: Q3.5
+  question: Can the pebble game optimizer generalize to arbitrary computation graphs?
+  depends_on: []
+  resolved_by: []
+  prior: "exp_pebble_game found 2.2% energy win but fused/per-layer broke training due to read-after-write hazards."
+
+- id: Q3.6
+  question: Does per-layer update reduce ARD on deeper networks (5-10 layers)?
+  depends_on: [Q1.1]
+  resolved_by: []
+  prior: "3.8% on 2-layer. Hypothesis: larger gain on deeper nets where activation storage creates longer reuse distances."
+
+# --- nanoGPT questions (future) ---
+# Uncomment when the group moves to the next challenge.
+#
+# - id: nanogpt-Q0.1
+#   question: What is the baseline val_bpb for standard nanoGPT in 5 minutes?
+#   depends_on: []
+#   resolved_by: []
+#
+# - id: nanogpt-Q1.1
+#   question: Does per-layer update reduce ARD on nanoGPT without hurting val_bpb?
+#   depends_on: [nanogpt-Q0.1]
+#   resolved_by: []
+#   prior: "Per-layer gave 3.8% ARD improvement on sparse parity (exp_a, exp_c)"
+#
+# - id: nanogpt-Q1.2
+#   question: Does curriculum (small context -> large context) speed up nanoGPT training?
+#   depends_on: [nanogpt-Q0.1]
+#   resolved_by: []
+#   prior: "n-curriculum gave 14.6x speedup on sparse parity (exp_curriculum)"
+#
+# - id: nanogpt-Q1.3
+#   question: Does sign SGD converge faster than Adam on nanoGPT?
+#   depends_on: [nanogpt-Q0.1]
+#   resolved_by: []
+#   prior: "Sign SGD 2x faster on sparse parity k=5 (exp_sign_sgd)"

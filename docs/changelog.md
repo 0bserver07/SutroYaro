@@ -2,6 +2,69 @@
 
 All notable changes to this research workspace.
 
+## [0.15.0] - 2026-03-11
+
+### Peer research protocol and autonomous agent infrastructure
+
+Inspired by analysis of Karpathy's autoresearch and trevin-creator's Tiny-Lab, but built for multi-researcher use with our own naming conventions.
+
+**New files:**
+- `AGENT.md` -- machine-executable experiment loop for autonomous sessions
+- `src/harness.py` -- locked evaluation harness (GF2, SGD, KM, Fourier, SMT) with CLI
+- `research/search_space.yaml` -- bounded mutation space (16 methods, allowed parameter values)
+- `research/questions.yaml` -- dependency graph of 12 research questions (9 resolved, 6 open)
+- `research/log.jsonl` -- all 33 experiments from DISCOVERIES.md in machine-readable format
+- `results/scoreboard.tsv` -- auto-generated leaderboard from log.jsonl
+- `results/progress.png` -- ARD progress chart over experiment history
+- `checks/env_check.py` -- pre-flight environment verification
+- `checks/baseline_check.py` -- re-establish GF2/SGD/KM baselines per machine
+- `bin/run-agent` -- tool-agnostic launcher with looped mode, circuit breaker, PID lock
+- `bin/merge-findings` -- merge contributor log.jsonl entries via PR
+- `bin/analyze-log` -- progress report and chart generation
+- `docs/research/peer-research-protocol.md` -- full design doc with nanoGPT migration proposal
+
+**Design choices:**
+- Tool-agnostic: `bin/run-agent --tool claude|gemini|custom` works with any AI CLI
+- Looped mode: multiple short cycles with fresh context, resilient to crashes
+- Circuit breaker: halts if 5+ INVALID in last 20 experiments
+- Harness integrity: SHA256 verified before and after each run
+- All state in files: any tool that reads/writes files can participate
+- Challenge-agnostic log schema: `challenge` field supports sparse parity now, nanoGPT later
+- Researcher attribution: `researcher` field in log entries for peer merge
+
+**Updated files:**
+- `CLAUDE.md` -- added autonomous research infrastructure section, harness to isolation rule
+- `results/scoreboard.tsv` -- generated from full 33-experiment log
+
+---
+
+## [0.14.0] - 2026-03-11
+
+### Feedback tasks from Meeting #8
+
+- Added Data Movement Complexity (DMC) metric to MemTracker (Ding et al., arXiv:2312.14441). DMC = sum of sqrt(stack_distance) for all float accesses. Baseline: ARD 4,104 / DMC 300,298.
+- Confirmed stack distance already implemented (tracker clock advances by buffer size, not instruction count)
+- Added metric isolation rule to LAB.md (rule #9): agents cannot modify measurement code
+- Created task tracker in `docs/tasks/` with 6 tasks from Meeting #8 feedback
+- Updated baselines table in LAB.md with DMC column
+- Reproduced Germain's hidden=64 result: ARD drops 68% but ARD/float is identical (0.36). Smaller model, not better locality.
+- Reviewed linear classifier paper (arXiv:2309.06979): CoT-based, not applicable to one-shot sparse parity benchmark
+
+---
+
+## [0.13.0] - 2026-03-10
+
+### Meeting #8 docs and sync runbook
+
+- Synced 6 new Google Docs from Meeting #8 (09 Mar 2026): notes, AI notes, Yaroslav knowledge sprint 2, Yaroslav GF(2) verification, Michael's Claude approach, The Bigger Picture roadmap
+- Added all new docs to MkDocs nav with cross-reference headers
+- Updated meetings index and notes pages with Meeting #8 summary
+- Created sync runbook (`docs/tooling/sync-runbook.md`) with weekly/daily/per-session checklists
+- Added GitHub PR/issue checking to CLAUDE.md "Before Pushing" checklist
+- Total synced Google Docs: 15 (up from 9)
+
+---
+
 ## [0.12.0] - 2026-03-09
 
 ### GF(2) noise tolerance experiment

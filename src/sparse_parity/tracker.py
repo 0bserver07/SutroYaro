@@ -1,5 +1,7 @@
 """Phase 3: Memory Reuse Distance Tracker for energy efficiency measurement."""
 
+import math
+
 
 class MemTracker:
     """
@@ -49,6 +51,12 @@ class MemTracker:
         total_floats = sum(s for _, s, _ in reads)
         weighted_ard = total_float_dist / total_floats if total_floats > 0 else 0
 
+        # Data Movement Complexity (Ding et al., arXiv:2312.14441)
+        # DMC = sum of sqrt(stack_distance) for each float accessed.
+        # Our distances are already in floats (stack distance), so:
+        # For a read of `size` floats with distance `dist`, DMC contribution = size * sqrt(dist).
+        total_dmc = sum(s * math.sqrt(d) for _, s, d in reads)
+
         per_buffer = {}
         for name, size, dist in reads:
             if name not in per_buffer:
@@ -67,6 +75,7 @@ class MemTracker:
             'reads': len(reads),
             'writes': len(writes),
             'weighted_ard': weighted_ard,
+            'dmc': total_dmc,
             'total_floats_read': total_floats,
             'per_buffer': per_buffer,
         }
@@ -84,6 +93,7 @@ class MemTracker:
         print(f"  Total floats accessed: {s['total_floats_accessed']:,}")
         print(f"  Operations: {s['reads']} reads, {s['writes']} writes")
         print(f"  Weighted ARD: {s['weighted_ard']:,.0f} floats")
+        print(f"  DMC (Data Movement Complexity): {s['dmc']:,.0f}")
         if s['per_buffer']:
             print(f"\n  {'Buffer':<12} {'Size':>8} {'Reads':>5} {'Avg Dist':>10} {'Min':>8} {'Max':>8}")
             print(f"  {'─'*12} {'─'*8} {'─'*5} {'─'*10} {'─'*8} {'─'*8}")
