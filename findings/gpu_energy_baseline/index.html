@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://cybertronai.github.io/SutroYaro/findings/exp_gf2_noise/">
+        <link rel="canonical" href="https://cybertronai.github.io/SutroYaro/findings/gpu_energy_baseline/">
       
       
-        <link rel="prev" href="../exp_gf2/">
+        <link rel="prev" href="../session-2026-03-11/">
       
       
-        <link rel="next" href="../exp_random_proj/">
+        <link rel="next" href="../../research/friday-demo/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>GF(2) Noise Tolerance - SutroYaro</title>
+        <title>GPU Energy Baseline - SutroYaro</title>
       
     
     
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#experiment-gf2-with-noisy-labels" class="md-skip">
+        <a href="#gpu-energy-baseline-real-watts-on-nvidia-l4" class="md-skip">
           Skip to content
         </a>
       
@@ -114,7 +114,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              GF(2) Noise Tolerance
+              GPU Energy Baseline
             
           </span>
         </div>
@@ -652,7 +652,7 @@
       
         
           <li>
-            <a href="./" class="md-tabs__dropdown-link md-tabs__dropdown-link--active">
+            <a href="../exp_gf2_noise/" class="md-tabs__dropdown-link">
               GF(2) Noise Tolerance
             </a>
           </li>
@@ -780,7 +780,7 @@
       
         
           <li>
-            <a href="../gpu_energy_baseline/" class="md-tabs__dropdown-link">
+            <a href="./" class="md-tabs__dropdown-link md-tabs__dropdown-link--active">
               GPU Energy Baseline
             </a>
           </li>
@@ -2553,37 +2553,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    GF(2) Noise Tolerance
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../exp_gf2_noise/" class="md-nav__link">
         
   
   
@@ -2599,181 +2572,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#summary" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Summary
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#config" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Config
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#results" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Results
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Results">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#experiment-1-basic-gf2-noise-sweep" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Experiment 1: Basic GF(2) Noise Sweep
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#experiment-2-more-samples-dont-help-basic-solver" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Experiment 2: More Samples Don't Help Basic Solver
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#experiment-3-robust-subset-sampling-solver" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Experiment 3: Robust Subset-Sampling Solver
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#algorithm-robust-gf2-solver" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Algorithm: Robust GF(2) Solver
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#analysis" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Analysis
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Analysis">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#why-is-gf2-so-fragile" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Why is GF(2) so fragile?
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#why-does-subset-sampling-work" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Why does subset sampling work?
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#comparison-with-mdl" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Comparison with MDL
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#open-questions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Open Questions
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#files" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Files
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -3203,10 +3001,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../gpu_energy_baseline/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPU Energy Baseline
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -3222,6 +3047,103 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Results
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-findings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Findings
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#does-the-proxy-track-real-energy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Does the proxy track real energy?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#config" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Config
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-reproduce" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to reproduce
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Files
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -4111,6 +4033,39 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Results
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-findings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Findings
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#does-the-proxy-track-real-energy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Does the proxy track real energy?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#config" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4122,121 +4077,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#results" class="md-nav__link">
+  <a href="#how-to-reproduce" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Results
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Results">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#experiment-1-basic-gf2-noise-sweep" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Experiment 1: Basic GF(2) Noise Sweep
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#experiment-2-more-samples-dont-help-basic-solver" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Experiment 2: More Samples Don't Help Basic Solver
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#experiment-3-robust-subset-sampling-solver" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Experiment 3: Robust Subset-Sampling Solver
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#algorithm-robust-gf2-solver" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Algorithm: Robust GF(2) Solver
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#analysis" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Analysis
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Analysis">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#why-is-gf2-so-fragile" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Why is GF(2) so fragile?
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#why-does-subset-sampling-work" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Why does subset sampling work?
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#comparison-with-mdl" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Comparison with MDL
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#open-questions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Open Questions
+        How to reproduce
       
     </span>
   </a>
@@ -4274,294 +4118,163 @@
   
 
 
-<h1 id="experiment-gf2-with-noisy-labels">Experiment: GF(2) with Noisy Labels<a class="headerlink" href="#experiment-gf2-with-noisy-labels" title="Permanent link">&para;</a></h1>
-<p><strong>Hypothesis</strong>: GF(2) Gaussian elimination assumes exact parity. With label noise, the linear system becomes inconsistent. We test at what noise rate it fails and whether robust methods can recover.</p>
-<p><strong>Date</strong>: 2026-03-09
-<strong>Status</strong>: SUCCESS (robust solver) / FAILED (basic solver)</p>
+<h1 id="gpu-energy-baseline-real-watts-on-nvidia-l4">GPU Energy Baseline: Real Watts on NVIDIA L4<a class="headerlink" href="#gpu-energy-baseline-real-watts-on-nvidia-l4" title="Permanent link">&para;</a></h1>
+<p><strong>Date</strong>: 2026-03-14
+<strong>Status</strong>: BASELINE
+<strong>Challenge</strong>: All three (sparse-parity, sparse-sum, sparse-and)</p>
 <h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Method</th>
-<th>Noise Tolerance</th>
-<th>Notes</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Basic GF(2)</td>
-<td>0% (1% causes failure)</td>
-<td>Inconsistent system, no solution</td>
-</tr>
-<tr>
-<td>Robust (subset sampling)</td>
-<td>Up to 10-15%</td>
-<td>Finds clean subset of equations</td>
-</tr>
-<tr>
-<td>Robust at 15% noise</td>
-<td>65% accuracy</td>
-<td>Degraded but usable</td>
-</tr>
-<tr>
-<td>Robust at 20% noise</td>
-<td>20% accuracy</td>
-<td>Too much noise</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Key finding</strong>: GF(2) is extremely fragile to noise, but subset-sampling recovers the secret at moderate noise levels by finding clean equations.</p>
-<h2 id="config">Config<a class="headerlink" href="#config" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>n_bits</td>
-<td>20</td>
-</tr>
-<tr>
-<td>k_sparse</td>
-<td>3</td>
-</tr>
-<tr>
-<td>n_samples</td>
-<td>21-500 (varied)</td>
-</tr>
-<tr>
-<td>noise_rate</td>
-<td>0-30% (varied)</td>
-</tr>
-<tr>
-<td>seeds</td>
-<td>10-50 per config</td>
-</tr>
-<tr>
-<td>max_subsets</td>
-<td>100 (robust solver)</td>
-</tr>
-</tbody>
-</table>
+<p>First real energy measurement using <code>bin/gpu_energy.py</code> on Modal Labs (NVIDIA L4 GPU). Power sampled via pynvml during execution. Total cost: $0.0025.</p>
 <h2 id="results">Results<a class="headerlink" href="#results" title="Permanent link">&para;</a></h2>
-<h3 id="experiment-1-basic-gf2-noise-sweep">Experiment 1: Basic GF(2) Noise Sweep<a class="headerlink" href="#experiment-1-basic-gf2-noise-sweep" title="Permanent link">&para;</a></h3>
-<p>At n_samples=100, basic GF(2) with Gaussian elimination:</p>
 <table>
 <thead>
 <tr>
-<th>Noise Rate</th>
-<th>Correct</th>
-<th>Inconsistent</th>
+<th>Challenge</th>
+<th>Method</th>
+<th>Acc</th>
+<th>Time</th>
+<th>Watts</th>
+<th>Joules</th>
+<th>ARD</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>0%</td>
-<td>20/20</td>
-<td>0</td>
+<td>sparse-parity</td>
+<td>gf2</td>
+<td>1.00</td>
+<td>3.2ms</td>
+<td>n/a*</td>
+<td>n/a*</td>
+<td>420</td>
 </tr>
 <tr>
-<td>1%</td>
-<td>0/20</td>
+<td>sparse-parity</td>
+<td>km</td>
+<td>1.00</td>
+<td>11.6ms</td>
+<td>12.4W</td>
+<td>144mJ</td>
+<td>92</td>
+</tr>
+<tr>
+<td>sparse-parity</td>
+<td>sgd</td>
+<td>1.00</td>
+<td>1463ms</td>
+<td>12.7W</td>
+<td>18.7J</td>
+<td>8,504</td>
+</tr>
+<tr>
+<td>sparse-parity</td>
+<td>fourier</td>
+<td>1.00</td>
+<td>122ms</td>
+<td>12.9W</td>
+<td>1.57J</td>
+<td>11,980,500</td>
+</tr>
+<tr>
+<td>sparse-sum</td>
+<td>sgd</td>
+<td>1.00</td>
+<td>3.2ms</td>
+<td>n/a*</td>
+<td>n/a*</td>
 <td>20</td>
 </tr>
 <tr>
-<td>2%+</td>
-<td>0/20</td>
-<td>20</td>
+<td>sparse-sum</td>
+<td>km</td>
+<td>1.00</td>
+<td>4.9ms</td>
+<td>n/a*</td>
+<td>n/a*</td>
+<td>92</td>
+</tr>
+<tr>
+<td>sparse-and</td>
+<td>sgd</td>
+<td>1.00</td>
+<td>69.4ms</td>
+<td>12.8W</td>
+<td>891mJ</td>
+<td>29,164</td>
+</tr>
+<tr>
+<td>sparse-and</td>
+<td>km</td>
+<td>0.85</td>
+<td>6.6ms</td>
+<td>12.8W</td>
+<td>85mJ</td>
+<td>92</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Even 1 corrupted label out of 100 causes complete failure.</strong> The linear system over GF(2) has no solution when any equation is wrong.</p>
-<h3 id="experiment-2-more-samples-dont-help-basic-solver">Experiment 2: More Samples Don't Help Basic Solver<a class="headerlink" href="#experiment-2-more-samples-dont-help-basic-solver" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>n_samples</th>
-<th>Noise 1%</th>
-<th>Noise 2%</th>
-<th>Noise 5%</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>21</td>
-<td>9/10</td>
-<td>9/10</td>
-<td>4/10 INC</td>
-</tr>
-<tr>
-<td>30</td>
-<td>10/10</td>
-<td>10/10</td>
-<td>0/10 INC</td>
-</tr>
-<tr>
-<td>50</td>
-<td>10/10</td>
-<td>0/10 INC</td>
-<td>0/10 INC</td>
-</tr>
-<tr>
-<td>100</td>
-<td>0/10 INC</td>
-<td>0/10 INC</td>
-<td>0/10 INC</td>
-</tr>
-<tr>
-<td>500</td>
-<td>0/10 INC</td>
-<td>0/10 INC</td>
-<td>0/10 INC</td>
-</tr>
-</tbody>
-</table>
-<p>Counter-intuitively, <strong>more samples make things worse</strong> for the basic solver. With 21 samples and 1% noise (0.21 expected flips), you might get lucky and have no flips. With 100 samples and 1% noise (1 expected flip), you're guaranteed inconsistency.</p>
-<h3 id="experiment-3-robust-subset-sampling-solver">Experiment 3: Robust Subset-Sampling Solver<a class="headerlink" href="#experiment-3-robust-subset-sampling-solver" title="Permanent link">&para;</a></h3>
-<p>The robust solver samples multiple subsets of n equations and votes on the most common solution:</p>
-<table>
-<thead>
-<tr>
-<th>Noise</th>
-<th>Basic GF(2)</th>
-<th>Robust</th>
-<th>Improvement</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0%</td>
-<td>20/20</td>
-<td>20/20</td>
-<td>+0</td>
-</tr>
-<tr>
-<td>2%</td>
-<td>0/20</td>
-<td>20/20</td>
-<td>+20</td>
-</tr>
-<tr>
-<td>5%</td>
-<td>0/20</td>
-<td>20/20</td>
-<td>+20</td>
-</tr>
-<tr>
-<td>10%</td>
-<td>0/20</td>
-<td>20/20</td>
-<td>+20</td>
-</tr>
-<tr>
-<td>15%</td>
-<td>0/20</td>
-<td>13/20</td>
-<td>+13</td>
-</tr>
-<tr>
-<td>20%</td>
-<td>0/20</td>
-<td>4/20</td>
-<td>+4</td>
-</tr>
-</tbody>
-</table>
-<p><strong>The robust solver works because</strong>: With 100 samples and 10% noise, ~90 equations are clean. If we sample subsets of 20, we'll find at least one clean subset with high probability. The true solution appears in a majority of consistent subsets.</p>
-<h3 id="algorithm-robust-gf2-solver">Algorithm: Robust GF(2) Solver<a class="headerlink" href="#algorithm-robust-gf2-solver" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">gf2_solve_robust</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">n_bits</span><span class="p">,</span> <span class="n">max_subsets</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="sd">    For noisy data, sample multiple subsets of n equations and vote.</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="sd">    &quot;&quot;&quot;</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">A</span> <span class="o">=</span> <span class="p">((</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>  <span class="c1"># Convert to GF(2)</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">b</span> <span class="o">=</span> <span class="p">((</span><span class="n">y</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="n">solution_counts</span> <span class="o">=</span> <span class="p">{}</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="k">for</span> <span class="n">indices</span> <span class="ow">in</span> <span class="n">random_subsets</span><span class="p">(</span><span class="n">n_samples</span><span class="p">,</span> <span class="n">n_bits</span><span class="p">,</span> <span class="n">max_subsets</span><span class="p">):</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>        <span class="n">solution</span><span class="p">,</span> <span class="n">rank</span> <span class="o">=</span> <span class="n">gf2_gauss_elim</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">indices</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="n">indices</span><span class="p">])</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>        <span class="k">if</span> <span class="n">solution</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># consistent</span>
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>            <span class="n">key</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">solution</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>            <span class="n">solution_counts</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">solution_counts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
-<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>    <span class="c1"># Return most common solution</span>
-<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>    <span class="n">best</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">solution_counts</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">solution_counts</span><span class="o">.</span><span class="n">get</span><span class="p">)</span>
-<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>    <span class="k">return</span> <span class="n">best</span>
-</code></pre></div>
-<h2 id="analysis">Analysis<a class="headerlink" href="#analysis" title="Permanent link">&para;</a></h2>
-<h3 id="why-is-gf2-so-fragile">Why is GF(2) so fragile?<a class="headerlink" href="#why-is-gf2-so-fragile" title="Permanent link">&para;</a></h3>
-<p>GF(2) Gaussian elimination solves A·s = b over the binary field. Each equation is:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>x[secret[0]] ⊕ x[secret[1]] ⊕ ... ⊕ x[secret[k-1]] = y
-</code></pre></div></p>
-<p>A single flipped label makes one equation wrong. In the augmented matrix [A|b], this creates a row where the A part is in the row space, but the b part doesn't match. The consistency check fails.</p>
-<h3 id="why-does-subset-sampling-work">Why does subset sampling work?<a class="headerlink" href="#why-does-subset-sampling-work" title="Permanent link">&para;</a></h3>
-<p>With m samples and noise rate p:
-- Expected clean samples: m·(1-p)
-- Probability a random n-subset is clean: (1-p)^n</p>
-<p>For m=100, p=0.10, n=20:
-- Clean samples: 90
-- P(clean subset) ≈ 0.9^20 ≈ 12%</p>
-<p>With 100 subset samples, we expect ~12 clean subsets, all producing the same (correct) solution. Wrong solutions appear in at most a few subsets. Majority voting filters them out.</p>
-<h3 id="comparison-with-mdl">Comparison with MDL<a class="headerlink" href="#comparison-with-mdl" title="Permanent link">&para;</a></h3>
-<p>DISCOVERIES.md notes that MDL is noise-robust at 5% noise. Comparison:</p>
+<p>*Too fast for power sampler (under 5ms, finishes before first reading).</p>
+<h2 id="key-findings">Key Findings<a class="headerlink" href="#key-findings" title="Permanent link">&para;</a></h2>
+<p><strong>1. GPU idles at ~12.5W regardless of method.</strong> These experiments are too small to stress the GPU. Power draw is dominated by idle consumption, not computation. The L4's TDP is 72W but our workloads never push it past 13W.</p>
+<p><strong>2. ARD roughly tracks real energy for methods above 10ms.</strong> KM (ARD 92) uses 144mJ. SGD (ARD 8,504) uses 18.7J. That's a 130x energy gap, while the ARD gap is 92x. Same order of magnitude. The proxy works.</p>
+<p><strong>3. Methods under 5ms can't be measured on GPU.</strong> GF(2), sum-SGD, sum-KM all finish before the power sampler takes its first reading. For these, the idle power dominates and the actual compute energy is negligible (sub-millijoule).</p>
+<p><strong>4. Parity SGD at 18.7 joules is wasteful.</strong> LeCun trained digit recognition on a Spark 7 (64KB RAM, ~1 MFLOP/s). Our n=20/k=3 sparse parity is a simpler problem. 18.7J on a modern GPU is orders of magnitude more energy than necessary.</p>
+<h2 id="does-the-proxy-track-real-energy">Does the proxy track real energy?<a class="headerlink" href="#does-the-proxy-track-real-energy" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
 <th>Method</th>
-<th>5% noise</th>
-<th>10% noise</th>
 <th>ARD</th>
-<th>Time</th>
+<th>Joules</th>
+<th>ARD/Joules ratio</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>MDL</td>
-<td>100%</td>
-<td>untested</td>
-<td>1,147,375</td>
-<td>0.013s</td>
+<td>km (parity)</td>
+<td>92</td>
+<td>0.144</td>
+<td>639</td>
 </tr>
 <tr>
-<td>GF(2) basic</td>
-<td>0%</td>
-<td>0%</td>
-<td>~500</td>
-<td>0.0005s</td>
+<td>sgd (parity)</td>
+<td>8,504</td>
+<td>18.7</td>
+<td>455</td>
 </tr>
 <tr>
-<td>GF(2) robust</td>
-<td>100%</td>
-<td>100%</td>
-<td>~500</td>
-<td>~0.01s</td>
+<td>fourier (parity)</td>
+<td>11,980,500</td>
+<td>1.57</td>
+<td>7,631,529</td>
+</tr>
+<tr>
+<td>sgd (and)</td>
+<td>29,164</td>
+<td>0.891</td>
+<td>32,732</td>
 </tr>
 </tbody>
 </table>
-<p>GF(2) robust is comparable to MDL at 5% noise, faster at 0.01s vs 0.013s, and has 2000x better ARD (~500 vs 1,147,375).</p>
-<h2 id="open-questions">Open Questions<a class="headerlink" href="#open-questions" title="Permanent link">&para;</a></h2>
-<ol>
-<li>
-<p><strong>What's the theoretical noise threshold?</strong> The robust solver works up to ~15% empirically. Is there a closed-form bound?</p>
-</li>
-<li>
-<p><strong>Optimal subset count?</strong> We used 100 subsets. Fewer might work, reducing compute.</p>
-</li>
-<li>
-<p><strong>Comparison with error-correcting codes?</strong> LDPC or BCH codes are designed for exactly this problem. Would they be faster?</p>
-</li>
-<li>
-<p><strong>Higher k?</strong> With k=5 or k=7, the secret is larger (more bits in the solution). Does noise tolerance scale?</p>
-</li>
-</ol>
+<p>ARD tracks joules within an order of magnitude for SGD and KM but breaks down for Fourier. Fourier has terrible ARD (streaming access, no reuse) but moderate wall time (122ms) because the operations are simple. ARD overpenalizes streaming patterns relative to actual energy cost.</p>
+<p>This confirms Yaroslav's observation that ARD is a useful but coarse proxy. DMC (Data Movement Complexity) may track better for streaming workloads.</p>
+<h2 id="config">Config<a class="headerlink" href="#config" title="Permanent link">&para;</a></h2>
+<ul>
+<li>GPU: NVIDIA L4 (Modal Labs)</li>
+<li>Power sampling: pynvml, ~1ms interval</li>
+<li>n_bits=20, k_sparse=3, seed=42</li>
+<li>Container startup: ~8s, compute: ~2s</li>
+</ul>
+<h2 id="how-to-reproduce">How to reproduce<a class="headerlink" href="#how-to-reproduce" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>modal
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>modal<span class="w"> </span>token<span class="w"> </span><span class="nb">set</span><span class="w">   </span><span class="c1"># authenticate</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>modal<span class="w"> </span>run<span class="w"> </span>bin/gpu_energy.py
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>modal<span class="w"> </span>run<span class="w"> </span>bin/gpu_energy.py<span class="w"> </span>--json<span class="w">   </span><span class="c1"># machine-readable output</span>
+</code></pre></div>
+<p>Cost: under $0.01 per run.</p>
 <h2 id="files">Files<a class="headerlink" href="#files" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Experiment: <code>src/sparse_parity/experiments/exp_gf2_noise.py</code></li>
-<li>Results: <code>results/exp_gf2_noise/results.json</code></li>
-<li>This document: <code>findings/exp_gf2_noise.md</code></li>
+<li>Script: <code>bin/gpu_energy.py</code></li>
+<li>This document: <code>findings/gpu_energy_baseline.md</code></li>
 </ul>
 
 

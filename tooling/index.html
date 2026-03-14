@@ -780,6 +780,14 @@
       
         
           <li>
+            <a href="../findings/gpu_energy_baseline/" class="md-tabs__dropdown-link">
+              GPU Energy Baseline
+            </a>
+          </li>
+        
+      
+        
+          <li>
             <a href="../research/friday-demo/" class="md-tabs__dropdown-link">
               Friday Demo
             </a>
@@ -1523,6 +1531,45 @@
       
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scripts-bin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scripts (bin/)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scripts (bin/)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gpu-energy-measurement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GPU Energy Measurement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reproduce-all" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reproduce All
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -3087,6 +3134,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../findings/gpu_energy_baseline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPU Energy Baseline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../research/friday-demo/" class="md-nav__link">
         
   
@@ -3972,6 +4047,45 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#scripts-bin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scripts (bin/)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scripts (bin/)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gpu-energy-measurement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GPU Energy Measurement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reproduce-all" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reproduce All
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#what-worked" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4061,6 +4175,56 @@
 </tr>
 </tbody>
 </table>
+<h2 id="scripts-bin">Scripts (<code>bin/</code>)<a class="headerlink" href="#scripts-bin" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Script</th>
+<th>What it does</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bin/run-agent</code></td>
+<td>Autonomous experiment loop (any AI CLI)</td>
+<td><code>bin/run-agent --tool claude --max 10</code></td>
+</tr>
+<tr>
+<td><code>bin/merge-findings</code></td>
+<td>Import contributor results via PR</td>
+<td><code>bin/merge-findings path/to/log.jsonl</code></td>
+</tr>
+<tr>
+<td><code>bin/analyze-log</code></td>
+<td>Progress report from experiment log</td>
+<td><code>bin/analyze-log --plot</code></td>
+</tr>
+<tr>
+<td><code>bin/reproduce-all</code></td>
+<td>Verify all 14 experiments in 0.28s</td>
+<td><code>PYTHONPATH=src python3 bin/reproduce-all --budget 10</code></td>
+</tr>
+<tr>
+<td><code>bin/gpu_energy.py</code></td>
+<td>Real GPU energy via Modal Labs (L4)</td>
+<td><code>modal run bin/gpu_energy.py</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="gpu-energy-measurement">GPU Energy Measurement<a class="headerlink" href="#gpu-energy-measurement" title="Permanent link">&para;</a></h3>
+<p><code>bin/gpu_energy.py</code> runs harness methods on an NVIDIA L4 via <a href="https://modal.com">Modal Labs</a> and samples actual power draw (watts) via pynvml during execution. Reports joules per method alongside ARD/DMC proxy metrics.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>modal
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>modal<span class="w"> </span>token<span class="w"> </span><span class="nb">set</span><span class="w">          </span><span class="c1"># authenticate (one-time)</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>modal<span class="w"> </span>run<span class="w"> </span>bin/gpu_energy.py<span class="w">          </span><span class="c1"># run all defaults</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>modal<span class="w"> </span>run<span class="w"> </span>bin/gpu_energy.py<span class="w"> </span>--json<span class="w">   </span><span class="c1"># machine-readable</span>
+</code></pre></div>
+<p>Cost: under $0.01 per run. See <a href="../findings/gpu_energy_baseline/">GPU energy baseline</a> for the first results.</p>
+<h3 id="reproduce-all">Reproduce All<a class="headerlink" href="#reproduce-all" title="Permanent link">&para;</a></h3>
+<p><code>bin/reproduce-all</code> runs every method across all 3 challenges and verifies results match baselines. Supports a <code>--budget</code> flag (ms) to skip experiments over a time ceiling.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nv">PYTHONPATH</span><span class="o">=</span>src<span class="w"> </span>python3<span class="w"> </span>bin/reproduce-all<span class="w">             </span><span class="c1"># all 14 in 0.28s</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nv">PYTHONPATH</span><span class="o">=</span>src<span class="w"> </span>python3<span class="w"> </span>bin/reproduce-all<span class="w"> </span>--budget<span class="w"> </span><span class="m">10</span><span class="w">  </span><span class="c1"># 6 pass in 0.08s</span>
+</code></pre></div>
 <h2 id="what-worked">What Worked<a class="headerlink" href="#what-worked" title="Permanent link">&para;</a></h2>
 <p>The combination that produced 16 experiments in a few days:</p>
 <ol>
