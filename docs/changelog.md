@@ -2,6 +2,20 @@
 
 All notable changes to this research workspace.
 
+## [0.17.0] - 2026-03-14
+
+### Three challenges, adding-a-challenge guide, Antigravity validation
+
+- Added sparse sum (Challenge 2) and sparse AND (Challenge 3) to the harness
+- Created `docs/research/adding-a-challenge.md`: step-by-step guide for agents and contributors to add new tasks
+- Sparse AND was added by Google Antigravity (agent IDE) following the guide without human help, validating that the guide works for autonomous agents
+- Harness now supports `--challenge` flag: `sparse-parity` (default), `sparse-sum`, `sparse-and`
+- Sparse sum baselines: SGD 100% in 1 epoch (ARD 20), KM 100% (ARD 92)
+- Sparse AND baselines: SGD 100% in 4 epochs, KM needs 20 samples (not 5) due to 1/2^(k-1) influence signal
+- Updated search_space.yaml, questions.yaml, DISCOVERIES.md, TODO.md, baseline_check.py for both challenges
+
+---
+
 ## [0.16.0] - 2026-03-14
 
 ### Repo migration, multi-topic Telegram sync, and skills
