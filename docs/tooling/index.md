@@ -21,6 +21,38 @@ The human writes specs (CLAUDE.md, DISCOVERIES.md, LAB.md). The lead agent reads
 | [Automation scripts](automation.md) | `sync_google_docs.py` for pulling Google Docs, `sync_telegram.ts` for pulling Telegram threads, session trace export |
 | [Sync runbook](sync-runbook.md) | Weekly/daily/per-session checklists for keeping the knowledge base current |
 
+## Scripts (`bin/`)
+
+| Script | What it does | Example |
+|--------|-------------|---------|
+| `bin/run-agent` | Autonomous experiment loop (any AI CLI) | `bin/run-agent --tool claude --max 10` |
+| `bin/merge-findings` | Import contributor results via PR | `bin/merge-findings path/to/log.jsonl` |
+| `bin/analyze-log` | Progress report from experiment log | `bin/analyze-log --plot` |
+| `bin/reproduce-all` | Verify all 14 experiments in 0.28s | `PYTHONPATH=src python3 bin/reproduce-all --budget 10` |
+| `bin/gpu_energy.py` | Real GPU energy via Modal Labs (L4) | `modal run bin/gpu_energy.py` |
+
+### GPU Energy Measurement
+
+`bin/gpu_energy.py` runs harness methods on an NVIDIA L4 via [Modal Labs](https://modal.com) and samples actual power draw (watts) via pynvml during execution. Reports joules per method alongside ARD/DMC proxy metrics.
+
+```bash
+pip install modal
+modal token set          # authenticate (one-time)
+modal run bin/gpu_energy.py          # run all defaults
+modal run bin/gpu_energy.py --json   # machine-readable
+```
+
+Cost: under $0.01 per run. See [GPU energy baseline](../findings/gpu_energy_baseline.md) for the first results.
+
+### Reproduce All
+
+`bin/reproduce-all` runs every method across all 3 challenges and verifies results match baselines. Supports a `--budget` flag (ms) to skip experiments over a time ceiling.
+
+```bash
+PYTHONPATH=src python3 bin/reproduce-all             # all 14 in 0.28s
+PYTHONPATH=src python3 bin/reproduce-all --budget 10  # 6 pass in 0.08s
+```
+
 ## What Worked
 
 The combination that produced 16 experiments in a few days:

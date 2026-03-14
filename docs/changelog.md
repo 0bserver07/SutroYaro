@@ -2,6 +2,20 @@
 
 All notable changes to this research workspace.
 
+## [0.19.0] - 2026-03-14
+
+### GPU energy measurement via Modal Labs
+
+- Added `bin/gpu_energy.py`: runs harness methods on NVIDIA L4 via Modal Labs, measures actual watts via pynvml
+- First real energy results: SGD uses 18.7J, KM uses 144mJ (130x gap). ARD tracks real joules within an order of magnitude.
+- GPU idles at ~12.5W. Methods under 5ms finish before the power sampler can take a reading.
+- Findings: `findings/gpu_energy_baseline.md` with proxy-vs-real comparison
+- Added scripts table to tooling overview page with examples for all `bin/` scripts
+- Updated README project structure with `bin/reproduce-all` and `bin/gpu_energy.py`
+- Cost: under $0.01 per run
+
+---
+
 ## [0.18.0] - 2026-03-14
 
 ### Reproduce-all script

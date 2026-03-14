@@ -158,6 +158,8 @@ bin/
   run-agent             # Tool-agnostic autonomous launcher
   merge-findings        # Import contributor results
   analyze-log           # Progress report + charts
+  reproduce-all         # Verify all 14 experiments in <1s (--budget for compute caps)
+  gpu_energy.py         # Real GPU energy measurement via Modal Labs (NVIDIA L4)
 
 docs/                   # MkDocs site source
 findings/               # One markdown report per experiment
