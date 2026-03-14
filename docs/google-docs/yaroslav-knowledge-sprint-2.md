@@ -2,7 +2,7 @@
     **Source**: [Google Doc](https://docs.google.com/document/d/105FkE_U5_cXA1o8sxMGrj1NuTxysfSBTZsLB7vift-M/edit?tab=t.0) · [Meeting #8 summary](../meetings/notes.md#meeting-8-09-mar-26-demos-and-roadmap)
     **Related**: [Sprint 1](yaroslav-technical-sprint-1.md) · [The Bigger Picture](bigger-picture.md)
 
-# Take-aways
+# Take-aways 
 
 Cache lemma means LRU cache is within 2x factor of optimal cache. Because optimal caching strategy is hard to compute, just assume LRU cache for everything. Continuous LRU cache and and data movement complexity of Ding are promising ([[paper](https://arxiv.org/abs/2312.14441)])
 

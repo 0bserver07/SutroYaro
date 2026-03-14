@@ -114,9 +114,67 @@ Sutro Group
 
 [Homework for next Monday]
 
-# [embedded image] 
+Sutro Group
 
 Mission: huge amount of energy waste due to legacy learning algorithms. Fix this.
+
+[General]
+
+[Bookmarks]
+
+[Meetings]
+
+[Meeting #1, 19 Jan 26]
+
+[Meeting #2, 26 Jan 26]
+
+[Meeting #3, 02 Feb 26]
+
+[Meeting #4, 09 Feb 26]
+
+[Meeting #5, 16 Feb 26]
+
+[Meeting #6, 23 Feb 26]
+
+[Meeting #7, 02 Mar 26]
+
+[Homework for next time]
+
+[Meeting #8, 09 Mar 26]
+
+[Homework for next Monday]
+
+Sutro Group
+
+Mission: huge amount of energy waste due to legacy learning algorithms. Fix this.
+
+[General]
+
+[Bookmarks]
+
+[Meetings]
+
+[Meeting #1, 19 Jan 26]
+
+[Meeting #2, 26 Jan 26]
+
+[Meeting #3, 02 Feb 26]
+
+[Meeting #4, 09 Feb 26]
+
+[Meeting #5, 16 Feb 26]
+
+[Meeting #6, 23 Feb 26]
+
+[Meeting #7, 02 Mar 26]
+
+[Homework for next time]
+
+[Meeting #8, 09 Mar 26]
+
+[Homework for next Monday]
+
+# [embedded image] 
 
 # General 
 
@@ -208,7 +266,7 @@ Notes: [[Sutro meeting #8 notes](https://docs.google.com/document/d/12AnIc4XWH0O
 
 - Yad [[demo'ed](https://www.youtube.com/watch?v=h8dAU8yngxM)] his agentic harness, encouraged people to contribute on [[github](https://github.com/0bserver07/SutroYaro)]
 
-   - harness gave 1000x [[faster](https://0bserver07.github.io/SutroYaro/research/survey/)] faster solution, Yaroslav [[verified](https://docs.google.com/document/d/1jNN7NOssLRjrF6H0DGN61q5nGtuZVwnOwiTiLLToj7M/edit?tab=t.0)] correctness, [[visualized](https://gf-2-sparse-parity-solver-400699997518.us-west1.run.app/)] top algorithm
+   - harness gave 1000x [[https://cybertronai.github.io/SutroYaro/research/survey/](https://cybertronai.github.io/SutroYaro/research/survey/)] faster solution, Yaroslav [[verified](https://docs.google.com/document/d/1jNN7NOssLRjrF6H0DGN61q5nGtuZVwnOwiTiLLToj7M/edit?tab=t.0)] correctness, [[visualized](https://gf-2-sparse-parity-solver-400699997518.us-west1.run.app/)] top algorithm
 
 - Michael showed his Claude [[approach](https://docs.google.com/document/d/13uAQfG_ola3vt1hHFo3A8ThUeV-nBVQK/edit?rtpof=true&sd=true&tab=t.0)] which seemed to prefer methods from the 90s
 
@@ -222,4 +280,6 @@ Notes: [[Sutro meeting #8 notes](https://docs.google.com/document/d/12AnIc4XWH0O
 
 2. Present your results/your process/present your learnings (example, Yad's youtube [[video](https://www.youtube.com/watch?v=h8dAU8yngxM)])
 
-This is a part of the bigger [[picture](https://docs.google.com/document/d/1oSTIM0h1-THnb3fZ6Cz5o86DQx6n44si1q4BkP2lfSA/edit?tab=t.0)].
+### Longer-term plan 
+
+[[Yaroslav's sutro planning sprint #1](https://docs.google.com/document/d/1oSTIM0h1-THnb3fZ6Cz5o86DQx6n44si1q4BkP2lfSA/edit?tab=t.0)]

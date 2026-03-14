@@ -2,7 +2,7 @@
     **Source**: [Google Doc](https://docs.google.com/document/d/12AnIc4XWH0OBloZCgShaaqg3oASXBVF3kLjegHhH0FI/edit?tab=t.0) · [Meeting #8 summary](../meetings/notes.md#meeting-8-09-mar-26-demos-and-roadmap)
     **Related**: [AI notes](meeting-8-ai-notes.md) · [Yaroslav Knowledge Sprint 2](yaroslav-knowledge-sprint-2.md) · [Yaroslav Verification](yaroslav-verification.md) · [Michael's Approach](michael-claude-approach.md) · [The Bigger Picture](bigger-picture.md)
 
-# Sutro meeting #8
+# Sutro meeting #8 
 
 ## Overview 
 

@@ -2,6 +2,20 @@
 
 All notable changes to this research workspace.
 
+## [0.16.0] - 2026-03-14
+
+### Repo migration, multi-topic Telegram sync, and skills
+
+- Moved repo from `0bserver07/SutroYaro` to `cybertronai/SutroYaro` (updated 15 files, git remote, GitHub Pages URL)
+- Telegram sync now pulls 6 topics in priority order (chat-yad, chat-yaroslav, challenge #1, General, In-person, Introductions) to separate JSON files
+- Added `sutro-sync` skill: session-start routine for Telegram, Google Docs, GitHub checks
+- Added `sutro-context` skill: research context loader (DISCOVERIES.md, open questions, recent discussion)
+- Re-synced all 15 Google Docs with upstream changes
+- Both of Andy's PRs merged (#2 TODO cleanup, #3 GF(2) noise experiment), Issue #1 closed
+- Deploy workflow confirmed working on new org
+
+---
+
 ## [0.15.0] - 2026-03-11
 
 ### Peer research protocol and autonomous agent infrastructure
