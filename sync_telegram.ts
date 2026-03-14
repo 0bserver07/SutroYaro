@@ -6,9 +6,19 @@ import { homedir } from "os";
 
 // --- Config ---
 const CHANNEL_USERNAME = "sutro_group";
-const TOPIC_KEYWORD = "sparse parity";
+
+// Topics to sync, in priority order. Use "all" to sync every topic.
+// Each entry: keyword substring to match against topic title.
+const TOPICS_TO_SYNC = [
+  "chat-yad",
+  "chat-yaroslav",
+  "challenge #1: sparse parity",
+  "General",
+  "In-person meetings",
+  "Introductions",
+];
+
 const OUTPUT_DIR = resolve(import.meta.dir, "src/sparse_parity/telegram_sync");
-const OUTPUT_FILE = join(OUTPUT_DIR, "messages.json");
 
 // Reuse the tg CLI session directly
 const SESSION_PATH = join(homedir(), ".telegram-sync-cli", "session_1.db");
@@ -32,16 +42,71 @@ const client = new TelegramClient({
   storage: SESSION_PATH,
 });
 
+function slugify(title: string): string {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+async function fetchTopicMessages(
+  resolved: tl.TypeInputPeer,
+  topicId: number,
+  users: Map<number, string>
+): Promise<tl.RawMessage[]> {
+  const allMessages: tl.RawMessage[] = [];
+  let offsetId = 0;
+  const BATCH_SIZE = 100;
+
+  while (true) {
+    const history = await client.call({
+      _: "messages.getReplies",
+      peer: resolved,
+      msgId: topicId,
+      offsetId,
+      offsetDate: 0,
+      addOffset: 0,
+      limit: BATCH_SIZE,
+      maxId: 0,
+      minId: 0,
+      hash: 0,
+    });
+
+    const resp = history as tl.RawMessagesChannelMessages;
+
+    // Collect users from this response
+    if ("users" in resp) {
+      for (const u of resp.users) {
+        if (u._ === "user") {
+          users.set(u.id, [u.firstName, u.lastName].filter(Boolean).join(" "));
+        }
+      }
+    }
+
+    const msgs = resp.messages.filter(
+      (m): m is tl.RawMessage => m._ === "message"
+    );
+
+    if (msgs.length === 0) break;
+
+    allMessages.push(...msgs);
+    offsetId = msgs[msgs.length - 1].id;
+
+    // Rate limit courtesy
+    await new Promise((r) => setTimeout(r, 500));
+  }
+
+  return allMessages;
+}
+
 async function main() {
   console.log("Connecting to Telegram...");
   await client.start();
   console.log("Connected.");
 
-  // Resolve the channel
   const resolved = await client.resolvePeer(CHANNEL_USERNAME);
-  console.log(`Resolved ${CHANNEL_USERNAME} -> ${JSON.stringify(resolved)}`);
+  console.log(`Resolved ${CHANNEL_USERNAME}`);
 
-  // Get forum topics
   const inputChannel: tl.TypeInputChannel = {
     _: "inputChannel",
     channelId: (resolved as tl.RawInputPeerChannel).channelId,
@@ -58,94 +123,88 @@ async function main() {
     offsetTopic: 0,
   });
 
-  // Find the sparse parity topic
-  const forumTopics = (topics as tl.RawMessagesForumTopics).topics;
-  const target = forumTopics.find((t) => {
-    if (t._ === "forumTopic") {
-      return t.title.toLowerCase().includes(TOPIC_KEYWORD.toLowerCase());
-    }
-    return false;
-  }) as tl.RawForumTopic | undefined;
+  const forumTopics = (topics as tl.RawMessagesForumTopics).topics.filter(
+    (t): t is tl.RawForumTopic => t._ === "forumTopic"
+  );
 
-  if (!target) {
-    console.error(`Topic matching "${TOPIC_KEYWORD}" not found.`);
-    console.log(
-      "Available topics:",
-      forumTopics
-        .filter((t): t is tl.RawForumTopic => t._ === "forumTopic")
-        .map((t) => `  [${t.id}] ${t.title}`)
-        .join("\n")
-    );
-    await client.close();
-    process.exit(1);
-  }
+  console.log(
+    `Found ${forumTopics.length} topics: ${forumTopics.map((t) => t.title).join(", ")}`
+  );
 
-  console.log(`Found topic: [${target.id}] "${target.title}"`);
-
-  // Fetch all messages in this topic thread
-  const allMessages: tl.RawMessage[] = [];
-  let offsetId = 0;
-  const BATCH_SIZE = 100;
-
-  console.log("Fetching messages...");
-  while (true) {
-    const history = await client.call({
-      _: "messages.getReplies",
-      peer: resolved,
-      msgId: target.id,
-      offsetId,
-      offsetDate: 0,
-      addOffset: 0,
-      limit: BATCH_SIZE,
-      maxId: 0,
-      minId: 0,
-      hash: 0,
-    });
-
-    const msgs = (history as tl.RawMessagesChannelMessages).messages.filter(
-      (m): m is tl.RawMessage => m._ === "message"
-    );
-
-    if (msgs.length === 0) break;
-
-    allMessages.push(...msgs);
-    console.log(`  fetched ${allMessages.length} messages so far...`);
-
-    offsetId = msgs[msgs.length - 1].id;
-
-    // Rate limit courtesy
-    await new Promise((r) => setTimeout(r, 500));
-  }
-
-  // Extract useful fields
+  // Collect users from topics response
   const users = new Map<number, string>();
   if ("users" in topics) {
     for (const u of (topics as tl.RawMessagesForumTopics).users) {
       if (u._ === "user") {
-        users.set(
-          u.id,
-          [u.firstName, u.lastName].filter(Boolean).join(" ")
-        );
+        users.set(u.id, [u.firstName, u.lastName].filter(Boolean).join(" "));
       }
     }
   }
 
-  const output = allMessages.map((m) => ({
-    id: m.id,
-    date: new Date(m.date * 1000).toISOString(),
-    sender: users.get(Number(m.fromId && "userId" in m.fromId ? m.fromId.userId : 0)) ?? String(m.fromId),
-    text: m.message,
-    replyTo: m.replyTo && "replyToMsgId" in m.replyTo ? m.replyTo.replyToMsgId : null,
-  }));
+  // Match topics to sync
+  const toSync: tl.RawForumTopic[] = [];
+  for (const keyword of TOPICS_TO_SYNC) {
+    const match = forumTopics.find(
+      (t) => t.title.toLowerCase() === keyword.toLowerCase()
+    );
+    if (match) {
+      toSync.push(match);
+    } else {
+      console.warn(`  Warning: no topic matching "${keyword}"`);
+    }
+  }
 
-  // Also fetch user info from message history responses
-  // (the topics response may not have all users)
+  if (toSync.length === 0) {
+    console.error("No matching topics found.");
+    process.exit(1);
+  }
 
-  // Write output
   if (!existsSync(OUTPUT_DIR)) mkdirSync(OUTPUT_DIR, { recursive: true });
-  writeFileSync(OUTPUT_FILE, JSON.stringify(output, null, 2));
-  console.log(`\nDone. ${output.length} messages written to ${OUTPUT_FILE}`);
 
+  let totalMessages = 0;
+
+  for (const topic of toSync) {
+    const slug = slugify(topic.title);
+    const outFile = join(OUTPUT_DIR, `${slug}.json`);
+
+    console.log(`\nSyncing [${topic.id}] "${topic.title}" -> ${slug}.json`);
+
+    const messages = await fetchTopicMessages(resolved, topic.id, users);
+
+    const output = messages.map((m) => ({
+      id: m.id,
+      date: new Date(m.date * 1000).toISOString(),
+      sender:
+        users.get(
+          Number(m.fromId && "userId" in m.fromId ? m.fromId.userId : 0)
+        ) ?? String(m.fromId),
+      text: m.message,
+      replyTo:
+        m.replyTo && "replyToMsgId" in m.replyTo
+          ? m.replyTo.replyToMsgId
+          : null,
+    }));
+
+    writeFileSync(outFile, JSON.stringify(output, null, 2));
+    console.log(`  ${output.length} messages`);
+    totalMessages += output.length;
+  }
+
+  // Also write the legacy messages.json (challenge #1) for backward compat
+  const challengeTopic = toSync.find((t) =>
+    t.title.toLowerCase().includes("sparse parity")
+  );
+  if (challengeTopic) {
+    const legacyFile = join(OUTPUT_DIR, "messages.json");
+    const slug = slugify(challengeTopic.title);
+    const sourceFile = join(OUTPUT_DIR, `${slug}.json`);
+    if (existsSync(sourceFile)) {
+      const data = await Bun.file(sourceFile).text();
+      writeFileSync(legacyFile, data);
+    }
+  }
+
+  console.log(`\nDone. ${totalMessages} messages across ${toSync.length} topics.`);
   process.exit(0);
 }
 

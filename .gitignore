@@ -42,4 +42,4 @@ site/
 .tg-session*
 node_modules/
 bun.lock
-src/sparse_parity/telegram_sync/messages.json
+src/sparse_parity/telegram_sync/*.json
