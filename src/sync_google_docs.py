@@ -131,21 +131,6 @@ def clean_markdown(md):
     return md
 
 
-# Post-sync URL replacements. The Google Docs still reference the old org.
-# This fixes them in the local markdown without touching the Google Docs.
-URL_REPLACEMENTS = [
-    ("0bserver07/SutroYaro", "cybertronai/SutroYaro"),
-    ("0bserver07.github.io/SutroYaro", "cybertronai.github.io/SutroYaro"),
-]
-
-
-def apply_url_replacements(md):
-    """Replace stale URLs in synced content."""
-    for old, new in URL_REPLACEMENTS:
-        md = md.replace(old, new)
-    return md
-
-
 def extract_links(html_content):
     """Extract and decode all hyperlinks from HTML."""
     links = set()
@@ -205,7 +190,6 @@ def sync_doc(doc_config):
     print(f"  Converted to {len(md):,} bytes of markdown")
 
     md = clean_markdown(md)
-    md = apply_url_replacements(md)
     print(f"  Cleaned to {len(md):,} bytes")
 
     DOCS_DIR.mkdir(parents=True, exist_ok=True)
