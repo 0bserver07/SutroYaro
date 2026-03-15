@@ -62,10 +62,12 @@ For now: keep ARD as a secondary metric for understanding algorithm behavior (me
 ## How to reproduce
 
 ```bash
-# Local proxy metrics
+# Local proxy metrics (ARD, DMC, time)
 PYTHONPATH=src python3 bin/reproduce-all
 
-# GPU energy (requires Modal account)
+# GPU energy measurement (requires Modal account, costs ~$0.001)
+pip install modal
+modal token set
 modal run bin/gpu_energy.py
 ```
 
