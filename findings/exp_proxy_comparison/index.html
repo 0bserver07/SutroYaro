@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#experiment-which-proxy-predicts-gpu-energy" class="md-skip">
+        <a href="#experiment-gpu-vs-cpu-for-sparse-parity-methods" class="md-skip">
           Skip to content
         </a>
       
@@ -3111,10 +3111,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#setup" class="md-nav__link">
+  <a href="#what-was-performed" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Setup
+        What was performed
       
     </span>
   </a>
@@ -3122,10 +3122,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#data" class="md-nav__link">
+  <a href="#what-was-produced" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Data
+        What was produced
       
     </span>
   </a>
@@ -3133,10 +3133,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#correlation" class="md-nav__link">
+  <a href="#can-it-be-reproduced" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Correlation
+        Can it be reproduced?
       
     </span>
   </a>
@@ -3144,43 +3144,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#why-this-is-inconclusive" class="md-nav__link">
+  <a href="#finding" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Why this is inconclusive
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#what-we-did-learn" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What we did learn
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#next-step-ptx-level-energy-measurement" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Next step: PTX-level energy measurement
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#how-to-reproduce" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How to reproduce
+        Finding
       
     </span>
   </a>
@@ -4091,10 +4058,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#setup" class="md-nav__link">
+  <a href="#what-was-performed" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Setup
+        What was performed
       
     </span>
   </a>
@@ -4102,10 +4069,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#data" class="md-nav__link">
+  <a href="#what-was-produced" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Data
+        What was produced
       
     </span>
   </a>
@@ -4113,10 +4080,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#correlation" class="md-nav__link">
+  <a href="#can-it-be-reproduced" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Correlation
+        Can it be reproduced?
       
     </span>
   </a>
@@ -4124,43 +4091,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#why-this-is-inconclusive" class="md-nav__link">
+  <a href="#finding" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Why this is inconclusive
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#what-we-did-learn" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What we did learn
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#next-step-ptx-level-energy-measurement" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Next step: PTX-level energy measurement
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#how-to-reproduce" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How to reproduce
+        Finding
       
     </span>
   </a>
@@ -4198,146 +4132,73 @@
   
 
 
-<h1 id="experiment-which-proxy-predicts-gpu-energy">Experiment: Which Proxy Predicts GPU Energy?<a class="headerlink" href="#experiment-which-proxy-predicts-gpu-energy" title="Permanent link">&para;</a></h1>
+<h1 id="experiment-gpu-vs-cpu-for-sparse-parity-methods">Experiment: GPU vs CPU for Sparse Parity Methods<a class="headerlink" href="#experiment-gpu-vs-cpu-for-sparse-parity-methods" title="Permanent link">&para;</a></h1>
 <p><strong>Date</strong>: 2026-03-14
-<strong>Status</strong>: INCONCLUSIVE
+<strong>Status</strong>: INCONCLUSIVE (proxy question) / FINDING (GPU overhead)
 <strong>Issue</strong>: #6</p>
 <h2 id="question">Question<a class="headerlink" href="#question" title="Permanent link">&para;</a></h2>
-<p>Yaroslav said ARD is too coarse as an energy proxy. Is DMC better?</p>
-<h2 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">&para;</a></h2>
-<p>Ran 8 experiments on an NVIDIA L4 via Modal Labs (<code>bin/gpu_energy.py</code>). Measured real watts via pynvml during execution. Compared against ARD and DMC from the local harness.</p>
-<p>Methods too fast for the power sampler (under 5ms) were excluded because pynvml couldn't get a reading before they finished.</p>
-<h2 id="data">Data<a class="headerlink" href="#data" title="Permanent link">&para;</a></h2>
+<p>Sub-question of "Is ARD or DMC the better energy proxy?" (Issue #6). Before comparing proxies, we needed to know: does GPU measurement produce useful energy data for sparse parity?</p>
+<h2 id="what-was-performed">What was performed<a class="headerlink" href="#what-was-performed" title="Permanent link">&para;</a></h2>
+<p>Reimplemented three sparse parity methods (GF(2), SGD, KM) in PyTorch CUDA and ran them on an NVIDIA L4 via Modal Labs. Matched the numpy harness config: n=20, k=3, hidden=200, lr=0.1, wd=0.01, batch=32, hinge loss, seed=42.</p>
+<p>Earlier attempt used numpy on a GPU container (CPU-bound, GPU idle, data useless). This version uses PyTorch with tensors on CUDA so the GPU does the actual compute.</p>
+<h2 id="what-was-produced">What was produced<a class="headerlink" href="#what-was-produced" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th>Challenge</th>
 <th>Method</th>
-<th>Joules</th>
-<th>ARD</th>
-<th>DMC</th>
-<th>Time (ms)</th>
+<th>Acc</th>
+<th>GPU time</th>
+<th>CPU time (numpy)</th>
+<th>GPU/CPU ratio</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>parity</td>
-<td>sgd</td>
-<td>8.601</td>
-<td>8,504</td>
-<td>1,278,460</td>
-<td>533</td>
+<td>GF(2)</td>
+<td>1.00</td>
+<td>1.7ms</td>
+<td>0.5ms</td>
+<td>3.4x slower</td>
 </tr>
 <tr>
-<td>parity</td>
-<td>fourier</td>
-<td>0.878</td>
-<td>11,980,500</td>
-<td>78,140,662,852</td>
-<td>54</td>
+<td>SGD</td>
+<td>1.00</td>
+<td>1014ms (37 epochs)</td>
+<td>142ms (40 epochs)</td>
+<td>7.1x slower</td>
 </tr>
 <tr>
-<td>sum</td>
-<td>sgd</td>
-<td>0.033</td>
-<td>20</td>
-<td>2,862</td>
-<td>2.0</td>
-</tr>
-<tr>
-<td>sum</td>
-<td>km</td>
-<td>0.051</td>
-<td>92</td>
-<td>20,632</td>
-<td>3.2</td>
-</tr>
-<tr>
-<td>and</td>
-<td>sgd</td>
-<td>0.291</td>
-<td>29,164</td>
-<td>52,885,890</td>
-<td>18</td>
-</tr>
-<tr>
-<td>and</td>
-<td>km</td>
-<td>0.046</td>
-<td>92</td>
-<td>165,060</td>
-<td>2.9</td>
+<td>KM</td>
+<td>1.00</td>
+<td>663ms</td>
+<td>1.1ms</td>
+<td>603x slower</td>
 </tr>
 </tbody>
 </table>
-<p>GF(2) and parity-KM finished in under 5ms, before the power sampler could take a reading.</p>
-<h2 id="correlation">Correlation<a class="headerlink" href="#correlation" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Predictor</th>
-<th>Spearman r</th>
-<th>p-value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Wall-clock time</td>
-<td>1.000</td>
-<td>0.000</td>
-</tr>
-<tr>
-<td>ARD</td>
-<td>0.812</td>
-<td>0.050</td>
-</tr>
-<tr>
-<td>DMC</td>
-<td>0.771</td>
-<td>0.072</td>
-</tr>
-</tbody>
-</table>
-<h2 id="why-this-is-inconclusive">Why this is inconclusive<a class="headerlink" href="#why-this-is-inconclusive" title="Permanent link">&para;</a></h2>
-<p><strong>The workloads are too small to stress the GPU.</strong> The L4 drew constant 16.1W across all methods. That's idle power. The GPU wasn't doing enough work for memory access patterns (what ARD and DMC measure) to affect power draw. Joules = 16.1W * seconds for every data point.</p>
-<p>This means:
-- We cannot tell whether ARD or DMC is the better energy proxy from this data. The question requires workloads large enough to cause variable power draw.
-- Only 6 data points. ARD's p-value is 0.050 (borderline). DMC's is 0.072 (not significant).
-- Two runs gave different idle wattages (12.5W and 16.1W), so the absolute joule numbers vary between runs.</p>
-<h2 id="what-we-did-learn">What we did learn<a class="headerlink" href="#what-we-did-learn" title="Permanent link">&para;</a></h2>
-<ol>
-<li>
-<p><strong>Measuring GPU energy on sparse parity via pynvml is not useful.</strong> The workloads are too small. The GPU is idle. You're measuring how long the CPU takes to set up the problem, not how much energy the algorithm uses.</p>
-</li>
-<li>
-<p><strong>The ARD vs DMC question is still open.</strong> Answering it requires a workload that actually stresses GPU memory (nanoGPT scale, or at minimum n=1000+ with large batch sizes).</p>
-</li>
-<li>
-<p><strong>The Modal + pynvml pipeline works.</strong> <code>bin/gpu_energy.py</code> runs, measures watts, costs under $0.001. The infrastructure is ready for when the workloads get large enough to produce real data.</p>
-</li>
-</ol>
-<h2 id="next-step-ptx-level-energy-measurement">Next step: PTX-level energy measurement<a class="headerlink" href="#next-step-ptx-level-energy-measurement" title="Permanent link">&para;</a></h2>
-<p>Yaroslav's actual goal is to verify the Bill Dally energy numbers (register 5pJ, L1 20pJ, L2 100pJ, HBM 640pJ) on real hardware. That means writing CUDA kernels (or PTX instructions) that explicitly target each memory tier and measuring the energy difference per operation.</p>
-<p>This is not something pynvml can do (it reports total GPU power, not per-instruction energy). It requires either:
-- NVIDIA's Nsight Compute profiler with energy counters
-- Custom PTX kernels that isolate register vs shared memory vs L2 vs HBM access, timed and power-sampled at high frequency
-- Or a simpler version: two CUDA kernels doing the same computation, one using only shared memory, the other hitting HBM. Measure the power difference.</p>
-<p>The Modal L4 supports all of these. The infrastructure (<code>bin/gpu_energy.py</code>, Modal account, pynvml) is a starting point but the experiment needs CUDA code, not Python numpy.</p>
-<h2 id="how-to-reproduce">How to reproduce<a class="headerlink" href="#how-to-reproduce" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Local proxy metrics (ARD, DMC, time)</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nv">PYTHONPATH</span><span class="o">=</span>src<span class="w"> </span>python3<span class="w"> </span>bin/reproduce-all
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># GPU energy measurement (requires Modal account, costs ~$0.001)</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>pip<span class="w"> </span>install<span class="w"> </span>modal
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>modal<span class="w"> </span>token<span class="w"> </span><span class="nb">set</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>modal<span class="w"> </span>run<span class="w"> </span>bin/gpu_energy.py
+<p>GPU drew 15.9W (near idle). Cost: $0.002 per run.</p>
+<h2 id="can-it-be-reproduced">Can it be reproduced?<a class="headerlink" href="#can-it-be-reproduced" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>modal
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>modal<span class="w"> </span>token<span class="w"> </span><span class="nb">set</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>modal<span class="w"> </span>run<span class="w"> </span>bin/gpu_energy.py
 </code></pre></div>
+<p>Requires Modal account. Costs under $0.01. The image builds PyTorch on first run (~90s), cached after that.</p>
+<h2 id="finding">Finding<a class="headerlink" href="#finding" title="Permanent link">&para;</a></h2>
+<p><strong>Sparse parity at n=20/k=3 is too small for GPU.</strong> All three methods are slower on GPU than CPU:</p>
+<ul>
+<li>GF(2) is sequential row reduction (XOR). CUDA can't parallelize it. Runs on CPU even when called from a GPU container.</li>
+<li>SGD has the same epoch count (37 vs 40) but each epoch is slower because the weight matrix (200x20) is too small for CUDA kernel launch overhead to amortize.</li>
+<li>KM is 603x slower because it does 20 independent small operations. Each one launches a CUDA kernel for a tiny tensor. The overhead dominates.</li>
+</ul>
+<p>The GPU drew near-idle power (15.9W) because the compute units were barely used. Energy measurement via pynvml on the earlier run showed constant wattage across all methods, confirming the workloads don't stress the hardware.</p>
+<p><strong>The proxy comparison (ARD vs DMC vs joules) remains unanswered.</strong> It requires workloads large enough to produce variable GPU power draw. At sparse parity scale, the GPU adds overhead and the power reading is just idle draw times wall clock.</p>
+<p><strong>What this means for the project:</strong> GPU energy measurement becomes useful at nanoGPT scale. For sparse parity, CPU wall-clock time is the most honest performance metric. The <code>bin/gpu_energy.py</code> pipeline works and is ready for larger workloads.</p>
+<p>Yaroslav's direction of verifying picojoule numbers for register vs cache vs HBM operations requires CUDA/PTX kernels targeting specific memory tiers, not running Python methods on a GPU.</p>
 <h2 id="files">Files<a class="headerlink" href="#files" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Script: <code>bin/gpu_energy.py</code></li>
 <li>This document: <code>findings/exp_proxy_comparison.md</code></li>
-<li>GPU energy baseline: <code>findings/gpu_energy_baseline.md</code></li>
-<li>Reproduce: <code>modal run bin/gpu_energy.py</code> (requires Modal account)</li>
+<li>Reproduce: <code>modal run bin/gpu_energy.py</code></li>
 </ul>
 
 
