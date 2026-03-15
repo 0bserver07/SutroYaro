@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://cybertronai.github.io/SutroYaro/tooling/sync-runbook/">
+        <link rel="canonical" href="https://cybertronai.github.io/SutroYaro/findings/exp_sgd_speed/">
       
       
-        <link rel="prev" href="../automation/">
+        <link rel="prev" href="../session-2026-03-11/">
       
       
-        <link rel="next" href="../agent-cli-guide/">
+        <link rel="next" href="../exp_proxy_comparison/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>Sync Runbook - SutroYaro</title>
+        <title>SGD Speed Sweep - SutroYaro</title>
       
     
     
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#sync-runbook" class="md-skip">
+        <a href="#experiment-push-sgd-under-10ms-on-sparse-parity" class="md-skip">
           Skip to content
         </a>
       
@@ -114,7 +114,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Sync Runbook
+              SGD Speed Sweep
             
           </span>
         </div>
@@ -279,14 +279,12 @@
   
   
   
-    
-  
   
     
     
     
     
-      <li class="md-tabs__item md-tabs__item--active md-tabs__dropdown">
+      <li class="md-tabs__item md-tabs__dropdown">
         
           <a href="../../learning-guide/" class="md-tabs__link">
             
@@ -337,7 +335,7 @@
       
         
           <li>
-            <a href="../" class="md-tabs__dropdown-link">
+            <a href="../../tooling/" class="md-tabs__dropdown-link">
               Overview
             </a>
           </li>
@@ -345,7 +343,7 @@
       
         
           <li>
-            <a href="../claude-code-setup/" class="md-tabs__dropdown-link">
+            <a href="../../tooling/claude-code-setup/" class="md-tabs__dropdown-link">
               Claude Code Setup
             </a>
           </li>
@@ -353,7 +351,7 @@
       
         
           <li>
-            <a href="../skills/" class="md-tabs__dropdown-link">
+            <a href="../../tooling/skills/" class="md-tabs__dropdown-link">
               Skills & Plugins
             </a>
           </li>
@@ -361,7 +359,7 @@
       
         
           <li>
-            <a href="../anti-slop-guide/" class="md-tabs__dropdown-link">
+            <a href="../../tooling/anti-slop-guide/" class="md-tabs__dropdown-link">
               Anti-Slop Guide
             </a>
           </li>
@@ -369,7 +367,7 @@
       
         
           <li>
-            <a href="../automation/" class="md-tabs__dropdown-link">
+            <a href="../../tooling/automation/" class="md-tabs__dropdown-link">
               Automation Scripts
             </a>
           </li>
@@ -377,7 +375,7 @@
       
         
           <li>
-            <a href="./" class="md-tabs__dropdown-link md-tabs__dropdown-link--active">
+            <a href="../../tooling/sync-runbook/" class="md-tabs__dropdown-link">
               Sync Runbook
             </a>
           </li>
@@ -385,7 +383,7 @@
       
         
           <li>
-            <a href="../agent-cli-guide/" class="md-tabs__dropdown-link">
+            <a href="../../tooling/agent-cli-guide/" class="md-tabs__dropdown-link">
               Agent CLI Guide
             </a>
           </li>
@@ -404,12 +402,14 @@
   
   
   
+    
+  
   
     
     
     
     
-      <li class="md-tabs__item md-tabs__dropdown">
+      <li class="md-tabs__item md-tabs__item--active md-tabs__dropdown">
         
           <a href="../../research/" class="md-tabs__link">
             
@@ -492,7 +492,7 @@
       
         
           <li>
-            <a href="../../findings/sprint-1-findings/" class="md-tabs__dropdown-link">
+            <a href="../sprint-1-findings/" class="md-tabs__dropdown-link">
               Sprint 1 (ARD Baseline)
             </a>
           </li>
@@ -500,7 +500,7 @@
       
         
           <li>
-            <a href="../../findings/exp1_fix_hyperparams/" class="md-tabs__dropdown-link">
+            <a href="../exp1_fix_hyperparams/" class="md-tabs__dropdown-link">
               Exp 1 - Fix Hyperparams
             </a>
           </li>
@@ -508,7 +508,7 @@
       
         
           <li>
-            <a href="../../findings/exp4_grokfast/" class="md-tabs__dropdown-link">
+            <a href="../exp4_grokfast/" class="md-tabs__dropdown-link">
               Exp 4 - GrokFast
             </a>
           </li>
@@ -516,7 +516,7 @@
       
         
           <li>
-            <a href="../../findings/exp_a_ard_winning/" class="md-tabs__dropdown-link">
+            <a href="../exp_a_ard_winning/" class="md-tabs__dropdown-link">
               Exp A - ARD Winning Config
             </a>
           </li>
@@ -524,7 +524,7 @@
       
         
           <li>
-            <a href="../../findings/exp_b_batch_ard/" class="md-tabs__dropdown-link">
+            <a href="../exp_b_batch_ard/" class="md-tabs__dropdown-link">
               Exp B - Batch ARD
             </a>
           </li>
@@ -532,7 +532,7 @@
       
         
           <li>
-            <a href="../../findings/exp_c_perlayer_20bit/" class="md-tabs__dropdown-link">
+            <a href="../exp_c_perlayer_20bit/" class="md-tabs__dropdown-link">
               Exp C - Per-Layer 20-bit
             </a>
           </li>
@@ -540,7 +540,7 @@
       
         
           <li>
-            <a href="../../findings/exp_d_scaling/" class="md-tabs__dropdown-link">
+            <a href="../exp_d_scaling/" class="md-tabs__dropdown-link">
               Exp D - Scaling Frontier
             </a>
           </li>
@@ -548,7 +548,7 @@
       
         
           <li>
-            <a href="../../findings/exp_e_forward_forward/" class="md-tabs__dropdown-link">
+            <a href="../exp_e_forward_forward/" class="md-tabs__dropdown-link">
               Exp E - Forward-Forward
             </a>
           </li>
@@ -556,7 +556,7 @@
       
         
           <li>
-            <a href="../../findings/exp_sign_sgd/" class="md-tabs__dropdown-link">
+            <a href="../exp_sign_sgd/" class="md-tabs__dropdown-link">
               Sign SGD
             </a>
           </li>
@@ -564,7 +564,7 @@
       
         
           <li>
-            <a href="../../findings/exp_cache_ard/" class="md-tabs__dropdown-link">
+            <a href="../exp_cache_ard/" class="md-tabs__dropdown-link">
               Cache-Aware ARD
             </a>
           </li>
@@ -572,7 +572,7 @@
       
         
           <li>
-            <a href="../../findings/exp_curriculum/" class="md-tabs__dropdown-link">
+            <a href="../exp_curriculum/" class="md-tabs__dropdown-link">
               Curriculum Learning
             </a>
           </li>
@@ -580,7 +580,7 @@
       
         
           <li>
-            <a href="../../findings/exp_wd_sweep/" class="md-tabs__dropdown-link">
+            <a href="../exp_wd_sweep/" class="md-tabs__dropdown-link">
               Weight Decay Sweep
             </a>
           </li>
@@ -588,7 +588,7 @@
       
         
           <li>
-            <a href="../../findings/exp_perlayer_batch/" class="md-tabs__dropdown-link">
+            <a href="../exp_perlayer_batch/" class="md-tabs__dropdown-link">
               Per-Layer + Batch
             </a>
           </li>
@@ -596,7 +596,7 @@
       
         
           <li>
-            <a href="../../findings/exp_fourier/" class="md-tabs__dropdown-link">
+            <a href="../exp_fourier/" class="md-tabs__dropdown-link">
               Fourier Solver (Blank Slate)
             </a>
           </li>
@@ -604,7 +604,7 @@
       
         
           <li>
-            <a href="../../findings/exp_evolutionary/" class="md-tabs__dropdown-link">
+            <a href="../exp_evolutionary/" class="md-tabs__dropdown-link">
               Evolutionary Search (Blank Slate)
             </a>
           </li>
@@ -612,7 +612,7 @@
       
         
           <li>
-            <a href="../../findings/exp_feature_select/" class="md-tabs__dropdown-link">
+            <a href="../exp_feature_select/" class="md-tabs__dropdown-link">
               Feature Selection (Blank Slate)
             </a>
           </li>
@@ -620,7 +620,7 @@
       
         
           <li>
-            <a href="../../findings/exp_mutual_info/" class="md-tabs__dropdown-link">
+            <a href="../exp_mutual_info/" class="md-tabs__dropdown-link">
               Mutual Information
             </a>
           </li>
@@ -628,7 +628,7 @@
       
         
           <li>
-            <a href="../../findings/exp_lasso/" class="md-tabs__dropdown-link">
+            <a href="../exp_lasso/" class="md-tabs__dropdown-link">
               LASSO
             </a>
           </li>
@@ -636,7 +636,7 @@
       
         
           <li>
-            <a href="../../findings/exp_decision_tree/" class="md-tabs__dropdown-link">
+            <a href="../exp_decision_tree/" class="md-tabs__dropdown-link">
               Decision Trees
             </a>
           </li>
@@ -644,7 +644,7 @@
       
         
           <li>
-            <a href="../../findings/exp_gf2/" class="md-tabs__dropdown-link">
+            <a href="../exp_gf2/" class="md-tabs__dropdown-link">
               GF(2) Gaussian Elimination
             </a>
           </li>
@@ -652,7 +652,7 @@
       
         
           <li>
-            <a href="../../findings/exp_gf2_noise/" class="md-tabs__dropdown-link">
+            <a href="../exp_gf2_noise/" class="md-tabs__dropdown-link">
               GF(2) Noise Tolerance
             </a>
           </li>
@@ -660,7 +660,7 @@
       
         
           <li>
-            <a href="../../findings/exp_random_proj/" class="md-tabs__dropdown-link">
+            <a href="../exp_random_proj/" class="md-tabs__dropdown-link">
               Random Projections
             </a>
           </li>
@@ -668,7 +668,7 @@
       
         
           <li>
-            <a href="../../findings/exp_km/" class="md-tabs__dropdown-link">
+            <a href="../exp_km/" class="md-tabs__dropdown-link">
               Kushilevitz-Mansour
             </a>
           </li>
@@ -676,7 +676,7 @@
       
         
           <li>
-            <a href="../../findings/exp_hebbian/" class="md-tabs__dropdown-link">
+            <a href="../exp_hebbian/" class="md-tabs__dropdown-link">
               Hebbian Learning
             </a>
           </li>
@@ -684,7 +684,7 @@
       
         
           <li>
-            <a href="../../findings/exp_predictive_coding/" class="md-tabs__dropdown-link">
+            <a href="../exp_predictive_coding/" class="md-tabs__dropdown-link">
               Predictive Coding
             </a>
           </li>
@@ -692,7 +692,7 @@
       
         
           <li>
-            <a href="../../findings/exp_equilibrium_prop/" class="md-tabs__dropdown-link">
+            <a href="../exp_equilibrium_prop/" class="md-tabs__dropdown-link">
               Equilibrium Propagation
             </a>
           </li>
@@ -700,7 +700,7 @@
       
         
           <li>
-            <a href="../../findings/exp_target_prop/" class="md-tabs__dropdown-link">
+            <a href="../exp_target_prop/" class="md-tabs__dropdown-link">
               Target Propagation
             </a>
           </li>
@@ -708,7 +708,7 @@
       
         
           <li>
-            <a href="../../findings/exp_tiled_w1/" class="md-tabs__dropdown-link">
+            <a href="../exp_tiled_w1/" class="md-tabs__dropdown-link">
               Tiled W1
             </a>
           </li>
@@ -716,7 +716,7 @@
       
         
           <li>
-            <a href="../../findings/exp_pebble_game/" class="md-tabs__dropdown-link">
+            <a href="../exp_pebble_game/" class="md-tabs__dropdown-link">
               Pebble Game Optimizer
             </a>
           </li>
@@ -724,7 +724,7 @@
       
         
           <li>
-            <a href="../../findings/exp_binary_weights/" class="md-tabs__dropdown-link">
+            <a href="../exp_binary_weights/" class="md-tabs__dropdown-link">
               Binary Weights
             </a>
           </li>
@@ -732,7 +732,7 @@
       
         
           <li>
-            <a href="../../findings/exp_genetic_prog/" class="md-tabs__dropdown-link">
+            <a href="../exp_genetic_prog/" class="md-tabs__dropdown-link">
               Genetic Programming
             </a>
           </li>
@@ -740,7 +740,7 @@
       
         
           <li>
-            <a href="../../findings/exp_smt/" class="md-tabs__dropdown-link">
+            <a href="../exp_smt/" class="md-tabs__dropdown-link">
               SMT Solver
             </a>
           </li>
@@ -748,7 +748,7 @@
       
         
           <li>
-            <a href="../../findings/exp_rl/" class="md-tabs__dropdown-link">
+            <a href="../exp_rl/" class="md-tabs__dropdown-link">
               RL Bit Querying
             </a>
           </li>
@@ -756,7 +756,7 @@
       
         
           <li>
-            <a href="../../findings/exp_mdl/" class="md-tabs__dropdown-link">
+            <a href="../exp_mdl/" class="md-tabs__dropdown-link">
               MDL Compression
             </a>
           </li>
@@ -764,7 +764,7 @@
       
         
           <li>
-            <a href="../../findings/prompting-strategies/" class="md-tabs__dropdown-link">
+            <a href="../prompting-strategies/" class="md-tabs__dropdown-link">
               Prompting Strategies
             </a>
           </li>
@@ -772,7 +772,7 @@
       
         
           <li>
-            <a href="../../findings/session-2026-03-11/" class="md-tabs__dropdown-link">
+            <a href="../session-2026-03-11/" class="md-tabs__dropdown-link">
               Session 2026-03-11
             </a>
           </li>
@@ -780,7 +780,7 @@
       
         
           <li>
-            <a href="../../findings/exp_sgd_speed/" class="md-tabs__dropdown-link">
+            <a href="./" class="md-tabs__dropdown-link md-tabs__dropdown-link--active">
               SGD Speed Sweep
             </a>
           </li>
@@ -788,7 +788,7 @@
       
         
           <li>
-            <a href="../../findings/exp_proxy_comparison/" class="md-tabs__dropdown-link">
+            <a href="../exp_proxy_comparison/" class="md-tabs__dropdown-link">
               GPU vs CPU for Sparse Parity
             </a>
           </li>
@@ -1232,31 +1232,28 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
             
   
   
@@ -1274,7 +1271,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1401,31 +1398,28 @@
                 
   
   
-    
   
   
-  
     
     
     
     
       
       
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
         
           
-          
         
-      
-    
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" checked>
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_5" >
         
           
-          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="">
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
             
   
   
@@ -1443,7 +1437,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1461,7 +1455,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../" class="md-nav__link">
+      <a href="../../tooling/" class="md-nav__link">
         
   
   
@@ -1489,7 +1483,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../claude-code-setup/" class="md-nav__link">
+      <a href="../../tooling/claude-code-setup/" class="md-nav__link">
         
   
   
@@ -1517,7 +1511,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../skills/" class="md-nav__link">
+      <a href="../../tooling/skills/" class="md-nav__link">
         
   
   
@@ -1545,7 +1539,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../anti-slop-guide/" class="md-nav__link">
+      <a href="../../tooling/anti-slop-guide/" class="md-nav__link">
         
   
   
@@ -1573,7 +1567,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../automation/" class="md-nav__link">
+      <a href="../../tooling/automation/" class="md-nav__link">
         
   
   
@@ -1598,37 +1592,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Sync Runbook
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../tooling/sync-runbook/" class="md-nav__link">
         
   
   
@@ -1644,170 +1611,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#weekly-after-monday-meeting" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Weekly (after Monday meeting)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Weekly (after Monday meeting)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-pull-google-docs" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. Pull Google Docs
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-check-for-new-docs" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Check for new docs
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-add-cross-reference-headers" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Add cross-reference headers
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-wire-into-mkdocs" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Wire into MkDocs
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#5-update-changelog" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. Update changelog
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#6-build-commit-deploy" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6. Build, commit, deploy
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#daily" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Daily
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Daily">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#telegram" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Telegram
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#github" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        GitHub
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#per-session-start-of-work" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Per-session (start of work)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#current-sync-config" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Current sync config
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1820,7 +1623,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../agent-cli-guide/" class="md-nav__link">
+      <a href="../../tooling/agent-cli-guide/" class="md-nav__link">
         
   
   
@@ -1860,28 +1663,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
-        
-          
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
             
   
   
@@ -1899,7 +1705,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2138,28 +1944,31 @@
                 
   
   
+    
   
   
+  
     
     
     
     
       
       
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
         
           
+          
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_9" >
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_9" checked>
         
           
-          <label class="md-nav__link" for="__nav_3_9" id="__nav_3_9_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3_9" id="__nav_3_9_label" tabindex="">
             
   
   
@@ -2177,7 +1986,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_9_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_9_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3_9">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2195,7 +2004,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../findings/sprint-1-findings/" class="md-nav__link">
+      <a href="../sprint-1-findings/" class="md-nav__link">
         
   
   
@@ -2223,7 +2032,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../findings/exp1_fix_hyperparams/" class="md-nav__link">
+      <a href="../exp1_fix_hyperparams/" class="md-nav__link">
         
   
   
@@ -2251,7 +2060,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../findings/exp4_grokfast/" class="md-nav__link">
+      <a href="../exp4_grokfast/" class="md-nav__link">
         
   
   
@@ -2279,7 +2088,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../findings/exp_a_ard_winning/" class="md-nav__link">
+      <a href="../exp_a_ard_winning/" class="md-nav__link">
         
   
   
@@ -2307,7 +2116,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../findings/exp_b_batch_ard/" class="md-nav__link">
+      <a href="../exp_b_batch_ard/" class="md-nav__link">
         
   
   
@@ -2335,7 +2144,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../findings/exp_c_perlayer_20bit/" class="md-nav__link">
+      <a href="../exp_c_perlayer_20bit/" class="md-nav__link">
         
   
   
@@ -2363,7 +2172,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../findings/exp_d_scaling/" class="md-nav__link">
+      <a href="../exp_d_scaling/" class="md-nav__link">
         
   
   
@@ -2391,7 +2200,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../findings/exp_e_forward_forward/" class="md-nav__link">
+      <a href="../exp_e_forward_forward/" class="md-nav__link">
         
   
   
@@ -2419,7 +2228,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../findings/exp_sign_sgd/" class="md-nav__link">
+      <a href="../exp_sign_sgd/" class="md-nav__link">
         
   
   
@@ -2447,7 +2256,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../findings/exp_cache_ard/" class="md-nav__link">
+      <a href="../exp_cache_ard/" class="md-nav__link">
         
   
   
@@ -2475,7 +2284,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../findings/exp_curriculum/" class="md-nav__link">
+      <a href="../exp_curriculum/" class="md-nav__link">
         
   
   
@@ -2503,7 +2312,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../findings/exp_wd_sweep/" class="md-nav__link">
+      <a href="../exp_wd_sweep/" class="md-nav__link">
         
   
   
@@ -2531,7 +2340,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../findings/exp_perlayer_batch/" class="md-nav__link">
+      <a href="../exp_perlayer_batch/" class="md-nav__link">
         
   
   
@@ -2559,7 +2368,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../findings/exp_fourier/" class="md-nav__link">
+      <a href="../exp_fourier/" class="md-nav__link">
         
   
   
@@ -2587,7 +2396,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../findings/exp_evolutionary/" class="md-nav__link">
+      <a href="../exp_evolutionary/" class="md-nav__link">
         
   
   
@@ -2615,7 +2424,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../findings/exp_feature_select/" class="md-nav__link">
+      <a href="../exp_feature_select/" class="md-nav__link">
         
   
   
@@ -2643,7 +2452,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../findings/exp_mutual_info/" class="md-nav__link">
+      <a href="../exp_mutual_info/" class="md-nav__link">
         
   
   
@@ -2671,7 +2480,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../findings/exp_lasso/" class="md-nav__link">
+      <a href="../exp_lasso/" class="md-nav__link">
         
   
   
@@ -2699,7 +2508,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../findings/exp_decision_tree/" class="md-nav__link">
+      <a href="../exp_decision_tree/" class="md-nav__link">
         
   
   
@@ -2727,7 +2536,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../findings/exp_gf2/" class="md-nav__link">
+      <a href="../exp_gf2/" class="md-nav__link">
         
   
   
@@ -2755,7 +2564,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../findings/exp_gf2_noise/" class="md-nav__link">
+      <a href="../exp_gf2_noise/" class="md-nav__link">
         
   
   
@@ -2783,7 +2592,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../findings/exp_random_proj/" class="md-nav__link">
+      <a href="../exp_random_proj/" class="md-nav__link">
         
   
   
@@ -2811,7 +2620,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../findings/exp_km/" class="md-nav__link">
+      <a href="../exp_km/" class="md-nav__link">
         
   
   
@@ -2839,7 +2648,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../findings/exp_hebbian/" class="md-nav__link">
+      <a href="../exp_hebbian/" class="md-nav__link">
         
   
   
@@ -2867,7 +2676,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../findings/exp_predictive_coding/" class="md-nav__link">
+      <a href="../exp_predictive_coding/" class="md-nav__link">
         
   
   
@@ -2895,7 +2704,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../findings/exp_equilibrium_prop/" class="md-nav__link">
+      <a href="../exp_equilibrium_prop/" class="md-nav__link">
         
   
   
@@ -2923,7 +2732,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../findings/exp_target_prop/" class="md-nav__link">
+      <a href="../exp_target_prop/" class="md-nav__link">
         
   
   
@@ -2951,7 +2760,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../findings/exp_tiled_w1/" class="md-nav__link">
+      <a href="../exp_tiled_w1/" class="md-nav__link">
         
   
   
@@ -2979,7 +2788,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../findings/exp_pebble_game/" class="md-nav__link">
+      <a href="../exp_pebble_game/" class="md-nav__link">
         
   
   
@@ -3007,7 +2816,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../findings/exp_binary_weights/" class="md-nav__link">
+      <a href="../exp_binary_weights/" class="md-nav__link">
         
   
   
@@ -3035,7 +2844,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../findings/exp_genetic_prog/" class="md-nav__link">
+      <a href="../exp_genetic_prog/" class="md-nav__link">
         
   
   
@@ -3063,7 +2872,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../findings/exp_smt/" class="md-nav__link">
+      <a href="../exp_smt/" class="md-nav__link">
         
   
   
@@ -3091,7 +2900,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../findings/exp_rl/" class="md-nav__link">
+      <a href="../exp_rl/" class="md-nav__link">
         
   
   
@@ -3119,7 +2928,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../findings/exp_mdl/" class="md-nav__link">
+      <a href="../exp_mdl/" class="md-nav__link">
         
   
   
@@ -3147,7 +2956,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../findings/prompting-strategies/" class="md-nav__link">
+      <a href="../prompting-strategies/" class="md-nav__link">
         
   
   
@@ -3175,7 +2984,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../findings/session-2026-03-11/" class="md-nav__link">
+      <a href="../session-2026-03-11/" class="md-nav__link">
         
   
   
@@ -3200,10 +3009,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../findings/exp_sgd_speed/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SGD Speed Sweep
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -3219,6 +3055,120 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#hypothesis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hypothesis
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Results
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hidden-size-sweep-lr05-max_epochs50" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hidden size sweep (lr=0.5, max_epochs=50)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#learning-rate-sweep-hidden200-n_train1000" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning rate sweep (hidden=200, n_train=1000)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#other-attempts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Other attempts
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#finding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Finding
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-this-matters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why this matters
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-sgd-config-found" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Best SGD config found
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -3231,7 +3181,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../findings/exp_proxy_comparison/" class="md-nav__link">
+      <a href="../exp_proxy_comparison/" class="md-nav__link">
         
   
   
@@ -3301,10 +3251,13 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
@@ -3313,7 +3266,7 @@
         <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_10" >
         
           
-          <label class="md-nav__link" for="__nav_3_10" id="__nav_3_10_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3_10" id="__nav_3_10_label" tabindex="">
             
   
   
@@ -4122,22 +4075,33 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#weekly-after-monday-meeting" class="md-nav__link">
+  <a href="#hypothesis" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Weekly (after Monday meeting)
+        Hypothesis
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Weekly (after Monday meeting)">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Results
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Results">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-pull-google-docs" class="md-nav__link">
+  <a href="#hidden-size-sweep-lr05-max_epochs50" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Pull Google Docs
+        Hidden size sweep (lr=0.5, max_epochs=50)
       
     </span>
   </a>
@@ -4145,10 +4109,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-check-for-new-docs" class="md-nav__link">
+  <a href="#learning-rate-sweep-hidden200-n_train1000" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Check for new docs
+        Learning rate sweep (hidden=200, n_train=1000)
       
     </span>
   </a>
@@ -4156,43 +4120,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-add-cross-reference-headers" class="md-nav__link">
+  <a href="#other-attempts" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Add cross-reference headers
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-wire-into-mkdocs" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Wire into MkDocs
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#5-update-changelog" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. Update changelog
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#6-build-commit-deploy" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6. Build, commit, deploy
+        Other attempts
       
     </span>
   </a>
@@ -4205,49 +4136,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#daily" class="md-nav__link">
+  <a href="#finding" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Daily
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Daily">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#telegram" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Telegram
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#github" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        GitHub
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#per-session-start-of-work" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Per-session (start of work)
+        Finding
       
     </span>
   </a>
@@ -4255,10 +4147,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#current-sync-config" class="md-nav__link">
+  <a href="#why-this-matters" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Current sync config
+        Why this matters
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-sgd-config-found" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Best SGD config found
       
     </span>
   </a>
@@ -4285,62 +4188,169 @@
   
 
 
-<h1 id="sync-runbook">Sync Runbook<a class="headerlink" href="#sync-runbook" title="Permanent link">&para;</a></h1>
-<p>Checklists for keeping the knowledge base current. Three cadences: weekly after meetings, daily for discussion threads, and per-session for context.</p>
-<h2 id="weekly-after-monday-meeting">Weekly (after Monday meeting)<a class="headerlink" href="#weekly-after-monday-meeting" title="Permanent link">&para;</a></h2>
-<p>Run this Tuesday morning or whenever the meeting notes are posted.</p>
-<h3 id="1-pull-google-docs">1. Pull Google Docs<a class="headerlink" href="#1-pull-google-docs" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>python3<span class="w"> </span>src/sync_google_docs.py
-</code></pre></div>
-<h3 id="2-check-for-new-docs">2. Check for new docs<a class="headerlink" href="#2-check-for-new-docs" title="Permanent link">&para;</a></h3>
-<p>Open the synced main page (<code>docs/google-docs/sutro-group-main.md</code>) and look for new meeting doc links. If there are new ones:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>python3<span class="w"> </span>src/sync_google_docs.py<span class="w"> </span>--add<span class="w"> </span><span class="s2">&quot;https://docs.google.com/document/d/DOC_ID/edit&quot;</span><span class="w"> </span><span class="s2">&quot;name&quot;</span><span class="w"> </span><span class="s2">&quot;Description&quot;</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>python3<span class="w"> </span>src/sync_google_docs.py<span class="w">   </span><span class="c1"># re-run to pull the new doc</span>
-</code></pre></div>
-<h3 id="3-add-cross-reference-headers">3. Add cross-reference headers<a class="headerlink" href="#3-add-cross-reference-headers" title="Permanent link">&para;</a></h3>
-<p>Each new doc in <code>docs/google-docs/</code> needs an admonition at the top:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>!!! info &quot;Cross-references&quot;
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="gs">**Source**</span>: [<span class="nt">Google Doc</span>](<span class="na">URL</span>) · [<span class="nt">Meeting #N summary</span>](<span class="na">../meetings/notes.md#anchor</span>)
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="gs">**Related**</span>: [<span class="nt">other doc</span>](<span class="na">other-doc.md</span>)
-</code></pre></div>
-<p>The sync script preserves these on re-sync.</p>
-<h3 id="4-wire-into-mkdocs">4. Wire into MkDocs<a class="headerlink" href="#4-wire-into-mkdocs" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Add new pages to <code>mkdocs.yml</code> under <code>Meetings &gt; Google Docs</code></li>
-<li>Add a row to <code>docs/meetings/index.md</code> schedule table</li>
-<li>Add a section to <code>docs/meetings/notes.md</code> with meeting summary</li>
-</ul>
-<h3 id="5-update-changelog">5. Update changelog<a class="headerlink" href="#5-update-changelog" title="Permanent link">&para;</a></h3>
-<p>Add a version entry to <code>docs/changelog.md</code>.</p>
-<h3 id="6-build-commit-deploy">6. Build, commit, deploy<a class="headerlink" href="#6-build-commit-deploy" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>python3<span class="w"> </span>-m<span class="w"> </span>mkdocs<span class="w"> </span>build<span class="w">          </span><span class="c1"># verify no broken links</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>git<span class="w"> </span>add<span class="w"> </span>-A<span class="w"> </span>docs/<span class="w"> </span>mkdocs.yml<span class="w"> </span>src/docs_config.json
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Sync Meeting #N docs, update nav&quot;</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>main
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>python3<span class="w"> </span>-m<span class="w"> </span>mkdocs<span class="w"> </span>gh-deploy<span class="w"> </span>--force
-</code></pre></div>
-<h2 id="daily">Daily<a class="headerlink" href="#daily" title="Permanent link">&para;</a></h2>
-<h3 id="telegram">Telegram<a class="headerlink" href="#telegram" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>bun<span class="w"> </span>run<span class="w"> </span>sync_telegram.ts
-</code></pre></div>
-<p>Output goes to <code>src/sparse_parity/telegram_sync/messages.json</code> (gitignored). Read it to check for new questions, results, or discussion that should inform the next session.</p>
-<h3 id="github">GitHub<a class="headerlink" href="#github" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>gh<span class="w"> </span>pr<span class="w"> </span>list<span class="w"> </span>--repo<span class="w"> </span>cybertronai/SutroYaro
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>gh<span class="w"> </span>issue<span class="w"> </span>list<span class="w"> </span>--repo<span class="w"> </span>cybertronai/SutroYaro
-</code></pre></div>
-<p>Review and respond to any new PRs or issues. See <a href="../automation/">automation docs</a> for setup details.</p>
-<h2 id="per-session-start-of-work">Per-session (start of work)<a class="headerlink" href="#per-session-start-of-work" title="Permanent link">&para;</a></h2>
-<p>These happen automatically when Claude Code reads CLAUDE.md, but worth checking manually:</p>
-<ol>
-<li><code>git status</code> for uncommitted sync data</li>
-<li>Quick Telegram sync if the group may have posted</li>
-<li><code>gh pr list</code> if collaborators (Andy, Michael) may have pushed</li>
-</ol>
-<h2 id="current-sync-config">Current sync config<a class="headerlink" href="#current-sync-config" title="Permanent link">&para;</a></h2>
-<p>To see what docs are configured:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>python3<span class="w"> </span>src/sync_google_docs.py<span class="w"> </span>--list
-</code></pre></div>
-<p>As of Meeting #8, we sync 15 Google Docs (meetings 1-2, 6-8, sprints, challenge spec, and supporting docs). Meetings 3-5 are PDFs on Google Drive and can't be pulled via the export endpoint.</p>
+<h1 id="experiment-push-sgd-under-10ms-on-sparse-parity">Experiment: Push SGD Under 10ms on Sparse Parity<a class="headerlink" href="#experiment-push-sgd-under-10ms-on-sparse-parity" title="Permanent link">&para;</a></h1>
+<p><strong>Date</strong>: 2026-03-14
+<strong>Status</strong>: LOSS (SGD cannot reach 10ms on n=20/k=3)
+<strong>Issue</strong>: #4</p>
+<h2 id="hypothesis">Hypothesis<a class="headerlink" href="#hypothesis" title="Permanent link">&para;</a></h2>
+<p>SGD can solve n=20/k=3 sparse parity in under 10ms by shrinking the model (hidden=32-64), reducing training samples, or using aggressive learning rates.</p>
+<h2 id="results">Results<a class="headerlink" href="#results" title="Permanent link">&para;</a></h2>
+<h3 id="hidden-size-sweep-lr05-max_epochs50">Hidden size sweep (lr=0.5, max_epochs=50)<a class="headerlink" href="#hidden-size-sweep-lr05-max_epochs50" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Hidden</th>
+<th>n_train</th>
+<th>Accuracy</th>
+<th>Time</th>
+<th>Epochs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>64</td>
+<td>200</td>
+<td>52%</td>
+<td>108ms</td>
+<td>50 (failed)</td>
+</tr>
+<tr>
+<td>64</td>
+<td>500</td>
+<td>100%</td>
+<td>113ms</td>
+<td>21</td>
+</tr>
+<tr>
+<td>64</td>
+<td>1000</td>
+<td>100%</td>
+<td>95ms</td>
+<td>8</td>
+</tr>
+<tr>
+<td>100</td>
+<td>500</td>
+<td>100%</td>
+<td>71ms</td>
+<td>18</td>
+</tr>
+<tr>
+<td>100</td>
+<td>1000</td>
+<td>100%</td>
+<td>68ms</td>
+<td>9</td>
+</tr>
+<tr>
+<td>200</td>
+<td>500</td>
+<td>100%</td>
+<td>73ms</td>
+<td>19</td>
+</tr>
+<tr>
+<td>200</td>
+<td>1000</td>
+<td>100%</td>
+<td>72ms</td>
+<td>7</td>
+</tr>
+</tbody>
+</table>
+<h3 id="learning-rate-sweep-hidden200-n_train1000">Learning rate sweep (hidden=200, n_train=1000)<a class="headerlink" href="#learning-rate-sweep-hidden200-n_train1000" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>LR</th>
+<th>Accuracy</th>
+<th>Time</th>
+<th>Epochs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.1</td>
+<td>100%</td>
+<td>142ms</td>
+<td>~40</td>
+</tr>
+<tr>
+<td>0.2</td>
+<td>100%</td>
+<td>104ms</td>
+<td>19</td>
+</tr>
+<tr>
+<td>0.5</td>
+<td>100%</td>
+<td>94ms</td>
+<td>7</td>
+</tr>
+<tr>
+<td>1.0</td>
+<td>100%</td>
+<td>74ms</td>
+<td>8</td>
+</tr>
+<tr>
+<td>2.0</td>
+<td>100%</td>
+<td>78ms</td>
+<td>11</td>
+</tr>
+</tbody>
+</table>
+<h3 id="other-attempts">Other attempts<a class="headerlink" href="#other-attempts" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Config</th>
+<th>Accuracy</th>
+<th>Time</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>hidden=32, n_train=200</td>
+<td>51%</td>
+<td>193ms</td>
+<td>Too small, can't learn</td>
+</tr>
+<tr>
+<td>batch=128</td>
+<td>99.5%</td>
+<td>349ms</td>
+<td>Larger batch hurts</td>
+</tr>
+<tr>
+<td>batch=1000 (full)</td>
+<td>53.5%</td>
+<td>129ms</td>
+<td>Full batch diverges</td>
+</tr>
+<tr>
+<td>n=10/k=3</td>
+<td>100%</td>
+<td>58ms</td>
+<td>Easier problem, still slow</td>
+</tr>
+</tbody>
+</table>
+<h2 id="finding">Finding<a class="headerlink" href="#finding" title="Permanent link">&para;</a></h2>
+<p><strong>SGD cannot solve n=20/k=3 sparse parity in under 60ms with any configuration.</strong></p>
+<p>The floor is approximately 7 grokking epochs at 8-12ms per epoch. The phase transition (where the network suddenly learns the parity function) requires a minimum number of weight updates that cannot be reduced by:
+- Shrinking the model (hidden=64 needs more epochs, cancels out)
+- Increasing learning rate (LR=0.5-1.0 reduces to 7-8 epochs, can't go lower)
+- Reducing training samples (n_train=200 fails entirely for small models)
+- Larger batch size (hurts or fails)</p>
+<h2 id="why-this-matters">Why this matters<a class="headerlink" href="#why-this-matters" title="Permanent link">&para;</a></h2>
+<p>LeCun's Spark 7 experiments worked because digit recognition has first-order structure. Each pixel contributes independently to the output. SGD can learn this quickly.</p>
+<p>Parity has zero first-order structure. The signal exists only in the k-th order interaction of the secret bits. SGD must discover this through grokking, which takes a minimum number of gradient steps regardless of model configuration.</p>
+<p>The 10ms budget ("runnable on 1980s hardware in 1 hour") correctly filters SGD out of the viable methods for sparse parity. The algebraic methods (GF(2) at 0.5ms, KM at 1-4ms) fit. SGD doesn't. This is not a failure of SGD optimization. It is a structural mismatch between the algorithm and the problem.</p>
+<h2 id="best-sgd-config-found">Best SGD config found<a class="headerlink" href="#best-sgd-config-found" title="Permanent link">&para;</a></h2>
+<p>hidden=200, n_train=1000, lr=0.5, batch=32: 100% accuracy in 7 epochs / 72ms. This is 2x faster than the default config (142ms) but still 7x over the 10ms target.</p>
 
 
 
