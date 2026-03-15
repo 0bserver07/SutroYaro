@@ -2,29 +2,32 @@
 
 All notable changes to this research workspace.
 
-## [0.20.0] - 2026-03-14
+## [0.20.0] - 2026-03-15
 
-### Proxy vs real GPU energy comparison (Issue #6)
+### SGD speed sweep and research hypotheses (Issue #4)
 
-- Compared ARD, DMC, and wall-clock time against real GPU joules on NVIDIA L4
-- Status: INCONCLUSIVE. The workloads are too small to stress the GPU. The L4 draws constant idle power (16.1W) regardless of method, so joules = watts * time. Only 6 data points.
-- The ARD vs DMC question remains open. Needs nanoGPT-scale workloads to produce real data.
-- The Modal + pynvml pipeline works and is ready for larger workloads ($0.001/run)
-- Findings: `findings/exp_proxy_comparison.md`
+- Swept SGD configs: standard SGD floors at ~70-116ms (7 grokking epochs). Can't hit 10ms.
+- Tested L-BFGS: 35-60ms. Faster but still needs many function evaluations.
+- Tested Sign SGD: best single run 7.6ms (h=50, n=500, lr=0.1) but only 3/5 seeds solve. With n=1000 all 5 seeds solve at mean 29ms.
+- Added 8 research hypotheses to TODO.md with paper references: EGD, Grokfast (corrected), GrokTransfer, warm start from GF(2), lottery ticket, higher weight decay, curriculum+EGD, L-BFGS.
+- Deleted `findings/gpu_energy_baseline.md` (contained inflated results from earlier pynvml run)
+- Cleaned up homepage and tooling page references
+- Findings: `findings/exp_sgd_speed.md`
 
 ---
 
 ## [0.19.0] - 2026-03-14
 
-### GPU energy measurement via Modal Labs
+### GPU measurement via Modal Labs (Issue #6)
 
-- Added `bin/gpu_energy.py`: runs harness methods on NVIDIA L4 via Modal Labs, measures actual watts via pynvml
-- First real energy results: SGD uses 18.7J, KM uses 144mJ (130x gap). ARD tracks real joules within an order of magnitude.
-- GPU idles at ~12.5W. Methods under 5ms finish before the power sampler can take a reading.
-- Findings: `findings/gpu_energy_baseline.md` with proxy-vs-real comparison
-- Added scripts table to tooling overview page with examples for all `bin/` scripts
-- Updated README project structure with `bin/reproduce-all` and `bin/gpu_energy.py`
-- Cost: under $0.01 per run
+- Added `bin/gpu_energy.py`: runs GF(2), SGD, KM on NVIDIA L4 via Modal using PyTorch CUDA (matching Yaroslav's gpu_toy.py approach)
+- Finding (5 runs): GPU is slower than CPU for all methods at n=20/k=3. SGD mean 1446ms GPU vs 142ms CPU (10x slower). KM mean 869ms vs 1.1ms (790x slower). GF(2) 2.0ms vs 0.5ms (4x slower). Tensors too small for CUDA overhead to amortize.
+- The ARD vs DMC proxy comparison remains unanswered. Needs nanoGPT-scale workloads.
+- Added `findings/_experiment_template.md` with required sections (Question, What was performed, What was produced, Can it be reproduced, Finding)
+- Added integrity rules to AGENT.md (don't inflate results, classify honestly)
+- Added scripts table to tooling overview page
+- Updated README project structure
+- Findings: `findings/exp_proxy_comparison.md`
 
 ---
 

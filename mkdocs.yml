@@ -122,8 +122,7 @@ nav:
           - MDL Compression: findings/exp_mdl.md
           - Prompting Strategies: findings/prompting-strategies.md
           - Session 2026-03-11: findings/session-2026-03-11.md
-          - GPU Energy Baseline: findings/gpu_energy_baseline.md
-          - Proxy vs Real Energy: findings/exp_proxy_comparison.md
+          - GPU vs CPU for Sparse Parity: findings/exp_proxy_comparison.md
           - Friday Demo: research/friday-demo.md
       - Plans:
           - Pipeline Design: plans/2026-03-03-sparse-parity-pipeline-design.md

@@ -42,7 +42,7 @@ modal run bin/gpu_energy.py          # run all defaults
 modal run bin/gpu_energy.py --json   # machine-readable
 ```
 
-Cost: under $0.01 per run. See [GPU energy baseline](../findings/gpu_energy_baseline.md) for the first results.
+Cost: under $0.01 per run. See [GPU vs CPU findings](../findings/exp_proxy_comparison.md) for results.
 
 ### Reproduce All
 

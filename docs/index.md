@@ -31,7 +31,7 @@ Standard config: n=20 bits, k=3 secret, 17 noise. The [adding-a-challenge guide]
 
 All four local learning rules (Hebbian, Predictive Coding, Equilibrium Propagation, Target Propagation) failed at chance level. Parity requires k-th order interaction detection, which local statistics cannot provide.
 
-**GPU energy validation**: Real power measurements on NVIDIA L4 via Modal Labs. SGD uses 18.7 joules, KM uses 144 millijoules (130x gap). ARD proxy tracks real energy within an order of magnitude. See [GPU energy baseline](findings/gpu_energy_baseline.md).
+**GPU measurement**: Ran methods on NVIDIA L4 via Modal Labs using PyTorch CUDA (5 runs). GPU is 4-790x slower than CPU at this problem size. Sparse parity tensors are too small for CUDA to help. See [GPU vs CPU findings](findings/exp_proxy_comparison.md).
 
 ## Quick Start
 
@@ -63,7 +63,7 @@ bin/run-agent --tool claude --max 10
 | **New here? Start here** | [What's New (March 2026)](research/whats-new-march-2026.md) |
 | All 34+ experiments ranked | [Practitioner's Field Guide](research/survey.md) |
 | Add a new challenge | [Adding a Challenge](research/adding-a-challenge.md) |
-| GPU energy results | [GPU Energy Baseline](findings/gpu_energy_baseline.md) |
+| GPU vs CPU findings | [GPU vs CPU for Sparse Parity](findings/exp_proxy_comparison.md) |
 | Run experiments with any AI tool | [Agent CLI Guide](tooling/agent-cli-guide.md) |
 | Scripts and toolkit | [Tooling](tooling/index.md) |
 | Full protocol design | [Peer Research Protocol](research/peer-research-protocol.md) |

@@ -112,3 +112,29 @@ Tests class-imbalanced k-th order interactions. See `docs/research/adding-a-chal
 - [ ] Compare SGD convergence: AND vs parity at same config
 - [ ] Test KM with more influence samples (5 → 20) to handle 1/2^(k-1) signal
 - [ ] Scale test: sparse AND at k=5 (P(y=1) = 3%, severe imbalance)
+
+---
+
+## SGD Under 10ms on Sparse Parity (Issue #4)
+
+Yaroslav's constraint: experiments must run under 1 second (ideally under 10ms)
+to match 1980s Spark 7 compute budgets. SGD currently floors at ~70-116ms
+(7 grokking epochs). These hypotheses target eliminating or shortening
+the grokking plateau.
+
+### Gradient manipulation
+
+- [ ] Egalitarian Gradient Descent (EGD): normalize gradients so all principal directions evolve at same speed. Tested on sparse parity in the paper, eliminates plateau. Ref: https://arxiv.org/abs/2510.04930
+- [ ] Grokfast with corrected config: amplify slow gradient components. Phase 1 test (exp4) used broken config (lr=0.5 overshooting). Retest with lr=0.1 and correct setup. Ref: https://arxiv.org/abs/2405.20233
+- [ ] GrokTransfer: train small model (n=5/k=3) first, transfer embedding to full model (n=20/k=3). Should eliminate phase transition. Ref: https://arxiv.org/abs/2504.13292
+
+### Initialization
+
+- [ ] Warm start from GF(2): use GF(2) to find the secret (0.5ms), initialize W1 with the correct feature detector. SGD then fine-tunes, doesn't discover features from scratch. Tests how fast SGD converges with perfect init.
+- [ ] Lottery ticket init: find sparse subnetwork from a fully trained model, reinitialize with that mask. Ref: MIT thesis on sparse parity grokking https://dspace.mit.edu/handle/1721.1/156751
+
+### Training configuration
+
+- [ ] Higher weight decay + input noise: regularization accelerates grokking by enforcing algebraic invariances. Try wd=0.05-0.1 with Gaussian noise on inputs. Ref: https://openreview.net/forum?id=gciHssAM8A
+- [ ] Curriculum + EGD combined: curriculum (n=10 to n=20) gave 14.6x speedup (exp_curriculum). Combining with EGD could compound the gains.
+- [ ] Full-batch second-order (L-BFGS): converges in fewer steps than SGD. Per-step cost higher but may need 1-2 steps instead of 7 epochs.

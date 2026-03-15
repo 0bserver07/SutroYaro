@@ -1,54 +1,70 @@
 # Experiment: GPU vs CPU for Sparse Parity Methods
 
 **Date**: 2026-03-14
-**Status**: INCONCLUSIVE (proxy question) / FINDING (GPU overhead)
+**Status**: FINDING
 **Issue**: #6
 
 ## Question
 
-Sub-question of "Is ARD or DMC the better energy proxy?" (Issue #6). Before comparing proxies, we needed to know: does GPU measurement produce useful energy data for sparse parity?
+Does running sparse parity methods on GPU (PyTorch CUDA) produce useful energy or performance data? Sub-question of "Is ARD or DMC the better energy proxy?"
 
 ## What was performed
 
-Reimplemented three sparse parity methods (GF(2), SGD, KM) in PyTorch CUDA and ran them on an NVIDIA L4 via Modal Labs. Matched the numpy harness config: n=20, k=3, hidden=200, lr=0.1, wd=0.01, batch=32, hinge loss, seed=42.
+Reimplemented three sparse parity methods (GF(2), SGD, KM) in PyTorch CUDA. Ran them on an NVIDIA L4 via Modal Labs, matching the numpy harness config: n=20, k=3, hidden=200, lr=0.1, wd=0.01, batch=32, hinge loss, seed=42.
 
-Earlier attempt used numpy on a GPU container (CPU-bound, GPU idle, data useless). This version uses PyTorch with tensors on CUDA so the GPU does the actual compute.
+Ran 5 times to measure variance. Compared against CPU numpy baselines from `bin/reproduce-all`.
 
 ## What was produced
 
-| Method | Acc | GPU time | CPU time (numpy) | GPU/CPU ratio |
-|--------|-----|----------|-------------------|---------------|
-| GF(2) | 1.00 | 1.7ms | 0.5ms | 3.4x slower |
-| SGD | 1.00 | 1014ms (37 epochs) | 142ms (40 epochs) | 7.1x slower |
-| KM | 1.00 | 663ms | 1.1ms | 603x slower |
+### GPU times (5 runs on NVIDIA L4 via Modal)
 
-GPU drew 15.9W (near idle). Cost: $0.002 per run.
+| Run | GF(2) | SGD (37 epochs) | KM |
+|-----|-------|------------------|-----|
+| 1 | 1.7ms | 1014ms | 663ms |
+| 2 | 2.1ms | 1676ms | 1016ms |
+| 3 | 2.0ms | 1367ms | 844ms |
+| 4 | 2.3ms | 1603ms | 899ms |
+| 5 | 2.0ms | 1571ms | 921ms |
+| **Mean** | **2.0ms** | **1446ms** | **869ms** |
+| **Std** | **0.2ms** | **254ms** | **127ms** |
+
+100% accuracy on all 5 runs, 37 epochs for SGD on all 5 runs.
+
+### GPU vs CPU comparison
+
+| Method | CPU (numpy) | GPU mean | GPU/CPU ratio |
+|--------|-------------|----------|---------------|
+| GF(2) | 0.5ms | 2.0ms | 4x slower |
+| SGD | 142ms | 1446ms | 10x slower |
+| KM | 1.1ms | 869ms | 790x slower |
+
+### Cost
+
+$0.002-0.003 per run. Total for 5 runs: ~$0.012.
 
 ## Can it be reproduced?
 
 ```bash
+# GPU (requires Modal account)
 pip install modal
 modal token set
 modal run bin/gpu_energy.py
-```
 
-Requires Modal account. Costs under $0.01. The image builds PyTorch on first run (~90s), cached after that.
+# CPU baseline
+PYTHONPATH=src python3 bin/reproduce-all
+```
 
 ## Finding
 
-**Sparse parity at n=20/k=3 is too small for GPU.** All three methods are slower on GPU than CPU:
+**GPU is 4-790x slower than CPU for sparse parity at n=20/k=3.** Consistent across 5 runs.
 
-- GF(2) is sequential row reduction (XOR). CUDA can't parallelize it. Runs on CPU even when called from a GPU container.
-- SGD has the same epoch count (37 vs 40) but each epoch is slower because the weight matrix (200x20) is too small for CUDA kernel launch overhead to amortize.
-- KM is 603x slower because it does 20 independent small operations. Each one launches a CUDA kernel for a tiny tensor. The overhead dominates.
+- GF(2) is sequential row reduction (XOR). Can't parallelize. Runs on CPU even inside a GPU container. 4x overhead from container/PyTorch setup.
+- SGD has the same epoch count (37) but each epoch is 10x slower. The weight matrix (200x20) is too small for CUDA kernel launch overhead to amortize.
+- KM is 790x slower. It runs 20 small independent operations, each launching a CUDA kernel for a tiny tensor.
 
-The GPU drew near-idle power (15.9W) because the compute units were barely used. Energy measurement via pynvml on the earlier run showed constant wattage across all methods, confirming the workloads don't stress the hardware.
+**The ARD vs DMC proxy comparison is still unanswered.** These workloads don't stress the GPU memory subsystem, so measuring GPU energy here tells you nothing about memory access patterns. That question needs nanoGPT-scale workloads.
 
-**The proxy comparison (ARD vs DMC vs joules) remains unanswered.** It requires workloads large enough to produce variable GPU power draw. At sparse parity scale, the GPU adds overhead and the power reading is just idle draw times wall clock.
-
-**What this means for the project:** GPU energy measurement becomes useful at nanoGPT scale. For sparse parity, CPU wall-clock time is the most honest performance metric. The `bin/gpu_energy.py` pipeline works and is ready for larger workloads.
-
-Yaroslav's direction of verifying picojoule numbers for register vs cache vs HBM operations requires CUDA/PTX kernels targeting specific memory tiers, not running Python methods on a GPU.
+**What's useful:** The `bin/gpu_energy.py` pipeline works (PyTorch on Modal, matching Yaroslav's gpu_toy.py pattern). When the group moves to nanoGPT, this script is the starting point. At sparse parity scale, use CPU wall-clock time.
 
 ## Files
 
