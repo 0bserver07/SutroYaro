@@ -33,8 +33,8 @@ L4_COST_PER_SEC = L4_COST_PER_HOUR / 3600
 
 
 @app.function(gpu="L4", image=image, timeout=120)
-def run_gpu(n_bits=20, k_sparse=3, n_train=1000, seed=42):
-    """Run sparse parity methods on GPU via PyTorch CUDA."""
+def run_gpu(n_bits=20, k_sparse=3, n_train=1000, seed=42, task="parity"):
+    """Run sparse methods on GPU via PyTorch CUDA. task='parity' or 'sum'."""
     import torch
     import numpy as np
     import subprocess
@@ -45,15 +45,21 @@ def run_gpu(n_bits=20, k_sparse=3, n_train=1000, seed=42):
                             "--format=csv,noheader"], capture_output=True, text=True)
     print(f"GPU: {result.stdout.strip()}")
     print(f"PyTorch: {torch.cuda.get_device_name(0)}, CUDA {torch.version.cuda}")
+    print(f"Task: sparse {task}")
 
     # Generate data
     rng = np.random.RandomState(seed)
     secret = sorted(rng.choice(n_bits, k_sparse, replace=False).tolist())
 
     x_np = rng.choice([-1.0, 1.0], size=(n_train, n_bits)).astype(np.float32)
-    y_np = np.prod(x_np[:, secret], axis=1).astype(np.float32)
     x_te_np = rng.choice([-1.0, 1.0], size=(200, n_bits)).astype(np.float32)
-    y_te_np = np.prod(x_te_np[:, secret], axis=1).astype(np.float32)
+
+    if task == "sum":
+        y_np = np.sum(x_np[:, secret], axis=1).astype(np.float32)
+        y_te_np = np.sum(x_te_np[:, secret], axis=1).astype(np.float32)
+    else:
+        y_np = np.prod(x_np[:, secret], axis=1).astype(np.float32)
+        y_te_np = np.prod(x_te_np[:, secret], axis=1).astype(np.float32)
 
     x = torch.from_numpy(x_np).to(device)
     y = torch.from_numpy(y_np).to(device)
@@ -111,68 +117,93 @@ def run_gpu(n_bits=20, k_sparse=3, n_train=1000, seed=42):
     print(f"  gf2: acc={gf2_acc:.2f} {elapsed*1000:.1f}ms (CPU)")
 
     # --- SGD on GPU (PyTorch, CUDA matmuls) ---
-    # Match the numpy harness: hinge loss, same init scale, same hyperparams
     hidden = 200
     torch.manual_seed(seed + 1)
-    W1 = torch.randn(hidden, n_bits, device=device) * np.sqrt(2.0 / n_bits)
-    b1 = torch.zeros(hidden, device=device)
-    W2 = torch.randn(1, hidden, device=device) * np.sqrt(2.0 / hidden)
-    b2 = torch.zeros(1, device=device)
     lr = 0.1
     wd = 0.01
     batch_size = 32
 
-    torch.cuda.synchronize()
-    start = time.perf_counter()
+    if task == "sum":
+        # Linear model for sum (no hidden layer needed)
+        w = torch.randn(n_bits, device=device) * 0.01
 
-    best_acc = 0.0
-    final_epoch = 0
-    for epoch in range(200):
-        perm = torch.randperm(n_train, device=device)
-        for s in range(0, n_train, batch_size):
-            idx = perm[s:s+batch_size]
-            xb = x[idx]
-            yb = y[idx].unsqueeze(1)
+        torch.cuda.synchronize()
+        start = time.perf_counter()
 
-            # Forward
-            h_pre = xb @ W1.t() + b1
-            h = torch.relu(h_pre)
-            out = h @ W2.t() + b2
+        best_acc = 0.0
+        final_epoch = 0
+        for epoch in range(200):
+            perm = torch.randperm(n_train, device=device)
+            for s in range(0, n_train, batch_size):
+                idx = perm[s:s+batch_size]
+                xb = x[idx]
+                yb = y[idx]
+                pred = xb @ w
+                grad = (2.0 / len(idx)) * (xb.t() @ (pred - yb)) + wd * w
+                w = w - lr * grad
 
-            # Hinge loss gradient: max(0, 1 - y*f(x))
-            margin = yb * out
-            mask = (margin < 1.0).float()
-            d_out = -yb * mask / len(idx)
+            with torch.no_grad():
+                pred_te = torch.round(x_te @ w).int()
+                acc = float((pred_te == y_te.int()).float().mean())
+                best_acc = max(best_acc, acc)
+                final_epoch = epoch + 1
+                if acc >= 1.0:
+                    break
+    else:
+        # Two-layer net with hinge loss for parity
+        W1 = torch.randn(hidden, n_bits, device=device) * np.sqrt(2.0 / n_bits)
+        b1 = torch.zeros(hidden, device=device)
+        W2 = torch.randn(1, hidden, device=device) * np.sqrt(2.0 / hidden)
+        b2 = torch.zeros(1, device=device)
 
-            # Backward
-            dW2 = d_out.t() @ h
-            db2 = d_out.sum(dim=0)
-            d_h = d_out @ W2
-            d_h = d_h * (h_pre > 0).float()
-            dW1 = d_h.t() @ xb
-            db1 = d_h.sum(dim=0)
+        torch.cuda.synchronize()
+        start = time.perf_counter()
 
-            # Update with weight decay
-            W1 = W1 - lr * (dW1 + wd * W1)
-            b1 = b1 - lr * db1
-            W2 = W2 - lr * (dW2 + wd * W2)
-            b2 = b2 - lr * db2
+        best_acc = 0.0
+        final_epoch = 0
+        for epoch in range(200):
+            perm = torch.randperm(n_train, device=device)
+            for s in range(0, n_train, batch_size):
+                idx = perm[s:s+batch_size]
+                xb = x[idx]
+                yb = y[idx].unsqueeze(1)
 
-        with torch.no_grad():
-            h_te = torch.relu(x_te @ W1.t() + b1)
-            out_te = (h_te @ W2.t() + b2).squeeze()
-            pred = torch.sign(out_te)
-            acc = float((pred == y_te).float().mean())
-            best_acc = max(best_acc, acc)
-            final_epoch = epoch + 1
-            if acc >= 1.0:
-                break
+                h_pre = xb @ W1.t() + b1
+                h = torch.relu(h_pre)
+                out = h @ W2.t() + b2
+
+                margin = yb * out
+                mask = (margin < 1.0).float()
+                d_out = -yb * mask / len(idx)
+
+                dW2 = d_out.t() @ h
+                db2 = d_out.sum(dim=0)
+                d_h = d_out @ W2
+                d_h = d_h * (h_pre > 0).float()
+                dW1 = d_h.t() @ xb
+                db1 = d_h.sum(dim=0)
+
+                W1 = W1 - lr * (dW1 + wd * W1)
+                b1 = b1 - lr * db1
+                W2 = W2 - lr * (dW2 + wd * W2)
+                b2 = b2 - lr * db2
+
+            with torch.no_grad():
+                h_te = torch.relu(x_te @ W1.t() + b1)
+                out_te = (h_te @ W2.t() + b2).squeeze()
+                pred = torch.sign(out_te)
+                acc = float((pred == y_te).float().mean())
+                best_acc = max(best_acc, acc)
+                final_epoch = epoch + 1
+                if acc >= 1.0:
+                    break
 
     torch.cuda.synchronize()
     elapsed = time.perf_counter() - start
+    loss_type = "MSE" if task == "sum" else "hinge"
     results.append({"method": "sgd", "accuracy": round(best_acc, 4),
                     "time_s": round(elapsed, 6), "epochs": final_epoch,
-                    "note": "GPU (PyTorch CUDA, hinge loss)"})
+                    "note": f"GPU (PyTorch CUDA, {loss_type})"})
     print(f"  sgd: acc={best_acc:.2f} {elapsed*1000:.1f}ms {final_epoch} epochs (GPU)")
 
     # --- KM influence on GPU ---
@@ -190,16 +221,27 @@ def run_gpu(n_bits=20, k_sparse=3, n_train=1000, seed=42):
             -torch.ones(1, device=device)
         )
         secret_idx = torch.tensor(secret, device=device)
-        y_orig = torch.prod(xb[:, secret_idx], dim=1)
-        xb_flip = xb.clone()
-        xb_flip[:, i] *= -1
-        y_flip = torch.prod(xb_flip[:, secret_idx], dim=1)
-        influences[i] = (y_orig != y_flip).float().mean()
+        if task == "sum":
+            y_orig = torch.sum(xb[:, secret_idx], dim=1)
+            xb_flip = xb.clone()
+            xb_flip[:, i] *= -1
+            y_flip = torch.sum(xb_flip[:, secret_idx], dim=1)
+            influences[i] = torch.abs(y_orig - y_flip).float().mean()
+        else:
+            y_orig = torch.prod(xb[:, secret_idx], dim=1)
+            xb_flip = xb.clone()
+            xb_flip[:, i] *= -1
+            y_flip = torch.prod(xb_flip[:, secret_idx], dim=1)
+            influences[i] = (y_orig != y_flip).float().mean()
 
     top_k = torch.argsort(influences)[-k_sparse:].sort().values.tolist()
     top_k_idx = torch.tensor(top_k, device=device)
-    y_pred = torch.prod(x_te[:, top_k_idx], dim=1)
-    km_acc = float((y_pred == y_te).float().mean())
+    if task == "sum":
+        y_pred = torch.sum(x_te[:, top_k_idx], dim=1)
+        km_acc = float((y_pred.int() == y_te.int()).float().mean())
+    else:
+        y_pred = torch.prod(x_te[:, top_k_idx], dim=1)
+        km_acc = float((y_pred == y_te).float().mean())
 
     torch.cuda.synchronize()
     elapsed = time.perf_counter() - start
@@ -216,11 +258,14 @@ def run_gpu(n_bits=20, k_sparse=3, n_train=1000, seed=42):
 
 @app.local_entrypoint()
 def main():
-    print("Running sparse parity on Modal (L4 GPU, PyTorch CUDA)...")
+    # Set task via TASK env var: TASK=sum modal run bin/gpu_energy.py
+    task = os.environ.get("TASK", "parity")
+
+    print(f"Running sparse {task} on Modal (L4 GPU, PyTorch CUDA)...")
     print()
 
     wall_start = time.time()
-    result = run_gpu.remote()
+    result = run_gpu.remote(task=task)
     wall_elapsed = time.time() - wall_start
     gpu_cost = wall_elapsed * L4_COST_PER_SEC
 

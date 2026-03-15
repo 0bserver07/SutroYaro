@@ -123,6 +123,7 @@ nav:
           - Prompting Strategies: findings/prompting-strategies.md
           - Session 2026-03-11: findings/session-2026-03-11.md
           - SGD Speed Sweep: findings/exp_sgd_speed.md
+          - Sum vs Parity Comparison: findings/exp_sum_vs_parity.md
           - GPU vs CPU for Sparse Parity: findings/exp_proxy_comparison.md
           - Friday Demo: research/friday-demo.md
       - Plans:
