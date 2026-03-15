@@ -1,83 +1,57 @@
-# Experiment: Which Proxy Predicts GPU Energy?
+# Experiment: GPU vs CPU for Sparse Parity Methods
 
 **Date**: 2026-03-14
-**Status**: INCONCLUSIVE
+**Status**: INCONCLUSIVE (proxy question) / FINDING (GPU overhead)
 **Issue**: #6
 
 ## Question
 
-Yaroslav said ARD is too coarse as an energy proxy. Is DMC better?
+Sub-question of "Is ARD or DMC the better energy proxy?" (Issue #6). Before comparing proxies, we needed to know: does GPU measurement produce useful energy data for sparse parity?
 
-## Setup
+## What was performed
 
-Ran 8 experiments on an NVIDIA L4 via Modal Labs (`bin/gpu_energy.py`). Measured real watts via pynvml during execution. Compared against ARD and DMC from the local harness.
+Reimplemented three sparse parity methods (GF(2), SGD, KM) in PyTorch CUDA and ran them on an NVIDIA L4 via Modal Labs. Matched the numpy harness config: n=20, k=3, hidden=200, lr=0.1, wd=0.01, batch=32, hinge loss, seed=42.
 
-Methods too fast for the power sampler (under 5ms) were excluded because pynvml couldn't get a reading before they finished.
+Earlier attempt used numpy on a GPU container (CPU-bound, GPU idle, data useless). This version uses PyTorch with tensors on CUDA so the GPU does the actual compute.
 
-## Data
+## What was produced
 
-| Challenge | Method | Joules | ARD | DMC | Time (ms) |
-|-----------|--------|--------|-----|-----|-----------|
-| parity | sgd | 8.601 | 8,504 | 1,278,460 | 533 |
-| parity | fourier | 0.878 | 11,980,500 | 78,140,662,852 | 54 |
-| sum | sgd | 0.033 | 20 | 2,862 | 2.0 |
-| sum | km | 0.051 | 92 | 20,632 | 3.2 |
-| and | sgd | 0.291 | 29,164 | 52,885,890 | 18 |
-| and | km | 0.046 | 92 | 165,060 | 2.9 |
+| Method | Acc | GPU time | CPU time (numpy) | GPU/CPU ratio |
+|--------|-----|----------|-------------------|---------------|
+| GF(2) | 1.00 | 1.7ms | 0.5ms | 3.4x slower |
+| SGD | 1.00 | 1014ms (37 epochs) | 142ms (40 epochs) | 7.1x slower |
+| KM | 1.00 | 663ms | 1.1ms | 603x slower |
 
-GF(2) and parity-KM finished in under 5ms, before the power sampler could take a reading.
+GPU drew 15.9W (near idle). Cost: $0.002 per run.
 
-## Correlation
-
-| Predictor | Spearman r | p-value |
-|-----------|-----------|---------|
-| Wall-clock time | 1.000 | 0.000 |
-| ARD | 0.812 | 0.050 |
-| DMC | 0.771 | 0.072 |
-
-## Why this is inconclusive
-
-**The workloads are too small to stress the GPU.** The L4 drew constant 16.1W across all methods. That's idle power. The GPU wasn't doing enough work for memory access patterns (what ARD and DMC measure) to affect power draw. Joules = 16.1W * seconds for every data point.
-
-This means:
-- We cannot tell whether ARD or DMC is the better energy proxy from this data. The question requires workloads large enough to cause variable power draw.
-- Only 6 data points. ARD's p-value is 0.050 (borderline). DMC's is 0.072 (not significant).
-- Two runs gave different idle wattages (12.5W and 16.1W), so the absolute joule numbers vary between runs.
-
-## What we did learn
-
-1. **Measuring GPU energy on sparse parity via pynvml is not useful.** The workloads are too small. The GPU is idle. You're measuring how long the CPU takes to set up the problem, not how much energy the algorithm uses.
-
-2. **The ARD vs DMC question is still open.** Answering it requires a workload that actually stresses GPU memory (nanoGPT scale, or at minimum n=1000+ with large batch sizes).
-
-3. **The Modal + pynvml pipeline works.** `bin/gpu_energy.py` runs, measures watts, costs under $0.001. The infrastructure is ready for when the workloads get large enough to produce real data.
-
-## Next step: PTX-level energy measurement
-
-Yaroslav's actual goal is to verify the Bill Dally energy numbers (register 5pJ, L1 20pJ, L2 100pJ, HBM 640pJ) on real hardware. That means writing CUDA kernels (or PTX instructions) that explicitly target each memory tier and measuring the energy difference per operation.
-
-This is not something pynvml can do (it reports total GPU power, not per-instruction energy). It requires either:
-- NVIDIA's Nsight Compute profiler with energy counters
-- Custom PTX kernels that isolate register vs shared memory vs L2 vs HBM access, timed and power-sampled at high frequency
-- Or a simpler version: two CUDA kernels doing the same computation, one using only shared memory, the other hitting HBM. Measure the power difference.
-
-The Modal L4 supports all of these. The infrastructure (`bin/gpu_energy.py`, Modal account, pynvml) is a starting point but the experiment needs CUDA code, not Python numpy.
-
-## How to reproduce
+## Can it be reproduced?
 
 ```bash
-# Local proxy metrics (ARD, DMC, time)
-PYTHONPATH=src python3 bin/reproduce-all
-
-# GPU energy measurement (requires Modal account, costs ~$0.001)
 pip install modal
 modal token set
 modal run bin/gpu_energy.py
 ```
 
+Requires Modal account. Costs under $0.01. The image builds PyTorch on first run (~90s), cached after that.
+
+## Finding
+
+**Sparse parity at n=20/k=3 is too small for GPU.** All three methods are slower on GPU than CPU:
+
+- GF(2) is sequential row reduction (XOR). CUDA can't parallelize it. Runs on CPU even when called from a GPU container.
+- SGD has the same epoch count (37 vs 40) but each epoch is slower because the weight matrix (200x20) is too small for CUDA kernel launch overhead to amortize.
+- KM is 603x slower because it does 20 independent small operations. Each one launches a CUDA kernel for a tiny tensor. The overhead dominates.
+
+The GPU drew near-idle power (15.9W) because the compute units were barely used. Energy measurement via pynvml on the earlier run showed constant wattage across all methods, confirming the workloads don't stress the hardware.
+
+**The proxy comparison (ARD vs DMC vs joules) remains unanswered.** It requires workloads large enough to produce variable GPU power draw. At sparse parity scale, the GPU adds overhead and the power reading is just idle draw times wall clock.
+
+**What this means for the project:** GPU energy measurement becomes useful at nanoGPT scale. For sparse parity, CPU wall-clock time is the most honest performance metric. The `bin/gpu_energy.py` pipeline works and is ready for larger workloads.
+
+Yaroslav's direction of verifying picojoule numbers for register vs cache vs HBM operations requires CUDA/PTX kernels targeting specific memory tiers, not running Python methods on a GPU.
+
 ## Files
 
 - Script: `bin/gpu_energy.py`
 - This document: `findings/exp_proxy_comparison.md`
-- GPU energy baseline: `findings/gpu_energy_baseline.md`
-- Reproduce: `modal run bin/gpu_energy.py` (requires Modal account)
+- Reproduce: `modal run bin/gpu_energy.py`

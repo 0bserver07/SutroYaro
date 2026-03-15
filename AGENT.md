@@ -52,7 +52,10 @@ REPEAT until TODO.md has no unchecked items or you hit max_experiments (20):
   6. LOG    append one JSON line to research/log.jsonl
            - use the schema from docs/research/peer-research-protocol.md
            - classify: WIN / LOSS / INVALID / INCONCLUSIVE
-  7. RECORD write findings to findings/{exp_name}.md using LAB.md template
+  7. RECORD write findings to findings/{exp_name}.md using findings/_experiment_template.md
+           - required sections: Question, What was performed, What was produced,
+             Can it be reproduced?, Finding, Files
+           - do NOT skip the "Can it be reproduced?" section
   8. UPDATE check off the hypothesis in TODO.md
   9. UPDATE DISCOVERIES.md if the experiment answers an open question
 ```
