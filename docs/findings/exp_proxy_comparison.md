@@ -74,4 +74,4 @@ modal run bin/gpu_energy.py
 - Script: `bin/gpu_energy.py`
 - This document: `findings/exp_proxy_comparison.md`
 - GPU energy baseline: `findings/gpu_energy_baseline.md`
-- Modal run: https://modal.com/apps/0bserver07/main/ap-fLKLCIAkcjw2yByw8NtOqe
+- Reproduce: `modal run bin/gpu_energy.py` (requires Modal account)
