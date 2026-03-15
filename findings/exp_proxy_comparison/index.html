@@ -3144,10 +3144,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#finding" class="md-nav__link">
+  <a href="#why-this-is-inconclusive" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Finding
+        Why this is inconclusive
       
     </span>
   </a>
@@ -3155,10 +3155,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#what-this-means" class="md-nav__link">
+  <a href="#what-we-did-learn" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What this means
+        What we did learn
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-step-ptx-level-energy-measurement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next step: PTX-level energy measurement
       
     </span>
   </a>
@@ -4113,10 +4124,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#finding" class="md-nav__link">
+  <a href="#why-this-is-inconclusive" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Finding
+        Why this is inconclusive
       
     </span>
   </a>
@@ -4124,10 +4135,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#what-this-means" class="md-nav__link">
+  <a href="#what-we-did-learn" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What this means
+        What we did learn
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-step-ptx-level-energy-measurement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next step: PTX-level energy measurement
       
     </span>
   </a>
@@ -4178,13 +4200,13 @@
 
 <h1 id="experiment-which-proxy-predicts-gpu-energy">Experiment: Which Proxy Predicts GPU Energy?<a class="headerlink" href="#experiment-which-proxy-predicts-gpu-energy" title="Permanent link">&para;</a></h1>
 <p><strong>Date</strong>: 2026-03-14
-<strong>Status</strong>: FINDING
+<strong>Status</strong>: INCONCLUSIVE
 <strong>Issue</strong>: #6</p>
 <h2 id="question">Question<a class="headerlink" href="#question" title="Permanent link">&para;</a></h2>
-<p>Yaroslav said ARD is too coarse as an energy proxy. Is DMC better? Or is something else entirely the right metric at this scale?</p>
+<p>Yaroslav said ARD is too coarse as an energy proxy. Is DMC better?</p>
 <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">&para;</a></h2>
 <p>Ran 8 experiments on an NVIDIA L4 via Modal Labs (<code>bin/gpu_energy.py</code>). Measured real watts via pynvml during execution. Compared against ARD and DMC from the local harness.</p>
-<p>Methods too fast for the power sampler (under 5ms) were excluded from the correlation analysis because pynvml couldn't get a reading before they finished.</p>
+<p>Methods too fast for the power sampler (under 5ms) were excluded because pynvml couldn't get a reading before they finished.</p>
 <h2 id="data">Data<a class="headerlink" href="#data" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -4276,37 +4298,31 @@
 </tr>
 </tbody>
 </table>
-<p>Log-space Pearson (linear fit in log-log):</p>
-<table>
-<thead>
-<tr>
-<th>Predictor</th>
-<th>Pearson r (log)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>log(time)</td>
-<td>1.000</td>
-</tr>
-<tr>
-<td>log(ARD)</td>
-<td>0.665</td>
-</tr>
-<tr>
-<td>log(DMC)</td>
-<td>0.548</td>
-</tr>
-</tbody>
-</table>
-<h2 id="finding">Finding<a class="headerlink" href="#finding" title="Permanent link">&para;</a></h2>
-<p><strong>Wall-clock time perfectly predicts GPU energy at this scale.</strong> The L4 draws near-constant power (16.1W) regardless of which method runs. Joules = 16.1 * seconds. The GPU is barely loaded by these workloads.</p>
-<p>ARD ranks methods in roughly the right order (r=0.812) but breaks on Fourier. Fourier has the worst ARD (11.9M) and worst DMC (78B) of any method, but uses less energy than SGD (0.878J vs 8.601J). The reason: Fourier streams through data with no reuse, which ARD penalizes heavily, but finishes fast because the operations are simple. ARD measures memory access patterns. Energy on an idle GPU measures time.</p>
-<p>DMC is slightly worse than ARD (r=0.771 vs 0.812), not better. The sqrt(stack_distance) weighting doesn't help at this scale.</p>
-<h2 id="what-this-means">What this means<a class="headerlink" href="#what-this-means" title="Permanent link">&para;</a></h2>
-<p>For sparse parity on a single GPU, use wall-clock time as the energy proxy. It's perfect and free.</p>
-<p>ARD and DMC matter when the workload is large enough to cause variable power draw (cache misses, HBM bandwidth saturation, compute unit utilization). That happens at nanoGPT scale, not at n=20/k=3 scale. When the group moves to larger problems, revisit this comparison.</p>
-<p>For now: keep ARD as a secondary metric for understanding algorithm behavior (memory access patterns), but optimize for time.</p>
+<h2 id="why-this-is-inconclusive">Why this is inconclusive<a class="headerlink" href="#why-this-is-inconclusive" title="Permanent link">&para;</a></h2>
+<p><strong>The workloads are too small to stress the GPU.</strong> The L4 drew constant 16.1W across all methods. That's idle power. The GPU wasn't doing enough work for memory access patterns (what ARD and DMC measure) to affect power draw. Joules = 16.1W * seconds for every data point.</p>
+<p>This means:
+- We cannot tell whether ARD or DMC is the better energy proxy from this data. The question requires workloads large enough to cause variable power draw.
+- Only 6 data points. ARD's p-value is 0.050 (borderline). DMC's is 0.072 (not significant).
+- Two runs gave different idle wattages (12.5W and 16.1W), so the absolute joule numbers vary between runs.</p>
+<h2 id="what-we-did-learn">What we did learn<a class="headerlink" href="#what-we-did-learn" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p><strong>Measuring GPU energy on sparse parity via pynvml is not useful.</strong> The workloads are too small. The GPU is idle. You're measuring how long the CPU takes to set up the problem, not how much energy the algorithm uses.</p>
+</li>
+<li>
+<p><strong>The ARD vs DMC question is still open.</strong> Answering it requires a workload that actually stresses GPU memory (nanoGPT scale, or at minimum n=1000+ with large batch sizes).</p>
+</li>
+<li>
+<p><strong>The Modal + pynvml pipeline works.</strong> <code>bin/gpu_energy.py</code> runs, measures watts, costs under $0.001. The infrastructure is ready for when the workloads get large enough to produce real data.</p>
+</li>
+</ol>
+<h2 id="next-step-ptx-level-energy-measurement">Next step: PTX-level energy measurement<a class="headerlink" href="#next-step-ptx-level-energy-measurement" title="Permanent link">&para;</a></h2>
+<p>Yaroslav's actual goal is to verify the Bill Dally energy numbers (register 5pJ, L1 20pJ, L2 100pJ, HBM 640pJ) on real hardware. That means writing CUDA kernels (or PTX instructions) that explicitly target each memory tier and measuring the energy difference per operation.</p>
+<p>This is not something pynvml can do (it reports total GPU power, not per-instruction energy). It requires either:
+- NVIDIA's Nsight Compute profiler with energy counters
+- Custom PTX kernels that isolate register vs shared memory vs L2 vs HBM access, timed and power-sampled at high frequency
+- Or a simpler version: two CUDA kernels doing the same computation, one using only shared memory, the other hitting HBM. Measure the power difference.</p>
+<p>The Modal L4 supports all of these. The infrastructure (<code>bin/gpu_energy.py</code>, Modal account, pynvml) is a starting point but the experiment needs CUDA code, not Python numpy.</p>
 <h2 id="how-to-reproduce">How to reproduce<a class="headerlink" href="#how-to-reproduce" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Local proxy metrics (ARD, DMC, time)</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nv">PYTHONPATH</span><span class="o">=</span>src<span class="w"> </span>python3<span class="w"> </span>bin/reproduce-all

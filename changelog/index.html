@@ -5159,9 +5159,9 @@
 <h3 id="proxy-vs-real-gpu-energy-comparison-issue-6">Proxy vs real GPU energy comparison (Issue #6)<a class="headerlink" href="#proxy-vs-real-gpu-energy-comparison-issue-6" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Compared ARD, DMC, and wall-clock time against real GPU joules on NVIDIA L4</li>
-<li>Finding: wall-clock time perfectly predicts energy (r=1.000) at sparse parity scale because the GPU draws constant 16.1W</li>
-<li>ARD is decent (r=0.812) but breaks on streaming methods (Fourier). DMC is slightly worse (r=0.771)</li>
-<li>Recommendation: use time as primary energy proxy at this scale, keep ARD as secondary for understanding memory access patterns</li>
+<li>Status: INCONCLUSIVE. The workloads are too small to stress the GPU. The L4 draws constant idle power (16.1W) regardless of method, so joules = watts * time. Only 6 data points.</li>
+<li>The ARD vs DMC question remains open. Needs nanoGPT-scale workloads to produce real data.</li>
+<li>The Modal + pynvml pipeline works and is ready for larger workloads ($0.001/run)</li>
 <li>Findings: <code>findings/exp_proxy_comparison.md</code></li>
 </ul>
 <hr />
