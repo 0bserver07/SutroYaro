@@ -249,6 +249,22 @@
   
     
       <li>
+        <a href="../../getting-started/" class="md-tabs__dropdown-link">
+          Getting Started
+        </a>
+      </li>
+    
+  
+    
+      <li>
+        <a href="../../branch-workflow/" class="md-tabs__dropdown-link">
+          Branch Workflow
+        </a>
+      </li>
+    
+  
+    
+      <li>
         <a href="../../context/" class="md-tabs__dropdown-link">
           Context
         </a>
@@ -797,6 +813,14 @@
       
         
           <li>
+            <a href="../../findings/exp_egd/" class="md-tabs__dropdown-link">
+              EGD (Egalitarian Gradient Descent)
+            </a>
+          </li>
+        
+      
+        
+          <li>
             <a href="../../research/friday-demo/" class="md-tabs__dropdown-link">
               Friday Demo
             </a>
@@ -999,6 +1023,14 @@
       
         
           <li>
+            <a href="../meeting-9-agenda/" class="md-tabs__dropdown-link">
+              Meeting 9 - Agenda
+            </a>
+          </li>
+        
+      
+        
+          <li>
             <a href="../bigger-picture/" class="md-tabs__dropdown-link">
               The Bigger Picture
             </a>
@@ -1155,6 +1187,62 @@
     
   
     Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../branch-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Branch Workflow
   
 
     
@@ -3093,6 +3181,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../findings/exp_egd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    EGD (Egalitarian Gradient Descent)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../research/friday-demo/" class="md-nav__link">
         
   
@@ -3852,6 +3968,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../meeting-9-agenda/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Meeting 9 - Agenda
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../bigger-picture/" class="md-nav__link">
         
   
@@ -3987,6 +4131,200 @@
 <strong>Context</strong>: Emmett used the Aster agentic loop to optimize Karpathy's pure-Python MicroGPT, reducing memory from 80MB to 35MB
 <strong>Related</strong>: <a href="../meeting-6-notes/">Meeting #6 full notes</a> · <a href="../../meetings/notes/#meeting-5-16-feb-26-intelligence-per-joule">Meeting #5 (Karpathy names task)</a></p>
 </div>
+<p>\"Aster for 8 iterations, minimizing memory, and got this program which takes up 35 MB instead of the original 80 MB. I recommend trying out a few simpler mechanims than Aster to compare, like running Codex in a loop or OpenEvolve. Seems to mainly be making optimizations rather than fundamentally changing the algorithm though.\"</p>
+<p>\"\"\"</p>
+<p>The most atomic way to train and run inference for a GPT in pure, dependency-free Python.</p>
+<p>This file is the complete algorithm.</p>
+<p>Everything else is just efficiency.</p>
+<p>\@karpathy</p>
+<p>\"\"\"</p>
+<p>import os       # os.path.exists</p>
+<p>import math     # math.log, math.exp</p>
+<p>import random   # random.seed, random.choices, random.gauss, random.shuffle</p>
+<p>random.seed(42) # Let there be order among chaos</p>
+<p># Let there be a Dataset `docs`: list[str\ of documents (e.g. a list of names)]</p>
+<p>if not os.path.exists('input.txt'):</p>
+<p>import urllib.request</p>
+<p>names_url = '[<a href="https://raw.githubusercontent.com/karpathy/makemore/988aa59/names.txt">https://raw.githubusercontent.com/karpathy/makemore/988aa59/names.txt</a>]'</p>
+<p>urllib.request.urlretrieve(names_url, 'input.txt')</p>
+<p>docs = [line.strip() for line in open('input.txt') if line.strip()]</p>
+<p>random.shuffle(docs)</p>
+<p>print(f\"num docs: \")</p>
+<p># Let there be a Tokenizer to translate strings to sequences of integers (\"tokens\") and back</p>
+<p>uchars = sorted(set(''.join(docs))) # unique characters in the dataset become token ids 0..n-1</p>
+<p>BOS = len(uchars) # token id for a special Beginning of Sequence (BOS) token</p>
+<p>vocab_size = len(uchars) + 1 # total number of unique tokens, +1 is for BOS</p>
+<p>print(f\"vocab size: \")</p>
+<p># Let there be Autograd to recursively apply the chain rule through a computation graph</p>
+<p>class Value:</p>
+<p>__slots__ = ('data', 'grad', '_children', '_op')</p>
+<p>def __init__(self, data, children=(), op=''):</p>
+<p>self.data, self.grad = data, 0</p>
+<p>self._children, self._op = children, op</p>
+<p>def __add__(self, other):</p>
+<p>other = other if isinstance(other, Value) else Value(other)</p>
+<p>return Value(self.data + other.data, (self, other), '+')</p>
+<p>def __mul__(self, other):</p>
+<p>other = other if isinstance(other, Value) else Value(other)</p>
+<p>return Value(self.data * other.data, (self, other), '*')</p>
+<p>def __pow__(self, other): return Value(self.data**other, (self,), f'p')</p>
+<p>def log(self): return Value(math.log(self.data), (self,), 'log')</p>
+<p>def exp(self): return Value(math.exp(self.data), (self,), 'exp')</p>
+<p>def relu(self): return Value(max(0, self.data), (self,), 'relu')</p>
+<p>def __neg__(self): return self * -1</p>
+<p>def __radd__(self, other): return self + other</p>
+<p>def __sub__(self, other): return self + (-other)</p>
+<p>def __rsub__(self, other): return other + (-self)</p>
+<p>def __rmul__(self, other): return self * other</p>
+<p>def __truediv__(self, other): return self * other**-1</p>
+<p>def __rtruediv__(self, other): return other * self**-1</p>
+<p>def backward(self):</p>
+<p>topo, visited, stack = [\, set(), (self, False)]</p>
+<p>while stack:</p>
+<p>v, proc = stack.pop()</p>
+<p>if not isinstance(v, Value) or v in visited: continue</p>
+<p>if proc:</p>
+<p>visited.add(v); topo.append(v)</p>
+<p>else:</p>
+<p>stack.append((v, True))</p>
+<p>for c in v._children: stack.append((c, False))</p>
+<p>self.grad = 1</p>
+<p>for v in reversed(topo):</p>
+<p>if v._op == '+':</p>
+<p>v._children[0.grad += v.grad]</p>
+<p>v._children[1.grad += v.grad]</p>
+<p>elif v._op == '*':</p>
+<p>v._children[0.grad += v._children\1.data * v.grad]</p>
+<p>v._children[1.grad += v._children\0.data * v.grad]</p>
+<p>elif v._op == 'dot':</p>
+<p>n = len(v._children) // 2</p>
+<p>for i in range(n):</p>
+<p>v._children[i.grad += v._children\n+i.data * v.grad]</p>
+<p>v._children[n+i.grad += v._children\i.data * v.grad]</p>
+<p>elif v._op == 'log': v._children[0.grad += (1.0/v._children\0.data) * v.grad]</p>
+<p>elif v._op == 'exp': v._children[0.grad += v.data * v.grad]</p>
+<p>elif v._op == 'relu': v._children[0.grad += (v.data &gt; 0) * v.grad]</p>
+<p>elif v._op[:1\ == 'p':]</p>
+<p>p = float(v._op[1:)]</p>
+<p>v._children[0.grad += (p * v._children\0.data**(p-1)) * v.grad]</p>
+<p>v._children = () # Prune graph</p>
+<p># Initialize the parameters, to store the knowledge of the model</p>
+<p>n_layer = 1     # depth of the transformer neural network (number of layers)</p>
+<p>n_embd = 16     # width of the network (embedding dimension)</p>
+<p>block_size = 16 # maximum context length of the attention window (note: the longest name is 15 characters)</p>
+<p>n_head = 4      # number of attention heads</p>
+<p>head_dim = n_embd // n_head # derived dimension of each head</p>
+<p>matrix = lambda nout, nin, std=0.08: [[Value(random.gauss(0, std)) for _ in range(nin)\ for _ in range(nout)]]</p>
+<p>state_dict = </p>
+<p>for i in range(n_layer):</p>
+<p>state_dict[f'layer.attn_wq'\ = matrix(n_embd, n_embd)]</p>
+<p>state_dict[f'layer.attn_wk'\ = matrix(n_embd, n_embd)]</p>
+<p>state_dict[f'layer.attn_wv'\ = matrix(n_embd, n_embd)]</p>
+<p>state_dict[f'layer.attn_wo'\ = matrix(n_embd, n_embd)]</p>
+<p>state_dict[f'layer.mlp_fc1'\ = matrix(4 * n_embd, n_embd)]</p>
+<p>state_dict[f'layer.mlp_fc2'\ = matrix(n_embd, 4 * n_embd)]</p>
+<p>params = [p for mat in state_dict.values() for row in mat for p in row\ # flatten params into a single list\Value]</p>
+<p>print(f\"num params: \")</p>
+<p># Define the model architecture: a function mapping tokens and parameters to logits over what comes next</p>
+<p># Follow GPT-2, blessed among the GPTs, with minor differences: layernorm -&gt; rmsnorm, no biases, GeLU -&gt; ReLU</p>
+<p>def dot(v1, v2):</p>
+<p>return Value(sum(x.data * y.data for x, y in zip(v1, v2)), tuple(v1) + tuple(v2), 'dot')</p>
+<p>def linear(x, w):</p>
+<p>return [dot(wo, x) for wo in w]</p>
+<p>def softmax(logits):</p>
+<p>max_val = max(val.data for val in logits)</p>
+<p>exps = [(val - max_val).exp() for val in logits]</p>
+<p>inv_total = sum(exps)**-1</p>
+<p>return [e * inv_total for e in exps]</p>
+<p>def rmsnorm(x):</p>
+<p>ms = sum(xi * xi for xi in x) / len(x)</p>
+<p>scale = (ms + 1e-5) ** -0.5</p>
+<p>return [xi * scale for xi in x]</p>
+<p>def gpt(token_id, pos_id, keys, values):</p>
+<p>tok_emb = state_dict['wte'\token_id\ # token embedding]</p>
+<p>pos_emb = state_dict['wpe'\pos_id\ # position embedding]</p>
+<p>x = [t + p for t, p in zip(tok_emb, pos_emb)\ # joint token and position embedding]</p>
+<p>x = rmsnorm(x) # note: not redundant due to backward pass via the residual connection</p>
+<p>for li in range(n_layer):</p>
+<p># 1) Multi-head Attention block</p>
+<p>x_residual = x</p>
+<p>x = rmsnorm(x)</p>
+<p>q = linear(x, state_dict[f'layer.attn_wq')]</p>
+<p>k = linear(x, state_dict[f'layer.attn_wk')]</p>
+<p>v = linear(x, state_dict[f'layer.attn_wv')]</p>
+<p>keys[li.append(k)]</p>
+<p>values[li.append(v)]</p>
+<p>x_attn = []</p>
+<p>for h in range(n_head):</p>
+<p>hs = h * head_dim</p>
+<p>q_h = q[hs:hs+head_dim]</p>
+<p>k_h = [ki[hs:hs+head_dim\ for ki in keys\li\]]</p>
+<p>v_h = [vi[hs:hs+head_dim\ for vi in values\li\]]</p>
+<p>attn_logits = [dot(q_h, k_h[t) / head_dim**0.5 for t in range(len(k_h))]]</p>
+<p>attn_weights = softmax(attn_logits)</p>
+<p>head_out = [dot(attn_weights, [v_h[t\j\ for t in range(len(v_h))]) for j in range(head_dim)]]</p>
+<p>x_attn.extend(head_out)</p>
+<p>x = linear(x_attn, state_dict[f'layer.attn_wo')]</p>
+<p>x = [a + b for a, b in zip(x, x_residual)]</p>
+<p># 2) MLP block</p>
+<p>x_residual = x</p>
+<p>x = rmsnorm(x)</p>
+<p>x = linear(x, state_dict[f'layer.mlp_fc1')]</p>
+<p>x = [xi.relu() for xi in x]</p>
+<p>x = linear(x, state_dict[f'layer.mlp_fc2')]</p>
+<p>x = [a + b for a, b in zip(x, x_residual)]</p>
+<p>logits = linear(x, state_dict['lm_head')]</p>
+<p>return logits</p>
+<p># Let there be Adam, the blessed optimizer and its buffers</p>
+<p>learning_rate, beta1, beta2, eps_adam = 0.01, 0.85, 0.99, 1e-8</p>
+<p>m = [0.0\ * len(params) # first moment buffer]</p>
+<p>v = [0.0\ * len(params) # second moment buffer]</p>
+<p># Repeat in sequence</p>
+<p>num_steps = 1000 # number of training steps</p>
+<p>for step in range(num_steps):</p>
+<p># Take single document, tokenize it, surround it with BOS special token on both sides</p>
+<p>doc = docs[step % len(docs)]</p>
+<p>tokens = [BOS\ + \uchars.index(ch) for ch in doc\ + \BOS]</p>
+<p>n = min(block_size, len(tokens) - 1)</p>
+<p># Forward through the model, accumulating the loss to keep the graph as light as possible</p>
+<p>keys, values = [[\ for _ in range(n_layer)], \[\ for _ in range(n_layer)]]</p>
+<p>loss = Value(0.0)</p>
+<p>for pos_id in range(n):</p>
+<p>token_id, target_id = tokens[pos_id\, tokens\pos_id + 1]</p>
+<p>logits = gpt(token_id, pos_id, keys, values)</p>
+<p>probs = softmax(logits)</p>
+<p>loss = loss + -probs[target_id.log()]</p>
+<p>loss = (1 / n) * loss</p>
+<p># Backward the loss, calculating the gradients with respect to all model parameters</p>
+<p>loss.backward()</p>
+<p>keys = values = None</p>
+<p># Adam optimizer update: update the model parameters based on the corresponding gradients</p>
+<p>lr_t = learning_rate * (1 - step / num_steps)</p>
+<p>b1t, b2t = 1 - beta1**(step + 1), 1 - beta2**(step + 1)</p>
+<p>for i, p in enumerate(params):</p>
+<p>g = p.grad</p>
+<p>m[i\ = beta1 * m\i\ + (1 - beta1) * g]</p>
+<p>v[i\ = beta2 * v\i\ + (1 - beta2) * g * g]</p>
+<p>p.data -= lr_t * (m[i\/b1t) / ((v\i\/b2t)**0.5 + eps_adam)]</p>
+<p>p.grad = 0</p>
+<p>print(f\"step  /  | loss \", end='\r')</p>
+<p># Inference: may the model babble back to us</p>
+<p>temperature = 0.5 # in (0, 1\, control the \"creativity\" of generated text, low to high]</p>
+<p>print(\"\n--- inference (new, hallucinated names) ---\")</p>
+<p>for sample_idx in range(20):</p>
+<p>keys, values = [[\ for _ in range(n_layer)], \[\ for _ in range(n_layer)]]</p>
+<p>token_id = BOS</p>
+<p>sample = []</p>
+<p>for pos_id in range(block_size):</p>
+<p>logits = gpt(token_id, pos_id, keys, values)</p>
+<p>probs = softmax([l / temperature for l in logits)]</p>
+<p>token_id = random.choices(range(vocab_size), weights=[p.data for p in probs)\0]</p>
+<p>if token_id == BOS:</p>
+<p>break</p>
+<p>sample.append(uchars[token_id)]</p>
+<p>print(f\"sample : \")</p>
+<p>Best,</p>
+<p>Emmett</p>
 <p>\"Aster for 8 iterations, minimizing memory, and got this program which takes up 35 MB instead of the original 80 MB. I recommend trying out a few simpler mechanims than Aster to compare, like running Codex in a loop or OpenEvolve. Seems to mainly be making optimizations rather than fundamentally changing the algorithm though.\"</p>
 <p>\"\"\"</p>
 <p>The most atomic way to train and run inference for a GPT in pure, dependency-free Python.</p>
