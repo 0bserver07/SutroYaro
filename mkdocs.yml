@@ -173,6 +173,7 @@ nav:
   - Sessions:
       - Overview: sessions/index.md
       - "Session 1: Weekly Catch-Up & DMC": sessions/sesh-1.md
+      - "Meeting #9 (Yaroslav)": sessions/meeting-9.md
   - Changelog: changelog.md
 
 extra_css:
