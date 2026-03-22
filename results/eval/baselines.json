@@ -1,0 +1,320 @@
+{
+  "eval_config": {
+    "challenge": "sparse-parity",
+    "n_bits": 20,
+    "k_sparse": 3,
+    "metric": "dmc",
+    "budget": 16,
+    "n_episodes": 5,
+    "seeds": [
+      42,
+      123,
+      456,
+      789,
+      1337
+    ]
+  },
+  "total_time_s": 2.17,
+  "results": [
+    {
+      "agent": "RandomAgent",
+      "n_episodes": 5,
+      "mean_reward": 9.161,
+      "std_reward": 5.8393,
+      "min_reward": 1.0664,
+      "max_reward": 15.7291,
+      "mean_discovered": 3.8,
+      "all_methods_found": [
+        "fourier",
+        "gf2",
+        "km",
+        "sgd",
+        "smt"
+      ],
+      "best_methods": [
+        "gf2",
+        "gf2",
+        "gf2",
+        "sgd",
+        "gf2"
+      ],
+      "best_scores": [
+        8607.4,
+        8607.4,
+        8607.4,
+        1278460.3,
+        8607.4
+      ],
+      "episodes": [
+        {
+          "total_reward": 1.0664,
+          "steps": 16,
+          "best_method": "gf2",
+          "best_score": 8607.4,
+          "methods_discovered": [
+            "gf2",
+            "sgd",
+            "smt",
+            "km",
+            "fourier"
+          ],
+          "n_discovered": 5
+        },
+        {
+          "total_reward": 15.7291,
+          "steps": 16,
+          "best_method": "gf2",
+          "best_score": 8607.4,
+          "methods_discovered": [
+            "fourier",
+            "km",
+            "smt",
+            "gf2"
+          ],
+          "n_discovered": 4
+        },
+        {
+          "total_reward": 10.1198,
+          "steps": 16,
+          "best_method": "gf2",
+          "best_score": 8607.4,
+          "methods_discovered": [
+            "sgd",
+            "gf2",
+            "fourier"
+          ],
+          "n_discovered": 3
+        },
+        {
+          "total_reward": 3.9337,
+          "steps": 16,
+          "best_method": "sgd",
+          "best_score": 1278460.3,
+          "methods_discovered": [
+            "smt",
+            "sgd"
+          ],
+          "n_discovered": 2
+        },
+        {
+          "total_reward": 14.956,
+          "steps": 16,
+          "best_method": "gf2",
+          "best_score": 8607.4,
+          "methods_discovered": [
+            "smt",
+            "sgd",
+            "gf2",
+            "km",
+            "fourier"
+          ],
+          "n_discovered": 5
+        }
+      ]
+    },
+    {
+      "agent": "GreedyAgent",
+      "n_episodes": 5,
+      "mean_reward": 10.2098,
+      "std_reward": 0.0,
+      "min_reward": 10.2098,
+      "max_reward": 10.2098,
+      "mean_discovered": 5.0,
+      "all_methods_found": [
+        "fourier",
+        "gf2",
+        "km",
+        "sgd",
+        "smt"
+      ],
+      "best_methods": [
+        "gf2",
+        "gf2",
+        "gf2",
+        "gf2",
+        "gf2"
+      ],
+      "best_scores": [
+        8607.4,
+        8607.4,
+        8607.4,
+        8607.4,
+        8607.4
+      ],
+      "episodes": [
+        {
+          "total_reward": 10.2098,
+          "steps": 16,
+          "best_method": "gf2",
+          "best_score": 8607.4,
+          "methods_discovered": [
+            "sgd",
+            "gf2",
+            "km",
+            "smt",
+            "fourier"
+          ],
+          "n_discovered": 5
+        },
+        {
+          "total_reward": 10.2098,
+          "steps": 16,
+          "best_method": "gf2",
+          "best_score": 8607.4,
+          "methods_discovered": [
+            "sgd",
+            "gf2",
+            "km",
+            "smt",
+            "fourier"
+          ],
+          "n_discovered": 5
+        },
+        {
+          "total_reward": 10.2098,
+          "steps": 16,
+          "best_method": "gf2",
+          "best_score": 8607.4,
+          "methods_discovered": [
+            "sgd",
+            "gf2",
+            "km",
+            "smt",
+            "fourier"
+          ],
+          "n_discovered": 5
+        },
+        {
+          "total_reward": 10.2098,
+          "steps": 16,
+          "best_method": "gf2",
+          "best_score": 8607.4,
+          "methods_discovered": [
+            "sgd",
+            "gf2",
+            "km",
+            "smt",
+            "fourier"
+          ],
+          "n_discovered": 5
+        },
+        {
+          "total_reward": 10.2098,
+          "steps": 16,
+          "best_method": "gf2",
+          "best_score": 8607.4,
+          "methods_discovered": [
+            "sgd",
+            "gf2",
+            "km",
+            "smt",
+            "fourier"
+          ],
+          "n_discovered": 5
+        }
+      ]
+    },
+    {
+      "agent": "OracleAgent",
+      "n_episodes": 5,
+      "mean_reward": 0.8864,
+      "std_reward": 0.0,
+      "min_reward": 0.8864,
+      "max_reward": 0.8864,
+      "mean_discovered": 5.0,
+      "all_methods_found": [
+        "fourier",
+        "gf2",
+        "km",
+        "sgd",
+        "smt"
+      ],
+      "best_methods": [
+        "gf2",
+        "gf2",
+        "gf2",
+        "gf2",
+        "gf2"
+      ],
+      "best_scores": [
+        8607.4,
+        8607.4,
+        8607.4,
+        8607.4,
+        8607.4
+      ],
+      "episodes": [
+        {
+          "total_reward": 0.8864,
+          "steps": 16,
+          "best_method": "gf2",
+          "best_score": 8607.4,
+          "methods_discovered": [
+            "gf2",
+            "km",
+            "smt",
+            "sgd",
+            "fourier"
+          ],
+          "n_discovered": 5
+        },
+        {
+          "total_reward": 0.8864,
+          "steps": 16,
+          "best_method": "gf2",
+          "best_score": 8607.4,
+          "methods_discovered": [
+            "gf2",
+            "km",
+            "smt",
+            "sgd",
+            "fourier"
+          ],
+          "n_discovered": 5
+        },
+        {
+          "total_reward": 0.8864,
+          "steps": 16,
+          "best_method": "gf2",
+          "best_score": 8607.4,
+          "methods_discovered": [
+            "gf2",
+            "km",
+            "smt",
+            "sgd",
+            "fourier"
+          ],
+          "n_discovered": 5
+        },
+        {
+          "total_reward": 0.8864,
+          "steps": 16,
+          "best_method": "gf2",
+          "best_score": 8607.4,
+          "methods_discovered": [
+            "gf2",
+            "km",
+            "smt",
+            "sgd",
+            "fourier"
+          ],
+          "n_discovered": 5
+        },
+        {
+          "total_reward": 0.8864,
+          "steps": 16,
+          "best_method": "gf2",
+          "best_score": 8607.4,
+          "methods_discovered": [
+            "gf2",
+            "km",
+            "smt",
+            "sgd",
+            "fourier"
+          ],
+          "n_discovered": 5
+        }
+      ]
+    }
+  ]
+}
