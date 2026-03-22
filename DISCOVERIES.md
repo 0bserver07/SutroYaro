@@ -139,6 +139,26 @@
 - **RL bit querying achieves theoretical minimum inference reads**: k reads per prediction, ARD=1. Value-blind state (track which bits queried, not values) was the key to making Q-learning converge. [exp_rl]
 - **Decision trees fail on parity**: best is ExtraTrees at 92.5% (n=20/k=3). Greedy information-gain splitting fails because individual bits have zero marginal correlation. [exp_decision_tree]
 
+### DMC (Data Movement Complexity) Metric
+
+- **DMC and ARD rankings disagree**: GF2 wins DMC on parity (8,607) despite KM winning ARD (92). GF2 accesses 5x fewer total floats (860 vs 4,420). DMC = sum(size * sqrt(stack_distance)) penalizes total data movement, not just average distance. [exp_dmc_optimize]
+- **KM-min (1 influence sample) achieves DMC 3,578**: 58% below GF2 baseline, 83% below standard KM. Parity influence is deterministic (exactly 0 or 1), so a single sample per bit suffices. All stack distances are 20 floats (fits in L1). 5/5 seeds correct. [exp_dmc_optimize]
+- **GF2 harness DMC is artificially low**: the harness tracks only 3 coarse operations (write matrix, read matrix, write solution). With fine-grained tracking of O(n^2) row operations, GF2's true DMC is 189,056 (22x higher than reported 8,607). [exp_dmc_optimize]
+- **Fourier DMC is 78 billion**: 9 million times worse than GF2, despite being fast in wall time (0.066s). Reads the full dataset for each of C(20,3)=1,140 subsets. [exp_dmc_optimize]
+- **SGD on sparse sum has the lowest DMC of any method on any challenge** (2,862). Sum has first-order structure that gradient descent exploits in 1 epoch. [exp_dmc_optimize]
+
+DMC baseline rankings (sparse parity, n=20, k=3):
+
+| Method | ARD | DMC | Total Floats |
+|--------|-----|-----|-------------|
+| KM-min (1 sample) | 20 | 3,578 | 1,600 |
+| KM-inplace | 30 | 4,319 | 1,200 |
+| GF2 (harness) | 420 | 8,607 | 860 |
+| KM (5 samples) | 92 | 20,633 | 4,420 |
+| SMT | 3,360 | 348,336 | 6,720 |
+| SGD | 8,504 | 1,278,460 | 24,470 |
+| Fourier | 11,980,500 | 78,140,662,852 | 23,961,000 |
+
 ### Exploratory
 7. **FF on deeper networks**: Does FF's ARD advantage appear with 5-10 layer networks on a simpler task?
 8. ~~**Predictive Coding on sparse parity**~~: ANSWERED — Failed, 18x worse ARD than backprop. Generative model is harder than discriminative for parity. [exp_predictive_coding]
@@ -187,6 +207,7 @@
 | exp_mdl | 03-06 | MDL finds secret | SUCCESS: noise-robust | 0 bits vs 499 bits |
 | exp_gf2_noise | 03-09 | GF(2) handles noise | SUCCESS: robust solver | 100% at 10% noise, fails at 20% |
 | exp_egd | 03-16 | EGD eliminates grokking plateau | PARTIAL: 2x fewer epochs but SVD overhead | 14 vs 36 ep to 90%, 12% slower wall |
+| exp_dmc_optimize | 03-22 | Reduce DMC below GF2 baseline | SUCCESS: KM-min DMC 3,578 (-58%) | 1 sample suffices, GF2 under-counted |
 
 ---
 

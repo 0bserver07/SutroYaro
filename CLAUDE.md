@@ -25,12 +25,13 @@ This is a research workspace for the **Sutro Group**, a study group exploring en
 
 ## Current Best Methods
 
-| Method | Time (n=20/k=3) | ARD | Notes |
-|--------|-----------------|-----|-------|
-| GF(2) Gaussian Elimination | 509 us | ~500 | 240x faster than SGD, k-independent |
-| KM Influence Estimation | 0.001-0.006s | 1,585 | 724x better ARD than Fourier |
-| SMT Backtracking | 0.002s | ~2,000 | Constraint satisfaction approach |
-| SGD (baseline) | 0.12s | 17,976 | LR=0.1, batch=32, hidden=200 |
+| Method | Time (n=20/k=3) | ARD | DMC | Notes |
+|--------|-----------------|-----|-----|-------|
+| KM-min (1 sample) | ~0.001s | 20 | 3,578 | New DMC leader. 1 influence sample suffices for parity. |
+| GF(2) Gaussian Elimination | 509 us | ~420 | 8,607 | 240x faster than SGD, k-independent. Harness under-counts; true DMC ~189K. |
+| KM Influence Estimation | 0.001-0.006s | 92 | 20,633 | ARD leader. 5 influence samples per bit. |
+| SMT Backtracking | 0.002s | 3,360 | 348,336 | Constraint satisfaction approach |
+| SGD (baseline) | 0.12s | 8,504 | 1,278,460 | LR=0.1, batch=32, hidden=200 |
 
 GF(2) solves n=100/k=10 in 703 microseconds. Parity is linear over the binary field -- the neural network was solving an easy problem the hard way.
 
