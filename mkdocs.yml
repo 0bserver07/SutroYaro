@@ -170,6 +170,9 @@ nav:
       - Overview: catchups/index.md
       - 2026-03-22: catchups/2026-03-22.md
       - Meeting 10 Report: catchups/meeting-10-report.md
+  - Sessions:
+      - Overview: sessions/index.md
+      - "Session 1: Weekly Catch-Up & DMC": sessions/sesh-1.md
   - Changelog: changelog.md
 
 extra_css:
