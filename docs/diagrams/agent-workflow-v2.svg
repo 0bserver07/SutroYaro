@@ -1,0 +1,193 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1050" viewBox="0 0 900 1050" font-family="Helvetica, Arial, sans-serif">
+  <rect width="900" height="1050" fill="white"/>
+
+  <defs>
+    <marker id="ab" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#6482b9"/>
+    </marker>
+    <marker id="ag" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#82b366"/>
+    </marker>
+    <marker id="ao" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#e65100"/>
+    </marker>
+    <marker id="ar" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#c00000"/>
+    </marker>
+  </defs>
+
+  <!-- ===== ROW 0: Human ===== -->
+  <rect x="360" y="15" width="180" height="45" rx="10" fill="#fff2cc" stroke="#d6b656" stroke-width="1.5"/>
+  <text x="450" y="43" text-anchor="middle" font-size="15" font-weight="bold" fill="#333">Human (You)</text>
+  <line x1="450" y1="60" x2="450" y2="97" stroke="#6482b9" stroke-width="1.5" marker-end="url(#ab)"/>
+  <text x="555" y="83" font-size="11" fill="#446299">writes specs + initial facts</text>
+
+  <!-- ===== ROW 1: GitHub Repo ===== -->
+  <rect x="30" y="100" width="840" height="205" rx="12" fill="#f0f4ff" stroke="#6c8ebf" stroke-width="1.5"/>
+  <text x="230" y="120" font-size="13" font-weight="bold" fill="#4472c4">GitHub Repo (SutroYaro)</text>
+
+  <rect x="50" y="135" width="145" height="55" rx="8" fill="#e1d5e7" stroke="#9673a6"/>
+  <text x="122" y="155" text-anchor="middle" font-size="10" font-weight="bold" fill="#333">CLAUDE.md</text>
+  <text x="122" y="168" text-anchor="middle" font-size="9" fill="#555">problem context</text>
+  <text x="122" y="180" text-anchor="middle" font-size="9" fill="#555">constraints, config</text>
+
+  <rect x="210" y="135" width="145" height="55" rx="8" fill="#e1d5e7" stroke="#9673a6"/>
+  <text x="282" y="155" text-anchor="middle" font-size="10" font-weight="bold" fill="#333">DISCOVERIES.md</text>
+  <text x="282" y="168" text-anchor="middle" font-size="9" fill="#555">proven facts</text>
+  <text x="282" y="180" text-anchor="middle" font-size="9" fill="#555">known-bad configs</text>
+
+  <rect x="50" y="205" width="145" height="55" rx="8" fill="#e1d5e7" stroke="#9673a6"/>
+  <text x="122" y="225" text-anchor="middle" font-size="10" font-weight="bold" fill="#333">LAB.md</text>
+  <text x="122" y="238" text-anchor="middle" font-size="9" fill="#555">experiment protocol</text>
+  <text x="122" y="250" text-anchor="middle" font-size="9" fill="#555">two-phase results</text>
+
+  <rect x="210" y="205" width="145" height="55" rx="8" fill="#e1d5e7" stroke="#9673a6"/>
+  <text x="282" y="225" text-anchor="middle" font-size="10" font-weight="bold" fill="#333">search_space.yaml</text>
+  <text x="282" y="240" text-anchor="middle" font-size="9" fill="#555">16 methods</text>
+
+  <!-- .claude/ infrastructure layer -->
+  <rect x="385" y="128" width="215" height="140" rx="8" fill="#fce4ec" stroke="#c00000" stroke-width="1.2"/>
+  <text x="492" y="148" text-anchor="middle" font-size="11" font-weight="bold" fill="#c00000">.claude/ (Claude Code)</text>
+
+  <rect x="400" y="158" width="185" height="22" rx="4" fill="#ffcdd2" stroke="#c00000" stroke-width="0.8"/>
+  <text x="492" y="174" text-anchor="middle" font-size="9" fill="#333">session-start hook (status)</text>
+
+  <rect x="400" y="186" width="185" height="22" rx="4" fill="#ffcdd2" stroke="#c00000" stroke-width="0.8"/>
+  <text x="492" y="202" text-anchor="middle" font-size="9" fill="#333">security-guard hook (locked files)</text>
+
+  <rect x="400" y="214" width="185" height="22" rx="4" fill="#ffcdd2" stroke="#c00000" stroke-width="0.8"/>
+  <text x="492" y="230" text-anchor="middle" font-size="9" fill="#333">rules + skills (workflows)</text>
+
+  <rect x="400" y="242" width="185" height="22" rx="4" fill="#ffcdd2" stroke="#c00000" stroke-width="0.8"/>
+  <text x="492" y="258" text-anchor="middle" font-size="9" fill="#333">session-end hook (summary)</text>
+
+  <!-- Automation Scripts -->
+  <rect x="625" y="128" width="230" height="140" rx="8" fill="#f5f5f5" stroke="#999"/>
+  <text x="740" y="148" text-anchor="middle" font-size="11" font-weight="bold" fill="#666">Automation</text>
+
+  <rect x="640" y="160" width="200" height="22" rx="4" fill="#d5e8d4" stroke="#82b366"/>
+  <text x="740" y="176" text-anchor="middle" font-size="9" fill="#333">sync_telegram.ts</text>
+
+  <rect x="640" y="188" width="200" height="22" rx="4" fill="#d5e8d4" stroke="#82b366"/>
+  <text x="740" y="204" text-anchor="middle" font-size="9" fill="#333">sync_google_docs.py</text>
+
+  <rect x="640" y="216" width="200" height="22" rx="4" fill="#d5e8d4" stroke="#82b366"/>
+  <text x="740" y="232" text-anchor="middle" font-size="9" fill="#333">weekly catch-up generator</text>
+
+  <rect x="640" y="244" width="200" height="22" rx="4" fill="#d5e8d4" stroke="#82b366"/>
+  <text x="740" y="260" text-anchor="middle" font-size="9" fill="#333">session transcriber (MLX whisper)</text>
+
+  <!-- ===== Arrow: Repo -> Lead Agent ===== -->
+  <line x1="280" y1="305" x2="280" y2="348" stroke="#6482b9" stroke-width="1.5" marker-end="url(#ab)"/>
+  <text x="290" y="333" font-size="11" fill="#446299">reads docs first</text>
+
+  <path d="M 492 268 L 492 330 Q 492 345 460 345 L 420 350" stroke="#c00000" stroke-width="1.2" fill="none" marker-end="url(#ar)"/>
+  <text x="500" y="320" font-size="10" fill="#c00000">hooks fire</text>
+
+  <path d="M 740 268 L 740 330 Q 740 350 680 350 L 530 350" stroke="#82b366" stroke-width="1.2" fill="none" marker-end="url(#ag)"/>
+  <text x="750" y="318" font-size="10" fill="#446299">feeds context</text>
+
+  <!-- ===== ROW 2: Lead Agent ===== -->
+  <rect x="220" y="350" width="310" height="55" rx="10" fill="#ffe6cc" stroke="#d79b00" stroke-width="1.5"/>
+  <text x="375" y="373" text-anchor="middle" font-size="14" font-weight="bold" fill="#333">Lead Agent</text>
+  <text x="375" y="392" text-anchor="middle" font-size="11" fill="#555">(Claude Code / Gemini / Codex)</text>
+
+  <!-- ===== Two paths: Experiment Loop OR Eval Environment ===== -->
+  <line x1="310" y1="405" x2="260" y2="438" stroke="#6482b9" stroke-width="1.5" marker-end="url(#ab)"/>
+  <text x="220" y="428" font-size="10" fill="#446299">experiment loop</text>
+
+  <line x1="440" y1="405" x2="620" y2="438" stroke="#82b366" stroke-width="1.5" marker-end="url(#ag)"/>
+  <text x="560" y="428" font-size="10" fill="#82b366">eval environment</text>
+
+  <!-- ===== LEFT PATH: Experiment Loop ===== -->
+
+  <!-- Workflow Steps -->
+  <rect x="20" y="445" width="140" height="45" rx="8" fill="#fff2cc" stroke="#d6b656"/>
+  <text x="90" y="463" text-anchor="middle" font-size="9" font-weight="bold" fill="#333">1. Read docs</text>
+  <text x="90" y="477" text-anchor="middle" font-size="8" fill="#555">CLAUDE.md, DISCOVERIES</text>
+
+  <rect x="175" y="445" width="140" height="45" rx="8" fill="#fff2cc" stroke="#d6b656"/>
+  <text x="245" y="463" text-anchor="middle" font-size="9" font-weight="bold" fill="#333">2. Pick hypothesis</text>
+  <text x="245" y="477" text-anchor="middle" font-size="8" fill="#555">TODO.md, questions.yaml</text>
+
+  <rect x="330" y="445" width="140" height="45" rx="8" fill="#fff2cc" stroke="#d6b656"/>
+  <text x="400" y="463" text-anchor="middle" font-size="9" font-weight="bold" fill="#333">3. Dispatch agents</text>
+  <text x="400" y="477" text-anchor="middle" font-size="8" fill="#555">parallel, isolated</text>
+
+  <line x1="160" y1="467" x2="173" y2="467" stroke="#6482b9" stroke-width="1.2" marker-end="url(#ab)"/>
+  <line x1="315" y1="467" x2="328" y2="467" stroke="#6482b9" stroke-width="1.2" marker-end="url(#ab)"/>
+
+  <!-- Sub-agents -->
+  <line x1="370" y1="490" x2="140" y2="530" stroke="#6482b9" stroke-width="1" marker-end="url(#ab)"/>
+  <line x1="400" y1="490" x2="260" y2="530" stroke="#6482b9" stroke-width="1" marker-end="url(#ab)"/>
+  <line x1="430" y1="490" x2="380" y2="530" stroke="#6482b9" stroke-width="1" marker-end="url(#ab)"/>
+
+  <rect x="80" y="535" width="110" height="35" rx="6" fill="#f8cecc" stroke="#b85450"/>
+  <text x="135" y="557" text-anchor="middle" font-size="9" fill="#333">Sub-agent 1</text>
+
+  <rect x="210" y="535" width="110" height="35" rx="6" fill="#f8cecc" stroke="#b85450"/>
+  <text x="265" y="557" text-anchor="middle" font-size="9" fill="#333">Sub-agent 2</text>
+
+  <rect x="340" y="535" width="110" height="35" rx="6" fill="#f8cecc" stroke="#b85450"/>
+  <text x="395" y="557" text-anchor="middle" font-size="9" fill="#333">Sub-agent N</text>
+
+  <!-- Two-phase outputs -->
+  <rect x="80" y="595" width="170" height="35" rx="6" fill="#c8e6c9" stroke="#82b366"/>
+  <text x="165" y="610" text-anchor="middle" font-size="9" font-weight="bold" fill="#333">Phase 1: results.json</text>
+  <text x="165" y="623" text-anchor="middle" font-size="8" fill="#555">raw numbers, config, env</text>
+
+  <rect x="270" y="595" width="170" height="35" rx="6" fill="#c8e6c9" stroke="#82b366"/>
+  <text x="355" y="610" text-anchor="middle" font-size="9" font-weight="bold" fill="#333">Phase 2: findings.md</text>
+  <text x="355" y="623" text-anchor="middle" font-size="8" fill="#555">hypothesis, analysis</text>
+
+  <line x1="135" y1="570" x2="165" y2="593" stroke="#6482b9" stroke-width="1" marker-end="url(#ab)"/>
+  <line x1="265" y1="570" x2="265" y2="593" stroke="#6482b9" stroke-width="1" marker-end="url(#ab)"/>
+  <line x1="395" y1="570" x2="355" y2="593" stroke="#6482b9" stroke-width="1" marker-end="url(#ab)"/>
+
+  <!-- ===== RIGHT PATH: Eval Environment ===== -->
+  <rect x="540" y="445" width="330" height="185" rx="10" fill="#e8f5e9" stroke="#82b366" stroke-width="1.5"/>
+  <text x="705" y="465" text-anchor="middle" font-size="12" font-weight="bold" fill="#2e7d32">Eval Environment</text>
+  <text x="705" y="480" text-anchor="middle" font-size="9" fill="#555">SutroYaro/SparseParity-v0</text>
+
+  <rect x="560" y="492" width="140" height="28" rx="4" fill="#c8e6c9" stroke="#82b366"/>
+  <text x="630" y="510" text-anchor="middle" font-size="9" fill="#333">16 methods (actions)</text>
+
+  <rect x="710" y="492" width="140" height="28" rx="4" fill="#c8e6c9" stroke="#82b366"/>
+  <text x="780" y="510" text-anchor="middle" font-size="9" fill="#333">3 challenges</text>
+
+  <rect x="560" y="528" width="140" height="28" rx="4" fill="#c8e6c9" stroke="#82b366"/>
+  <text x="630" y="546" text-anchor="middle" font-size="9" fill="#333">DMC / ARD metrics</text>
+
+  <rect x="710" y="528" width="140" height="28" rx="4" fill="#c8e6c9" stroke="#82b366"/>
+  <text x="780" y="546" text-anchor="middle" font-size="9" fill="#333">72-pt grading rubric</text>
+
+  <rect x="560" y="564" width="290" height="28" rx="4" fill="#fff9c4" stroke="#f9a825"/>
+  <text x="705" y="582" text-anchor="middle" font-size="9" fill="#333">Adapters: Anthropic tools, PrimeIntellect, HuggingFace</text>
+
+  <rect x="560" y="598" width="290" height="28" rx="4" fill="#e3f2fd" stroke="#42a5f5"/>
+  <text x="705" y="616" text-anchor="middle" font-size="9" fill="#333">Answer key: 36 experiments as ground truth</text>
+
+  <!-- ===== ROW 5: Feedback loop ===== -->
+  <rect x="180" y="660" width="540" height="35" rx="8" fill="#dae8fc" stroke="#6c8ebf" stroke-width="1.5"/>
+  <text x="450" y="682" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">DISCOVERIES.md + research/log.jsonl</text>
+
+  <line x1="260" y1="630" x2="350" y2="658" stroke="#6482b9" stroke-width="1.2" marker-end="url(#ab)"/>
+  <line x1="705" y1="630" x2="550" y2="658" stroke="#82b366" stroke-width="1.2" marker-end="url(#ag)"/>
+
+  <!-- Feedback arrow back to top -->
+  <path d="M 450 695 L 450 720 Q 450 735 435 735 L 20 735 Q 8 735 8 720 L 8 170 Q 8 155 23 155 L 45 155" stroke="#e65100" stroke-width="1.8" fill="none" stroke-dasharray="6,3" marker-end="url(#ao)"/>
+  <rect x="30" y="722" width="270" height="20" rx="4" fill="white" fill-opacity="0.9"/>
+  <text x="165" y="736" text-anchor="middle" font-size="10" font-weight="bold" fill="#e65100">feeds back into DISCOVERIES.md</text>
+
+  <!-- ===== Legend ===== -->
+  <rect x="30" y="770" width="840" height="60" rx="8" fill="#fafafa" stroke="#ccc"/>
+  <text x="50" y="790" font-size="10" font-weight="bold" fill="#333">Legend:</text>
+  <rect x="50" y="798" width="12" height="12" fill="#e1d5e7" stroke="#9673a6"/>
+  <text x="68" y="809" font-size="9" fill="#333">Core docs (all agents read)</text>
+  <rect x="200" y="798" width="12" height="12" fill="#ffcdd2" stroke="#c00000"/>
+  <text x="218" y="809" font-size="9" fill="#333">.claude/ hooks + rules (Claude Code only)</text>
+  <rect x="420" y="798" width="12" height="12" fill="#d5e8d4" stroke="#82b366"/>
+  <text x="438" y="809" font-size="9" fill="#333">Automation + sync scripts</text>
+  <rect x="610" y="798" width="12" height="12" fill="#e8f5e9" stroke="#82b366"/>
+  <text x="628" y="809" font-size="9" fill="#333">Eval environment (Gymnasium)</text>
+</svg>
