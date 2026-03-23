@@ -2,6 +2,23 @@
 
 All notable changes to this research workspace.
 
+## [0.23.0] - 2026-03-23
+
+### GrokFast v2 experiment (PR #51, SethTS)
+
+First external contribution. Seth tested GrokFast across 3 difficulty regimes (75 total runs, 5 seeds each):
+
+- **WIN on n=20/k=5**: aggressive GrokFast (a=0.98, l=2.0) gives 2.5x fewer epochs (29 vs 73) and 2.3x faster wall time than SGD. The EMA accumulates the exponentially weak k-th order gradient signal.
+- **LOSS on n=30/k=3**: 40% solve rate. More noise dimensions means the EMA amplifies noise.
+- **NEUTRAL on n=20/k=3**: mild settings match SGD. Confirms exp4 finding that GrokFast is counterproductive when hyperparams are already correct.
+
+The critical variable is interaction order (k), not input dimension (n). Mild GrokFast (a=0.95, l=1.0) was never worse than SGD across any regime.
+
+- Findings: `findings/exp_grokfast_v2.md`
+- Experiment: `src/sparse_parity/experiments/exp_grokfast_v2.py`
+
+---
+
 ## [0.22.0] - 2026-03-22
 
 ### DMC baseline sweep, optimization, and infrastructure (Issues #15-#22)
