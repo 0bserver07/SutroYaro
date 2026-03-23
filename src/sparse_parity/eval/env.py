@@ -5,7 +5,7 @@ See README.md in this directory for the full interface specification.
 
 Usage:
     import gymnasium as gym
-    import sparse_parity.eval.env  # triggers registration
+    import sparse_parity.eval  # triggers registration (via __init__.py)
 
     env = gym.make("SutroYaro/SparseParity-v0",
         challenge="sparse-parity", n_bits=20, k_sparse=3,
@@ -16,46 +16,65 @@ Usage:
 """
 
 import math
-import signal
 import numpy as np
 import gymnasium
 from gymnasium import spaces
 
+from sparse_parity.eval.backends import get_backend
+from sparse_parity.eval import registry
+
 
 # ---------------------------------------------------------------------------
-# Fixed method index mapping (from search_space.yaml, v0)
+# Backward-compatible module-level names.
+#
+# Other modules (baselines.py, run_eval.py) import METHOD_MAP, NUM_METHODS,
+# and CHALLENGE_MAP from here.  These are now thin wrappers around the
+# registry so that newly registered challenges/methods are visible
+# everywhere without editing this file.
 # ---------------------------------------------------------------------------
-METHOD_MAP = [
-    "sgd",              # 0
-    "perlayer",         # 1
-    "sign_sgd",         # 2
-    "curriculum",       # 3
-    "forward_forward",  # 4
-    "gf2",              # 5
-    "km",               # 6
-    "smt",              # 7
-    "fourier",          # 8
-    "lasso",            # 9
-    "mdl",              # 10
-    "mutual_info",      # 11
-    "random_proj",      # 12
-    "rl",               # 13
-    "genetic_prog",     # 14
-    "evolutionary",     # 15
-]
 
-NUM_METHODS = len(METHOD_MAP)
+class _RegistryListProxy:
+    """List-like proxy that always reflects the current registry state.
 
-CHALLENGE_MAP = ["sparse-parity", "sparse-sum", "sparse-and"]
+    Supports indexing, ``in``, ``len``, ``index``, iteration, and
+    ``list()`` conversion so existing call sites keep working.
+    """
+
+    def __init__(self, list_fn):
+        self._list_fn = list_fn
+
+    def __getitem__(self, idx):
+        return self._list_fn()[idx]
+
+    def __contains__(self, item):
+        return item in self._list_fn()
+
+    def __len__(self):
+        return len(self._list_fn())
+
+    def __iter__(self):
+        return iter(self._list_fn())
+
+    def __repr__(self):
+        return repr(self._list_fn())
+
+    def index(self, value):
+        return self._list_fn().index(value)
+
+
+METHOD_MAP = _RegistryListProxy(registry.list_methods)
+CHALLENGE_MAP = _RegistryListProxy(registry.list_challenges)
 METRIC_MAP = ["ard", "dmc"]
 
+# NUM_METHODS: computed from the registry.  External consumers that do
+# ``from env import NUM_METHODS`` at import time get a snapshot; internal
+# uses in the env classes call ``len(registry.list_methods())`` instead.
+NUM_METHODS = 0  # will be set by __init__.py after default_registry runs
 
-class _HarnessTimeout(Exception):
-    """Raised when a harness call exceeds its time budget."""
 
-
-def _timeout_handler(signum, frame):
-    raise _HarnessTimeout("Harness call timed out")
+def _num_methods():
+    """Live method count from the registry."""
+    return len(registry.list_methods())
 
 
 class SutroYaroEnv(gymnasium.Env):
@@ -79,6 +98,7 @@ class SutroYaroEnv(gymnasium.Env):
         budget=20,
         seed=42,
         harness_timeout=10.0,
+        backend="local",
         render_mode=None,
     ):
         super().__init__()
@@ -95,13 +115,24 @@ class SutroYaroEnv(gymnasium.Env):
         self.harness_timeout = harness_timeout
         self.render_mode = render_mode
 
+        # Compute backend
+        if isinstance(backend, str):
+            self.backend = get_backend(backend, timeout=harness_timeout) if backend == "local" else get_backend(backend)
+        else:
+            # Accept a pre-built HarnessBackend instance
+            self.backend = backend
+
         # Indices for observation encoding
         self._challenge_idx = CHALLENGE_MAP.index(challenge)
         self._metric_idx = METRIC_MAP.index(metric)
 
+        # Number of methods / challenges from the registry (live)
+        n_methods = _num_methods()
+        n_challenges = len(registry.list_challenges())
+
         # ---- Spaces (match README spec exactly) ----
         self.observation_space = spaces.Dict({
-            "challenge": spaces.Discrete(3),
+            "challenge": spaces.Discrete(n_challenges),
             "n_bits": spaces.Discrete(101, start=3),
             "k_sparse": spaces.Discrete(11, start=3),
             "metric": spaces.Discrete(2),
@@ -110,9 +141,9 @@ class SutroYaroEnv(gymnasium.Env):
             ),
             "budget_remaining": spaces.Discrete(101),
             "steps_taken": spaces.Discrete(101),
-            "methods_tried": spaces.MultiBinary(NUM_METHODS),
+            "methods_tried": spaces.MultiBinary(n_methods),
             "last_result": spaces.Dict({
-                "method_index": spaces.Discrete(NUM_METHODS),
+                "method_index": spaces.Discrete(n_methods),
                 "accuracy": spaces.Box(0.0, 1.0, shape=(1,), dtype=np.float32),
                 "ard": spaces.Box(0.0, 1e12, shape=(1,), dtype=np.float32),
                 "dmc": spaces.Box(0.0, 1e12, shape=(1,), dtype=np.float32),
@@ -121,12 +152,12 @@ class SutroYaroEnv(gymnasium.Env):
             }),
         })
 
-        self.action_space = spaces.Discrete(NUM_METHODS)
+        self.action_space = spaces.Discrete(n_methods)
 
         # Episode state (initialized in reset)
         self.steps_taken = 0
         self.best_score = float("inf")
-        self.methods_tried = np.zeros(NUM_METHODS, dtype=np.int8)
+        self.methods_tried = np.zeros(n_methods, dtype=np.int8)
         self.last_result_obs = self._empty_last_result()
         self.experiment_log = []
 
@@ -142,7 +173,7 @@ class SutroYaroEnv(gymnasium.Env):
 
         self.steps_taken = 0
         self.best_score = float("inf")
-        self.methods_tried = np.zeros(NUM_METHODS, dtype=np.int8)
+        self.methods_tried = np.zeros(_num_methods(), dtype=np.int8)
         self.last_result_obs = self._empty_last_result()
         self.experiment_log = []
 
@@ -163,8 +194,14 @@ class SutroYaroEnv(gymnasium.Env):
         method_name = METHOD_MAP[action]
         previous_best = self.best_score
 
-        # Run the harness
-        result = self._call_harness(method_name)
+        # Run the harness via backend
+        result = self.backend.run(
+            challenge=self.challenge,
+            method=method_name,
+            n_bits=self.n_bits,
+            k_sparse=self.k_sparse,
+            seed=self._seed,
+        )
 
         # Update methods_tried
         self.methods_tried[action] = 1
@@ -325,61 +362,6 @@ class SutroYaroEnv(gymnasium.Env):
         # No improvement
         return -0.01
 
-    def _call_harness(self, method_name):
-        """Call the harness with timeout handling."""
-        import harness  # src/ must be on PYTHONPATH
-
-        measure_fn = {
-            "sparse-parity": harness.measure_sparse_parity,
-            "sparse-sum": harness.measure_sparse_sum,
-            "sparse-and": harness.measure_sparse_and,
-        }[self.challenge]
-
-        try:
-            # Set timeout (Unix only, graceful)
-            old_handler = signal.signal(signal.SIGALRM, _timeout_handler)
-            signal.alarm(int(self.harness_timeout))
-
-            result = measure_fn(
-                method=method_name,
-                n_bits=self.n_bits,
-                k_sparse=self.k_sparse,
-                seed=self._seed,
-            )
-
-            signal.alarm(0)  # cancel alarm
-            signal.signal(signal.SIGALRM, old_handler)
-
-            # If the harness returned an error dict, treat as failure
-            if "error" in result and result.get("accuracy") is None:
-                result.setdefault("accuracy", 0.0)
-
-            return result
-
-        except _HarnessTimeout:
-            signal.alarm(0)
-            return {
-                "accuracy": 0.0,
-                "ard": None,
-                "dmc": None,
-                "time_s": self.harness_timeout,
-                "total_floats": None,
-                "error": f"Method '{method_name}' timed out after {self.harness_timeout}s",
-                "method": method_name,
-            }
-        except Exception as e:
-            signal.alarm(0)
-            return {
-                "accuracy": 0.0,
-                "ard": None,
-                "dmc": None,
-                "time_s": None,
-                "total_floats": None,
-                "error": f"Method '{method_name}' raised: {type(e).__name__}: {e}",
-                "method": method_name,
-            }
-
-
 class MultiChallengeEnv(gymnasium.Env):
     """
     Cycles through multiple challenges, one per episode.
@@ -404,6 +386,7 @@ class MultiChallengeEnv(gymnasium.Env):
         metric="dmc",
         seed=42,
         harness_timeout=10.0,
+        backend="local",
         render_mode=None,
     ):
         super().__init__()
@@ -434,6 +417,7 @@ class MultiChallengeEnv(gymnasium.Env):
             budget=budget_per,
             seed=seed,
             harness_timeout=harness_timeout,
+            backend=backend,
             render_mode=render_mode,
         )
 
