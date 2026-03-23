@@ -125,7 +125,7 @@ the grokking plateau.
 ### Gradient manipulation
 
 - [x] Egalitarian Gradient Descent (EGD): normalize gradients so all principal directions evolve at same speed. Halves epoch count (14 vs 36 to 90%) but SVD overhead makes wall time 12% worse. Does not break 10ms. Robust to gradient scale (solves sum where SGD diverges). [exp_egd]
-- [ ] Grokfast with corrected config: amplify slow gradient components. Phase 1 test (exp4) used broken config (lr=0.5 overshooting). Retest with lr=0.1 and correct setup. Ref: https://arxiv.org/abs/2405.20233
+- [x] Grokfast v2: tested across 3 regimes (n20k3, n30k3, n20k5) with 3 hyperparameter settings, 5 seeds each. WIN on k=5 (2.5x speedup), LOSS on n=30/k=3, neutral on n=20/k=3. [exp_grokfast_v2]
 - [ ] GrokTransfer: train small model (n=5/k=3) first, transfer embedding to full model (n=20/k=3). Should eliminate phase transition. Ref: https://arxiv.org/abs/2504.13292
 
 ### Initialization
