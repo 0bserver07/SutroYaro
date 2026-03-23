@@ -104,7 +104,7 @@ The eval environment tests whether an AI agent can do energy-efficient ML resear
 - **Guide**: See `AGENT_EVAL.md` for adding challenges, methods, running evals
 - **Quick test**: `PYTHONPATH=src python3 -c "import gymnasium as gym; import sparse_parity.eval; env = gym.make('SutroYaro/SparseParity-v0', metric='dmc', budget=10); obs, info = env.reset(); obs, r, _, _, info = env.step(5); print(info)"`
 - **Environments**: `SutroYaro/SparseParity-v0` (single challenge), `SutroYaro/MultiChallenge-v0` (all three)
-- **Ground truth**: 36 experiments, 49-point grading rubric
+- **Ground truth**: 36 experiments, 72-point grading rubric (12 categories)
 - **Docs**: `docs/research/eval-environment.md`
 
 ## Automation

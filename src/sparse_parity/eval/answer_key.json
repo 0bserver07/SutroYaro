@@ -15,7 +15,11 @@
       "seed": 42
     }
   },
-  "challenges": ["sparse-parity", "sparse-sum", "sparse-and"],
+  "challenges": [
+    "sparse-parity",
+    "sparse-sum",
+    "sparse-and"
+  ],
   "experiments": [
     {
       "exp_id": "exp1",
@@ -47,7 +51,9 @@
       "hypothesis": "GrokFast accelerates grokking when hyperparams already correct",
       "discovery": "GrokFast is counterproductive when hyperparams are already correct. It amplifies gradients that don't need amplifying, causing 83x more weight movement and slower convergence (12 vs 5 epochs).",
       "difficulty": "easy",
-      "prerequisites": ["exp1"]
+      "prerequisites": [
+        "exp1"
+      ]
     },
     {
       "exp_id": "exp_a",
@@ -63,7 +69,9 @@
       "hypothesis": "Per-layer forward-backward reduces ARD on winning config",
       "discovery": "Per-layer gives 3.8% ARD improvement on 20-bit (17,299 vs 17,976). Converges identically to standard backprop. W1 dominates ~75% of all float reads, capping improvement from operation reordering at ~10%.",
       "difficulty": "medium",
-      "prerequisites": ["exp1"]
+      "prerequisites": [
+        "exp1"
+      ]
     },
     {
       "exp_id": "exp_b",
@@ -79,7 +87,9 @@
       "hypothesis": "Batch=32 improves ARD via parameter reuse",
       "discovery": "Batch-32 shows 17x higher ARD than single-sample, but would be far better on real hardware because W1 (80KB at float32) fits in L2 cache. ARD metric can't capture batch benefit. Batch wins on total traffic (13% fewer floats, 16x fewer parameter writes).",
       "difficulty": "medium",
-      "prerequisites": ["exp1"]
+      "prerequisites": [
+        "exp1"
+      ]
     },
     {
       "exp_id": "exp_c",
@@ -95,7 +105,9 @@
       "hypothesis": "Per-layer converges on 20-bit with winning config",
       "discovery": "Per-layer forward-backward converges identically to standard backprop on both 3-bit and 20-bit. Same accuracy, same speed, 3.8% better ARD.",
       "difficulty": "medium",
-      "prerequisites": ["exp1"]
+      "prerequisites": [
+        "exp1"
+      ]
     },
     {
       "exp_id": "exp_d",
@@ -111,7 +123,9 @@
       "hypothesis": "Find where SGD breaks on scaling",
       "discovery": "Standard SGD breaks at n^k > 100,000 steps. k=3 works up to n~30-45 (n=30 solved 94.5%, n=50 failed 54%). Later corrected: k=5 works with enough data (n_train=5000).",
       "difficulty": "medium",
-      "prerequisites": ["exp1"]
+      "prerequisites": [
+        "exp1"
+      ]
     },
     {
       "exp_id": "exp_e",
@@ -127,7 +141,9 @@
       "hypothesis": "Forward-Forward has lower ARD than backprop",
       "discovery": "FF solves 3-bit parity (100% in 4 epochs) but fails on 20-bit (58.5% max). 25x WORSE ARD than backprop. Two forward passes per sample + 4 weight reads per layer. The 'local learning' advantage is illusory for 2-layer networks.",
       "difficulty": "medium",
-      "prerequisites": ["exp1"]
+      "prerequisites": [
+        "exp1"
+      ]
     },
     {
       "exp_id": "exp_f",
@@ -159,7 +175,9 @@
       "hypothesis": "Higher weight decay accelerates grokking",
       "discovery": "WD=0.01 is optimal. Only WD in [0.01, 0.05] solves 20-bit; WD<0.01 too weak (no grokking in 200 epochs), WD>=0.1 too strong (kills learning). Effective regularization LR*WD must be in [0.001, 0.005].",
       "difficulty": "easy",
-      "prerequisites": ["exp1"]
+      "prerequisites": [
+        "exp1"
+      ]
     },
     {
       "exp_id": "exp_curriculum",
@@ -175,7 +193,9 @@
       "hypothesis": "Curriculum (n=10 then n=50) bypasses scaling wall",
       "discovery": "n-curriculum demolishes the n^k scaling wall: training on n=10 first then expanding W1 to n=50 solves in 20 total epochs vs 292 for direct training (14.6x speedup). Transfer after W1 expansion is instant. n-curriculum >> k-curriculum (1.5x speedup only for k-curriculum).",
       "difficulty": "hard",
-      "prerequisites": ["exp_d"]
+      "prerequisites": [
+        "exp_d"
+      ]
     },
     {
       "exp_id": "exp_perlayer_batch",
@@ -191,7 +211,10 @@
       "hypothesis": "Per-layer + batch=32 combine for ARD improvement",
       "discovery": "Per-layer + batch=32 converges identically to standard+batch (40.6 vs 41.4 epochs). But single-sample SGD is 8x faster in epochs. Per-layer + batch has 3.7x wall-time overhead from re-forward pass.",
       "difficulty": "medium",
-      "prerequisites": ["exp_a", "exp_b"]
+      "prerequisites": [
+        "exp_a",
+        "exp_b"
+      ]
     },
     {
       "exp_id": "exp_cache_ard",
@@ -207,7 +230,9 @@
       "hypothesis": "Cache model shows batch wins on locality",
       "discovery": "CacheTracker built with LRU cache simulation. L2 cache (256KB) eliminates ALL misses for both single-sample and batch. Single-sample is MORE L1-cache-friendly (91-100% hit rate vs batch 69-73%). Batch wins on total traffic (13% fewer floats), not cache locality.",
       "difficulty": "hard",
-      "prerequisites": ["exp_b"]
+      "prerequisites": [
+        "exp_b"
+      ]
     },
     {
       "exp_id": "exp_sign_sgd",
@@ -223,7 +248,9 @@
       "hypothesis": "Sign SGD solves k=5 faster than standard SGD",
       "discovery": "Sign SGD solves k=5 2x faster than standard SGD (7 vs 14 epochs to 90%). Both reach 100%. Needs lr=0.01 (not 0.1). Oscillates near 100% on k=3 due to fixed step size. The n^k sample complexity bound is pessimistic: SGD solves n=20/k=5 with only 5,000 samples, far below n^k=3,200,000.",
       "difficulty": "medium",
-      "prerequisites": ["exp_d"]
+      "prerequisites": [
+        "exp_d"
+      ]
     },
     {
       "exp_id": "exp_evolutionary",
@@ -287,7 +314,9 @@
       "hypothesis": "Mutual information detects parity better than Fourier",
       "discovery": "MI provides no advantage over Fourier for binary parity: 3.7x slower (0.033s vs 0.009s), same ARD. True subset MI is ~0.693 nats (log 2), wrong subsets ~0.001.",
       "difficulty": "easy",
-      "prerequisites": ["exp_fourier"]
+      "prerequisites": [
+        "exp_fourier"
+      ]
     },
     {
       "exp_id": "exp_lasso",
@@ -351,7 +380,9 @@
       "hypothesis": "Monte Carlo Fourier subsampling reduces eval count",
       "discovery": "Random projections save 30-70% of evaluations vs exhaustive Fourier but with high variance (geometric distribution). Modest wall-time speedup (1.1-1.5x).",
       "difficulty": "easy",
-      "prerequisites": ["exp_fourier"]
+      "prerequisites": [
+        "exp_fourier"
+      ]
     },
     {
       "exp_id": "exp_km",
@@ -374,7 +405,7 @@
       "scoreboard_id": "yad-022",
       "method": "hebbian",
       "challenge": "sparse-parity",
-      "accuracy": 0.50,
+      "accuracy": 0.5,
       "ard": null,
       "dmc": null,
       "time_s": null,
@@ -406,7 +437,7 @@
       "scoreboard_id": "yad-024",
       "method": "equilibrium_prop",
       "challenge": "sparse-parity",
-      "accuracy": 0.60,
+      "accuracy": 0.6,
       "ard": null,
       "dmc": null,
       "time_s": null,
@@ -447,7 +478,9 @@
       "hypothesis": "Tiled W1 updates reduce ARD via cache locality",
       "discovery": "Tiled W1 increases software ARD by 6.8-12.1%. MemTracker can't capture hardware cache benefits. The output layer still needs the full hidden vector before backward starts.",
       "difficulty": "medium",
-      "prerequisites": ["exp_a"]
+      "prerequisites": [
+        "exp_a"
+      ]
     },
     {
       "exp_id": "exp_pebble_game",
@@ -543,7 +576,9 @@
       "hypothesis": "MDL finds secret via compression",
       "discovery": "MDL works and is noise-robust (5% label noise ok). True subset compresses to 0 bits, wrong subsets ~499 bits. But 30% slower than Fourier, no meaningful advantage.",
       "difficulty": "easy",
-      "prerequisites": ["exp_fourier"]
+      "prerequisites": [
+        "exp_fourier"
+      ]
     },
     {
       "exp_id": "exp_gf2_noise",
@@ -559,7 +594,9 @@
       "hypothesis": "GF(2) handles noisy labels",
       "discovery": "Basic GF(2) solver fails at 1% noise (inconsistent system). But subset-sampling robust solver recovers up to 10-15% noise by finding clean equation subsets. 100% success at 10% noise, 65% at 15%, 20% at 20%.",
       "difficulty": "hard",
-      "prerequisites": ["exp_gf2"]
+      "prerequisites": [
+        "exp_gf2"
+      ]
     },
     {
       "exp_id": "exp_egd",
@@ -575,7 +612,9 @@
       "hypothesis": "EGD eliminates grokking plateau",
       "discovery": "EGD halves the grokking plateau on parity: 14 epochs to 90% vs SGD's 36 (2.6x fewer). SVD-normalizes gradients so all directions evolve at equal speed. But SVD overhead makes GPU wall time 12% worse (1,207ms vs 1,068ms on L4). EGD is robust to gradient scale (solves sparse sum where SGD diverges at lr=0.1).",
       "difficulty": "medium",
-      "prerequisites": ["exp1"]
+      "prerequisites": [
+        "exp1"
+      ]
     },
     {
       "exp_id": "exp_dmc_optimize",
@@ -591,7 +630,10 @@
       "hypothesis": "Reduce DMC below GF2 baseline of 8,607",
       "discovery": "KM-min (1 influence sample) achieves DMC 3,578: 58% below GF2 baseline, 83% below standard KM. Parity influence is deterministic (exactly 0 or 1), so a single sample per bit suffices. All stack distances are 20 floats (fits in L1). GF2 harness DMC is artificially low: fine-grained tracking of O(n^2) row operations gives true DMC of 189,056 (22x higher). Fourier DMC is 78 billion.",
       "difficulty": "hard",
-      "prerequisites": ["exp_gf2", "exp_km"]
+      "prerequisites": [
+        "exp_gf2",
+        "exp_km"
+      ]
     }
   ],
   "cross_challenge_results": {
@@ -707,7 +749,7 @@
       "method": "hebbian",
       "exp_id": "exp_hebbian",
       "challenge": "sparse-parity",
-      "accuracy": 0.50,
+      "accuracy": 0.5,
       "why_fails": "Parity requires k-th order interactions (E[x_i * x_j * x_k * y] = 1). Hebbian learning only detects 1st-order correlations which are exactly zero for parity.",
       "lesson": "Any method limited to local (1st/2nd order) statistics gets zero signal on parity."
     },
@@ -723,7 +765,7 @@
       "method": "equilibrium_prop",
       "exp_id": "exp_equilibrium_prop",
       "challenge": "sparse-parity",
-      "accuracy": 0.60,
+      "accuracy": 0.6,
       "why_fails": "Tanh saturation kills it. 60 relaxation iterations (30 free + 30 clamped) per training step make it 2,300x slower than SGD.",
       "lesson": "Energy-based models with continuous relaxation cannot detect discrete parity structure through gradients alone."
     },
@@ -802,9 +844,41 @@
   ],
   "rankings": {
     "sparse-parity": {
-      "by_dmc": ["km_min", "km_inplace", "gf2", "km", "smt", "sgd", "fourier"],
-      "by_ard": ["rl", "genetic_prog", "km_min", "km_inplace", "km", "gf2", "smt", "sgd", "perlayer", "tiled_w1", "forward_forward", "predictive_coding", "fourier"],
-      "by_time": ["gf2", "smt", "lasso", "km", "fourier", "evolutionary", "mdl", "mutual_info", "sgd"],
+      "by_dmc": [
+        "km_min",
+        "km_inplace",
+        "gf2",
+        "km",
+        "smt",
+        "sgd",
+        "fourier"
+      ],
+      "by_ard": [
+        "rl",
+        "genetic_prog",
+        "km_min",
+        "km_inplace",
+        "km",
+        "gf2",
+        "smt",
+        "sgd",
+        "perlayer",
+        "tiled_w1",
+        "forward_forward",
+        "predictive_coding",
+        "fourier"
+      ],
+      "by_time": [
+        "gf2",
+        "smt",
+        "lasso",
+        "km",
+        "fourier",
+        "evolutionary",
+        "mdl",
+        "mutual_info",
+        "sgd"
+      ],
       "dmc_values": {
         "km_min": 3578,
         "km_inplace": 4319,
@@ -832,8 +906,18 @@
       "note": "DMC and ARD rankings disagree. GF2 wins DMC on parity despite KM winning ARD. GF2 accesses 5x fewer total floats. DMC penalizes total data movement, not just average distance."
     },
     "sparse-sum": {
-      "by_dmc": ["sgd", "km", "fourier", "ols"],
-      "by_ard": ["sgd", "km", "ols", "fourier"],
+      "by_dmc": [
+        "sgd",
+        "km",
+        "fourier",
+        "ols"
+      ],
+      "by_ard": [
+        "sgd",
+        "km",
+        "ols",
+        "fourier"
+      ],
       "dmc_values": {
         "sgd": 2862,
         "km": 20633,
@@ -843,8 +927,16 @@
       "note": "SGD on sparse sum has the lowest DMC of any method on any challenge (2,862). Sum has first-order structure that gradient descent exploits in 1 epoch."
     },
     "sparse-and": {
-      "by_dmc": ["km", "sgd", "fourier"],
-      "by_ard": ["km", "sgd", "fourier"],
+      "by_dmc": [
+        "km",
+        "sgd",
+        "fourier"
+      ],
+      "by_ard": [
+        "km",
+        "sgd",
+        "fourier"
+      ],
       "dmc_values": {
         "km": 20633,
         "sgd": 52885890,
@@ -857,61 +949,89 @@
     {
       "id": "insight_gf2_linearity",
       "insight": "Parity is linear over GF(2). The neural network was solving an easy problem the hard way.",
-      "experiments": ["exp_gf2"],
+      "experiments": [
+        "exp_gf2"
+      ],
       "impact": "fundamental"
     },
     {
       "id": "insight_local_learning_failure",
       "insight": "All 4 local learning rules (Hebbian, Predictive Coding, Equilibrium Propagation, Target Propagation) fail at chance level on parity. The signal lives in k-th order interactions, invisible to methods limited to local statistics.",
-      "experiments": ["exp_hebbian", "exp_predictive_coding", "exp_equilibrium_prop", "exp_target_prop"],
+      "experiments": [
+        "exp_hebbian",
+        "exp_predictive_coding",
+        "exp_equilibrium_prop",
+        "exp_target_prop"
+      ],
       "impact": "fundamental"
     },
     {
       "id": "insight_dmc_ard_disagree",
       "insight": "DMC and ARD rankings disagree. GF2 wins DMC on parity despite KM winning ARD. DMC penalizes total data movement (sum of sqrt(stack_distance)), not just average distance.",
-      "experiments": ["exp_dmc_optimize"],
+      "experiments": [
+        "exp_dmc_optimize"
+      ],
       "impact": "methodological"
     },
     {
       "id": "insight_curriculum_scaling",
       "insight": "n-curriculum bypasses the n^k scaling wall. Training on small n first then expanding gives 14.6x speedup. The hard part is finding which bits matter, and that's invariant to n.",
-      "experiments": ["exp_curriculum"],
+      "experiments": [
+        "exp_curriculum"
+      ],
       "impact": "practical"
     },
     {
       "id": "insight_parity_invisible_below_k",
       "insight": "Parity is invisible to any correlation test below order k. E[y * x_i * x_j] = 0 for ALL pairs including correct ones. Greedy and pairwise methods provably fail.",
-      "experiments": ["exp_feature_select", "exp_hebbian", "exp_decision_tree"],
+      "experiments": [
+        "exp_feature_select",
+        "exp_hebbian",
+        "exp_decision_tree"
+      ],
       "impact": "fundamental"
     },
     {
       "id": "insight_cache_vs_ard",
       "insight": "L2 cache (256KB) eliminates ALL misses for both single-sample and batch SGD. When cache fits the working set, raw ARD is irrelevant. Batch wins on total traffic, not locality.",
-      "experiments": ["exp_cache_ard", "exp_b"],
+      "experiments": [
+        "exp_cache_ard",
+        "exp_b"
+      ],
       "impact": "methodological"
     },
     {
       "id": "insight_w1_dominance",
       "insight": "W1 (n*hidden floats) accounts for ~75% of all float reads. Its reuse distance is fixed regardless of update order. This caps the improvement from operation reordering at ~10%.",
-      "experiments": ["exp_a", "exp_c"],
+      "experiments": [
+        "exp_a",
+        "exp_c"
+      ],
       "impact": "practical"
     },
     {
       "id": "insight_sample_complexity",
       "insight": "The n^k sample complexity bound is pessimistic. Standard SGD solves n=20/k=5 with only 5,000 samples, far below n^k=3,200,000. The practical frontier is much further than theory predicts.",
-      "experiments": ["exp_sign_sgd", "exp_d"],
+      "experiments": [
+        "exp_sign_sgd",
+        "exp_d"
+      ],
       "impact": "practical"
     },
     {
       "id": "insight_km_min_deterministic",
       "insight": "Parity influence is deterministic (exactly 0 or 1), so a single influence sample per bit suffices for KM. This reduces DMC by 83% compared to standard KM (5 samples).",
-      "experiments": ["exp_dmc_optimize"],
+      "experiments": [
+        "exp_dmc_optimize"
+      ],
       "impact": "practical"
     },
     {
       "id": "insight_cross_challenge",
       "insight": "Sum is fundamentally easier than parity (first-order vs k-th order). SGD solves sum in 1 epoch with DMC 2,862 (lowest of any method on any challenge). GF(2) fails on both sum and AND.",
-      "experiments": ["exp_dmc_optimize"],
+      "experiments": [
+        "exp_dmc_optimize"
+      ],
       "impact": "fundamental"
     }
   ],
@@ -940,7 +1060,16 @@
       "points": 2,
       "max_total": 16,
       "description": "Per method: correctly classified a method as failing on parity with correct explanation",
-      "applicable_methods": ["hebbian", "predictive_coding", "equilibrium_prop", "target_prop", "forward_forward", "decision_tree", "binary_weights", "grokfast"]
+      "applicable_methods": [
+        "hebbian",
+        "predictive_coding",
+        "equilibrium_prop",
+        "target_prop",
+        "forward_forward",
+        "decision_tree",
+        "binary_weights",
+        "grokfast"
+      ]
     },
     "discovered_km_influence": {
       "points": 7,
@@ -966,82 +1095,141 @@
       "points": 3,
       "description": "Built or analyzed a cache model showing that ARD alone is misleading (L2 eliminates all misses)",
       "evidence": "Must show that batch vs single-sample comparison changes with cache model"
+    },
+    "efficiency": {
+      "points": 5,
+      "description": "How quickly the best method was found. 5 pts if in first 3 steps, decreasing to 0 at step 16."
+    },
+    "exploration_breadth": {
+      "points": 5,
+      "description": "Number of distinct methods that solved the problem (accuracy >= 0.95). 1 pt per method, max 5."
     }
   },
   "question_dependency_graph": {
     "phase_1_sgd_optimization": {
       "Q0.1": {
         "question": "Can standard SGD solve n=20/k=3 sparse parity?",
-        "resolved_by": ["exp1"],
+        "resolved_by": [
+          "exp1"
+        ],
         "answer": "Yes. LR=0.1, batch=32, WD=0.01. 100% accuracy in ~40 epochs."
       },
       "Q1.1": {
         "question": "Does per-layer update reduce ARD?",
-        "depends_on": ["Q0.1"],
-        "resolved_by": ["exp_a", "exp_c"],
+        "depends_on": [
+          "Q0.1"
+        ],
+        "resolved_by": [
+          "exp_a",
+          "exp_c"
+        ],
         "answer": "Yes, 3.8% improvement. But W1 dominance caps further gains at ~10%."
       },
       "Q1.2": {
         "question": "Does batching improve ARD?",
-        "depends_on": ["Q0.1"],
-        "resolved_by": ["exp_b", "exp_cache_ard"],
+        "depends_on": [
+          "Q0.1"
+        ],
+        "resolved_by": [
+          "exp_b",
+          "exp_cache_ard"
+        ],
         "answer": "Not in raw ARD (17x worse). Batch wins on total traffic (13% fewer floats). L2 cache eliminates all misses for both."
       },
       "Q1.3": {
         "question": "Where does SGD break on scaling?",
-        "depends_on": ["Q0.1"],
-        "resolved_by": ["exp_d", "exp_sign_sgd"],
+        "depends_on": [
+          "Q0.1"
+        ],
+        "resolved_by": [
+          "exp_d",
+          "exp_sign_sgd"
+        ],
         "answer": "Breaks at n^k > 100K steps. k=5 works with enough data (n_train=5000)."
       },
       "Q1.4": {
         "question": "Can curriculum learning bypass the scaling wall?",
-        "depends_on": ["Q1.3"],
-        "resolved_by": ["exp_curriculum"],
+        "depends_on": [
+          "Q1.3"
+        ],
+        "resolved_by": [
+          "exp_curriculum"
+        ],
         "answer": "Yes. n-curriculum gives 14.6x speedup on n=50/k=3."
       }
     },
     "phase_2_broad_search": {
       "Q2.1": {
         "question": "Can algebraic methods solve parity faster than SGD?",
-        "depends_on": ["Q0.1"],
-        "resolved_by": ["exp_gf2", "exp_km", "exp_smt"],
+        "depends_on": [
+          "Q0.1"
+        ],
+        "resolved_by": [
+          "exp_gf2",
+          "exp_km",
+          "exp_smt"
+        ],
         "answer": "Yes. GF(2) solves in 500us (240x faster), k-independent. KM has 724x better ARD than Fourier."
       },
       "Q2.2": {
         "question": "Do local learning rules work on parity?",
-        "depends_on": ["Q0.1"],
-        "resolved_by": ["exp_hebbian", "exp_predictive_coding", "exp_equilibrium_prop", "exp_target_prop"],
+        "depends_on": [
+          "Q0.1"
+        ],
+        "resolved_by": [
+          "exp_hebbian",
+          "exp_predictive_coding",
+          "exp_equilibrium_prop",
+          "exp_target_prop"
+        ],
         "answer": "No. All fail at chance level. Parity requires k-th order interaction detection."
       },
       "Q2.3": {
         "question": "Can information-theoretic methods beat Fourier?",
-        "depends_on": ["Q0.1"],
-        "resolved_by": ["exp_mutual_info", "exp_lasso", "exp_mdl", "exp_random_proj"],
+        "depends_on": [
+          "Q0.1"
+        ],
+        "resolved_by": [
+          "exp_mutual_info",
+          "exp_lasso",
+          "exp_mdl",
+          "exp_random_proj"
+        ],
         "answer": "No. All solve it but none beats Fourier meaningfully."
       }
     },
     "phase_3_open": {
       "Q3.1": {
         "question": "Can tiled W1 updates improve hardware energy?",
-        "depends_on": ["Q1.1"],
+        "depends_on": [
+          "Q1.1"
+        ],
         "resolved_by": [],
         "status": "open"
       },
       "Q3.2": {
         "question": "Can GF(2) handle noisy labels?",
-        "depends_on": ["Q2.1"],
-        "resolved_by": ["exp_gf2_noise"],
+        "depends_on": [
+          "Q2.1"
+        ],
+        "resolved_by": [
+          "exp_gf2_noise"
+        ],
         "answer": "Basic GF(2) fails at 1% noise. Robust subset-sampling solver works up to 10-15% noise."
       },
       "Q3.3": {
         "question": "What is the total energy cost of KM-find-then-verify?",
-        "depends_on": ["Q2.1"],
+        "depends_on": [
+          "Q2.1"
+        ],
         "resolved_by": [],
         "status": "open"
       },
       "Q3.4": {
         "question": "At what depth does predictive coding beat backprop on ARD?",
-        "depends_on": ["Q2.2"],
+        "depends_on": [
+          "Q2.2"
+        ],
         "resolved_by": [],
         "status": "open"
       },
@@ -1053,7 +1241,9 @@
       },
       "Q3.6": {
         "question": "Does per-layer update reduce ARD on deeper networks (5-10 layers)?",
-        "depends_on": ["Q1.1"],
+        "depends_on": [
+          "Q1.1"
+        ],
         "resolved_by": [],
         "status": "open"
       }

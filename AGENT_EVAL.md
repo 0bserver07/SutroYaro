@@ -24,9 +24,9 @@ Prerequisites: `pip install gymnasium numpy`
 An AI agent picks methods to solve a learning problem and observes energy metrics. The goal is to find the lowest-cost method within a fixed experiment budget.
 
 - 3 challenges: `sparse-parity`, `sparse-sum`, `sparse-and`
-- 16 methods (5 implemented in harness, 11 return failure)
+- 16 methods (all runnable: 5 via harness, 9 via live fallbacks, 2 cached)
 - Metrics: ARD (average reuse distance) and DMC (data movement complexity)
-- 36 experiments as ground truth, 49-point discovery grading
+- 36 experiments as ground truth, 72-point discovery grading (12 categories)
 - Episode = research trajectory (5-30 steps), not a game
 
 ## Action space
@@ -35,22 +35,24 @@ An AI agent picks methods to solve a learning problem and observes energy metric
 
 | Index | Method | Category | Implemented |
 |-------|--------|----------|-------------|
-| 0 | `sgd` | neural_net | yes |
-| 1 | `perlayer` | neural_net | no |
-| 2 | `sign_sgd` | neural_net | no |
-| 3 | `curriculum` | neural_net | no |
-| 4 | `forward_forward` | neural_net | no |
-| 5 | `gf2` | algebraic | yes |
-| 6 | `km` | algebraic | yes |
-| 7 | `smt` | algebraic | yes |
-| 8 | `fourier` | algebraic | yes |
-| 9 | `lasso` | information_theoretic | no |
-| 10 | `mdl` | information_theoretic | no |
-| 11 | `mutual_info` | information_theoretic | no |
-| 12 | `random_proj` | information_theoretic | no |
-| 13 | `rl` | alternative | no |
-| 14 | `genetic_prog` | alternative | no |
-| 15 | `evolutionary` | alternative | no |
+| Index | Method | Category | Source |
+|-------|--------|----------|--------|
+| 0 | `sgd` | neural_net | harness |
+| 1 | `perlayer` | neural_net | live fallback |
+| 2 | `sign_sgd` | neural_net | live fallback |
+| 3 | `curriculum` | neural_net | live fallback |
+| 4 | `forward_forward` | neural_net | cached (fails at 58.5%, too slow live) |
+| 5 | `gf2` | algebraic | harness |
+| 6 | `km` | algebraic | harness |
+| 7 | `smt` | algebraic | harness |
+| 8 | `fourier` | algebraic | harness |
+| 9 | `lasso` | information_theoretic | live fallback |
+| 10 | `mdl` | information_theoretic | live fallback |
+| 11 | `mutual_info` | information_theoretic | live fallback |
+| 12 | `random_proj` | information_theoretic | live fallback |
+| 13 | `rl` | alternative | cached (Q-learning too slow) |
+| 14 | `genetic_prog` | alternative | live fallback |
+| 15 | `evolutionary` | alternative | live fallback |
 
 ## Constructor parameters
 
@@ -81,7 +83,7 @@ env = gym.make("SutroYaro/MultiChallenge-v0",
 PYTHONPATH=src python3 src/sparse_parity/eval/run_eval.py
 ```
 
-Runs 3 baseline agents (Random, Greedy, Oracle) x 5 episodes in ~4 seconds. Outputs to `results/eval/baselines.json` and `results/eval/multi_challenge.json`.
+Runs 3 baseline agents (Random, Greedy, Oracle) x 5 episodes in ~20 seconds (all 16 methods run). Outputs to `results/eval/baselines.json` and `results/eval/multi_challenge.json`.
 
 ## How to add a new method
 
@@ -139,19 +141,24 @@ Backend selection is handled by `sparse_parity.eval.backends.get_backend(name)`.
 
 ## Discovery grading categories
 
-The `DiscoveryGrader` scores research quality beyond raw metric improvement:
+The `DiscoveryGrader` scores research quality across 12 categories, 72 points total. Each category measures a specific research discovery.
 
-| Category | Points | What it measures |
-|----------|--------|-----------------|
-| Discovered algebraic solver | 10 | Found GF2, KM, or SMT and solved with it |
-| Identified local learning failure | 5 | Tried forward_forward, observed it fails |
-| Found metric disagreement | 5 | Solved with both KM (ARD winner) and GF2 (DMC winner) |
-| Optimized beyond baseline | 3 | Beat SGD baseline DMC of 1,278,460 |
-| Correct failure classification | 16 | Observed failures and moved on (2 pts each) |
-| Efficiency | 5 | Found best method in fewer steps (5 pts if steps 1-3) |
-| Exploration breadth | 5 | Number of unique successful methods (1 pt each, max 5) |
+| Category | Pts | How to earn |
+|----------|-----|-------------|
+| Discovered algebraic solver | 10 | Try GF2, KM, or SMT and solve. Partial credit (3) for trying without solving. |
+| Discovered KM influence | 7 | Solve with KM. This is the O(n) approach vs O(C(n,k)) for Fourier. |
+| Identified local learning failure | 5 | Try forward_forward and observe it fails (acc < 95%). |
+| Found metric disagreement | 5 | Solve with both KM (ARD best) and GF2 (DMC best). |
+| Found curriculum speedup | 5 | Solve with curriculum learning. |
+| Identified parity invisibility | 5 | Observe 2+ method failures and also find working methods. The contrast reveals parity structure. |
+| Exploration breadth | 5 | 1 pt per distinct method that solves (acc >= 95%), max 5. |
+| Efficiency | 5 | 5 pts if best method found in steps 1-3. Decreasing to 0 at step 16. |
+| Optimized beyond baseline | 3 | Find any method with DMC below SGD baseline (1,278,460). |
+| Cross-challenge analysis | 3 | MultiChallengeEnv only. Solve methods across 2+ challenges. |
+| Cache model insight | 3 | Measure DMC across 3+ methods with different values. |
+| Correct failure classification | 2/each | Per failed method: 1 pt for observing, 2 pts if agent tried alternatives after. Max 16. |
 
-**Total: 49 points.**
+**Total: 72 points.**
 
 Usage:
 
@@ -194,7 +201,7 @@ no improvement          -> -0.01
 | `src/sparse_parity/eval/default_registry.py` | Ships 3 challenges, 16 methods |
 | `src/sparse_parity/eval/backends.py` | Local, Modal, Remote compute backends |
 | `src/sparse_parity/eval/baselines.py` | Random, Greedy, Oracle agents |
-| `src/sparse_parity/eval/grader.py` | Discovery scoring (49-point rubric) |
+| `src/sparse_parity/eval/grader.py` | Discovery scoring (72-point rubric, 12 categories) |
 | `src/sparse_parity/eval/answer_key.json` | Ground truth: 36 experiments, 12 negative results |
 | `src/sparse_parity/eval/run_eval.py` | Evaluation script (3 agents x 5 episodes) |
 | `src/sparse_parity/eval/README.md` | Full interface specification |

@@ -56,33 +56,40 @@ This is a research trajectory, not a game. 5-30 steps per episode, not hundreds.
 | 14 | Genetic Prog | Alternative |
 | 15 | Evolutionary | Alternative |
 
-5 methods are implemented in the harness (SGD, GF2, KM, SMT, Fourier). The other 11 return failure, which is itself a signal the agent must learn from.
+All 16 methods are runnable. 5 go through the locked harness (SGD, GF2, KM, SMT, Fourier). 9 run live via fallback implementations (perlayer, sign_sgd, curriculum, lasso, mdl, mutual_info, random_proj, genetic_prog, evolutionary). 2 return cached results because they're too slow for live eval (forward_forward, rl).
+
+Methods that fail on sparse parity (forward_forward, genetic_prog, perlayer, sign_sgd) return low accuracy. This is correct behavior and itself a research signal -- the agent should observe these failures and learn from them.
 
 ## Baseline results
 
 | Agent | Mean Reward | Discovery Score | Best Method |
 |-------|------------|-----------------|-------------|
-| Oracle | 0.89 | 49/49 (100%) | GF2 |
-| Greedy | 10.21 | 48/49 (98%) | GF2 |
-| Random | 9.16 | 41/49 (84%) | GF2 |
+| Oracle | 7.59 | 57.4/72 (79.7%) | GF2 |
+| Greedy | 16.91 | 57.0/72 (79.2%) | GF2 |
+| Random | 16.61 | 49.4/72 (68.6%) | GF2 |
 
-Oracle gets the lowest reward but the highest discovery score. The reward function favors improvement trajectories (finding SGD first, then improving to GF2). The discovery grader measures what the agent figured out regardless of order.
+Greedy gets the highest reward because the reward function favors improvement trajectories (finding SGD first, then improving to GF2). Oracle gets the highest discovery score because it finds the best method first and explores systematically. Nobody hits 100% because `cross_challenge_analysis` (3 pts) requires the MultiChallengeEnv, and `correct_failure_classification` (16 pts) requires trying all failing methods.
 
 ## Discovery grading
 
-Beyond metric improvement, the grader scores research quality:
+The grader scores research quality across 12 categories, 72 points total. Each category measures whether the agent made a specific discovery, not just whether it got a good number.
 
-| Category | Points | What it measures |
+| Category | Points | How to earn them |
 |----------|--------|-----------------|
-| Discovered algebraic solver | 10 | Found GF2, KM, or SMT |
-| Identified local learning failure | 5 | Tried Forward-Forward, observed it fails |
-| Found metric disagreement | 5 | Noticed KM wins ARD but GF2 wins DMC |
-| Optimized beyond baseline | 3 | Beat SGD's DMC of 1,278,460 |
-| Correct failure classification | 16 | Observed failures and moved on |
-| Efficiency | 5 | Found best method quickly |
-| Exploration breadth | 5 | Number of successful methods found |
+| Discovered algebraic solver | 10 | Try GF2, KM, or SMT and get 100% accuracy. Partial credit (3 pts) for trying but not solving. |
+| Discovered KM influence | 7 | Solve with KM specifically. This is the O(n) approach vs O(C(n,k)) for Fourier. |
+| Identified local learning failure | 5 | Try forward_forward and observe it fails (accuracy < 95%). This represents the finding that local learning rules can't detect k-th order interactions. |
+| Found metric disagreement | 5 | Solve with both KM (ARD winner) and GF2 (DMC winner). Having both in the log means the agent has the data to notice rankings disagree. |
+| Found curriculum speedup | 5 | Solve with curriculum learning. This represents discovering that training on small n first gives a speedup. |
+| Identified parity invisibility | 5 | Observe at least 2 method failures and also find methods that work. The contrast reveals that parity is invisible to methods limited to low-order statistics. |
+| Exploration breadth | 5 | Number of distinct methods that solve the problem (accuracy >= 95%). 1 point per method, max 5. |
+| Efficiency | 5 | How quickly the best method was found. 5 pts if in steps 1-3, 4 pts in steps 4-6, decreasing to 0 at step 16+. |
+| Optimized beyond baseline | 3 | Find any method with DMC below SGD baseline (1,278,460). GF2 at 8,607 easily qualifies. |
+| Cross-challenge analysis | 3 | Only in MultiChallengeEnv. Solve methods across at least 2 different challenges (parity, sum, AND). |
+| Cache model insight | 3 | Measure DMC across 3+ methods with different values. Having this spread means cache/energy behavior is observable. |
+| Correct failure classification | 2/method | For each method tried that failed: 1 pt for observing the failure, 2 pts if the agent tried other methods afterward. Max 16 pts. |
 
-Total: 49 points.
+Total: 72 points.
 
 ## Running the evaluation
 
@@ -90,7 +97,7 @@ Total: 49 points.
 PYTHONPATH=src python3 src/sparse_parity/eval/run_eval.py
 ```
 
-Runs 3 baseline agents x 5 episodes in ~4 seconds. Outputs results to `results/eval/baselines.json` and `results/eval/multi_challenge.json`.
+Runs 3 baseline agents x 5 episodes in ~20 seconds (all 16 methods run live). Outputs results to `results/eval/baselines.json` and `results/eval/multi_challenge.json`.
 
 ## Answer key
 

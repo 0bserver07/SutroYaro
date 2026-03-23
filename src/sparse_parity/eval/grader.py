@@ -142,6 +142,31 @@ class DiscoveryGrader:
             experiment_log, solved_set
         )
 
+        # 8. discovered_km_influence (7 pts)
+        categories["discovered_km_influence"] = self._grade_km_influence(
+            experiment_log, solved_set
+        )
+
+        # 9. found_curriculum_speedup (5 pts)
+        categories["found_curriculum_speedup"] = self._grade_curriculum_speedup(
+            experiment_log, solved_set
+        )
+
+        # 10. identified_parity_invisibility (5 pts)
+        categories["identified_parity_invisibility"] = self._grade_parity_invisibility(
+            experiment_log, failed_set
+        )
+
+        # 11. cross_challenge_analysis (3 pts)
+        categories["cross_challenge_analysis"] = self._grade_cross_challenge(
+            experiment_log, solved_set, challenge
+        )
+
+        # 12. cache_model_insight (3 pts)
+        categories["cache_model_insight"] = self._grade_cache_insight(
+            experiment_log, solved_set
+        )
+
         # Compute totals
         total_score = sum(c["score"] for c in categories.values())
         max_possible = sum(c["max"] for c in categories.values())
@@ -185,6 +210,123 @@ class DiscoveryGrader:
     # ------------------------------------------------------------------
     # Category graders
     # ------------------------------------------------------------------
+
+    def _grade_km_influence(self, log, solved_set):
+        """
+        discovered_km_influence (7 pts):
+        Found KM influence estimation -- O(n) not O(C(n,k)).
+        """
+        max_pts = 7
+        if "km" in solved_set:
+            details = "Solved with KM influence estimation (O(n) approach)"
+            return {"score": max_pts, "max": max_pts, "details": details}
+        elif any(e["method"] == "km" for e in log):
+            details = "Tried KM but did not solve"
+            return {"score": 2, "max": max_pts, "details": details}
+        else:
+            details = "Never tried KM influence estimation"
+            return {"score": 0, "max": max_pts, "details": details}
+
+    def _grade_curriculum_speedup(self, log, solved_set):
+        """
+        found_curriculum_speedup (5 pts):
+        Discovered that curriculum (train small n first) gives speedup.
+        """
+        max_pts = 5
+        if "curriculum" in solved_set:
+            details = "Solved with curriculum learning (n-curriculum speedup)"
+            return {"score": max_pts, "max": max_pts, "details": details}
+        elif any(e["method"] == "curriculum" for e in log):
+            acc = max((e["accuracy"] for e in log if e["method"] == "curriculum"), default=0)
+            details = f"Tried curriculum but acc={acc:.2f}"
+            return {"score": 2, "max": max_pts, "details": details}
+        else:
+            details = "Never tried curriculum learning"
+            return {"score": 0, "max": max_pts, "details": details}
+
+    def _grade_parity_invisibility(self, log, failed_set):
+        """
+        identified_parity_invisibility (5 pts):
+        Observed that methods limited to low-order statistics fail on parity.
+        Agent must have tried at least 2 methods that fail and 1 that succeeds.
+        """
+        max_pts = 5
+        known_fail_methods = {"forward_forward", "genetic_prog", "perlayer", "sign_sgd"}
+        observed_failures = known_fail_methods & failed_set
+        has_success = len(failed_set) < len(set(e["method"] for e in log))
+
+        if len(observed_failures) >= 2 and has_success:
+            details = (
+                f"Observed {len(observed_failures)} failures "
+                f"({', '.join(sorted(observed_failures))}) "
+                f"and found working methods -- parity structure observable"
+            )
+            return {"score": max_pts, "max": max_pts, "details": details}
+        elif len(observed_failures) >= 1:
+            details = f"Observed failure: {', '.join(sorted(observed_failures))}"
+            return {"score": 2, "max": max_pts, "details": details}
+        else:
+            details = "Did not observe enough failures to identify parity invisibility"
+            return {"score": 0, "max": max_pts, "details": details}
+
+    def _grade_cross_challenge(self, log, solved_set, challenge):
+        """
+        cross_challenge_analysis (3 pts):
+        Only applicable in MultiChallengeEnv. Awards points if agent solved
+        methods across different challenges and could compare.
+        For single-challenge episodes, award 0 with explanation.
+        """
+        max_pts = 3
+        challenges_seen = set(e.get("challenge", challenge) for e in log)
+        if len(challenges_seen) <= 1:
+            details = "Single challenge episode -- cross-challenge analysis not applicable"
+            return {"score": 0, "max": max_pts, "details": details}
+
+        solved_per_challenge = {}
+        for e in log:
+            c = e.get("challenge", challenge)
+            if e["accuracy"] >= 0.95:
+                solved_per_challenge.setdefault(c, set()).add(e["method"])
+
+        if len(solved_per_challenge) >= 2:
+            details = (
+                f"Solved methods across {len(solved_per_challenge)} challenges: "
+                + ", ".join(f"{c}: {', '.join(sorted(ms))}" for c, ms in sorted(solved_per_challenge.items()))
+            )
+            return {"score": max_pts, "max": max_pts, "details": details}
+        elif len(solved_per_challenge) == 1:
+            details = "Only solved methods in one challenge"
+            return {"score": 1, "max": max_pts, "details": details}
+        else:
+            details = "No methods solved across challenges"
+            return {"score": 0, "max": max_pts, "details": details}
+
+    def _grade_cache_insight(self, log, solved_set):
+        """
+        cache_model_insight (3 pts):
+        Agent found that DMC and ARD give different rankings, implying
+        cache behavior matters. Awarded if agent solved 3+ methods with
+        different DMC values (showing it explored the metric space).
+        """
+        max_pts = 3
+        dmc_values = {}
+        for e in log:
+            if e["accuracy"] >= 0.95 and e.get("dmc") is not None and e["dmc"] > 0:
+                dmc_values[e["method"]] = e["dmc"]
+
+        if len(dmc_values) >= 3:
+            spread = max(dmc_values.values()) / min(dmc_values.values())
+            details = (
+                f"Measured DMC across {len(dmc_values)} methods "
+                f"(spread: {spread:.0f}x) -- cache behavior observable"
+            )
+            return {"score": max_pts, "max": max_pts, "details": details}
+        elif len(dmc_values) >= 2:
+            details = f"Measured DMC for {len(dmc_values)} methods"
+            return {"score": 1, "max": max_pts, "details": details}
+        else:
+            details = "Insufficient DMC measurements to observe cache behavior"
+            return {"score": 0, "max": max_pts, "details": details}
 
     def _grade_algebraic(self, log, solved_set, challenge):
         """

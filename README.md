@@ -79,7 +79,7 @@ print(f'{info[\"method\"]}: DMC={info[\"dmc\"]}, reward={r:.2f}')
 "
 ```
 
-- 3 challenges, 16 methods, 49-point discovery grading rubric
+- 3 challenges, 16 methods, 72-point discovery grading rubric (12 categories)
 - Registry-based: add challenges and methods without editing env code
 - Compute backends: local (default), Modal (GPU), remote HTTP
 - Adapters: Anthropic tool-use, UK AISI Inspect
@@ -137,7 +137,7 @@ src/
     eval/                 # Gymnasium RL environment
       env.py              # SutroYaro/SparseParity-v0
       baselines.py        # Random, Greedy, Oracle agents
-      grader.py           # 49-point discovery grading
+      grader.py           # 72-point discovery grading (12 categories)
       registry.py         # Extensible challenge/method registry
       backends.py         # Local, Modal, Remote compute
       answer_key.json     # 36 experiments as ground truth
