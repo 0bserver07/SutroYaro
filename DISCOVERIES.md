@@ -21,6 +21,7 @@
 - **With correct hyperparams, grokking is fast**: 5 epochs to 100% with single-sample SGD (LR=0.1, n_train=500). [exp4 baseline]
 - **GrokFast is counterproductive** when hyperparams are already correct. It amplifies gradients that don't need amplifying, causing 83x more weight movement and slower convergence. [exp4]
 - **GrokFast helps when k is large**: On n=20/k=5, aggressive GrokFast (a=0.98, l=2.0) gives 2.5x fewer epochs (29 vs 73) and 2.3x faster wall time than SGD. The EMA accumulates the exponentially weak k-th order gradient signal. But on n=30/k=3, it hurts (40% solve rate) because it amplifies noise dimensions. The critical variable is interaction order, not input dimension. [exp_grokfast_v2]
+- **GrokFast + curriculum compound**: The two methods are orthogonal (curriculum handles n-scaling, GrokFast handles k-th order plateau). Combined: 5.8x speedup on n=20/k=5, 8.3x on n=50/k=3, and solves n=50/k=5 in 14 epochs / 77ms where SGD completely fails (0% at 1000 epochs). Curriculum shields GrokFast from the noise-dimension problem by keeping n small during the critical learning phase. [exp_grokfast_curriculum]
 
 ### Training Variants & ARD
 

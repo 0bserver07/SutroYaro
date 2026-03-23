@@ -136,5 +136,6 @@ the grokking plateau.
 ### Training configuration
 
 - [ ] Higher weight decay + input noise: regularization accelerates grokking by enforcing algebraic invariances. Try wd=0.05-0.1 with Gaussian noise on inputs. Ref: https://openreview.net/forum?id=gciHssAM8A
+- [x] Curriculum + GrokFast combined: compounds on all 3 regimes. 5.8x on n=20/k=5, 8.3x on n=50/k=3, solves n=50/k=5 (14 epochs, 77ms) where SGD fails. [exp_grokfast_curriculum]
 - [ ] Curriculum + EGD combined: curriculum (n=10 to n=20) gave 14.6x speedup (exp_curriculum). Combining with EGD could compound the gains.
 - [ ] Full-batch second-order (L-BFGS): converges in fewer steps than SGD. Per-step cost higher but may need 1-2 steps instead of 7 epochs.
