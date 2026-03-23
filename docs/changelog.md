@@ -2,6 +2,22 @@
 
 All notable changes to this research workspace.
 
+## [0.24.0] - 2026-03-23
+
+### GrokFast + Curriculum compounding (PR #52, SethTS)
+
+GrokFast and curriculum attack different axes (k-th order plateau vs n-scaling wall). Combined, they multiply:
+
+- **n=20/k=5**: 5.8x speedup over SGD (12 epochs, 57ms)
+- **n=50/k=3**: 8.3x speedup (7 epochs, 35ms)
+- **n=50/k=5**: solves in 14 epochs / 77ms where SGD fails completely (0% at 1000 epochs)
+
+Curriculum shields GrokFast from its noise-dimension weakness by keeping n small during the critical learning phase. 60 runs, 5 seeds each, 100% solve rate on all combined configurations.
+
+- Findings: `findings/exp_grokfast_curriculum.md`
+
+---
+
 ## [0.23.0] - 2026-03-23
 
 ### GrokFast v2 experiment (PR #51, SethTS)
