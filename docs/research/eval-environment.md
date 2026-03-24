@@ -43,6 +43,26 @@ This environment tests something different: experiment selection. The agent does
 
 We can grade this because we have ground truth. Most research environments cannot score an agent's trajectory because the optimal policy is unknown. Here, 36 experiments establish what works, what fails, and why.
 
+## The real question: few tokens, small wall clock
+
+The Sutro Group constraint is that experiments should run within 1980s compute budgets (under 1 second, ideally under 10ms, matching a Spark 7). But there's a second constraint that applies to the agent itself: how much does the research process cost?
+
+Two costs matter:
+
+**Experiment cost.** How much data does the method move? That's what DMC measures. GF(2) at DMC 8,607 is 9 million times cheaper than Fourier at 78 billion. The environment tracks this per step.
+
+**Agent cost.** How many experiments did the agent need to find the best method? How many tokens of LLM interaction did that take? An agent that finds GF(2) in 3 steps used fewer resources than one that tried all 16. The efficiency grading category (5 pts for finding the best method in steps 1-3) measures this, but it doesn't capture the token cost of the agent's reasoning between steps.
+
+The environment currently measures experiment cost (DMC, ARD, wall time per method). It does not measure agent cost (tokens used, agent wall clock between decisions). A future version could track:
+
+- Total tokens consumed by the agent across the episode
+- Wall clock time between `env.step()` calls (the agent's "thinking time")
+- Cost per discovery point (tokens spent per grading point earned)
+
+This would let us compare not just which agent finds the best method, but which agent finds it most cheaply. An oracle that knows the answer uses zero reasoning tokens. A random agent uses zero reasoning tokens but wastes experiment budget. The interesting region is between them: an agent that reasons about the results, forms hypotheses, and converges on GF(2) in 3-5 steps using a few thousand tokens.
+
+The demo script (`src/sparse_parity/eval/demo.py`) shows the speed check: 4 methods under 10ms, 10 under 1 second, sorted by DMC. Run it with `PYTHONPATH=src python3 src/sparse_parity/eval/demo.py`.
+
 ## Environments
 
 | Registration | What it does |
