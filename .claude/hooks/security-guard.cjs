@@ -96,17 +96,27 @@ function main() {
         }
       }
 
-      // Output
+      // Output per Claude Code hook protocol
+      // See: https://code.claude.com/docs/en/hooks
       if (decision === "deny") {
         const errorOutput = {
-          hookSpecificOutput: { permissionDecision: "deny" },
+          hookSpecificOutput: {
+            hookEventName: "PreToolUse",
+            permissionDecision: "deny",
+            permissionDecisionReason: reason,
+          },
           systemMessage: `BLOCKED: ${reason}\n\nTo perform this operation, run it manually in the terminal.`,
         };
         console.error(JSON.stringify(errorOutput));
         process.exit(2);
       } else {
-        const result = { continue: true };
+        const result = {};
         if (confirmLabel) {
+          result.hookSpecificOutput = {
+            hookEventName: "PreToolUse",
+            permissionDecision: "ask",
+            permissionDecisionReason: confirmLabel,
+          };
           result.systemMessage = `CONFIRM REQUIRED: ${confirmLabel}\n\nYou MUST ask the user for explicit confirmation before executing this operation.`;
         }
         console.log(JSON.stringify(result));

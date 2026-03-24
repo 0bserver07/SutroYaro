@@ -31,6 +31,17 @@ harness.py is not locked by the hook because it needs legitimate edits when addi
 
 Skill activation is handled by the superpowers plugin (`using-superpowers` skill), which already tells the agent to check available skills on every message. No additional hook is needed for this.
 
+### Hook events we don't use yet
+
+Claude Code supports 26 hook events. We use 3 (SessionStart, PreToolUse, SessionEnd). Others that could be useful in future:
+
+- `Notification` (matcher: `permission_prompt`): send a Telegram message when the agent is waiting for user approval. Enables async review without watching the terminal.
+- `Stop`: prevent the agent from finishing before verification runs. Would have caught several issues in this session.
+- `TaskCompleted`: block task completion if results haven't been verified.
+- `PostToolUse`: log which tools the agent actually used, for understanding agent behavior across sessions.
+
+Claude Code also supports HTTP hook types (POST to an endpoint) which could power a PR auto-review webhook: GitHub PR fires webhook, local server starts Claude Code review, review result goes to Telegram for approval. This is tracked in Issue #14.
+
 ## Rules
 
 Two rule files in `.claude/rules/` that the agent loads as constraints.
