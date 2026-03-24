@@ -80,6 +80,7 @@ nav:
           - Agent CLI Guide: tooling/agent-cli-guide.md
   - Research:
       - Overview: research/index.md
+      - System Overview: research/system-overview.md
       - "What's New": research/whats-new-march-2026.md
       - Research as Navigation: research/navigation-thesis.md
       - Peer Research Protocol: research/peer-research-protocol.md
