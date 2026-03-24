@@ -2,6 +2,16 @@
 
 All notable changes to this research workspace.
 
+## [0.25.0] - 2026-03-24
+
+### GrokFast + Curriculum scaling frontier (PR #53, SethTS)
+
+Maps how far GrokFast + Curriculum scales. k=3 scales effortlessly: n=200 solves in 11 epochs / 95ms, each expansion phase takes 1 epoch. k=5 hits a wall between n=50 and n=100 (60% solve rate, stalls at 94% after expansion). n=200/k=5 fails completely. The 5-way interaction detector learned at small n is too fragile to survive 50+ new noise dimensions.
+
+- Findings: `findings/exp_grokfast_curriculum_scale.md`
+
+---
+
 ## [0.24.0] - 2026-03-23
 
 ### GrokFast + Curriculum compounding (PR #52, SethTS)
