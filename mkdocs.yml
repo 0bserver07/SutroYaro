@@ -85,6 +85,7 @@ nav:
       - Research as Navigation: research/navigation-thesis.md
       - Peer Research Protocol: research/peer-research-protocol.md
       - Eval Environment: research/eval-environment.md
+      - Agent Infrastructure: research/agent-infrastructure.md
       - Adding a Challenge: research/adding-a-challenge.md
       - Literature Review: research/sparse-parity-literature.md
       - Proposed Approaches: research/proposed-approaches.md

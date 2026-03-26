@@ -138,7 +138,12 @@ See `src/sparse_parity/experiments/_template.py` for the code template.
 6. **Keep runtime < 5 minutes** — reduce hidden/epochs if needed
 7. **Commit locally, don't push** — the human decides when to push
 8. **Leave a "Next" section** — so the next session knows what to try
-9. **Metric isolation** — never modify measurement code (tracker.py, cache_tracker.py, data.py, config.py). Agents that rewrite evaluation code to get better scores are gaming the metric, not improving the algorithm. Learned from Germain's experience where agents rewrote ARD measurement code instead of optimizing the actual training loop.
+9. **Metric isolation** — never modify measurement code (tracker.py, cache_tracker.py, data.py, config.py, harness.py). Agents that rewrite evaluation code to get better scores are gaming the metric, not improving the algorithm.
+10. **Two-phase results** — separate evidence from interpretation:
+    - **Phase 1 (evidence)**: experiment code produces `results/{exp_id}/results.json` with raw numbers, config, and environment info. No interpretation in this file.
+    - **Phase 2 (findings)**: write `docs/findings/{exp_id}.md` referencing the results JSON. Add hypothesis, analysis, and impact on DISCOVERIES.md here.
+    - Never write conclusions in Phase 1. Never put raw data in Phase 2 without linking to Phase 1.
+11. **Reproducibility** — see `.claude/rules/experiment-reproducibility.md`. Every experiment must record seed, config, environment, and git commit hash.
 
 ## Current Baselines
 
