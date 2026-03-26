@@ -80,9 +80,11 @@ nav:
           - Agent CLI Guide: tooling/agent-cli-guide.md
   - Research:
       - Overview: research/index.md
+      - System Overview: research/system-overview.md
       - "What's New": research/whats-new-march-2026.md
       - Research as Navigation: research/navigation-thesis.md
       - Peer Research Protocol: research/peer-research-protocol.md
+      - Eval Environment: research/eval-environment.md
       - Adding a Challenge: research/adding-a-challenge.md
       - Literature Review: research/sparse-parity-literature.md
       - Proposed Approaches: research/proposed-approaches.md
