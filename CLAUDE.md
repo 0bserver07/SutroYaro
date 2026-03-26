@@ -12,7 +12,7 @@ This is a research workspace for the **Sutro Group**, a study group exploring en
 - **CONTRIBUTING.md** — How external contributors submit experiments and findings
 - **TODO.md** — Open research tasks
 - **docs/tasks/INDEX.md** — Current task tracker with priorities
-- **docs/research/survey.md** — Practitioner's Field Guide ranking all 33 experiments
+- **docs/research/survey.md** — Practitioner's Field Guide ranking all 36 experiments
 - **docs/research/peer-research-protocol.md** — Full design doc for multi-researcher autonomous research
 
 ## Core Concepts
