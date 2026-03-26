@@ -39,14 +39,20 @@ All four local learning rules (Hebbian, Predictive Coding, Equilibrium Propagati
 git clone https://github.com/cybertronai/SutroYaro.git
 cd SutroYaro
 
+# Option A: Nix (recommended)
+nix develop
+
+# Option B: pip fallback
+export PYTHONPATH=$PWD/src:$PYTHONPATH && pip install numpy
+
 # Verify all 14 experiments across 3 challenges in <1 second
-PYTHONPATH=src python3 bin/reproduce-all
+python3 bin/reproduce-all
 
 # Run sparse parity with GF(2) (509 microseconds)
-PYTHONPATH=src python3 src/harness.py --method gf2 --n_bits 20 --k_sparse 3
+python3 src/harness.py --method gf2 --n_bits 20 --k_sparse 3
 
 # Run sparse sum (new challenge)
-PYTHONPATH=src python3 src/harness.py --challenge sparse-sum --method sgd
+python3 src/harness.py --challenge sparse-sum --method sgd
 
 # Measure real GPU energy via Modal Labs
 pip install modal && modal token set
@@ -55,6 +61,8 @@ modal run bin/gpu_energy.py
 # Run autonomous agent loop
 bin/run-agent --tool claude --max 10
 ```
+
+Full setup instructions in [CONTRIBUTING.md](https://github.com/cybertronai/SutroYaro/blob/main/CONTRIBUTING.md).
 
 ## Where to Find Things
 
