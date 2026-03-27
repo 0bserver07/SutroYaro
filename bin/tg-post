@@ -1,0 +1,150 @@
+#!/usr/bin/env bun
+/**
+ * Post a message to a Sutro Group forum topic via Bot API.
+ * Each person uses their own bot token (created via @BotFather).
+ *
+ * Usage:
+ *   bin/tg-post --topic agent-updates "Experiment completed: GF(2) solved n=100 in 703us"
+ *   bin/tg-post --topic-id 813 "Hello from my bot"
+ *   echo "Multi-line message" | bin/tg-post --topic agent-updates
+ *
+ * Requires TELEGRAM_BOT_TOKEN in .env
+ * Requires SUTRO_GROUP_CHAT_ID in .env (get via: bin/tg-post --get-chat-id)
+ */
+
+const TELEGRAM_API = "https://api.telegram.org";
+
+const args = process.argv.slice(2);
+
+if (args.includes("--help") || args.includes("-h")) {
+  console.log(`Usage: bin/tg-post [options] [message]
+
+Post a message to a Sutro Group forum topic via Telegram Bot API.
+
+Options:
+  --topic <name>     Topic name (matched against known topics)
+  --topic-id <id>    Topic thread ID (numeric)
+  --get-chat-id      Print the chat ID for the Sutro group (bot must be a member)
+  --markdown          Parse message as MarkdownV2
+  -h, --help         Show this help
+
+If no message argument is given, reads from stdin.
+
+Requires:
+  TELEGRAM_BOT_TOKEN   Your bot token from @BotFather
+  SUTRO_GROUP_CHAT_ID  The supergroup chat ID (numeric, usually negative)
+
+Rate limits: 20 msgs/min per group, 1 msg/sec per chat.
+`);
+  process.exit(0);
+}
+
+const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+if (!BOT_TOKEN) {
+  console.error("Set TELEGRAM_BOT_TOKEN in .env (get one from @BotFather)");
+  process.exit(1);
+}
+
+async function botApi(method: string, params: Record<string, unknown> = {}) {
+  const resp = await fetch(`${TELEGRAM_API}/bot${BOT_TOKEN}/${method}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(params),
+  });
+  const data = await resp.json();
+  if (!data.ok) {
+    console.error(`Bot API error: ${data.description}`);
+    process.exit(1);
+  }
+  return data.result;
+}
+
+// --get-chat-id: helper to find the group's chat ID
+if (args.includes("--get-chat-id")) {
+  console.log("Fetching updates to find group chat ID...");
+  console.log("(Make sure the bot has been added to the Sutro group and someone sent a message)\n");
+  const updates = await botApi("getUpdates", { limit: 100 });
+  const chats = new Set<string>();
+  for (const u of updates) {
+    const chat = u.message?.chat ?? u.channel_post?.chat;
+    if (chat && (chat.type === "supergroup" || chat.type === "group")) {
+      chats.add(`${chat.id}  ${chat.title}`);
+    }
+  }
+  if (chats.size === 0) {
+    console.log("No group chats found in recent updates.");
+    console.log("Send a message in the group after adding the bot, then re-run.");
+  } else {
+    console.log("Groups found:");
+    for (const c of chats) console.log(`  ${c}`);
+    console.log("\nSet SUTRO_GROUP_CHAT_ID to the numeric ID.");
+  }
+  process.exit(0);
+}
+
+const CHAT_ID = process.env.SUTRO_GROUP_CHAT_ID;
+if (!CHAT_ID) {
+  console.error("Set SUTRO_GROUP_CHAT_ID in .env (run 'bin/tg-post --get-chat-id' to find it)");
+  process.exit(1);
+}
+
+// Parse topic
+let topicId: number | undefined;
+const topicIdx = args.indexOf("--topic");
+const topicIdIdx = args.indexOf("--topic-id");
+
+if (topicIdIdx !== -1) {
+  topicId = parseInt(args[topicIdIdx + 1], 10);
+  args.splice(topicIdIdx, 2);
+} else if (topicIdx !== -1) {
+  const topicName = args[topicIdx + 1];
+  args.splice(topicIdx, 2);
+  // Look up topic ID from the local DB
+  try {
+    const { Database } = await import("bun:sqlite");
+    const { join } = await import("path");
+    const dbPath = join(import.meta.dir, "..", "telegram.db");
+    const db = new Database(dbPath, { readonly: true });
+    const row = db.query("SELECT id FROM topics WHERE slug LIKE ? OR title LIKE ?").get(
+      `%${topicName}%`,
+      `%${topicName}%`
+    ) as { id: number } | null;
+    db.close();
+    if (row) {
+      topicId = row.id;
+    } else {
+      console.error(`Topic "${topicName}" not found in local DB. Run bin/tg-sync first, or use --topic-id.`);
+      process.exit(1);
+    }
+  } catch {
+    console.error("Could not read local DB. Run bin/tg-sync first, or use --topic-id.");
+    process.exit(1);
+  }
+}
+
+const useMarkdown = args.includes("--markdown");
+if (useMarkdown) args.splice(args.indexOf("--markdown"), 1);
+
+// Get message text
+let text = args.filter((a) => !a.startsWith("--")).join(" ");
+if (!text) {
+  // Read from stdin
+  text = await Bun.stdin.text();
+}
+text = text.trim();
+
+if (!text) {
+  console.error("No message provided. Pass as argument or pipe via stdin.");
+  process.exit(1);
+}
+
+const params: Record<string, unknown> = {
+  chat_id: CHAT_ID,
+  text,
+};
+
+if (topicId) params.message_thread_id = topicId;
+if (useMarkdown) params.parse_mode = "MarkdownV2";
+
+const result = await botApi("sendMessage", params);
+console.log(`Sent to ${topicId ? `topic ${topicId}` : "general"}: message ${result.message_id}`);

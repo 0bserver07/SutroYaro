@@ -10,23 +10,25 @@ Run this at session start and before any push. Covers three sources: Telegram, G
 ## 1. Telegram (daily)
 
 ```bash
-bun run sync_telegram.ts
+bin/tg-sync
 ```
 
-Pulls 6 topics in priority order to `src/sparse_parity/telegram_sync/`:
+Syncs 6 forum topics to a local SQLite database (`telegram.db`). First run does a full backfill; subsequent runs are incremental (only new messages).
 
-| Priority | Topic | File |
-|----------|-------|------|
-| 1 | chat-yad | `chat-yad.json` |
-| 2 | chat-yaroslav | `chat-yaroslav.json` |
-| 3 | challenge #1: sparse parity | `challenge-1-sparse-parity.json` |
-| 4 | General | `general.json` |
-| 5 | In-person meetings | `in-person-meetings.json` |
-| 6 | Introductions | `introductions.json` |
+Query recent messages from priority topics to check for new questions, directions, or results:
 
-Read the last 5 messages from priority topics 1-3 to check for new questions, directions, or results. Report anything relevant to the user.
+```bash
+sqlite3 telegram.db "SELECT date, sender, substr(text, 1, 150) FROM messages
+  WHERE topic_id IN (SELECT id FROM topics WHERE slug IN ('chat-yad', 'chat-yaroslav', 'challenge-1-sparse-parity'))
+  AND date > datetime('now', '-3 days')
+  ORDER BY date DESC LIMIT 15"
+```
 
-**Prerequisites**: `bun install`, `.env` with `TELEGRAM_API_ID` and `TELEGRAM_API_HASH`, `tg auth login` (one-time).
+Report anything relevant to the user.
+
+**Fallback**: If `telegram.db` doesn't exist and credentials aren't configured, read the committed JSON files in `src/sparse_parity/telegram_sync/` instead (may be stale).
+
+**Prerequisites**: `bun install`, `.env` with `TELEGRAM_API_ID` and `TELEGRAM_API_HASH`, `tg auth login` (one-time). Full setup: [docs/tooling/telegram-setup.md](docs/tooling/telegram-setup.md).
 
 ## 2. Google Docs (weekly, after Monday meetings)
 

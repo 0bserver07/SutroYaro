@@ -122,11 +122,12 @@ Other coding agents (Gemini, Codex) don't run the hooks but can read the rules a
 
 | Script | What it does | Docs |
 |--------|-------------|------|
-| `sync_telegram.ts` | Pulls Telegram group thread messages to JSON | [docs/tooling/automation.md](docs/tooling/automation.md) |
+| `bin/tg-sync` | Syncs Telegram to local SQLite (incremental) | [docs/tooling/telegram-setup.md](docs/tooling/telegram-setup.md) |
+| `bin/tg-post` | Posts to Telegram forum topics via Bot API | [docs/tooling/telegram-setup.md](docs/tooling/telegram-setup.md) |
 | `src/sync_google_docs.py` | Pulls Google Docs to local markdown | [docs/tooling/automation.md](docs/tooling/automation.md) |
 | `.traces/export_sessions.py` | Exports Claude Code session traces | [docs/tooling/automation.md](docs/tooling/automation.md) |
 
-### Telegram Sync Quick Reference
+### Telegram Quick Reference
 
 ```bash
 # First time: install deps and authenticate
@@ -134,9 +135,15 @@ bun install
 cp .env.example .env  # fill in TELEGRAM_API_ID and TELEGRAM_API_HASH
 tg auth login
 
-# Sync messages
-bun run sync_telegram.ts
-# Output: src/sparse_parity/telegram_sync/messages.json
+# Sync messages to SQLite (incremental)
+bin/tg-sync
+# Database: telegram.db (project root, .gitignored)
+
+# Query messages
+sqlite3 telegram.db "SELECT date, sender, text FROM messages ORDER BY date DESC LIMIT 10"
+
+# Post via your own bot (requires TELEGRAM_BOT_TOKEN in .env)
+bin/tg-post --topic agent-updates "Experiment completed"
 ```
 
 ## Working Style

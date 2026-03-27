@@ -75,6 +75,7 @@ nav:
           - Claude Code Setup: tooling/claude-code-setup.md
           - Skills & Plugins: tooling/skills.md
           - Anti-Slop Guide: tooling/anti-slop-guide.md
+          - Telegram Setup: tooling/telegram-setup.md
           - Automation Scripts: tooling/automation.md
           - Sync Runbook: tooling/sync-runbook.md
           - Agent CLI Guide: tooling/agent-cli-guide.md
