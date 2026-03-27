@@ -101,11 +101,14 @@ See [docs/research/peer-research-protocol.md](docs/research/peer-research-protoc
 
 | Script | What it does | Docs |
 |--------|-------------|------|
-| `sync_telegram.ts` | Pulls Telegram group thread messages to JSON | [docs/tooling/automation.md](docs/tooling/automation.md) |
+| `sync_telegram.ts` | Bulk-syncs Telegram topics to JSON files | [docs/tooling/automation.md](docs/tooling/automation.md) |
+| `telegram/tg-topics.ts` | Lists forum topics (JSON) | See below |
+| `telegram/tg-read.ts` | Reads messages from a topic (JSON) | See below |
+| `telegram/tg-send.ts` | Sends a message to a topic | See below |
 | `src/sync_google_docs.py` | Pulls Google Docs to local markdown | [docs/tooling/automation.md](docs/tooling/automation.md) |
 | `.traces/export_sessions.py` | Exports Claude Code session traces | [docs/tooling/automation.md](docs/tooling/automation.md) |
 
-### Telegram Sync Quick Reference
+### Telegram Quick Reference
 
 ```bash
 # First time: install deps and authenticate
@@ -113,9 +116,26 @@ bun install
 cp .env.example .env  # fill in TELEGRAM_API_ID and TELEGRAM_API_HASH
 tg auth login
 
-# Sync messages
+# Bulk sync (existing)
 bun run sync_telegram.ts
-# Output: src/sparse_parity/telegram_sync/messages.json
+
+# List topics
+bun telegram/tg-topics.ts
+
+# Read last 20 messages from a topic
+bun telegram/tg-read.ts --topic "General" --limit 20
+
+# Read messages since a date
+bun telegram/tg-read.ts --topic "chat-yad" --since 2025-06-01
+
+# Send a message to a topic
+bun telegram/tg-send.ts --topic "agents" --message "Hello from agent"
+
+# Send multi-line via stdin
+echo "Summary of findings..." | bun telegram/tg-send.ts --topic "agents" --stdin
+
+# Send to default write topic (set TELEGRAM_WRITE_TOPIC in .env)
+bun telegram/tg-send.ts --message "Status update"
 ```
 
 ## Working Style
