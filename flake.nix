@@ -18,7 +18,18 @@
         {
           default = pkgs.mkShell {
             buildInputs = [
-              (pkgs.python3.withPackages (p: [ p.numpy ]))
+              # Python with core deps
+              (pkgs.python3.withPackages (p: [
+                p.numpy
+                # Docs site
+                p.mkdocs-material
+                p.mkdocs-mermaid2-plugin
+                p.pymdown-extensions
+              ]))
+              # Telegram sync
+              pkgs.bun
+              # Google Docs sync
+              pkgs.pandoc
             ];
             shellHook = ''
               export PYTHONPATH=$PWD/src:$PYTHONPATH

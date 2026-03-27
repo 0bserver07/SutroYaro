@@ -55,26 +55,63 @@ cp findings/_template.md findings/exp_yours.md
 
 ## Setup
 
-Python 3.10+. No external dependencies for core experiments (pure Python + stdlib).
+### Option A: Nix (recommended)
+
+One command gets you everything: Python, numpy, bun, pandoc, mkdocs.
+
+```bash
+# 1. Install nix (if you don't have it)
+curl --proto '=https' --tlsv1.2 -sSf https://install.determinate.systems/nix | sh -s -- install
+
+# 2. Clone and enter dev shell
+git clone https://github.com/cybertronai/SutroYaro.git
+cd SutroYaro
+nix develop
+
+# 3. Verify it works
+python3 -m sparse_parity.fast
+# Should print: 100% accuracy in ~0.12s
+
+# 4. Run environment check
+python3 checks/env_check.py
+# Should print: All checks passed.
+```
+
+The dev shell sets `PYTHONPATH=src` automatically, so imports work without manual setup.
+
+**What's included:**
+- Python 3 + numpy (core experiments)
+- bun (Telegram sync)
+- pandoc (Google Docs sync)
+- mkdocs-material + plugins (docs site)
+
+**Direnv (optional):** If you use direnv, `direnv allow` will auto-load the dev shell when you cd into the repo.
+
+### Option B: pip/uv (fallback)
+
+If you don't want to install nix:
 
 ```bash
 git clone https://github.com/cybertronai/SutroYaro.git
 cd SutroYaro
 
-# Verify it works
-PYTHONPATH=src python3 -m sparse_parity.fast
-# Should print: 100% accuracy in ~0.12s
+# Core deps only (experiments)
+pip install numpy
 
-# Run the GF(2) algebraic solver
-PYTHONPATH=src python3 src/sparse_parity/experiments/exp_gf2.py
-# Should print: solved in ~500 microseconds
+# Or with uv
+uv pip install numpy
+
+# Set PYTHONPATH and verify
+export PYTHONPATH=$PWD/src:$PYTHONPATH
+python3 -m sparse_parity.fast
 ```
 
-Optional deps:
-- `numpy` for fast.py (the numpy solver)
-- `pandoc` for syncing Google Docs (`python3 src/sync_google_docs.py`)
-- `bun` for syncing Telegram (`bun run sync_telegram.ts`)
-- `mkdocs-material` + `mkdocs-mermaid2-plugin` for building the docs site
+Optional deps for sync/docs:
+```bash
+pip install mkdocs-material mkdocs-mermaid2-plugin pymdown-extensions
+# pandoc: brew install pandoc (macOS) or apt install pandoc (Linux)
+# bun: curl -fsSL https://bun.sh/install | bash
+```
 
 ## What to work on
 
