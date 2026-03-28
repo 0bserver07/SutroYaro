@@ -16,6 +16,13 @@ const TELEGRAM_API = "https://api.telegram.org";
 
 const args = process.argv.slice(2);
 
+// Safety: posting is disabled by default. Set TELEGRAM_POST_ENABLED=1 in .env to enable.
+if (process.env.TELEGRAM_POST_ENABLED !== "1") {
+  console.error("Telegram posting is disabled by default.");
+  console.error("To enable, set TELEGRAM_POST_ENABLED=1 in .env");
+  process.exit(1);
+}
+
 if (args.includes("--help") || args.includes("-h")) {
   console.log(`Usage: bin/tg-post [options] [message]
 
