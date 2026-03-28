@@ -124,6 +124,9 @@ Other coding agents (Gemini, Codex) don't run the hooks but can read the rules a
 |--------|-------------|------|
 | `bin/tg-sync` | Syncs Telegram to local SQLite (incremental) | [docs/tooling/telegram-setup.md](docs/tooling/telegram-setup.md) |
 | `bin/tg-post` | Posts to Telegram forum topics via Bot API | [docs/tooling/telegram-setup.md](docs/tooling/telegram-setup.md) |
+| `telegram/tg-topics.ts` | Lists forum topics (JSON, live) | [docs/tooling/telegram-setup.md](docs/tooling/telegram-setup.md) |
+| `telegram/tg-read.ts` | Reads messages from a topic (JSON, live) | [docs/tooling/telegram-setup.md](docs/tooling/telegram-setup.md) |
+| `telegram/tg-send.ts` | Sends a message to a topic (MTProto) | [docs/tooling/telegram-setup.md](docs/tooling/telegram-setup.md) |
 | `src/sync_google_docs.py` | Pulls Google Docs to local markdown | [docs/tooling/automation.md](docs/tooling/automation.md) |
 | `.traces/export_sessions.py` | Exports Claude Code session traces | [docs/tooling/automation.md](docs/tooling/automation.md) |
 
@@ -135,15 +138,24 @@ bun install
 cp .env.example .env  # fill in TELEGRAM_API_ID and TELEGRAM_API_HASH
 tg auth login
 
-# Sync messages to SQLite (incremental)
+# Sync messages to SQLite (incremental, offline-queryable)
 bin/tg-sync
 # Database: telegram.db (project root, .gitignored)
 
-# Query messages
+# Query messages from SQLite
 sqlite3 telegram.db "SELECT date, sender, text FROM messages ORDER BY date DESC LIMIT 10"
+
+# Live read from a topic (no SQLite, hits Telegram directly)
+bun telegram/tg-read.ts --topic "chat-yad" --limit 20
+
+# List topics
+bun telegram/tg-topics.ts
 
 # Post via your own bot (requires TELEGRAM_BOT_TOKEN in .env)
 bin/tg-post --topic agent-updates "Experiment completed"
+
+# Send via MTProto (as your user account)
+bun telegram/tg-send.ts --topic "agents" --message "Hello from agent"
 ```
 
 ## Working Style
