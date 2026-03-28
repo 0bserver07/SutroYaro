@@ -24,18 +24,18 @@ From the paper: "in `abbbca`, the reuse distance of the second `a` is 3. Its DMD
 Arrays of size 1: `a=[1.0]`, `b=[5.0]`. Each array is a single float.
 
 ```
-Step 1: write a       stack = [a]           a is new, cold miss
-Step 2: write b       stack = [b, a]        b is new, cold miss
+Step 1: write a       stack = [a]             free
+Step 2: write b       stack = [a, b]          free
 
 Step 3: compute a + b
-  read a:  a is at position 2    dist = 2    stack unchanged [b, a]
-  read b:  b is at position 1    dist = 1    stack unchanged [b, a]
-  write c: c goes to top         stack = [c, b, a]
+  read a:  a is at position 2    dist = 2    stack unchanged [a, b]
+  read b:  b is at position 1    dist = 1    stack unchanged [a, b]
+  write c: c goes to top         stack = [a, b, c]
 
 Step 4: compute c + a
-  read c:  c is at position 1    dist = 1    stack unchanged [c, b, a]
-  read a:  a is at position 3    dist = 3    stack unchanged [c, b, a]
-  write d: d goes to top         stack = [d, c, b, a]
+  read c:  c is at position 1    dist = 1    stack unchanged [a, b, c]
+  read a:  a is at position 3    dist = 3    stack unchanged [a, b, c]
+  write d: d goes to top         stack = [a, b, c, d]
 ```
 
 Read DMD calculation:

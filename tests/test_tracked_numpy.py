@@ -246,17 +246,17 @@ class TestLRUMetricPrediction:
     Only reads cost DMD. Writes just place data on the stack.
 
         write a: stack=[a]                        free
-        write b: stack=[b,a]                      free
+        write b: stack=[a,b]                      free
 
         c = a + b:
-        read a:  a at pos 2, dist=2               stack unchanged [b,a]
-        read b:  b at pos 1, dist=1               stack unchanged [b,a]
-        write c: stack=[c,b,a]                    free
+        read a:  a at pos 2, dist=2               stack unchanged [a,b]
+        read b:  b at pos 1, dist=1               stack unchanged [a,b]
+        write c: stack=[a,b,c]                    free
 
         d = c + a:
-        read c:  c at pos 1, dist=1               stack unchanged [c,b,a]
-        read a:  a at pos 3, dist=3               stack unchanged [c,b,a]
-        write d: stack=[d,c,b,a]                  free
+        read c:  c at pos 1, dist=1               stack unchanged [a,b,c]
+        read a:  a at pos 3, dist=3               stack unchanged [a,b,c]
+        write d: stack=[a,b,c,d]                  free
 
     DMD = sqrt(2) + sqrt(1) + sqrt(1) + sqrt(3) = 5.1463
     """
