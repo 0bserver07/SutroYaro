@@ -223,34 +223,42 @@ class TestLRUPaperExample:
         dists = t.read('a', 1)
         assert dists[0] == 3
 
-    def test_cold_miss(self):
+    def test_unwritten_read(self):
         """Reading an element never written: dist = len(stack) + 1."""
         t = LRUStackTracker()
         t.write('a', 1)  # stack = [a], size 1
         dists = t.read('b', 1)  # b not in stack
         assert dists[0] == 2  # len(stack) + 1
-        assert t.summary()['cold_misses'] > 0
+
+    def test_writes_are_free(self):
+        """Writes place data on stack but do not accumulate DMD."""
+        t = LRUStackTracker()
+        t.write('a', 10)
+        t.write('b', 10)
+        t.write('c', 10)
+        assert t.summary()['dmd'] == 0.0  # no reads, no cost
 
 
 class TestLRUMetricPrediction:
     """Exact DMD predictions for simple expressions.
 
     (a+b)+a with size-1 arrays. Each array is a single float.
+    Only reads cost DMD. Writes just place data on the stack.
 
-        write a: stack=[a]                        cold, dist=1
-        write b: stack=[b,a]                      cold, dist=2
+        write a: stack=[a]                        free
+        write b: stack=[b,a]                      free
 
         c = a + b:
         read a:  a at pos 2, dist=2               stack unchanged [b,a]
         read b:  b at pos 1, dist=1               stack unchanged [b,a]
-        write c: stack=[c,b,a]                    cold, dist=3
+        write c: stack=[c,b,a]                    free
 
         d = c + a:
         read c:  c at pos 1, dist=1               stack unchanged [c,b,a]
         read a:  a at pos 3, dist=3               stack unchanged [c,b,a]
-        write d: stack=[d,c,b,a]                  cold, dist=4
+        write d: stack=[d,c,b,a]                  free
 
-    Read DMD = sqrt(2) + sqrt(1) + sqrt(1) + sqrt(3) = 5.1463
+    DMD = sqrt(2) + sqrt(1) + sqrt(1) + sqrt(3) = 5.1463
     """
 
     def test_a_plus_b_plus_a(self):
@@ -266,8 +274,8 @@ class TestLRUMetricPrediction:
 
         assert s['reads'] == 4
         assert s['writes'] == 4
-        assert abs(s['read_dmd'] - expected) < 0.01, \
-            f"read_dmd {s['read_dmd']:.4f} != expected {expected:.4f}"
+        assert abs(s['dmd'] - expected) < 0.01, \
+            f"dmd {s['dmd']:.4f} != expected {expected:.4f}"
 
 
 class TestGF2Integration:
@@ -285,8 +293,8 @@ class TestGF2Integration:
         predicted = sorted(np.where(np.asarray(solution) == 1)[0].tolist())
         assert predicted == secret
 
-    def test_read_dmd_in_expected_range(self, gf2_data):
-        """Read DMD should be near Yad's honest estimate (~189K)."""
+    def test_dmd_in_expected_range(self, gf2_data):
+        """DMD should be near Yad's honest estimate (~189K)."""
         A, b, secret, gf2_gauss_elim = gf2_data
         tracker = LRUStackTracker()
         with tracking_context(tracker):
@@ -294,8 +302,8 @@ class TestGF2Integration:
                 TrackedArray(A, 'A', tracker).copy(),
                 TrackedArray(b, 'b', tracker).copy(),
             )
-        read_dmd = tracker.summary()['read_dmd']
-        assert 50_000 < read_dmd < 500_000, f"Read DMD {read_dmd} outside expected range"
+        dmd = tracker.summary()['dmd']
+        assert 50_000 < dmd < 500_000, f"DMD {dmd} outside expected range"
 
     def test_many_operations_tracked(self, gf2_data):
         """Elimination should generate many reads/writes from pivot operations."""
