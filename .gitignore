@@ -47,3 +47,4 @@ telegram.db
 telegram.db-wal
 telegram.db-shm
 .cursor/
+*.code-workspace
