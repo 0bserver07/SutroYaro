@@ -1,25 +1,25 @@
-"""Auto-instrumented numpy wrapper for DMC tracking.
+"""Auto-instrumented numpy wrapper for DMD tracking.
 
 Wraps numpy arrays so that every operation (ufuncs, indexing, slicing,
-numpy functions) automatically records reads and writes on a MemTracker.
+numpy functions) automatically records reads and writes on a tracker.
+Works with both LRUStackTracker (recommended) and MemTracker (legacy).
 
 Usage:
     from sparse_parity.tracked_numpy import TrackedArray, tracking_context
-    from sparse_parity.tracker import MemTracker
+    from sparse_parity.lru_tracker import LRUStackTracker
 
-    tracker = MemTracker()
+    tracker = LRUStackTracker()
     with tracking_context(tracker):
         A = TrackedArray(A_raw, "A", tracker)
         b = TrackedArray(b_raw, "b", tracker)
         # Run unmodified numpy code -- all ops auto-tracked
         solution, rank = gf2_gauss_elim(A.copy(), b.copy())
-    print(tracker.summary()["dmc"])
+    print(tracker.summary()["read_dmd"])
 """
 
 import numpy as np
 import threading
 from contextlib import contextmanager
-from sparse_parity.tracker import MemTracker
 
 _next_id = 0
 _local = threading.local()
@@ -100,7 +100,10 @@ def tracking_context(tracker):
 
 
 class TrackedArray(np.ndarray):
-    """ndarray subclass that auto-records reads/writes on a MemTracker.
+    """ndarray subclass that auto-records reads/writes on a tracker.
+
+    Works with any tracker that has write(name, size) and read(name, size)
+    methods (LRUStackTracker or MemTracker).
 
     Every operation that reads this array records a tracker.read().
     Every operation that produces a new array records a tracker.write().
@@ -120,23 +123,6 @@ class TrackedArray(np.ndarray):
             return
         self._tracker = getattr(obj, '_tracker', None)
         self._buf_name = getattr(obj, '_buf_name', None)
-
-    def _infect(self, target):
-        """Upgrade a plain ndarray to TrackedArray using this array's tracker.
-
-        This handles the case where a plain array (e.g. from np.zeros) receives
-        data from a TrackedArray via assignment. The plain array gets promoted.
-        """
-        if self._tracker is None:
-            return target
-        if isinstance(target, TrackedArray):
-            return target
-        name = _auto_name("promoted")
-        out = target.view(TrackedArray)
-        out._tracker = self._tracker
-        out._buf_name = name
-        self._tracker.write(name, target.size)
-        return out
 
     def _record_read(self):
         """Record that this array was read."""
@@ -281,14 +267,13 @@ class TrackedArray(np.ndarray):
 
     @property
     def T(self):
-        self._record_read()
+        # Transpose is a zero-cost view in numpy (no data movement).
+        # Return a TrackedArray sharing the same buffer name.
         result = super().T
         if isinstance(result, np.ndarray) and self._tracker is not None:
-            name = _auto_name("transpose")
             out = result.view(TrackedArray)
             out._tracker = self._tracker
-            out._buf_name = name
-            self._tracker.write(name, result.size)
+            out._buf_name = self._buf_name  # same buffer, just a view
             return out
         return result
 
@@ -318,28 +303,39 @@ def _record_reads(*args):
             a._record_read()
 
 
+def _strip_tracked(arg):
+    """Recursively strip TrackedArrays from an arg, recording reads. Returns (plain, tracker)."""
+    if isinstance(arg, TrackedArray):
+        arg._record_read()
+        return np.asarray(arg), arg._tracker
+    elif isinstance(arg, (list, tuple)):
+        tracker = None
+        plain = []
+        for item in arg:
+            p, t = _strip_tracked(item)
+            plain.append(p)
+            if t is not None:
+                tracker = t
+        return type(arg)(plain), tracker
+    return arg, None
+
+
 def _default_array_function(func, args, kwargs):
     """Fallback: record reads, call numpy, wrap output."""
     tracker = None
     plain_args = []
     for a in args:
-        if isinstance(a, TrackedArray):
-            a._record_read()
-            if tracker is None:
-                tracker = a._tracker
-            plain_args.append(np.asarray(a))
-        else:
-            plain_args.append(a)
+        p, t = _strip_tracked(a)
+        plain_args.append(p)
+        if t is not None:
+            tracker = t
 
     plain_kwargs = {}
     for k, v in kwargs.items():
-        if isinstance(v, TrackedArray):
-            v._record_read()
-            if tracker is None:
-                tracker = v._tracker
-            plain_kwargs[k] = np.asarray(v)
-        else:
-            plain_kwargs[k] = v
+        p, t = _strip_tracked(v)
+        plain_kwargs[k] = p
+        if t is not None:
+            tracker = t
 
     result = func(*plain_args, **plain_kwargs)
 

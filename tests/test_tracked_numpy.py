@@ -355,3 +355,67 @@ def test_lru_gf2_integration():
     s = tracker.summary()
     read_dmd = s['read_dmd']
     assert 50_000 < read_dmd < 500_000, f"Read DMD {read_dmd} outside expected range"
+
+
+# --- Additional coverage ---
+
+def test_lru_cold_miss():
+    """Reading an element that was never written is a cold miss."""
+    t = LRUStackTracker()
+    t.write('a', 1)  # stack = [a]
+    dists = t.read('b', 1)  # b never written, cold miss
+    assert dists[0] == 2  # stack has 1 element, so cold = len(stack) + 1 = 2
+    assert t.summary()['cold_misses'] > 0
+
+
+def test_transpose_is_zero_cost_view():
+    """Transpose should not record a read or write (it's a view)."""
+    tracker = MemTracker()
+    a = TrackedArray(np.array([[1, 2], [3, 4]]), "a", tracker)
+    writes_before = tracker.summary()['writes']
+    b = a.T
+    writes_after = tracker.summary()['writes']
+    assert isinstance(b, TrackedArray)
+    assert b._buf_name == a._buf_name  # same buffer
+    assert writes_after == writes_before  # no new write
+
+
+def test_tolist():
+    tracker = MemTracker()
+    a = TrackedArray(np.array([1, 2, 3]), "a", tracker)
+    result = a.tolist()
+    assert result == [1, 2, 3]
+    assert tracker.summary()['reads'] >= 1
+
+
+def test_np_mean():
+    tracker = MemTracker()
+    a = TrackedArray(np.array([1.0, 2.0, 3.0, 4.0]), "a", tracker)
+    result = np.mean(a)
+    assert result == 2.5
+    assert tracker.summary()['reads'] >= 1
+
+
+def test_np_sort():
+    tracker = MemTracker()
+    a = TrackedArray(np.array([3, 1, 2]), "a", tracker)
+    result = np.sort(a)
+    assert isinstance(result, TrackedArray)
+    np.testing.assert_array_equal(np.asarray(result), [1, 2, 3])
+
+
+def test_np_concatenate():
+    tracker = MemTracker()
+    a = TrackedArray(np.array([1, 2]), "a", tracker)
+    b = TrackedArray(np.array([3, 4]), "b", tracker)
+    result = np.concatenate([a, b])
+    assert isinstance(result, TrackedArray)
+    np.testing.assert_array_equal(np.asarray(result), [1, 2, 3, 4])
+
+
+def test_np_zeros_like():
+    tracker = MemTracker()
+    a = TrackedArray(np.array([1, 2, 3]), "a", tracker)
+    result = np.zeros_like(a)
+    assert isinstance(result, TrackedArray)
+    np.testing.assert_array_equal(np.asarray(result), [0, 0, 0])
