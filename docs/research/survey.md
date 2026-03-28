@@ -10,45 +10,48 @@
 
 Sorted by verdict tier (SUCCESS, PARTIAL, meta-experiments, FAILED), then by speed within each tier. RL appears twice (bandit + sequential are separate approaches in one experiment).
 
-| Rank | Method | Phase | Accuracy (n=20/k=3) | Time | ARD | Verdict |
+| Rank | Method | Phase | Accuracy (n=20/k=3) | Time | DMD | Verdict |
 |------|--------|-------|---------------------|------|-----|---------|
-| 1 | GF(2) Gaussian Elimination | 2 | 100% | 509 us | ~500 | SUCCESS |
-| 2 | KM Influence Estimation | 2 | 100% | 0.001-0.006s | 1,585 | SUCCESS |
-| 3 | SMT Backtracking | 2 | 100% | 0.002s | ~2,000 | SUCCESS |
-| 4 | LASSO (no CV) | 2 | 100% | 0.005s | 861,076 | SUCCESS |
-| 5 | Fourier/Walsh-Hadamard | 1 | 100% | 0.009s | 1,147,375 | SUCCESS |
-| 6 | Random Subset Search | 1 | 100% | 0.011s | N/A | SUCCESS |
-| 7 | MDL Compression | 2 | 100% | 0.013s | 1,147,375 | SUCCESS |
-| 8 | Random Projections | 2 | 100% | 0.013s | ~670,000 | SUCCESS |
-| 9 | Mutual Information | 2 | 100% | 0.033s | 1,147,375 | SUCCESS |
-| 10 | Evolutionary Search | 1 | 100% | 0.041s | N/A | SUCCESS |
-| 11 | n-Curriculum SGD | 1 | 100% | 0.07s | ~18,000 | SUCCESS |
-| 12 | Per-Layer Backprop | 1 | 99.5% | 0.11s | 17,299 | SUCCESS |
-| 13 | SGD Baseline (fixed hyp.) | 1 | 99-100% | 0.12s | 17,976 | SUCCESS |
-| 14 | RL Bandit UCB | 2 | 100% | 0.12s | 83,396 | SUCCESS |
-| 15 | Sign SGD | 1 | 99.7% | 0.42s | ~18,000 | SUCCESS |
-| 16 | RL Sequential QL | 2 | 100% | 2.40s | 1 | SUCCESS |
-| 17 | Exhaustive Feature Select | 1 | 100% | ~0.02s | N/A | PARTIAL |
-| 18 | GP Symbolic | 2 | 100% | 0.98s | 0 | PARTIAL |
-| 19 | Pebble Game Reorder | 2 | 98% | ~1s | 42,034 | PARTIAL |
-| 20 | Binary Weights | 2 | 55.5% (n=20) | 1.51s | 13,726 | PARTIAL |
-| 21 | Weight Decay Sweep | 1 | 100% | 0.108s | ~18,000 | CONFIRMED |
-| 22 | Per-Layer + Batch | 1 | 99.8% | 0.665s | ~17,000 | CONFIRMED |
-| 23 | Batch ARD | 1 | 99% | ~0.1s | 547,881 | SURPRISE |
-| 24 | Sprint 1 Baseline | 1 | 100% (3-bit) | <1s | ~19,000 | MAPPED |
-| 25 | Scaling Stress Test | 1 | 54-99% | varies | ~35,000 | MAPPED |
-| 26 | Cache ARD Simulator | 1 | N/A | <1s | varies | NUANCED |
-| 27 | Decision Trees (best) | 2 | 92.5% | 0.42s | N/A | FAILED |
-| 28 | Tiled W1 | 2 | 99.8% | ~0.11s | 32,853 | FAILED |
-| 29 | GrokFast | 1 | 99% | 383.7s | ~35,000 | FAILED |
-| 30 | Forward-Forward | 1 | 58.5% | timeout | 277,256 | FAILED |
-| 31 | Equilibrium Propagation | 2 | 60.8% | 93.8s | 711,003 | FAILED |
-| 32 | Hebbian | 2 | 56% | ~1s | 34,798 | FAILED |
-| 33 | Target Propagation | 2 | 54.5% | ~1s | 37,788 | FAILED |
-| 34 | Predictive Coding | 2 | 51.2% | timeout | 370,005 | FAILED |
+| 1 | SMT Backtracking | 2 | 100% | 0.002s | 19,532 | SUCCESS |
+| 2 | KM Influence Estimation | 2 | 100% | 0.001s | 27,165 | SUCCESS |
+| 3 | GF(2) Gaussian Elimination | 2 | 100% | 0.009s | 153,745 | SUCCESS |
+| 4 | LASSO (no CV) | 2 | 100% | 0.005s | est. | SUCCESS |
+| 5 | Fourier/Walsh-Hadamard | 1 | 100% | 0.008s | est. | SUCCESS |
+| 6 | Random Subset Search | 1 | 100% | 0.011s | -- | SUCCESS |
+| 7 | MDL Compression | 2 | 100% | 0.013s | est. | SUCCESS |
+| 8 | Random Projections | 2 | 100% | 0.013s | est. | SUCCESS |
+| 9 | Mutual Information | 2 | 100% | 0.033s | est. | SUCCESS |
+| 10 | Evolutionary Search | 1 | 100% | 0.041s | -- | SUCCESS |
+| 11 | n-Curriculum SGD | 1 | 100% | 0.07s | est. | SUCCESS |
+| 12 | Per-Layer Backprop | 1 | 99.5% | 0.11s | est. | SUCCESS |
+| 13 | SGD Baseline (fixed hyp.) | 1 | 99-100% | 0.089s | est. | SUCCESS |
+| 14 | RL Bandit UCB | 2 | 100% | 0.12s | -- | SUCCESS |
+| 15 | Sign SGD | 1 | 99.7% | 0.42s | est. | SUCCESS |
+| 16 | RL Sequential QL | 2 | 100% | 4.4s | -- | SUCCESS |
+| 17 | Exhaustive Feature Select | 1 | 100% | ~0.02s | -- | PARTIAL |
+| 18 | GP Symbolic | 2 | 100% | 18.6s | -- | PARTIAL |
+| 19 | Pebble Game Reorder | 2 | 98% | 300s | -- | PARTIAL |
+| 20 | Binary Weights | 2 | 55.5% (n=20) | 22.7s | -- | PARTIAL |
+| 21 | Weight Decay Sweep | 1 | 100% | 0.108s | est. | CONFIRMED |
+| 22 | Per-Layer + Batch | 1 | 99.8% | 0.665s | est. | CONFIRMED |
+| 23 | Batch DMD | 1 | 99% | ~0.1s | est. | SURPRISE |
+| 24 | Sprint 1 Baseline | 1 | 100% (3-bit) | <1s | est. | MAPPED |
+| 25 | Scaling Stress Test | 1 | 54-99% | varies | est. | MAPPED |
+| 26 | Cache Simulator | 1 | N/A | <1s | -- | NUANCED |
+| 27 | Decision Trees (best) | 2 | 92.5% | 0.42s | -- | FAILED |
+| 28 | Tiled W1 | 2 | 99.8% | 132.7s | -- | FAILED |
+| 29 | GrokFast | 1 | 99% | 383.7s | est. | FAILED |
+| 30 | Forward-Forward | 1 | 58.5% | 82.8s | -- | FAILED |
+| 31 | Equilibrium Propagation | 2 | 60.8% | 152.2s | -- | FAILED |
+| 32 | Hebbian | 2 | 56% | 533.7s | -- | FAILED |
+| 33 | Target Propagation | 2 | 54.5% | 31.5s | -- | FAILED |
+| 34 | Predictive Coding | 2 | 51.2% | 453.6s | -- | FAILED |
 
-- **Fastest**: GF(2) at ~500 microseconds for n=20/k=3 with 21 samples. 240x faster than SGD.
-- **Best energy**: KM at ARD 1,585 during training (724x better than Fourier). RL sequential Q-learning at ARD 1 during inference (reads exactly k=3 bits per prediction).
+DMD column: numeric values are LRU-tracked (Ding et al. Definition 2.1, via [TrackedArray](tracked-numpy.md)). "est." = old harness estimate, not yet re-measured. "--" = not measured.
+
+- **Lowest DMD**: SMT at 19,532. Backtracking touches small slices per iteration.
+- **Fastest**: KM at 1ms for n=20/k=3. Flip each bit, measure label change.
+- **Best energy (measured)**: SMT at DMD 19,532 (LRU-tracked). KM at 27,165. GF(2) at 153,745.
 - **Most general**: GF(2) is k-independent, solving n=20/k=10 in 703 microseconds. SGD + curriculum works when k is unknown.
 
 ---
