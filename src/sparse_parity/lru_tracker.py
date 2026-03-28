@@ -18,8 +18,9 @@ class LRUStackTracker:
     """Tracks per-element LRU stack distances and computes granular DMD.
 
     Each float is identified by (buffer_name, index). The LRU stack maintains
-    all accessed elements ordered by recency. On each access, the element's
-    stack distance is its 1-indexed position before being moved to the top.
+    all written elements ordered by recency of writes. Writes move the element
+    to the top of the stack. Reads observe the element's 1-indexed position
+    without moving it.
 
     API matches MemTracker: write(name, size), read(name, size).
     """
