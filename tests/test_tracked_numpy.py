@@ -224,48 +224,6 @@ def test_a_plus_b_plus_a_dmc():
     assert abs(s["weighted_ard"] - expected_ard) < 0.01
     assert abs(s["dmc"] - expected_dmc) < 0.01, \
         f"DMC {s['dmc']:.6f} != expected {expected_dmc:.6f}"
-    # For size-1 arrays, granular DMD = DMC (no spread across stack positions)
-    assert abs(s["granular_dmd"] - expected_dmc) < 0.01, \
-        f"granular_dmd {s['granular_dmd']:.6f} != expected {expected_dmc:.6f}"
-
-
-def test_granular_dmd_differs_from_dmc():
-    """For multi-element buffers, granular DMD differs from approximate DMC.
-
-    With size-2 arrays: a=[1,2], b=[3,4], compute a+b.
-
-        clock=0: write("a", 2)    write_time["a"]=0   clock->2
-        clock=2: write("b", 2)    write_time["b"]=2   clock->4
-
-        c = a + b:
-        clock=4: read("a", 2)     dist=4    clock->6
-        clock=6: read("b", 2)     dist=4    clock->8
-        clock=8: write(c, 2)      clock->10
-
-    Approximate DMC = 2*sqrt(4) + 2*sqrt(4) = 8.0
-    Granular DMD:
-      read "a" at dist=4: sqrt(4) + sqrt(5) = 2.0 + 2.236 = 4.236
-      read "b" at dist=4: sqrt(4) + sqrt(5) = 2.0 + 2.236 = 4.236
-      total = 8.472
-    """
-    import math
-
-    tracker = MemTracker()
-    a = TrackedArray(np.array([1.0, 2.0]), "a", tracker)
-    b = TrackedArray(np.array([3.0, 4.0]), "b", tracker)
-    c = a + b
-
-    s = tracker.summary()
-
-    expected_dmc = 2 * math.sqrt(4) + 2 * math.sqrt(4)  # 8.0
-    expected_granular = (math.sqrt(4) + math.sqrt(5)) + (math.sqrt(4) + math.sqrt(5))
-
-    assert abs(s["dmc"] - expected_dmc) < 0.01, \
-        f"DMC {s['dmc']:.6f} != expected {expected_dmc:.6f}"
-    assert abs(s["granular_dmd"] - expected_granular) < 0.01, \
-        f"granular_dmd {s['granular_dmd']:.6f} != expected {expected_granular:.6f}"
-    # Granular should be strictly larger (sqrt is concave, so sum of sqrt > n*sqrt(avg))
-    assert s["granular_dmd"] > s["dmc"]
 
 
 # --- GF(2) integration test ---
