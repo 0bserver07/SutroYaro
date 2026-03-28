@@ -162,6 +162,8 @@ DMC baseline rankings (sparse parity, n=20, k=3):
 | SGD | 8,504 | 1,278,460 | 24,470 |
 | Fourier | 11,980,500 | 78,140,662,852 | 23,961,000 |
 
+**Tracking granularity caveat**: Methods track memory accesses at different granularity. SGD tracks every operation (20+ tracker calls per step). GF2 tracks 3 coarse ops for an O(n^3) elimination, undercounting DMC by 22x. SMT may undercount its inner verification loop. Rankings above should not be treated as final until all methods are audited with fine-grained tracking. See [#61](https://github.com/cybertronai/SutroYaro/issues/61).
+
 ### Exploratory
 7. **FF on deeper networks**: Does FF's ARD advantage appear with 5-10 layer networks on a simpler task?
 8. ~~**Predictive Coding on sparse parity**~~: ANSWERED — Failed, 18x worse ARD than backprop. Generative model is harder than discriminative for parity. [exp_predictive_coding]
