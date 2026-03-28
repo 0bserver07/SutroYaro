@@ -125,4 +125,4 @@ Zero changes inside `gf2_gauss_elim`.
 - `src/sparse_parity/lru_tracker.py` -- LRUStackTracker (true per-element LRU stack)
 - `src/sparse_parity/tracked_numpy.py` -- TrackedArray + tracking_context
 - `src/sparse_parity/tracker.py` -- MemTracker (old clock-based, kept for backward compat)
-- `tests/test_tracked_numpy.py` -- 30 tests (TrackedArray, LRU tracker, GF(2) integration)
+- `tests/test_tracked_numpy.py` -- 29 tests organized by concern (wrapper mechanics, indexing, numpy functions, LRU metric, GF(2) integration)
