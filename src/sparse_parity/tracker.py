@@ -52,9 +52,10 @@ class MemTracker:
         weighted_ard = total_float_dist / total_floats if total_floats > 0 else 0
 
         # Data Movement Complexity (Ding et al., arXiv:2312.14441)
-        # DMC = sum of sqrt(stack_distance) for each float accessed.
-        # Our distances are already in floats (stack distance), so:
-        # For a read of `size` floats with distance `dist`, DMC contribution = size * sqrt(dist).
+        # Approximate DMC: treats all floats in a buffer as having the same
+        # stack distance. DMC contribution = size * sqrt(dist).
+        # Note: this uses clock-based distances, not true LRU stack distances.
+        # For true granular DMD per the paper, use LRUStackTracker instead.
         total_dmc = sum(s * math.sqrt(d) for _, s, d in reads)
 
         per_buffer = {}

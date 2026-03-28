@@ -15,7 +15,7 @@ The human writes specs (CLAUDE.md, DISCOVERIES.md, LAB.md). The lead agent reads
 | [Claude Code](claude-code-setup.md) | AI coding agent in the terminal — runs experiments, writes findings, manages the MkDocs site |
 | [CLAUDE.md](claude-code-setup.md#claudemd) | Project instructions file that gives Claude context about the repo |
 | [Superpowers plugin](skills.md) | [obra/superpowers](https://github.com/obra/superpowers) — brainstorming, TDD, debugging, parallel agents, code review |
-| [Custom skills](skills.md#custom-skills) | Anti-slop guide, Ralph Wiggum |
+| [Custom skills](skills.md#custom-skills-included-in-this-repo) | Anti-slop guide, Ralph Wiggum |
 | [MCP servers](skills.md#mcp-servers) | Extensible tool servers (Google Docs, browser, diagrams) |
 | [Anti-slop guide](anti-slop-guide.md) | Reference for eliminating AI writing patterns from prose |
 | [Automation scripts](automation.md) | `sync_google_docs.py` for pulling Google Docs, `sync_telegram.ts` for pulling Telegram threads, session trace export |

@@ -1,0 +1,707 @@
+{
+  "eval_config": {
+    "challenges": [
+      "sparse-parity",
+      "sparse-sum",
+      "sparse-and"
+    ],
+    "n_bits": 20,
+    "k_sparse": 3,
+    "metric": "dmc",
+    "budget_per": 10,
+    "n_cycles": 3,
+    "seeds": [
+      42,
+      123,
+      456
+    ]
+  },
+  "total_time_s": 23.05,
+  "results": [
+    {
+      "agent": "RandomAgent",
+      "n_cycles": 3,
+      "challenges": [
+        "sparse-parity",
+        "sparse-sum",
+        "sparse-and"
+      ],
+      "overall_mean_reward": 8.826,
+      "overall_std_reward": 7.9677,
+      "per_challenge": {
+        "sparse-parity": {
+          "mean_reward": 14.3023,
+          "std_reward": 4.6893,
+          "mean_discovered": 6.33,
+          "all_methods_found": [
+            "curriculum",
+            "evolutionary",
+            "genetic_prog",
+            "gf2",
+            "lasso",
+            "mutual_info",
+            "random_proj",
+            "sgd",
+            "smt"
+          ],
+          "best_methods": [
+            "gf2",
+            "gf2",
+            "genetic_prog"
+          ],
+          "best_scores": [
+            8607.4,
+            8607.4,
+            0.0
+          ],
+          "episodes": [
+            {
+              "challenge": "sparse-parity",
+              "total_reward": 10.9188,
+              "steps": 10,
+              "best_method": "gf2",
+              "best_score": 8607.4,
+              "methods_discovered": [
+                "random_proj",
+                "evolutionary",
+                "gf2",
+                "sgd",
+                "curriculum",
+                "mutual_info",
+                "smt",
+                "lasso"
+              ],
+              "n_discovered": 8
+            },
+            {
+              "challenge": "sparse-parity",
+              "total_reward": 20.9335,
+              "steps": 10,
+              "best_method": "gf2",
+              "best_score": 8607.4,
+              "methods_discovered": [
+                "lasso",
+                "curriculum",
+                "sgd",
+                "gf2",
+                "evolutionary"
+              ],
+              "n_discovered": 5
+            },
+            {
+              "challenge": "sparse-parity",
+              "total_reward": 11.0547,
+              "steps": 10,
+              "best_method": "genetic_prog",
+              "best_score": 0.0,
+              "methods_discovered": [
+                "curriculum",
+                "genetic_prog",
+                "mutual_info",
+                "smt",
+                "random_proj",
+                "sgd"
+              ],
+              "n_discovered": 6
+            }
+          ]
+        },
+        "sparse-sum": {
+          "mean_reward": 1.216,
+          "std_reward": 0.1777,
+          "mean_discovered": 4.0,
+          "all_methods_found": [
+            "curriculum",
+            "evolutionary",
+            "fourier",
+            "km",
+            "lasso",
+            "mdl",
+            "random_proj",
+            "rl"
+          ],
+          "best_methods": [
+            "km",
+            "curriculum",
+            "km"
+          ],
+          "best_scores": [
+            20632.5,
+            1314666.9,
+            20632.5
+          ],
+          "episodes": [
+            {
+              "challenge": "sparse-sum",
+              "total_reward": 1.3416,
+              "steps": 10,
+              "best_method": "km",
+              "best_score": 20632.5,
+              "methods_discovered": [
+                "km",
+                "fourier",
+                "random_proj",
+                "mdl"
+              ],
+              "n_discovered": 4
+            },
+            {
+              "challenge": "sparse-sum",
+              "total_reward": 0.9647,
+              "steps": 10,
+              "best_method": "curriculum",
+              "best_score": 1314666.9,
+              "methods_discovered": [
+                "curriculum",
+                "fourier",
+                "rl"
+              ],
+              "n_discovered": 3
+            },
+            {
+              "challenge": "sparse-sum",
+              "total_reward": 1.3416,
+              "steps": 10,
+              "best_method": "km",
+              "best_score": 20632.5,
+              "methods_discovered": [
+                "km",
+                "fourier",
+                "evolutionary",
+                "lasso",
+                "mdl"
+              ],
+              "n_discovered": 5
+            }
+          ]
+        },
+        "sparse-and": {
+          "mean_reward": 10.9597,
+          "std_reward": 8.7165,
+          "mean_discovered": 4.33,
+          "all_methods_found": [
+            "curriculum",
+            "evolutionary",
+            "fourier",
+            "km",
+            "lasso",
+            "mdl",
+            "rl",
+            "sgd"
+          ],
+          "best_methods": [
+            "lasso",
+            "sgd",
+            "km"
+          ],
+          "best_scores": [
+            1932614829.9,
+            37858158.3,
+            20632.5
+          ],
+          "episodes": [
+            {
+              "challenge": "sparse-and",
+              "total_reward": 9.9835,
+              "steps": 10,
+              "best_method": "lasso",
+              "best_score": 1932614829.9,
+              "methods_discovered": [
+                "fourier",
+                "lasso",
+                "rl"
+              ],
+              "n_discovered": 3
+            },
+            {
+              "challenge": "sparse-and",
+              "total_reward": 0.8058,
+              "steps": 10,
+              "best_method": "sgd",
+              "best_score": 37858158.3,
+              "methods_discovered": [
+                "sgd",
+                "lasso",
+                "evolutionary",
+                "mdl"
+              ],
+              "n_discovered": 4
+            },
+            {
+              "challenge": "sparse-and",
+              "total_reward": 22.0898,
+              "steps": 10,
+              "best_method": "km",
+              "best_score": 20632.5,
+              "methods_discovered": [
+                "mdl",
+                "evolutionary",
+                "fourier",
+                "lasso",
+                "curriculum",
+                "km"
+              ],
+              "n_discovered": 6
+            }
+          ]
+        }
+      }
+    },
+    {
+      "agent": "GreedyAgent",
+      "n_cycles": 3,
+      "challenges": [
+        "sparse-parity",
+        "sparse-sum",
+        "sparse-and"
+      ],
+      "overall_mean_reward": 8.7531,
+      "overall_std_reward": 5.7736,
+      "per_challenge": {
+        "sparse-parity": {
+          "mean_reward": 10.9898,
+          "std_reward": 0.0,
+          "mean_discovered": 7.0,
+          "all_methods_found": [
+            "curriculum",
+            "fourier",
+            "gf2",
+            "km",
+            "lasso",
+            "sgd",
+            "smt"
+          ],
+          "best_methods": [
+            "gf2",
+            "gf2",
+            "gf2"
+          ],
+          "best_scores": [
+            8607.4,
+            8607.4,
+            8607.4
+          ],
+          "episodes": [
+            {
+              "challenge": "sparse-parity",
+              "total_reward": 10.9898,
+              "steps": 10,
+              "best_method": "gf2",
+              "best_score": 8607.4,
+              "methods_discovered": [
+                "sgd",
+                "curriculum",
+                "gf2",
+                "km",
+                "smt",
+                "fourier",
+                "lasso"
+              ],
+              "n_discovered": 7
+            },
+            {
+              "challenge": "sparse-parity",
+              "total_reward": 10.9898,
+              "steps": 10,
+              "best_method": "gf2",
+              "best_score": 8607.4,
+              "methods_discovered": [
+                "sgd",
+                "curriculum",
+                "gf2",
+                "km",
+                "smt",
+                "fourier",
+                "lasso"
+              ],
+              "n_discovered": 7
+            },
+            {
+              "challenge": "sparse-parity",
+              "total_reward": 10.9898,
+              "steps": 10,
+              "best_method": "gf2",
+              "best_score": 8607.4,
+              "methods_discovered": [
+                "sgd",
+                "curriculum",
+                "gf2",
+                "km",
+                "smt",
+                "fourier",
+                "lasso"
+              ],
+              "n_discovered": 7
+            }
+          ]
+        },
+        "sparse-sum": {
+          "mean_reward": 1.7038,
+          "std_reward": 0.0,
+          "mean_discovered": 5.0,
+          "all_methods_found": [
+            "curriculum",
+            "fourier",
+            "km",
+            "lasso",
+            "sgd"
+          ],
+          "best_methods": [
+            "sgd",
+            "sgd",
+            "sgd"
+          ],
+          "best_scores": [
+            2862.2,
+            2862.2,
+            2862.2
+          ],
+          "episodes": [
+            {
+              "challenge": "sparse-sum",
+              "total_reward": 1.7038,
+              "steps": 10,
+              "best_method": "sgd",
+              "best_score": 2862.2,
+              "methods_discovered": [
+                "sgd",
+                "curriculum",
+                "km",
+                "fourier",
+                "lasso"
+              ],
+              "n_discovered": 5
+            },
+            {
+              "challenge": "sparse-sum",
+              "total_reward": 1.7038,
+              "steps": 10,
+              "best_method": "sgd",
+              "best_score": 2862.2,
+              "methods_discovered": [
+                "sgd",
+                "curriculum",
+                "km",
+                "fourier",
+                "lasso"
+              ],
+              "n_discovered": 5
+            },
+            {
+              "challenge": "sparse-sum",
+              "total_reward": 1.7038,
+              "steps": 10,
+              "best_method": "sgd",
+              "best_score": 2862.2,
+              "methods_discovered": [
+                "sgd",
+                "curriculum",
+                "km",
+                "fourier",
+                "lasso"
+              ],
+              "n_discovered": 5
+            }
+          ]
+        },
+        "sparse-and": {
+          "mean_reward": 13.5657,
+          "std_reward": 4.706,
+          "mean_discovered": 4.33,
+          "all_methods_found": [
+            "curriculum",
+            "fourier",
+            "km",
+            "lasso",
+            "sgd"
+          ],
+          "best_methods": [
+            "curriculum",
+            "curriculum",
+            "km"
+          ],
+          "best_scores": [
+            1314666.9,
+            1314666.9,
+            20632.5
+          ],
+          "episodes": [
+            {
+              "challenge": "sparse-and",
+              "total_reward": 10.2778,
+              "steps": 10,
+              "best_method": "curriculum",
+              "best_score": 1314666.9,
+              "methods_discovered": [
+                "sgd",
+                "curriculum",
+                "fourier",
+                "lasso"
+              ],
+              "n_discovered": 4
+            },
+            {
+              "challenge": "sparse-and",
+              "total_reward": 10.1985,
+              "steps": 10,
+              "best_method": "curriculum",
+              "best_score": 1314666.9,
+              "methods_discovered": [
+                "sgd",
+                "curriculum",
+                "fourier",
+                "lasso"
+              ],
+              "n_discovered": 4
+            },
+            {
+              "challenge": "sparse-and",
+              "total_reward": 20.2208,
+              "steps": 10,
+              "best_method": "km",
+              "best_score": 20632.5,
+              "methods_discovered": [
+                "sgd",
+                "curriculum",
+                "km",
+                "fourier",
+                "lasso"
+              ],
+              "n_discovered": 5
+            }
+          ]
+        }
+      }
+    },
+    {
+      "agent": "OracleAgent",
+      "n_cycles": 3,
+      "challenges": [
+        "sparse-parity",
+        "sparse-sum",
+        "sparse-and"
+      ],
+      "overall_mean_reward": 5.6753,
+      "overall_std_reward": 6.2058,
+      "per_challenge": {
+        "sparse-parity": {
+          "mean_reward": 1.7564,
+          "std_reward": 0.0,
+          "mean_discovered": 8.0,
+          "all_methods_found": [
+            "curriculum",
+            "fourier",
+            "gf2",
+            "km",
+            "lasso",
+            "mutual_info",
+            "sgd",
+            "smt"
+          ],
+          "best_methods": [
+            "gf2",
+            "gf2",
+            "gf2"
+          ],
+          "best_scores": [
+            8607.4,
+            8607.4,
+            8607.4
+          ],
+          "episodes": [
+            {
+              "challenge": "sparse-parity",
+              "total_reward": 1.7564,
+              "steps": 10,
+              "best_method": "gf2",
+              "best_score": 8607.4,
+              "methods_discovered": [
+                "gf2",
+                "km",
+                "smt",
+                "sgd",
+                "curriculum",
+                "fourier",
+                "mutual_info",
+                "lasso"
+              ],
+              "n_discovered": 8
+            },
+            {
+              "challenge": "sparse-parity",
+              "total_reward": 1.7564,
+              "steps": 10,
+              "best_method": "gf2",
+              "best_score": 8607.4,
+              "methods_discovered": [
+                "gf2",
+                "km",
+                "smt",
+                "sgd",
+                "curriculum",
+                "fourier",
+                "mutual_info",
+                "lasso"
+              ],
+              "n_discovered": 8
+            },
+            {
+              "challenge": "sparse-parity",
+              "total_reward": 1.7564,
+              "steps": 10,
+              "best_method": "gf2",
+              "best_score": 8607.4,
+              "methods_discovered": [
+                "gf2",
+                "km",
+                "smt",
+                "sgd",
+                "curriculum",
+                "fourier",
+                "mutual_info",
+                "lasso"
+              ],
+              "n_discovered": 8
+            }
+          ]
+        },
+        "sparse-sum": {
+          "mean_reward": 1.7038,
+          "std_reward": 0.0,
+          "mean_discovered": 5.0,
+          "all_methods_found": [
+            "curriculum",
+            "fourier",
+            "km",
+            "lasso",
+            "sgd"
+          ],
+          "best_methods": [
+            "sgd",
+            "sgd",
+            "sgd"
+          ],
+          "best_scores": [
+            2862.2,
+            2862.2,
+            2862.2
+          ],
+          "episodes": [
+            {
+              "challenge": "sparse-sum",
+              "total_reward": 1.7038,
+              "steps": 10,
+              "best_method": "sgd",
+              "best_score": 2862.2,
+              "methods_discovered": [
+                "sgd",
+                "curriculum",
+                "km",
+                "fourier",
+                "lasso"
+              ],
+              "n_discovered": 5
+            },
+            {
+              "challenge": "sparse-sum",
+              "total_reward": 1.7038,
+              "steps": 10,
+              "best_method": "sgd",
+              "best_score": 2862.2,
+              "methods_discovered": [
+                "sgd",
+                "curriculum",
+                "km",
+                "fourier",
+                "lasso"
+              ],
+              "n_discovered": 5
+            },
+            {
+              "challenge": "sparse-sum",
+              "total_reward": 1.7038,
+              "steps": 10,
+              "best_method": "sgd",
+              "best_score": 2862.2,
+              "methods_discovered": [
+                "sgd",
+                "curriculum",
+                "km",
+                "fourier",
+                "lasso"
+              ],
+              "n_discovered": 5
+            }
+          ]
+        },
+        "sparse-and": {
+          "mean_reward": 13.5657,
+          "std_reward": 4.706,
+          "mean_discovered": 4.33,
+          "all_methods_found": [
+            "curriculum",
+            "fourier",
+            "km",
+            "lasso",
+            "sgd"
+          ],
+          "best_methods": [
+            "curriculum",
+            "curriculum",
+            "km"
+          ],
+          "best_scores": [
+            1314666.9,
+            1314666.9,
+            20632.5
+          ],
+          "episodes": [
+            {
+              "challenge": "sparse-and",
+              "total_reward": 10.2778,
+              "steps": 10,
+              "best_method": "curriculum",
+              "best_score": 1314666.9,
+              "methods_discovered": [
+                "sgd",
+                "curriculum",
+                "fourier",
+                "lasso"
+              ],
+              "n_discovered": 4
+            },
+            {
+              "challenge": "sparse-and",
+              "total_reward": 10.1985,
+              "steps": 10,
+              "best_method": "curriculum",
+              "best_score": 1314666.9,
+              "methods_discovered": [
+                "sgd",
+                "curriculum",
+                "fourier",
+                "lasso"
+              ],
+              "n_discovered": 4
+            },
+            {
+              "challenge": "sparse-and",
+              "total_reward": 20.2208,
+              "steps": 10,
+              "best_method": "km",
+              "best_score": 20632.5,
+              "methods_discovered": [
+                "sgd",
+                "curriculum",
+                "km",
+                "fourier",
+                "lasso"
+              ],
+              "n_discovered": 5
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

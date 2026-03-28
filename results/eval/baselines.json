@@ -1,0 +1,1487 @@
+{
+  "eval_config": {
+    "challenge": "sparse-parity",
+    "n_bits": 20,
+    "k_sparse": 3,
+    "metric": "dmc",
+    "budget": 16,
+    "n_episodes": 5,
+    "seeds": [
+      42,
+      123,
+      456,
+      789,
+      1337
+    ]
+  },
+  "total_time_s": 19.86,
+  "results": [
+    {
+      "agent": "RandomAgent",
+      "n_episodes": 5,
+      "mean_reward": 16.6129,
+      "std_reward": 6.3216,
+      "min_reward": 9.58,
+      "max_reward": 26.1667,
+      "mean_discovered": 8.4,
+      "all_methods_found": [
+        "curriculum",
+        "evolutionary",
+        "fourier",
+        "genetic_prog",
+        "gf2",
+        "km",
+        "lasso",
+        "mdl",
+        "mutual_info",
+        "random_proj",
+        "rl",
+        "sgd",
+        "smt"
+      ],
+      "best_methods": [
+        "gf2",
+        "gf2",
+        "genetic_prog",
+        "genetic_prog",
+        "gf2"
+      ],
+      "best_scores": [
+        8607.4,
+        8607.4,
+        0.0,
+        0.0,
+        8607.4
+      ],
+      "episodes": [
+        {
+          "total_reward": 10.6788,
+          "steps": 16,
+          "best_method": "gf2",
+          "best_score": 8607.4,
+          "methods_discovered": [
+            "random_proj",
+            "evolutionary",
+            "gf2",
+            "sgd",
+            "curriculum",
+            "mutual_info",
+            "smt",
+            "lasso",
+            "km",
+            "fourier"
+          ],
+          "n_discovered": 10,
+          "grade": {
+            "total_score": 57,
+            "max_possible": 72,
+            "percentage": 79.17,
+            "categories": {
+              "discovered_algebraic_solver": {
+                "score": 10,
+                "max": 10,
+                "details": "Solved with: gf2, km, smt"
+              },
+              "identified_local_learning_failure": {
+                "score": 5,
+                "max": 5,
+                "details": "Tried forward_forward and observed failure (local learning cannot detect k-th order interactions)"
+              },
+              "found_metric_disagreement": {
+                "score": 5,
+                "max": 5,
+                "details": "Solved ARD-best (km) and DMC-best (gf2) -- metric disagreement observable"
+              },
+              "optimized_beyond_baseline": {
+                "score": 3,
+                "max": 3,
+                "details": "gf2 achieved DMC 8,607 (99.3% below SGD baseline of 1,278,460)"
+              },
+              "correct_failure_classification": {
+                "score": 4,
+                "max": 16,
+                "details": "Failures observed: sign_sgd(2pt), forward_forward(2pt)"
+              },
+              "efficiency": {
+                "score": 5,
+                "max": 5,
+                "details": "Best method (gf2, DMC=8,607) found at step 3/16"
+              },
+              "exploration_breadth": {
+                "score": 5,
+                "max": 5,
+                "details": "10 methods solved: curriculum, evolutionary, fourier, gf2, km, lasso, mutual_info, random_proj, sgd, smt"
+              },
+              "discovered_km_influence": {
+                "score": 7,
+                "max": 7,
+                "details": "Solved with KM influence estimation (O(n) approach)"
+              },
+              "found_curriculum_speedup": {
+                "score": 5,
+                "max": 5,
+                "details": "Solved with curriculum learning (n-curriculum speedup)"
+              },
+              "identified_parity_invisibility": {
+                "score": 5,
+                "max": 5,
+                "details": "Observed 2 failures (forward_forward, sign_sgd) and found working methods -- parity structure observable"
+              },
+              "cross_challenge_analysis": {
+                "score": 0,
+                "max": 3,
+                "details": "Single challenge episode -- cross-challenge analysis not applicable"
+              },
+              "cache_model_insight": {
+                "score": 3,
+                "max": 3,
+                "details": "Measured DMC across 10 methods (spread: 9078312x) -- cache behavior observable"
+              }
+            },
+            "summary": "10 methods solved out of 12 tried, best=gf2 (DMC=8,607), score 57.0/72"
+          }
+        },
+        {
+          "total_reward": 26.1667,
+          "steps": 16,
+          "best_method": "gf2",
+          "best_score": 8607.4,
+          "methods_discovered": [
+            "fourier",
+            "random_proj",
+            "mdl",
+            "km",
+            "smt",
+            "gf2",
+            "lasso",
+            "rl"
+          ],
+          "n_discovered": 8,
+          "grade": {
+            "total_score": 50,
+            "max_possible": 72,
+            "percentage": 69.44,
+            "categories": {
+              "discovered_algebraic_solver": {
+                "score": 10,
+                "max": 10,
+                "details": "Solved with: gf2, km, smt"
+              },
+              "identified_local_learning_failure": {
+                "score": 5,
+                "max": 5,
+                "details": "Tried forward_forward and observed failure (local learning cannot detect k-th order interactions)"
+              },
+              "found_metric_disagreement": {
+                "score": 5,
+                "max": 5,
+                "details": "Solved ARD-best (km) and DMC-best (gf2) -- metric disagreement observable"
+              },
+              "optimized_beyond_baseline": {
+                "score": 3,
+                "max": 3,
+                "details": "gf2 achieved DMC 8,607 (99.3% below SGD baseline of 1,278,460)"
+              },
+              "correct_failure_classification": {
+                "score": 5,
+                "max": 16,
+                "details": "Failures observed: perlayer(2pt), genetic_prog(2pt), forward_forward(1pt)"
+              },
+              "efficiency": {
+                "score": 2,
+                "max": 5,
+                "details": "Best method (gf2, DMC=8,607) found at step 11/16"
+              },
+              "exploration_breadth": {
+                "score": 5,
+                "max": 5,
+                "details": "8 methods solved: fourier, gf2, km, lasso, mdl, random_proj, rl, smt"
+              },
+              "discovered_km_influence": {
+                "score": 7,
+                "max": 7,
+                "details": "Solved with KM influence estimation (O(n) approach)"
+              },
+              "found_curriculum_speedup": {
+                "score": 0,
+                "max": 5,
+                "details": "Never tried curriculum learning"
+              },
+              "identified_parity_invisibility": {
+                "score": 5,
+                "max": 5,
+                "details": "Observed 3 failures (forward_forward, genetic_prog, perlayer) and found working methods -- parity structure observable"
+              },
+              "cross_challenge_analysis": {
+                "score": 0,
+                "max": 3,
+                "details": "Single challenge episode -- cross-challenge analysis not applicable"
+              },
+              "cache_model_insight": {
+                "score": 3,
+                "max": 3,
+                "details": "Measured DMC across 7 methods (spread: 9078312x) -- cache behavior observable"
+              }
+            },
+            "summary": "8 methods solved out of 11 tried, best=gf2 (DMC=8,607), score 50.0/72"
+          }
+        },
+        {
+          "total_reward": 21.3228,
+          "steps": 16,
+          "best_method": "genetic_prog",
+          "best_score": 0.0,
+          "methods_discovered": [
+            "curriculum",
+            "sgd",
+            "gf2",
+            "genetic_prog",
+            "evolutionary",
+            "fourier",
+            "rl"
+          ],
+          "n_discovered": 7,
+          "grade": {
+            "total_score": 42,
+            "max_possible": 72,
+            "percentage": 58.33,
+            "categories": {
+              "discovered_algebraic_solver": {
+                "score": 10,
+                "max": 10,
+                "details": "Solved with: gf2"
+              },
+              "identified_local_learning_failure": {
+                "score": 1,
+                "max": 5,
+                "details": "Observed 2 method failure(s) (perlayer, sign_sgd) but did not try forward_forward"
+              },
+              "found_metric_disagreement": {
+                "score": 2,
+                "max": 5,
+                "details": "Only solved one side: gf2. Need both km and gf2 solved to observe metric disagreement."
+              },
+              "optimized_beyond_baseline": {
+                "score": 3,
+                "max": 3,
+                "details": "genetic_prog achieved DMC 0 (100.0% below SGD baseline of 1,278,460)"
+              },
+              "correct_failure_classification": {
+                "score": 4,
+                "max": 16,
+                "details": "Failures observed: sign_sgd(2pt), perlayer(2pt)"
+              },
+              "efficiency": {
+                "score": 4,
+                "max": 5,
+                "details": "Best method (genetic_prog, DMC=0) found at step 5/16"
+              },
+              "exploration_breadth": {
+                "score": 5,
+                "max": 5,
+                "details": "7 methods solved: curriculum, evolutionary, fourier, genetic_prog, gf2, rl, sgd"
+              },
+              "discovered_km_influence": {
+                "score": 0,
+                "max": 7,
+                "details": "Never tried KM influence estimation"
+              },
+              "found_curriculum_speedup": {
+                "score": 5,
+                "max": 5,
+                "details": "Solved with curriculum learning (n-curriculum speedup)"
+              },
+              "identified_parity_invisibility": {
+                "score": 5,
+                "max": 5,
+                "details": "Observed 2 failures (perlayer, sign_sgd) and found working methods -- parity structure observable"
+              },
+              "cross_challenge_analysis": {
+                "score": 0,
+                "max": 3,
+                "details": "Single challenge episode -- cross-challenge analysis not applicable"
+              },
+              "cache_model_insight": {
+                "score": 3,
+                "max": 3,
+                "details": "Measured DMC across 5 methods (spread: 9078312x) -- cache behavior observable"
+              }
+            },
+            "summary": "7 methods solved out of 9 tried, best=genetic_prog (DMC=0), score 42.0/72"
+          }
+        },
+        {
+          "total_reward": 9.58,
+          "steps": 16,
+          "best_method": "genetic_prog",
+          "best_score": 0.0,
+          "methods_discovered": [
+            "genetic_prog",
+            "smt",
+            "sgd",
+            "lasso",
+            "evolutionary",
+            "mdl",
+            "curriculum",
+            "mutual_info"
+          ],
+          "n_discovered": 8,
+          "grade": {
+            "total_score": 46,
+            "max_possible": 72,
+            "percentage": 63.89,
+            "categories": {
+              "discovered_algebraic_solver": {
+                "score": 10,
+                "max": 10,
+                "details": "Solved with: smt"
+              },
+              "identified_local_learning_failure": {
+                "score": 5,
+                "max": 5,
+                "details": "Tried forward_forward and observed failure (local learning cannot detect k-th order interactions)"
+              },
+              "found_metric_disagreement": {
+                "score": 0,
+                "max": 5,
+                "details": "Never tried km or gf2"
+              },
+              "optimized_beyond_baseline": {
+                "score": 3,
+                "max": 3,
+                "details": "genetic_prog achieved DMC 0 (100.0% below SGD baseline of 1,278,460)"
+              },
+              "correct_failure_classification": {
+                "score": 5,
+                "max": 16,
+                "details": "Failures observed: perlayer(2pt), forward_forward(2pt), sign_sgd(1pt)"
+              },
+              "efficiency": {
+                "score": 5,
+                "max": 5,
+                "details": "Best method (genetic_prog, DMC=0) found at step 1/16"
+              },
+              "exploration_breadth": {
+                "score": 5,
+                "max": 5,
+                "details": "8 methods solved: curriculum, evolutionary, genetic_prog, lasso, mdl, mutual_info, sgd, smt"
+              },
+              "discovered_km_influence": {
+                "score": 0,
+                "max": 7,
+                "details": "Never tried KM influence estimation"
+              },
+              "found_curriculum_speedup": {
+                "score": 5,
+                "max": 5,
+                "details": "Solved with curriculum learning (n-curriculum speedup)"
+              },
+              "identified_parity_invisibility": {
+                "score": 5,
+                "max": 5,
+                "details": "Observed 3 failures (forward_forward, perlayer, sign_sgd) and found working methods -- parity structure observable"
+              },
+              "cross_challenge_analysis": {
+                "score": 0,
+                "max": 3,
+                "details": "Single challenge episode -- cross-challenge analysis not applicable"
+              },
+              "cache_model_insight": {
+                "score": 3,
+                "max": 3,
+                "details": "Measured DMC across 7 methods (spread: 1804x) -- cache behavior observable"
+              }
+            },
+            "summary": "8 methods solved out of 11 tried, best=genetic_prog (DMC=0), score 46.0/72"
+          }
+        },
+        {
+          "total_reward": 15.316,
+          "steps": 16,
+          "best_method": "gf2",
+          "best_score": 8607.4,
+          "methods_discovered": [
+            "smt",
+            "random_proj",
+            "sgd",
+            "gf2",
+            "km",
+            "fourier",
+            "evolutionary",
+            "lasso",
+            "mdl"
+          ],
+          "n_discovered": 9,
+          "grade": {
+            "total_score": 52,
+            "max_possible": 72,
+            "percentage": 72.22,
+            "categories": {
+              "discovered_algebraic_solver": {
+                "score": 10,
+                "max": 10,
+                "details": "Solved with: gf2, km, smt"
+              },
+              "identified_local_learning_failure": {
+                "score": 5,
+                "max": 5,
+                "details": "Tried forward_forward and observed failure (local learning cannot detect k-th order interactions)"
+              },
+              "found_metric_disagreement": {
+                "score": 5,
+                "max": 5,
+                "details": "Solved ARD-best (km) and DMC-best (gf2) -- metric disagreement observable"
+              },
+              "optimized_beyond_baseline": {
+                "score": 3,
+                "max": 3,
+                "details": "gf2 achieved DMC 8,607 (99.3% below SGD baseline of 1,278,460)"
+              },
+              "correct_failure_classification": {
+                "score": 6,
+                "max": 16,
+                "details": "Failures observed: sign_sgd(2pt), forward_forward(2pt), perlayer(2pt)"
+              },
+              "efficiency": {
+                "score": 3,
+                "max": 5,
+                "details": "Best method (gf2, DMC=8,607) found at step 7/16"
+              },
+              "exploration_breadth": {
+                "score": 5,
+                "max": 5,
+                "details": "9 methods solved: evolutionary, fourier, gf2, km, lasso, mdl, random_proj, sgd, smt"
+              },
+              "discovered_km_influence": {
+                "score": 7,
+                "max": 7,
+                "details": "Solved with KM influence estimation (O(n) approach)"
+              },
+              "found_curriculum_speedup": {
+                "score": 0,
+                "max": 5,
+                "details": "Never tried curriculum learning"
+              },
+              "identified_parity_invisibility": {
+                "score": 5,
+                "max": 5,
+                "details": "Observed 3 failures (forward_forward, perlayer, sign_sgd) and found working methods -- parity structure observable"
+              },
+              "cross_challenge_analysis": {
+                "score": 0,
+                "max": 3,
+                "details": "Single challenge episode -- cross-challenge analysis not applicable"
+              },
+              "cache_model_insight": {
+                "score": 3,
+                "max": 3,
+                "details": "Measured DMC across 9 methods (spread: 9078312x) -- cache behavior observable"
+              }
+            },
+            "summary": "9 methods solved out of 12 tried, best=gf2 (DMC=8,607), score 52.0/72"
+          }
+        }
+      ],
+      "grading": {
+        "mean_score": 49.4,
+        "std_score": 5.12,
+        "min_score": 42.0,
+        "max_score": 57.0,
+        "mean_percentage": 68.6,
+        "max_possible": 72
+      }
+    },
+    {
+      "agent": "GreedyAgent",
+      "n_episodes": 5,
+      "mean_reward": 16.9098,
+      "std_reward": 4.948,
+      "min_reward": 10.8498,
+      "max_reward": 20.9498,
+      "mean_discovered": 12.6,
+      "all_methods_found": [
+        "curriculum",
+        "evolutionary",
+        "fourier",
+        "genetic_prog",
+        "gf2",
+        "km",
+        "lasso",
+        "mdl",
+        "mutual_info",
+        "random_proj",
+        "rl",
+        "sgd",
+        "smt"
+      ],
+      "best_methods": [
+        "gf2",
+        "gf2",
+        "genetic_prog",
+        "genetic_prog",
+        "genetic_prog"
+      ],
+      "best_scores": [
+        8607.4,
+        8607.4,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "episodes": [
+        {
+          "total_reward": 10.8498,
+          "steps": 16,
+          "best_method": "gf2",
+          "best_score": 8607.4,
+          "methods_discovered": [
+            "sgd",
+            "curriculum",
+            "gf2",
+            "km",
+            "smt",
+            "fourier",
+            "lasso",
+            "mdl",
+            "mutual_info",
+            "random_proj",
+            "rl",
+            "evolutionary"
+          ],
+          "n_discovered": 12,
+          "grade": {
+            "total_score": 60,
+            "max_possible": 72,
+            "percentage": 83.33,
+            "categories": {
+              "discovered_algebraic_solver": {
+                "score": 10,
+                "max": 10,
+                "details": "Solved with: gf2, km, smt"
+              },
+              "identified_local_learning_failure": {
+                "score": 5,
+                "max": 5,
+                "details": "Tried forward_forward and observed failure (local learning cannot detect k-th order interactions)"
+              },
+              "found_metric_disagreement": {
+                "score": 5,
+                "max": 5,
+                "details": "Solved ARD-best (km) and DMC-best (gf2) -- metric disagreement observable"
+              },
+              "optimized_beyond_baseline": {
+                "score": 3,
+                "max": 3,
+                "details": "gf2 achieved DMC 8,607 (99.3% below SGD baseline of 1,278,460)"
+              },
+              "correct_failure_classification": {
+                "score": 8,
+                "max": 16,
+                "details": "Failures observed: perlayer(2pt), sign_sgd(2pt), forward_forward(2pt), genetic_prog(2pt)"
+              },
+              "efficiency": {
+                "score": 4,
+                "max": 5,
+                "details": "Best method (gf2, DMC=8,607) found at step 6/16"
+              },
+              "exploration_breadth": {
+                "score": 5,
+                "max": 5,
+                "details": "12 methods solved: curriculum, evolutionary, fourier, gf2, km, lasso, mdl, mutual_info, random_proj, rl, sgd, smt"
+              },
+              "discovered_km_influence": {
+                "score": 7,
+                "max": 7,
+                "details": "Solved with KM influence estimation (O(n) approach)"
+              },
+              "found_curriculum_speedup": {
+                "score": 5,
+                "max": 5,
+                "details": "Solved with curriculum learning (n-curriculum speedup)"
+              },
+              "identified_parity_invisibility": {
+                "score": 5,
+                "max": 5,
+                "details": "Observed 4 failures (forward_forward, genetic_prog, perlayer, sign_sgd) and found working methods -- parity structure observable"
+              },
+              "cross_challenge_analysis": {
+                "score": 0,
+                "max": 3,
+                "details": "Single challenge episode -- cross-challenge analysis not applicable"
+              },
+              "cache_model_insight": {
+                "score": 3,
+                "max": 3,
+                "details": "Measured DMC across 11 methods (spread: 9078312x) -- cache behavior observable"
+              }
+            },
+            "summary": "12 methods solved out of 16 tried, best=gf2 (DMC=8,607), score 60.0/72"
+          }
+        },
+        {
+          "total_reward": 10.8498,
+          "steps": 16,
+          "best_method": "gf2",
+          "best_score": 8607.4,
+          "methods_discovered": [
+            "sgd",
+            "curriculum",
+            "gf2",
+            "km",
+            "smt",
+            "fourier",
+            "lasso",
+            "mdl",
+            "mutual_info",
+            "random_proj",
+            "rl",
+            "evolutionary"
+          ],
+          "n_discovered": 12,
+          "grade": {
+            "total_score": 60,
+            "max_possible": 72,
+            "percentage": 83.33,
+            "categories": {
+              "discovered_algebraic_solver": {
+                "score": 10,
+                "max": 10,
+                "details": "Solved with: gf2, km, smt"
+              },
+              "identified_local_learning_failure": {
+                "score": 5,
+                "max": 5,
+                "details": "Tried forward_forward and observed failure (local learning cannot detect k-th order interactions)"
+              },
+              "found_metric_disagreement": {
+                "score": 5,
+                "max": 5,
+                "details": "Solved ARD-best (km) and DMC-best (gf2) -- metric disagreement observable"
+              },
+              "optimized_beyond_baseline": {
+                "score": 3,
+                "max": 3,
+                "details": "gf2 achieved DMC 8,607 (99.3% below SGD baseline of 1,278,460)"
+              },
+              "correct_failure_classification": {
+                "score": 8,
+                "max": 16,
+                "details": "Failures observed: perlayer(2pt), sign_sgd(2pt), forward_forward(2pt), genetic_prog(2pt)"
+              },
+              "efficiency": {
+                "score": 4,
+                "max": 5,
+                "details": "Best method (gf2, DMC=8,607) found at step 6/16"
+              },
+              "exploration_breadth": {
+                "score": 5,
+                "max": 5,
+                "details": "12 methods solved: curriculum, evolutionary, fourier, gf2, km, lasso, mdl, mutual_info, random_proj, rl, sgd, smt"
+              },
+              "discovered_km_influence": {
+                "score": 7,
+                "max": 7,
+                "details": "Solved with KM influence estimation (O(n) approach)"
+              },
+              "found_curriculum_speedup": {
+                "score": 5,
+                "max": 5,
+                "details": "Solved with curriculum learning (n-curriculum speedup)"
+              },
+              "identified_parity_invisibility": {
+                "score": 5,
+                "max": 5,
+                "details": "Observed 4 failures (forward_forward, genetic_prog, perlayer, sign_sgd) and found working methods -- parity structure observable"
+              },
+              "cross_challenge_analysis": {
+                "score": 0,
+                "max": 3,
+                "details": "Single challenge episode -- cross-challenge analysis not applicable"
+              },
+              "cache_model_insight": {
+                "score": 3,
+                "max": 3,
+                "details": "Measured DMC across 11 methods (spread: 9078312x) -- cache behavior observable"
+              }
+            },
+            "summary": "12 methods solved out of 16 tried, best=gf2 (DMC=8,607), score 60.0/72"
+          }
+        },
+        {
+          "total_reward": 20.9498,
+          "steps": 16,
+          "best_method": "genetic_prog",
+          "best_score": 0.0,
+          "methods_discovered": [
+            "sgd",
+            "curriculum",
+            "gf2",
+            "km",
+            "smt",
+            "fourier",
+            "lasso",
+            "mdl",
+            "mutual_info",
+            "random_proj",
+            "rl",
+            "genetic_prog",
+            "evolutionary"
+          ],
+          "n_discovered": 13,
+          "grade": {
+            "total_score": 55,
+            "max_possible": 72,
+            "percentage": 76.39,
+            "categories": {
+              "discovered_algebraic_solver": {
+                "score": 10,
+                "max": 10,
+                "details": "Solved with: gf2, km, smt"
+              },
+              "identified_local_learning_failure": {
+                "score": 5,
+                "max": 5,
+                "details": "Tried forward_forward and observed failure (local learning cannot detect k-th order interactions)"
+              },
+              "found_metric_disagreement": {
+                "score": 5,
+                "max": 5,
+                "details": "Solved ARD-best (km) and DMC-best (gf2) -- metric disagreement observable"
+              },
+              "optimized_beyond_baseline": {
+                "score": 3,
+                "max": 3,
+                "details": "genetic_prog achieved DMC 0 (100.0% below SGD baseline of 1,278,460)"
+              },
+              "correct_failure_classification": {
+                "score": 6,
+                "max": 16,
+                "details": "Failures observed: perlayer(2pt), sign_sgd(2pt), forward_forward(2pt)"
+              },
+              "efficiency": {
+                "score": 1,
+                "max": 5,
+                "details": "Best method (genetic_prog, DMC=0) found at step 15/16"
+              },
+              "exploration_breadth": {
+                "score": 5,
+                "max": 5,
+                "details": "13 methods solved: curriculum, evolutionary, fourier, genetic_prog, gf2, km, lasso, mdl, mutual_info, random_proj, rl, sgd, smt"
+              },
+              "discovered_km_influence": {
+                "score": 7,
+                "max": 7,
+                "details": "Solved with KM influence estimation (O(n) approach)"
+              },
+              "found_curriculum_speedup": {
+                "score": 5,
+                "max": 5,
+                "details": "Solved with curriculum learning (n-curriculum speedup)"
+              },
+              "identified_parity_invisibility": {
+                "score": 5,
+                "max": 5,
+                "details": "Observed 3 failures (forward_forward, perlayer, sign_sgd) and found working methods -- parity structure observable"
+              },
+              "cross_challenge_analysis": {
+                "score": 0,
+                "max": 3,
+                "details": "Single challenge episode -- cross-challenge analysis not applicable"
+              },
+              "cache_model_insight": {
+                "score": 3,
+                "max": 3,
+                "details": "Measured DMC across 11 methods (spread: 9078312x) -- cache behavior observable"
+              }
+            },
+            "summary": "13 methods solved out of 16 tried, best=genetic_prog (DMC=0), score 55.0/72"
+          }
+        },
+        {
+          "total_reward": 20.9498,
+          "steps": 16,
+          "best_method": "genetic_prog",
+          "best_score": 0.0,
+          "methods_discovered": [
+            "sgd",
+            "curriculum",
+            "gf2",
+            "km",
+            "smt",
+            "fourier",
+            "lasso",
+            "mdl",
+            "mutual_info",
+            "random_proj",
+            "rl",
+            "genetic_prog",
+            "evolutionary"
+          ],
+          "n_discovered": 13,
+          "grade": {
+            "total_score": 55,
+            "max_possible": 72,
+            "percentage": 76.39,
+            "categories": {
+              "discovered_algebraic_solver": {
+                "score": 10,
+                "max": 10,
+                "details": "Solved with: gf2, km, smt"
+              },
+              "identified_local_learning_failure": {
+                "score": 5,
+                "max": 5,
+                "details": "Tried forward_forward and observed failure (local learning cannot detect k-th order interactions)"
+              },
+              "found_metric_disagreement": {
+                "score": 5,
+                "max": 5,
+                "details": "Solved ARD-best (km) and DMC-best (gf2) -- metric disagreement observable"
+              },
+              "optimized_beyond_baseline": {
+                "score": 3,
+                "max": 3,
+                "details": "genetic_prog achieved DMC 0 (100.0% below SGD baseline of 1,278,460)"
+              },
+              "correct_failure_classification": {
+                "score": 6,
+                "max": 16,
+                "details": "Failures observed: perlayer(2pt), sign_sgd(2pt), forward_forward(2pt)"
+              },
+              "efficiency": {
+                "score": 1,
+                "max": 5,
+                "details": "Best method (genetic_prog, DMC=0) found at step 15/16"
+              },
+              "exploration_breadth": {
+                "score": 5,
+                "max": 5,
+                "details": "13 methods solved: curriculum, evolutionary, fourier, genetic_prog, gf2, km, lasso, mdl, mutual_info, random_proj, rl, sgd, smt"
+              },
+              "discovered_km_influence": {
+                "score": 7,
+                "max": 7,
+                "details": "Solved with KM influence estimation (O(n) approach)"
+              },
+              "found_curriculum_speedup": {
+                "score": 5,
+                "max": 5,
+                "details": "Solved with curriculum learning (n-curriculum speedup)"
+              },
+              "identified_parity_invisibility": {
+                "score": 5,
+                "max": 5,
+                "details": "Observed 3 failures (forward_forward, perlayer, sign_sgd) and found working methods -- parity structure observable"
+              },
+              "cross_challenge_analysis": {
+                "score": 0,
+                "max": 3,
+                "details": "Single challenge episode -- cross-challenge analysis not applicable"
+              },
+              "cache_model_insight": {
+                "score": 3,
+                "max": 3,
+                "details": "Measured DMC across 11 methods (spread: 9078312x) -- cache behavior observable"
+              }
+            },
+            "summary": "13 methods solved out of 16 tried, best=genetic_prog (DMC=0), score 55.0/72"
+          }
+        },
+        {
+          "total_reward": 20.9498,
+          "steps": 16,
+          "best_method": "genetic_prog",
+          "best_score": 0.0,
+          "methods_discovered": [
+            "sgd",
+            "curriculum",
+            "gf2",
+            "km",
+            "smt",
+            "fourier",
+            "lasso",
+            "mdl",
+            "mutual_info",
+            "random_proj",
+            "rl",
+            "genetic_prog",
+            "evolutionary"
+          ],
+          "n_discovered": 13,
+          "grade": {
+            "total_score": 55,
+            "max_possible": 72,
+            "percentage": 76.39,
+            "categories": {
+              "discovered_algebraic_solver": {
+                "score": 10,
+                "max": 10,
+                "details": "Solved with: gf2, km, smt"
+              },
+              "identified_local_learning_failure": {
+                "score": 5,
+                "max": 5,
+                "details": "Tried forward_forward and observed failure (local learning cannot detect k-th order interactions)"
+              },
+              "found_metric_disagreement": {
+                "score": 5,
+                "max": 5,
+                "details": "Solved ARD-best (km) and DMC-best (gf2) -- metric disagreement observable"
+              },
+              "optimized_beyond_baseline": {
+                "score": 3,
+                "max": 3,
+                "details": "genetic_prog achieved DMC 0 (100.0% below SGD baseline of 1,278,460)"
+              },
+              "correct_failure_classification": {
+                "score": 6,
+                "max": 16,
+                "details": "Failures observed: perlayer(2pt), sign_sgd(2pt), forward_forward(2pt)"
+              },
+              "efficiency": {
+                "score": 1,
+                "max": 5,
+                "details": "Best method (genetic_prog, DMC=0) found at step 15/16"
+              },
+              "exploration_breadth": {
+                "score": 5,
+                "max": 5,
+                "details": "13 methods solved: curriculum, evolutionary, fourier, genetic_prog, gf2, km, lasso, mdl, mutual_info, random_proj, rl, sgd, smt"
+              },
+              "discovered_km_influence": {
+                "score": 7,
+                "max": 7,
+                "details": "Solved with KM influence estimation (O(n) approach)"
+              },
+              "found_curriculum_speedup": {
+                "score": 5,
+                "max": 5,
+                "details": "Solved with curriculum learning (n-curriculum speedup)"
+              },
+              "identified_parity_invisibility": {
+                "score": 5,
+                "max": 5,
+                "details": "Observed 3 failures (forward_forward, perlayer, sign_sgd) and found working methods -- parity structure observable"
+              },
+              "cross_challenge_analysis": {
+                "score": 0,
+                "max": 3,
+                "details": "Single challenge episode -- cross-challenge analysis not applicable"
+              },
+              "cache_model_insight": {
+                "score": 3,
+                "max": 3,
+                "details": "Measured DMC across 11 methods (spread: 9078312x) -- cache behavior observable"
+              }
+            },
+            "summary": "13 methods solved out of 16 tried, best=genetic_prog (DMC=0), score 55.0/72"
+          }
+        }
+      ],
+      "grading": {
+        "mean_score": 57.0,
+        "std_score": 2.45,
+        "min_score": 55.0,
+        "max_score": 60.0,
+        "mean_percentage": 79.2,
+        "max_possible": 72
+      }
+    },
+    {
+      "agent": "OracleAgent",
+      "n_episodes": 5,
+      "mean_reward": 7.5864,
+      "std_reward": 4.948,
+      "min_reward": 1.5264,
+      "max_reward": 11.6264,
+      "mean_discovered": 12.6,
+      "all_methods_found": [
+        "curriculum",
+        "evolutionary",
+        "fourier",
+        "genetic_prog",
+        "gf2",
+        "km",
+        "lasso",
+        "mdl",
+        "mutual_info",
+        "random_proj",
+        "rl",
+        "sgd",
+        "smt"
+      ],
+      "best_methods": [
+        "gf2",
+        "gf2",
+        "genetic_prog",
+        "genetic_prog",
+        "genetic_prog"
+      ],
+      "best_scores": [
+        8607.4,
+        8607.4,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "episodes": [
+        {
+          "total_reward": 1.5264,
+          "steps": 16,
+          "best_method": "gf2",
+          "best_score": 8607.4,
+          "methods_discovered": [
+            "gf2",
+            "km",
+            "smt",
+            "sgd",
+            "curriculum",
+            "fourier",
+            "mutual_info",
+            "lasso",
+            "random_proj",
+            "mdl",
+            "rl",
+            "evolutionary"
+          ],
+          "n_discovered": 12,
+          "grade": {
+            "total_score": 61,
+            "max_possible": 72,
+            "percentage": 84.72,
+            "categories": {
+              "discovered_algebraic_solver": {
+                "score": 10,
+                "max": 10,
+                "details": "Solved with: gf2, km, smt"
+              },
+              "identified_local_learning_failure": {
+                "score": 5,
+                "max": 5,
+                "details": "Tried forward_forward and observed failure (local learning cannot detect k-th order interactions)"
+              },
+              "found_metric_disagreement": {
+                "score": 5,
+                "max": 5,
+                "details": "Solved ARD-best (km) and DMC-best (gf2) -- metric disagreement observable"
+              },
+              "optimized_beyond_baseline": {
+                "score": 3,
+                "max": 3,
+                "details": "gf2 achieved DMC 8,607 (99.3% below SGD baseline of 1,278,460)"
+              },
+              "correct_failure_classification": {
+                "score": 8,
+                "max": 16,
+                "details": "Failures observed: perlayer(2pt), sign_sgd(2pt), forward_forward(2pt), genetic_prog(2pt)"
+              },
+              "efficiency": {
+                "score": 5,
+                "max": 5,
+                "details": "Best method (gf2, DMC=8,607) found at step 1/16"
+              },
+              "exploration_breadth": {
+                "score": 5,
+                "max": 5,
+                "details": "12 methods solved: curriculum, evolutionary, fourier, gf2, km, lasso, mdl, mutual_info, random_proj, rl, sgd, smt"
+              },
+              "discovered_km_influence": {
+                "score": 7,
+                "max": 7,
+                "details": "Solved with KM influence estimation (O(n) approach)"
+              },
+              "found_curriculum_speedup": {
+                "score": 5,
+                "max": 5,
+                "details": "Solved with curriculum learning (n-curriculum speedup)"
+              },
+              "identified_parity_invisibility": {
+                "score": 5,
+                "max": 5,
+                "details": "Observed 4 failures (forward_forward, genetic_prog, perlayer, sign_sgd) and found working methods -- parity structure observable"
+              },
+              "cross_challenge_analysis": {
+                "score": 0,
+                "max": 3,
+                "details": "Single challenge episode -- cross-challenge analysis not applicable"
+              },
+              "cache_model_insight": {
+                "score": 3,
+                "max": 3,
+                "details": "Measured DMC across 11 methods (spread: 9078312x) -- cache behavior observable"
+              }
+            },
+            "summary": "12 methods solved out of 16 tried, best=gf2 (DMC=8,607), score 61.0/72"
+          }
+        },
+        {
+          "total_reward": 1.5264,
+          "steps": 16,
+          "best_method": "gf2",
+          "best_score": 8607.4,
+          "methods_discovered": [
+            "gf2",
+            "km",
+            "smt",
+            "sgd",
+            "curriculum",
+            "fourier",
+            "mutual_info",
+            "lasso",
+            "random_proj",
+            "mdl",
+            "rl",
+            "evolutionary"
+          ],
+          "n_discovered": 12,
+          "grade": {
+            "total_score": 61,
+            "max_possible": 72,
+            "percentage": 84.72,
+            "categories": {
+              "discovered_algebraic_solver": {
+                "score": 10,
+                "max": 10,
+                "details": "Solved with: gf2, km, smt"
+              },
+              "identified_local_learning_failure": {
+                "score": 5,
+                "max": 5,
+                "details": "Tried forward_forward and observed failure (local learning cannot detect k-th order interactions)"
+              },
+              "found_metric_disagreement": {
+                "score": 5,
+                "max": 5,
+                "details": "Solved ARD-best (km) and DMC-best (gf2) -- metric disagreement observable"
+              },
+              "optimized_beyond_baseline": {
+                "score": 3,
+                "max": 3,
+                "details": "gf2 achieved DMC 8,607 (99.3% below SGD baseline of 1,278,460)"
+              },
+              "correct_failure_classification": {
+                "score": 8,
+                "max": 16,
+                "details": "Failures observed: perlayer(2pt), sign_sgd(2pt), forward_forward(2pt), genetic_prog(2pt)"
+              },
+              "efficiency": {
+                "score": 5,
+                "max": 5,
+                "details": "Best method (gf2, DMC=8,607) found at step 1/16"
+              },
+              "exploration_breadth": {
+                "score": 5,
+                "max": 5,
+                "details": "12 methods solved: curriculum, evolutionary, fourier, gf2, km, lasso, mdl, mutual_info, random_proj, rl, sgd, smt"
+              },
+              "discovered_km_influence": {
+                "score": 7,
+                "max": 7,
+                "details": "Solved with KM influence estimation (O(n) approach)"
+              },
+              "found_curriculum_speedup": {
+                "score": 5,
+                "max": 5,
+                "details": "Solved with curriculum learning (n-curriculum speedup)"
+              },
+              "identified_parity_invisibility": {
+                "score": 5,
+                "max": 5,
+                "details": "Observed 4 failures (forward_forward, genetic_prog, perlayer, sign_sgd) and found working methods -- parity structure observable"
+              },
+              "cross_challenge_analysis": {
+                "score": 0,
+                "max": 3,
+                "details": "Single challenge episode -- cross-challenge analysis not applicable"
+              },
+              "cache_model_insight": {
+                "score": 3,
+                "max": 3,
+                "details": "Measured DMC across 11 methods (spread: 9078312x) -- cache behavior observable"
+              }
+            },
+            "summary": "12 methods solved out of 16 tried, best=gf2 (DMC=8,607), score 61.0/72"
+          }
+        },
+        {
+          "total_reward": 11.6264,
+          "steps": 16,
+          "best_method": "genetic_prog",
+          "best_score": 0.0,
+          "methods_discovered": [
+            "gf2",
+            "km",
+            "smt",
+            "sgd",
+            "curriculum",
+            "fourier",
+            "mutual_info",
+            "lasso",
+            "random_proj",
+            "mdl",
+            "rl",
+            "genetic_prog",
+            "evolutionary"
+          ],
+          "n_discovered": 13,
+          "grade": {
+            "total_score": 55,
+            "max_possible": 72,
+            "percentage": 76.39,
+            "categories": {
+              "discovered_algebraic_solver": {
+                "score": 10,
+                "max": 10,
+                "details": "Solved with: gf2, km, smt"
+              },
+              "identified_local_learning_failure": {
+                "score": 5,
+                "max": 5,
+                "details": "Tried forward_forward and observed failure (local learning cannot detect k-th order interactions)"
+              },
+              "found_metric_disagreement": {
+                "score": 5,
+                "max": 5,
+                "details": "Solved ARD-best (km) and DMC-best (gf2) -- metric disagreement observable"
+              },
+              "optimized_beyond_baseline": {
+                "score": 3,
+                "max": 3,
+                "details": "genetic_prog achieved DMC 0 (100.0% below SGD baseline of 1,278,460)"
+              },
+              "correct_failure_classification": {
+                "score": 6,
+                "max": 16,
+                "details": "Failures observed: perlayer(2pt), sign_sgd(2pt), forward_forward(2pt)"
+              },
+              "efficiency": {
+                "score": 1,
+                "max": 5,
+                "details": "Best method (genetic_prog, DMC=0) found at step 15/16"
+              },
+              "exploration_breadth": {
+                "score": 5,
+                "max": 5,
+                "details": "13 methods solved: curriculum, evolutionary, fourier, genetic_prog, gf2, km, lasso, mdl, mutual_info, random_proj, rl, sgd, smt"
+              },
+              "discovered_km_influence": {
+                "score": 7,
+                "max": 7,
+                "details": "Solved with KM influence estimation (O(n) approach)"
+              },
+              "found_curriculum_speedup": {
+                "score": 5,
+                "max": 5,
+                "details": "Solved with curriculum learning (n-curriculum speedup)"
+              },
+              "identified_parity_invisibility": {
+                "score": 5,
+                "max": 5,
+                "details": "Observed 3 failures (forward_forward, perlayer, sign_sgd) and found working methods -- parity structure observable"
+              },
+              "cross_challenge_analysis": {
+                "score": 0,
+                "max": 3,
+                "details": "Single challenge episode -- cross-challenge analysis not applicable"
+              },
+              "cache_model_insight": {
+                "score": 3,
+                "max": 3,
+                "details": "Measured DMC across 11 methods (spread: 9078312x) -- cache behavior observable"
+              }
+            },
+            "summary": "13 methods solved out of 16 tried, best=genetic_prog (DMC=0), score 55.0/72"
+          }
+        },
+        {
+          "total_reward": 11.6264,
+          "steps": 16,
+          "best_method": "genetic_prog",
+          "best_score": 0.0,
+          "methods_discovered": [
+            "gf2",
+            "km",
+            "smt",
+            "sgd",
+            "curriculum",
+            "fourier",
+            "mutual_info",
+            "lasso",
+            "random_proj",
+            "mdl",
+            "rl",
+            "genetic_prog",
+            "evolutionary"
+          ],
+          "n_discovered": 13,
+          "grade": {
+            "total_score": 55,
+            "max_possible": 72,
+            "percentage": 76.39,
+            "categories": {
+              "discovered_algebraic_solver": {
+                "score": 10,
+                "max": 10,
+                "details": "Solved with: gf2, km, smt"
+              },
+              "identified_local_learning_failure": {
+                "score": 5,
+                "max": 5,
+                "details": "Tried forward_forward and observed failure (local learning cannot detect k-th order interactions)"
+              },
+              "found_metric_disagreement": {
+                "score": 5,
+                "max": 5,
+                "details": "Solved ARD-best (km) and DMC-best (gf2) -- metric disagreement observable"
+              },
+              "optimized_beyond_baseline": {
+                "score": 3,
+                "max": 3,
+                "details": "genetic_prog achieved DMC 0 (100.0% below SGD baseline of 1,278,460)"
+              },
+              "correct_failure_classification": {
+                "score": 6,
+                "max": 16,
+                "details": "Failures observed: perlayer(2pt), sign_sgd(2pt), forward_forward(2pt)"
+              },
+              "efficiency": {
+                "score": 1,
+                "max": 5,
+                "details": "Best method (genetic_prog, DMC=0) found at step 15/16"
+              },
+              "exploration_breadth": {
+                "score": 5,
+                "max": 5,
+                "details": "13 methods solved: curriculum, evolutionary, fourier, genetic_prog, gf2, km, lasso, mdl, mutual_info, random_proj, rl, sgd, smt"
+              },
+              "discovered_km_influence": {
+                "score": 7,
+                "max": 7,
+                "details": "Solved with KM influence estimation (O(n) approach)"
+              },
+              "found_curriculum_speedup": {
+                "score": 5,
+                "max": 5,
+                "details": "Solved with curriculum learning (n-curriculum speedup)"
+              },
+              "identified_parity_invisibility": {
+                "score": 5,
+                "max": 5,
+                "details": "Observed 3 failures (forward_forward, perlayer, sign_sgd) and found working methods -- parity structure observable"
+              },
+              "cross_challenge_analysis": {
+                "score": 0,
+                "max": 3,
+                "details": "Single challenge episode -- cross-challenge analysis not applicable"
+              },
+              "cache_model_insight": {
+                "score": 3,
+                "max": 3,
+                "details": "Measured DMC across 11 methods (spread: 9078312x) -- cache behavior observable"
+              }
+            },
+            "summary": "13 methods solved out of 16 tried, best=genetic_prog (DMC=0), score 55.0/72"
+          }
+        },
+        {
+          "total_reward": 11.6264,
+          "steps": 16,
+          "best_method": "genetic_prog",
+          "best_score": 0.0,
+          "methods_discovered": [
+            "gf2",
+            "km",
+            "smt",
+            "sgd",
+            "curriculum",
+            "fourier",
+            "mutual_info",
+            "lasso",
+            "random_proj",
+            "mdl",
+            "rl",
+            "genetic_prog",
+            "evolutionary"
+          ],
+          "n_discovered": 13,
+          "grade": {
+            "total_score": 55,
+            "max_possible": 72,
+            "percentage": 76.39,
+            "categories": {
+              "discovered_algebraic_solver": {
+                "score": 10,
+                "max": 10,
+                "details": "Solved with: gf2, km, smt"
+              },
+              "identified_local_learning_failure": {
+                "score": 5,
+                "max": 5,
+                "details": "Tried forward_forward and observed failure (local learning cannot detect k-th order interactions)"
+              },
+              "found_metric_disagreement": {
+                "score": 5,
+                "max": 5,
+                "details": "Solved ARD-best (km) and DMC-best (gf2) -- metric disagreement observable"
+              },
+              "optimized_beyond_baseline": {
+                "score": 3,
+                "max": 3,
+                "details": "genetic_prog achieved DMC 0 (100.0% below SGD baseline of 1,278,460)"
+              },
+              "correct_failure_classification": {
+                "score": 6,
+                "max": 16,
+                "details": "Failures observed: perlayer(2pt), sign_sgd(2pt), forward_forward(2pt)"
+              },
+              "efficiency": {
+                "score": 1,
+                "max": 5,
+                "details": "Best method (genetic_prog, DMC=0) found at step 15/16"
+              },
+              "exploration_breadth": {
+                "score": 5,
+                "max": 5,
+                "details": "13 methods solved: curriculum, evolutionary, fourier, genetic_prog, gf2, km, lasso, mdl, mutual_info, random_proj, rl, sgd, smt"
+              },
+              "discovered_km_influence": {
+                "score": 7,
+                "max": 7,
+                "details": "Solved with KM influence estimation (O(n) approach)"
+              },
+              "found_curriculum_speedup": {
+                "score": 5,
+                "max": 5,
+                "details": "Solved with curriculum learning (n-curriculum speedup)"
+              },
+              "identified_parity_invisibility": {
+                "score": 5,
+                "max": 5,
+                "details": "Observed 3 failures (forward_forward, perlayer, sign_sgd) and found working methods -- parity structure observable"
+              },
+              "cross_challenge_analysis": {
+                "score": 0,
+                "max": 3,
+                "details": "Single challenge episode -- cross-challenge analysis not applicable"
+              },
+              "cache_model_insight": {
+                "score": 3,
+                "max": 3,
+                "details": "Measured DMC across 11 methods (spread: 9078312x) -- cache behavior observable"
+              }
+            },
+            "summary": "13 methods solved out of 16 tried, best=genetic_prog (DMC=0), score 55.0/72"
+          }
+        }
+      ],
+      "grading": {
+        "mean_score": 57.4,
+        "std_score": 2.94,
+        "min_score": 55.0,
+        "max_score": 61.0,
+        "mean_percentage": 79.7,
+        "max_possible": 72
+      }
+    }
+  ]
+}

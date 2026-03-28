@@ -4,9 +4,11 @@ Research notes and literature review for the Sutro Group.
 
 ## Research as Navigation
 
-**[Research as Navigation](navigation-thesis.md)** is the thesis behind this project: research is primarily a navigation problem (finding the right question, method, comparison), and coding agents are the first tool that can navigate autonomously because they read state, execute experiments, write results, and loop. The page walks through this idea from ELI5 to PhD level, with examples from our 33 experiments.
+**[Research as Navigation](navigation-thesis.md)** is the thesis behind this project: research is primarily a navigation problem (finding the right question, method, comparison), and coding agents are the first tool that can navigate autonomously because they read state, execute experiments, write results, and loop. The page walks through this idea from ELI5 to PhD level, with examples from our 36 experiments.
 
 ## Autonomous Research Infrastructure
+
+**[System Overview](system-overview.md)** shows how all the pieces connect: challenges, harness, eval environment, agent infrastructure, and the docs site.
 
 **[Peer Research Protocol](peer-research-protocol.md)** describes how SutroYaro runs autonomous, multi-researcher experiments. Multiple people use different AI tools (Claude Code, Gemini CLI, Codex CLI, OpenCode) on the same challenge. A locked evaluation harness ensures comparable results. A machine-readable experiment log accumulates findings across researchers.
 
@@ -18,14 +20,14 @@ Key infrastructure:
 | `src/harness.py` | Locked evaluation (5 methods, CLI). Agents cannot modify. |
 | `bin/run-agent` | Tool-agnostic launcher with looped mode for overnight runs |
 | `bin/analyze-log` | Progress report and chart from experiment log |
-| `research/log.jsonl` | 33 experiments in machine-readable format |
+| `research/log.jsonl` | 36 experiments in machine-readable format |
 | `research/search_space.yaml` | What the agent can vary, per challenge |
 
 The protocol is challenge-agnostic: it works for sparse parity now and nanoGPT later. See the [full design doc](peer-research-protocol.md) for the nanoGPT migration proposal.
 
 ## Survey
 
-**[Sparse Parity: A Practitioner's Field Guide](survey.md)** ranks all 33 experiments (16 Phase 1 + 17 Phase 2), provides a decision framework for picking methods, and documents the full AI research process including parallel agent dispatch.
+**[Sparse Parity: A Practitioner's Field Guide](survey.md)** ranks all 36 experiments (16 Phase 1 + 17 Phase 2 + 3 GrokFast), provides a decision framework for picking methods, and documents the full AI research process including parallel agent dispatch.
 
 ## Topics
 
@@ -38,6 +40,7 @@ The protocol is challenge-agnostic: it works for sparse parity now and nanoGPT l
 - [x] Scaling frontier: [SGD breaks at n^k > 100K](../findings/exp_d_scaling.md)
 - [x] Blank-slate approaches: [Fourier](../findings/exp_fourier.md), [evolutionary](../findings/exp_evolutionary.md), [feature selection](../findings/exp_feature_select.md)
 - [x] [17 proposed approaches](proposed-approaches.md): all completed, results in [survey](survey.md)
+- [x] Auto-instrumented DMD tracking: [TrackedArray](tracked-numpy.md) wraps numpy so every operation records reads/writes automatically, removing manual instrumentation errors
 - [ ] Deeper networks (5-10 layers) where FF's locality advantage may appear
 - [ ] Hybrid approaches for k=8-9 (combinatorial search with pruning)
 

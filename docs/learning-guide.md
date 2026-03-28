@@ -133,4 +133,4 @@ Full notes: [Sutro Group main doc](https://docs.google.com/document/d/1B9867EN6B
 4. **Record everything.** Failed experiments (GrokFast, Forward-Forward) prevent future researchers from repeating them.
 5. **Leave breadcrumbs.** DISCOVERIES.md + structured findings mean any new session can pick up where the last one left off.
 
-See [findings/prompting-strategies.md](../findings/prompting-strategies.md) for the detailed prompting playbook.
+See [findings/prompting-strategies.md](findings/prompting-strategies.md) for the detailed prompting playbook.

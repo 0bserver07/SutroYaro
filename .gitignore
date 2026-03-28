@@ -43,4 +43,8 @@ site/
 node_modules/
 bun.lock
 src/sparse_parity/telegram_sync/*.json
+telegram.db
+telegram.db-wal
+telegram.db-shm
 .cursor/
+*.code-workspace

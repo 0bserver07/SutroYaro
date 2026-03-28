@@ -51,7 +51,7 @@ Current challenge: **sparse parity** (learn XOR/parity from random {-1,+1} input
 
 ## Results So Far
 
-34 experiments across 3 challenges. Two metrics: ARD (average reuse distance) and DMC (data movement complexity, Ding et al. arXiv:2312.14441).
+36 experiments across 3 challenges. Two metrics: ARD (average reuse distance) and DMC (data movement complexity, Ding et al. arXiv:2312.14441).
 
 | Method | Time | ARD | DMC | What it proves |
 |--------|------|-----|-----|----------------|
@@ -124,7 +124,7 @@ Each cycle: fresh AI context, reads accumulated file state, runs experiments, lo
 AGENT.md                  # What the AI agent follows (the loop)
 AGENT_EVAL.md             # Guide for running the eval environment
 LAB.md                    # Human experiment protocol
-DISCOVERIES.md            # Accumulated knowledge (34 proven facts)
+DISCOVERIES.md            # Accumulated knowledge (91 proven facts)
 TODO.md                   # Hypothesis queue
 
 src/
@@ -133,7 +133,7 @@ src/
     fast.py               # Numpy solver (0.12s, optional tracker)
     tracker.py            # ARD/DMC measurement (MemTracker)
     cache_tracker.py      # Cache-aware energy model
-    experiments/          # All 34 experiment scripts
+    experiments/          # All 36 experiment scripts
     eval/                 # Gymnasium RL environment
       env.py              # SutroYaro/SparseParity-v0
       baselines.py        # Random, Greedy, Oracle agents

@@ -12,7 +12,7 @@ This is a research workspace for the **Sutro Group**, a study group exploring en
 - **CONTRIBUTING.md** — How external contributors submit experiments and findings
 - **TODO.md** — Open research tasks
 - **docs/tasks/INDEX.md** — Current task tracker with priorities
-- **docs/research/survey.md** — Practitioner's Field Guide ranking all 33 experiments
+- **docs/research/survey.md** — Practitioner's Field Guide ranking all 36 experiments
 - **docs/research/peer-research-protocol.md** — Full design doc for multi-researcher autonomous research
 
 ## Core Concepts
@@ -22,13 +22,14 @@ This is a research workspace for the **Sutro Group**, a study group exploring en
 - **Data Movement Complexity (DMC)**: Better proxy metric (Ding et al., arXiv:2312.14441). DMC = sum of sqrt(stack_distance) for all float accesses. Tracks alongside ARD in MemTracker. Baseline: ARD 4,104 / DMC 300,298.
 - **Cache Energy Model**: register 5pJ, L1 (64KB) 20pJ, L2 (256KB) 100pJ, HBM 640pJ per float access (Bill Dally numbers).
 - **CacheTracker**: Extended MemTracker with LRU cache simulation for realistic energy estimates.
+- **TrackedArray / Auto DMD**: `TrackedArray` wraps numpy arrays so every operation (ufuncs, indexing, slicing) auto-records reads and writes on an `LRUStackTracker`. Removes manual instrumentation errors. See `docs/research/tracked-numpy.md`.
 
 ## Current Best Methods
 
 | Method | Time (n=20/k=3) | ARD | DMC | Notes |
 |--------|-----------------|-----|-----|-------|
 | KM-min (1 sample) | ~0.001s | 20 | 3,578 | New DMC leader. 1 influence sample suffices for parity. |
-| GF(2) Gaussian Elimination | 509 us | ~420 | 8,607 | 240x faster than SGD, k-independent. Harness under-counts; true DMC ~189K. |
+| GF(2) Gaussian Elimination | 509 us | ~420 | ~203K | 240x faster than SGD, k-independent. Auto-tracked via TrackedArray; old harness reported 8,607. |
 | KM Influence Estimation | 0.001-0.006s | 92 | 20,633 | ARD leader. 5 influence samples per bit. |
 | SMT Backtracking | 0.002s | 3,360 | 348,336 | Constraint satisfaction approach |
 | SGD (baseline) | 0.12s | 8,504 | 1,278,460 | LR=0.1, batch=32, hidden=200 |
@@ -97,15 +98,37 @@ This is informational (tells agents nix is available) rather than controlling (i
 
 See [docs/research/peer-research-protocol.md](docs/research/peer-research-protocol.md) for the full design.
 
+## Eval Environment
+
+The eval environment tests whether an AI agent can do energy-efficient ML research.
+
+- **Guide**: See `AGENT_EVAL.md` for adding challenges, methods, running evals
+- **Quick test**: `PYTHONPATH=src python3 -c "import gymnasium as gym; import sparse_parity.eval; env = gym.make('SutroYaro/SparseParity-v0', metric='dmc', budget=10); obs, info = env.reset(); obs, r, _, _, info = env.step(5); print(info)"`
+- **Environments**: `SutroYaro/SparseParity-v0` (single challenge), `SutroYaro/MultiChallenge-v0` (all three)
+- **Ground truth**: 36 experiments, 72-point grading rubric (12 categories)
+- **Docs**: `docs/research/eval-environment.md`
+
+## Agent Infrastructure
+
+Hooks, rules, and skills that make Claude Code sessions more effective. See [docs/research/agent-infrastructure.md](docs/research/agent-infrastructure.md) for the full docs.
+
+- **Hooks**: session-start (shows status), security-guard (blocks locked measurement code and destructive commands), session-end (session summary)
+- **Rules**: experiment reproducibility (seeds, config, environment), agent coordination (parallel dispatch, file ownership)
+- **Skills**: run-experiment (two-phase protocol), weekly-catchup, prepare-meeting
+- **Config**: `.claude/settings.json`
+
+Other coding agents (Gemini, Codex) don't run the hooks but can read the rules and skills.
+
 ## Automation
 
 | Script | What it does | Docs |
 |--------|-------------|------|
-| `sync_telegram.ts` | Pulls Telegram group thread messages to JSON | [docs/tooling/automation.md](docs/tooling/automation.md) |
+| `bin/tg-sync` | Syncs Telegram to local SQLite (incremental) | [docs/tooling/telegram-setup.md](docs/tooling/telegram-setup.md) |
+| `bin/tg-post` | Posts to Telegram forum topics via Bot API | [docs/tooling/telegram-setup.md](docs/tooling/telegram-setup.md) |
 | `src/sync_google_docs.py` | Pulls Google Docs to local markdown | [docs/tooling/automation.md](docs/tooling/automation.md) |
 | `.traces/export_sessions.py` | Exports Claude Code session traces | [docs/tooling/automation.md](docs/tooling/automation.md) |
 
-### Telegram Sync Quick Reference
+### Telegram Quick Reference
 
 ```bash
 # First time: install deps and authenticate
@@ -113,9 +136,15 @@ bun install
 cp .env.example .env  # fill in TELEGRAM_API_ID and TELEGRAM_API_HASH
 tg auth login
 
-# Sync messages
-bun run sync_telegram.ts
-# Output: src/sparse_parity/telegram_sync/messages.json
+# Sync messages to SQLite (incremental)
+bin/tg-sync
+# Database: telegram.db (project root, .gitignored)
+
+# Query messages
+sqlite3 telegram.db "SELECT date, sender, text FROM messages ORDER BY date DESC LIMIT 10"
+
+# Post via your own bot (requires TELEGRAM_BOT_TOKEN in .env)
+bin/tg-post --topic agent-updates "Experiment completed"
 ```
 
 ## Working Style

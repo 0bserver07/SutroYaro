@@ -1,0 +1,27 @@
+#!/usr/bin/env bun
+import { sync } from "../src/telegram/sync";
+
+const args = process.argv.slice(2);
+const exportJson = args.includes("--export-json");
+const fullSync = args.includes("--full");
+
+if (args.includes("--help") || args.includes("-h")) {
+  console.log(`Usage: bin/tg-sync [options]
+
+Sync Telegram messages to local SQLite database.
+
+Options:
+  --export-json  Also export JSON files (backward compat with sync_telegram.ts)
+  --full         Full re-sync (ignore incremental state, refetch everything)
+  -h, --help     Show this help
+
+First run does a full backfill. Subsequent runs fetch only new messages.
+Requires TELEGRAM_API_ID and TELEGRAM_API_HASH in .env.
+Requires a session from 'tg auth login'.
+
+Database: telegram.db (project root, .gitignored)
+`);
+  process.exit(0);
+}
+
+sync({ exportJson, fullSync });

@@ -1,0 +1,50 @@
+#!/usr/bin/env bun
+import { TelegramClient } from "@mtcute/bun";
+import { mkdirSync } from "fs";
+import { join } from "path";
+import { homedir } from "os";
+
+const API_ID = parseInt(process.env.TELEGRAM_API_ID ?? "0", 10);
+const API_HASH = process.env.TELEGRAM_API_HASH ?? "";
+
+if (!API_ID || !API_HASH) {
+  console.error("Set TELEGRAM_API_ID and TELEGRAM_API_HASH in .env");
+  process.exit(1);
+}
+
+const SESSION_DIR = join(homedir(), ".telegram-sync-cli");
+const SESSION_PATH = join(SESSION_DIR, "session_1.db");
+mkdirSync(SESSION_DIR, { recursive: true });
+
+const client = new TelegramClient({
+  apiId: API_ID,
+  apiHash: API_HASH,
+  storage: SESSION_PATH,
+});
+
+console.log("Starting Telegram auth...");
+console.log("You will be prompted for your phone number and a verification code.\n");
+
+await client.start({
+  phone: () => {
+    process.stdout.write("Phone number (with country code, e.g. +1...): ");
+    return new Promise((resolve) => {
+      process.stdin.once("data", (data) => resolve(data.toString().trim()));
+    });
+  },
+  code: () => {
+    process.stdout.write("Verification code: ");
+    return new Promise((resolve) => {
+      process.stdin.once("data", (data) => resolve(data.toString().trim()));
+    });
+  },
+  password: () => {
+    process.stdout.write("2FA password (if enabled): ");
+    return new Promise((resolve) => {
+      process.stdin.once("data", (data) => resolve(data.toString().trim()));
+    });
+  },
+});
+
+console.log(`\nAuthenticated! Session saved to ${SESSION_PATH}`);
+process.exit(0);

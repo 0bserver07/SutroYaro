@@ -13,7 +13,7 @@ The system has five parts:
 - **`src/harness.py`** -- locked evaluation. Runs GF(2), SGD, KM, Fourier, or SMT and returns accuracy, ARD, DMC, timing. Agents cannot modify this file.
 - **`AGENT.md`** -- the protocol. Any AI tool reads this and knows what to do: pick a hypothesis, run it, classify the result (WIN/LOSS/INVALID), log it, repeat.
 - **`bin/run-agent`** -- a bash launcher that works with Claude Code, Gemini CLI, Codex CLI, OpenCode, or any other CLI. No hooks, no special setup.
-- **`research/log.jsonl`** -- machine-readable log of all 33 experiments so far. One JSON line per experiment.
+- **`research/log.jsonl`** -- machine-readable log of all 36 experiments so far. One JSON line per experiment.
 - **`bin/analyze-log`** -- prints a progress report and generates a chart.
 
 ## Get started
@@ -31,7 +31,7 @@ git pull
 PYTHONPATH=src python3 checks/env_check.py
 PYTHONPATH=src python3 checks/baseline_check.py
 
-# See what 33 experiments look like
+# See what 36 experiments look like
 bin/analyze-log
 ```
 
@@ -86,7 +86,7 @@ The locked harness is what makes this work. Everyone measures the same way, so Y
 
 The short version: research is about finding the right experiment to run, not just running experiments faster. A coding agent (Claude Code, Gemini CLI, Codex, etc.) can read what's been tried, pick the next hypothesis, run it, log the result, and repeat. That loop is what makes autonomous research possible.
 
-The longer version, with examples from our 33 experiments: [Research as Navigation](navigation-thesis.md)
+The longer version, with examples from our 36 experiments: [Research as Navigation](navigation-thesis.md)
 
 One concrete example: we ran 4 local learning rules (Hebbian, Predictive Coding, Equilibrium Propagation, Target Propagation). All failed for the same reason -- parity is invisible to methods limited to local statistics. A smarter navigation protocol would have tested 1, understood why it failed, and skipped the other 3. That's the difference between running experiments and navigating a research space.
 
@@ -95,7 +95,7 @@ One concrete example: we ran 4 local learning rules (Hebbian, Predictive Coding,
 What's working:
 - Locked harness, all 5 methods verified
 - Pre-flight checks (env + baselines)
-- Experiment log with all 33 experiments
+- Experiment log with all 36 experiments
 - Progress report and chart generation
 - Tool-agnostic launcher (Claude Code and Gemini CLI tested)
 - Merge workflow for cross-researcher results
@@ -112,7 +112,7 @@ Work in progress:
 | [Agent CLI Guide](../tooling/agent-cli-guide.md) | Setup, install, customization for each AI tool |
 | [Peer Research Protocol](peer-research-protocol.md) | Full design: two-layer architecture, log schema, nanoGPT migration |
 | [Research as Navigation](navigation-thesis.md) | The thesis: research is navigation, coding agents are the right tool (ELI5 through PhD) |
-| [Practitioner's Field Guide](survey.md) | All 33 experiments ranked with methodology |
+| [Practitioner's Field Guide](survey.md) | All 36 experiments ranked with methodology |
 | [AGENT.md](https://github.com/cybertronai/SutroYaro/blob/main/AGENT.md) | The protocol any AI tool follows |
-| [DISCOVERIES.md](https://github.com/cybertronai/SutroYaro/blob/main/DISCOVERIES.md) | Every proven fact from 33 experiments |
+| [DISCOVERIES.md](https://github.com/cybertronai/SutroYaro/blob/main/DISCOVERIES.md) | Every proven fact from 36 experiments |
 | [CONTRIBUTING.md](https://github.com/cybertronai/SutroYaro/blob/main/CONTRIBUTING.md) | How to submit your results via PR |
