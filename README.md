@@ -55,8 +55,9 @@ Current challenge: **sparse parity** (learn XOR/parity from random {-1,+1} input
 
 | Method | Time | DMD | What it proves |
 |--------|------|-----|----------------|
-| SMT Backtracking | 0.002s | 19,532 | DMD leader. Constraint satisfaction touches small slices. |
-| KM Influence Estimation | 0.001s | 27,165 | O(n) not O(C(n,k)). Flip each bit, measure label change. |
+| KM-min (1 sample) | 0.050s | 3,087 | DMD leader. Parity influence is deterministic. |
+| SMT Backtracking | 0.002s | 19,532 | Constraint satisfaction touches small slices. |
+| KM Influence (5 samples) | 0.001s | 27,165 | O(n) not O(C(n,k)). Flip each bit, measure label change. |
 | GF(2) Gaussian Elimination | 0.009s | 153,745 | Parity is linear over GF(2). |
 | SGD (baseline) | 0.089s | est. | The neural net solves it, just the hard way. |
 
