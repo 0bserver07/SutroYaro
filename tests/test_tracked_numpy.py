@@ -173,6 +173,58 @@ def test_np_all():
     assert np.all(a) is np.bool_(True)
 
 
+# --- Exact DMC prediction ---
+
+def test_a_plus_b_plus_a_dmc():
+    """Compute (a+b)+a and verify DMC matches hand-calculated prediction.
+
+    With arrays of size N=4, the trace is:
+
+        clock=0:  write("a", 4)      write_time["a"]=0   clock->4
+        clock=4:  write("b", 4)      write_time["b"]=4   clock->8
+
+        c = a + b:
+        clock=8:  read("a", 4)       dist = 8-0 = 8      clock->12
+        clock=12: read("b", 4)       dist = 12-4 = 8     clock->16
+        clock=16: write(c, 4)        write_time[c]=16    clock->20
+
+        d = c + a:
+        clock=20: read(c, 4)         dist = 20-16 = 4    clock->24
+        clock=24: read("a", 4)       dist = 24-0 = 24    clock->28
+        clock=28: write(d, 4)        write_time[d]=28    clock->32
+
+    DMC = 4*sqrt(8) + 4*sqrt(8) + 4*sqrt(4) + 4*sqrt(24) = 50.2233...
+    ARD = (4*8 + 4*8 + 4*4 + 4*24) / 16 = 176/16 = 11.0
+    """
+    import math
+
+    tracker = MemTracker()
+    a = TrackedArray(np.array([1.0, 2.0, 3.0, 4.0]), "a", tracker)
+    b = TrackedArray(np.array([5.0, 6.0, 7.0, 8.0]), "b", tracker)
+
+    d = (a + b) + a
+
+    # Verify computation is correct
+    np.testing.assert_array_equal(np.asarray(d), [7.0, 10.0, 13.0, 16.0])
+
+    s = tracker.summary()
+    N = 4
+
+    # Exact predictions
+    expected_dmc = N * (math.sqrt(2*N) + math.sqrt(2*N) + math.sqrt(N) + math.sqrt(6*N))
+    expected_ard = 11.0
+    expected_reads = 4
+    expected_writes = 4  # a, b, (a+b), (a+b)+a
+    expected_total_floats = 8 * N
+
+    assert s["reads"] == expected_reads
+    assert s["writes"] == expected_writes
+    assert s["total_floats_accessed"] == expected_total_floats
+    assert abs(s["weighted_ard"] - expected_ard) < 0.01
+    assert abs(s["dmc"] - expected_dmc) < 0.01, \
+        f"DMC {s['dmc']:.6f} != expected {expected_dmc:.6f}"
+
+
 # --- GF(2) integration test ---
 
 def test_gf2_gauss_elim_tracked():
