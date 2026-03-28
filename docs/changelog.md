@@ -4,16 +4,46 @@ All notable changes to this research workspace.
 
 ## [0.26.0] - 2026-03-28
 
-### Auto-instrumented DMD tracking (PR #65, Yaroslav)
+Largest release: auto-instrumented DMD tracking, RL eval environment, agent infrastructure, Telegram SQLite sync, and documentation fixes. 84 commits from 4 contributors.
+
+### Auto-instrumented DMD tracking (Yaroslav)
 
 - **TrackedArray**: numpy ndarray wrapper that auto-tracks all operations without manual instrumentation. Wrap inputs, run unmodified code, read DMD.
 - **LRUStackTracker**: true per-element LRU stack distances matching Ding et al. Definition 2.1. Writes place data on the stack (free). Only reads cost DMD = sqrt(stack_distance). No cold misses -- inputs arrive pre-loaded.
-- **GF(2) under-counting fixed**: harness reported DMC 8,607 but actual DMD with all row operations tracked is ~203K.
+- **GF(2) under-counting fixed**: harness reported DMC 8,607 but actual DMD with all row operations tracked is ~203K. The leaderboard was wrong by 24x.
 - **Verified against known examples**: paper example (abbbca, dist=3) and exact (a+b)+a prediction (DMD = 5.146).
 - **30 tests** organized by concern: wrapper mechanics, indexing, numpy functions, LRU metric, GF(2) integration.
 - **Docs**: `research/tracked-numpy.md` with worked examples and per-operation DMD breakdown.
-- **Telegram safety guard**: posting disabled by default; requires `TELEGRAM_POST_ENABLED=1` to send messages.
-- **bin/tg-auth**: new script for interactive MTProto login.
+
+### RL evaluation environment (Yad, PR #49)
+
+- **Gymnasium environments**: `SparseParity-v0` (single challenge) and `MultiChallenge-v0` (all three challenges). Agent picks from 16 methods and gets scored on research quality.
+- **12-category grading rubric** (72 points): checks if agent found GF(2), noticed ARD/DMC disagreement, observed local learning failing, explored broadly, found the algebraic solver efficiently.
+- **16 methods all runnable**: 5 via harness, 9 with live fallback, 2 cached.
+- **Platform adapters**: Anthropic tool-use, PrimeIntellect verifiers, HuggingFace Spaces leaderboard, UK AISI Inspect.
+- **Registry system**: add methods and challenges without editing environment code.
+- Demo script, system overview page, eval docs.
+
+### Agent infrastructure (Yad, PR #50)
+
+- **3 hooks**: session-start (shows project status), security-guard (blocks edits to measurement code), session-end (session summary).
+- **2 rules**: experiment reproducibility (seeds, config, environment logging), agent coordination (file ownership, parallel dispatch criteria, post-merge guidance).
+- **4 skills**: run-experiment (two-phase protocol), weekly-catchup, prepare-meeting, info-defrag.
+- LAB.md rules #10 (two-phase output) and #11 (reproducibility) added.
+- Docs: `docs/research/agent-infrastructure.md`, workflow diagram.
+
+### Telegram integration (Yad, Issue #58)
+
+- **`bin/tg-sync`**: incremental Telegram to SQLite sync. First run: full backfill. Subsequent runs: only new messages.
+- **`bin/tg-post`**: post to forum topics via Bot API using per-person bot tokens. Safety guard: disabled by default, requires `TELEGRAM_POST_ENABLED=1`.
+- **`bin/tg-auth`**: standalone interactive MTProto login (replaces `tg auth login` dependency).
+- SQLite schema: messages(id, topic_id, date, sender, text, reply_to). Setup guide: `docs/tooling/telegram-setup.md`.
+
+### Documentation fixes (Yad, Issue #55)
+
+- Experiment counts updated from 33/34 to 36 across 8 files.
+- Seth Stafford's bio updated with GrokFast PRs.
+- Timeline extended through March 24, system overview and catchup index updated.
 
 ---
 
