@@ -8,11 +8,20 @@ How to go from cloning the repo to running your first experiment with a coding a
 git clone https://github.com/cybertronai/SutroYaro.git
 cd SutroYaro
 
-PYTHONPATH=src python3 checks/env_check.py
-PYTHONPATH=src python3 checks/baseline_check.py
+# Option A: Nix (recommended - includes all deps)
+nix develop
+python3 checks/env_check.py
+python3 checks/baseline_check.py
+
+# Option B: pip (fallback)
+export PYTHONPATH=$PWD/src:$PYTHONPATH
+pip install numpy
+python3 checks/env_check.py
 ```
 
 Both checks must pass. If they don't, fix the issue before continuing.
+
+See [CONTRIBUTING.md](https://github.com/cybertronai/SutroYaro/blob/main/CONTRIBUTING.md) for full setup instructions including how to install nix.
 
 ## 2. Open in your agent
 
@@ -63,18 +72,20 @@ Three options:
 
 ## 5. Run experiments
 
-The agent uses the harness:
+The agent uses the harness. If using nix, PYTHONPATH is set automatically:
 
 ```bash
 # Sparse parity (default)
-PYTHONPATH=src python3 src/harness.py --method gf2 --n_bits 20 --k_sparse 3
+python3 src/harness.py --method gf2 --n_bits 20 --k_sparse 3
 
 # Sparse sum
-PYTHONPATH=src python3 src/harness.py --challenge sparse-sum --method sgd
+python3 src/harness.py --challenge sparse-sum --method sgd
 
 # All 14 experiments in 0.28 seconds
-PYTHONPATH=src python3 bin/reproduce-all
+python3 bin/reproduce-all
 ```
+
+Without nix, prefix with `PYTHONPATH=src`.
 
 ## 6. Record results
 
