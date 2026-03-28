@@ -82,6 +82,7 @@ Full setup instructions in [CONTRIBUTING.md](https://github.com/cybertronai/Sutr
 | Meeting notes and Google Docs | [Meetings](meetings/index.md) |
 | Auto DMD tracking | [Auto-instrumented DMD Tracking](research/tracked-numpy.md) |
 | How to contribute | [CONTRIBUTING.md](https://github.com/cybertronai/SutroYaro/blob/main/CONTRIBUTING.md) |
+| **Submit a solution** | [Sparse Parity Challenge](https://github.com/cybertronai/sparse-parity-challenge) |
 
 ## Quick Links
 
@@ -89,5 +90,6 @@ Full setup instructions in [CONTRIBUTING.md](https://github.com/cybertronai/Sutr
 |----------|------|
 | Telegram | [t.me/sutro_group](https://t.me/sutro_group) |
 | Code repo | [cybertronai/sutro](https://github.com/cybertronai/sutro) |
+| Challenge | [sparse-parity-challenge](https://github.com/cybertronai/sparse-parity-challenge) |
 | The Bigger Picture | [Yaroslav's roadmap](google-docs/bigger-picture.md) |
 | Meetings | Mondays 18:00 at South Park Commons (380 Brannan St) |
