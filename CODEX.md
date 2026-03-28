@@ -1,4 +1,4 @@
-# CLAUDE.md - Sutro Group Research Workspace
+# CODEX.md - Sutro Group Research Workspace
 
 ## Project Context
 
@@ -12,7 +12,7 @@ This is a research workspace for the **Sutro Group**, a study group exploring en
 - **CONTRIBUTING.md** — How external contributors submit experiments and findings
 - **TODO.md** — Open research tasks
 - **docs/tasks/INDEX.md** — Current task tracker with priorities
-- **docs/research/survey.md** — Practitioner's Field Guide ranking all 36 experiments
+- **docs/research/survey.md** — Practitioner's Field Guide ranking all 33 experiments
 - **docs/research/peer-research-protocol.md** — Full design doc for multi-researcher autonomous research
 
 ## Core Concepts
@@ -22,14 +22,13 @@ This is a research workspace for the **Sutro Group**, a study group exploring en
 - **Data Movement Complexity (DMC)**: Better proxy metric (Ding et al., arXiv:2312.14441). DMC = sum of sqrt(stack_distance) for all float accesses. Tracks alongside ARD in MemTracker. Baseline: ARD 4,104 / DMC 300,298.
 - **Cache Energy Model**: register 5pJ, L1 (64KB) 20pJ, L2 (256KB) 100pJ, HBM 640pJ per float access (Bill Dally numbers).
 - **CacheTracker**: Extended MemTracker with LRU cache simulation for realistic energy estimates.
-- **TrackedArray / Auto DMD**: `TrackedArray` wraps numpy arrays so every operation (ufuncs, indexing, slicing) auto-records reads and writes on an `LRUStackTracker`. Removes manual instrumentation errors. See `docs/research/tracked-numpy.md`.
 
 ## Current Best Methods
 
 | Method | Time (n=20/k=3) | ARD | DMC | Notes |
 |--------|-----------------|-----|-----|-------|
 | KM-min (1 sample) | ~0.001s | 20 | 3,578 | New DMC leader. 1 influence sample suffices for parity. |
-| GF(2) Gaussian Elimination | 509 us | ~420 | ~203K | 240x faster than SGD, k-independent. Auto-tracked via TrackedArray; old harness reported 8,607. |
+| GF(2) Gaussian Elimination | 509 us | ~420 | 8,607 | 240x faster than SGD, k-independent. Harness under-counts; true DMC ~189K. |
 | KM Influence Estimation | 0.001-0.006s | 92 | 20,633 | ARD leader. 5 influence samples per bit. |
 | SMT Backtracking | 0.002s | 3,360 | 348,336 | Constraint satisfaction approach |
 | SGD (baseline) | 0.12s | 8,504 | 1,278,460 | LR=0.1, batch=32, hidden=200 |
@@ -44,27 +43,6 @@ batch_size=32, n_train=1000, max_epochs=200
 ```
 
 Solves in ~40 epochs / 0.12s with numpy (`fast.py`).
-
-## Nix Development Shell (Optional)
-
-For NixOS users (or those with flakes), a `flake.nix` provides a reproducible environment with python3 + numpy. Non-NixOS users can ignore the nix files.
-
-```bash
-nix develop
-python3 bin/reproduce-all
-```
-
-Or one-liner:
-```bash
-nix develop --command python3 bin/reproduce-all
-```
-
-For reproducibility, macOS/Linux users can install Nix via the Determinate Systems installer:
-```bash
-curl --proto '=https' --tlsv1.2 -sSf https://install.determinate.systems/nix | sh -s -- install
-```
-
-This is informational (tells agents nix is available) rather than controlling (instructing behavior). Non-NixOS users can ignore and run `python3` directly.
 
 ## Key Findings
 
@@ -98,35 +76,15 @@ This is informational (tells agents nix is available) rather than controlling (i
 
 See [docs/research/peer-research-protocol.md](docs/research/peer-research-protocol.md) for the full design.
 
-## Eval Environment
-
-The eval environment tests whether an AI agent can do energy-efficient ML research.
-
-- **Guide**: See `AGENT_EVAL.md` for adding challenges, methods, running evals
-- **Quick test**: `PYTHONPATH=src python3 -c "import gymnasium as gym; import sparse_parity.eval; env = gym.make('SutroYaro/SparseParity-v0', metric='dmc', budget=10); obs, info = env.reset(); obs, r, _, _, info = env.step(5); print(info)"`
-- **Environments**: `SutroYaro/SparseParity-v0` (single challenge), `SutroYaro/MultiChallenge-v0` (all three)
-- **Ground truth**: 36 experiments, 72-point grading rubric (12 categories)
-- **Docs**: `docs/research/eval-environment.md`
-
-## Agent Infrastructure
-
-Hooks, rules, and skills that make Claude Code sessions more effective. See [docs/research/agent-infrastructure.md](docs/research/agent-infrastructure.md) for the full docs.
-
-- **Hooks**: session-start (shows status), security-guard (blocks locked measurement code and destructive commands), session-end (session summary)
-- **Rules**: experiment reproducibility (seeds, config, environment), agent coordination (parallel dispatch, file ownership)
-- **Skills**: run-experiment (two-phase protocol), weekly-catchup, prepare-meeting
-- **Config**: `.claude/settings.json`
-
-Other coding agents (Gemini, Codex) don't run the hooks but can read the rules and skills.
-
 ## Automation
 
 | Script | What it does | Docs |
 |--------|-------------|------|
-| `bin/tg-sync` | Syncs Telegram to local SQLite (incremental) | [docs/tooling/telegram-setup.md](docs/tooling/telegram-setup.md) |
-| `bin/tg-post` | Posts to Telegram forum topics via Bot API | [docs/tooling/telegram-setup.md](docs/tooling/telegram-setup.md) |
+| `sync_telegram.ts` | Bulk-syncs Telegram topics to JSON files | [docs/tooling/automation.md](docs/tooling/automation.md) |
+| `telegram/tg-topics.ts` | Lists forum topics (JSON) | See Telegram section below |
+| `telegram/tg-read.ts` | Reads messages from a topic (JSON) | See Telegram section below |
+| `telegram/tg-send.ts` | Sends a message to a topic | See Telegram section below |
 | `src/sync_google_docs.py` | Pulls Google Docs to local markdown | [docs/tooling/automation.md](docs/tooling/automation.md) |
-| `.traces/export_sessions.py` | Exports Claude Code session traces | [docs/tooling/automation.md](docs/tooling/automation.md) |
 | `bin/review-cycle` | Cross-model experiment review (supervisor/researcher dialogue) | See below |
 
 ### Review Cycle Quick Reference
@@ -135,8 +93,8 @@ Other coding agents (Gemini, Codex) don't run the hooks but can read the rules a
 # Codex supervises Claude's work (last 5 experiments, 3-turn dialogue)
 bin/review-cycle --tool codex --researcher-tool claude --last 5
 
-# Gemini supervises with more dialogue turns
-bin/review-cycle --tool gemini --researcher-tool claude --last 10 --turns 5
+# Claude supervises Codex's work
+bin/review-cycle --tool claude --researcher-tool codex --last 5
 
 # Preview prompts without launching agents
 bin/review-cycle --dry-run --last 3
@@ -152,15 +110,26 @@ bun install
 cp .env.example .env  # fill in TELEGRAM_API_ID and TELEGRAM_API_HASH
 tg auth login
 
-# Sync messages to SQLite (incremental)
-bin/tg-sync
-# Database: telegram.db (project root, .gitignored)
+# Bulk sync (existing)
+bun run sync_telegram.ts
 
-# Query messages
-sqlite3 telegram.db "SELECT date, sender, text FROM messages ORDER BY date DESC LIMIT 10"
+# List topics
+bun telegram/tg-topics.ts
 
-# Post via your own bot (requires TELEGRAM_BOT_TOKEN in .env)
-bin/tg-post --topic agent-updates "Experiment completed"
+# Read last 20 messages from a topic
+bun telegram/tg-read.ts --topic "General" --limit 20
+
+# Read messages since a date
+bun telegram/tg-read.ts --topic "chat-yad" --since 2025-06-01
+
+# Send a message to a topic
+bun telegram/tg-send.ts --topic "agents" --message "Hello from agent"
+
+# Send multi-line via stdin
+echo "Summary of findings..." | bun telegram/tg-send.ts --topic "agents" --stdin
+
+# Send to default write topic (set TELEGRAM_WRITE_TOPIC in .env)
+bun telegram/tg-send.ts --message "Status update"
 ```
 
 ## Working Style

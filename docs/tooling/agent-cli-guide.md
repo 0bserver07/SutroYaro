@@ -165,7 +165,34 @@ brew install --cask codex
 codex --version
 ```
 
-Included with ChatGPT Plus, Pro, Business, Edu, and Enterprise plans. Or use API credits.
+### Authentication (OAuth / ChatGPT subscription)
+
+Codex CLI supports two auth methods. **OAuth login is recommended** because it uses your existing ChatGPT subscription (Plus, Pro, Business, Edu, Enterprise) with no separate API billing.
+
+**Option 1: ChatGPT OAuth (recommended -- uses subscription, no API credits)**
+
+```bash
+codex --login
+```
+
+This opens a browser window for ChatGPT OAuth. Sign in with your ChatGPT account. The session token is stored locally. No API key needed, no usage charges beyond your subscription.
+
+The project's `.codex/config.toml` already sets `forced_login_method = "chatgpt"` so Codex will prefer OAuth by default in this repo.
+
+**Option 2: API key (pay-per-token)**
+
+```bash
+export OPENAI_API_KEY="sk-..."
+```
+
+Set the key in your shell profile or `.env`. This bills per token against your OpenAI API account. Use this if you don't have a ChatGPT subscription or need higher rate limits.
+
+**Verifying auth**:
+
+```bash
+codex --version   # should show version without auth errors
+codex "echo hello" # quick smoke test
+```
 
 ### Run experiments
 
@@ -181,9 +208,23 @@ bin/run-agent --tool codex --loop 10 --max 5
 
 The launcher calls `codex -q "$prompt"`. The `-q` flag runs in quiet/non-interactive mode.
 
+### Project config
+
+This repo includes Codex-specific configuration for feature parity with Claude Code:
+
+| File | Purpose | Claude Code equivalent |
+|------|---------|----------------------|
+| `.codex/config.toml` | Sandbox mode, approval policy, model, auth | `.claude/settings.local.json` |
+| `CODEX.md` | Project context (auto-loaded at session start) | `CLAUDE.md` |
+| `.codex/AGENTS.md` | Agent instructions: context loading, sync, writing rules | `.claude/skills/` |
+
+Codex auto-reads `CODEX.md` and `.codex/AGENTS.md` at session start, giving it the same project context, sync routines, and anti-slop writing rules that Claude Code gets from `CLAUDE.md` and `.claude/skills/`.
+
 ### Customization
 
-- **AGENTS.md**: Codex reads this file for project context (similar to CLAUDE.md for Claude Code)
+- **CODEX.md**: project context loaded at session start (same content as CLAUDE.md)
+- **.codex/AGENTS.md**: instructions for context loading, sync routine, writing rules
+- **.codex/config.toml**: sandbox mode, approval policy, model selection, auth method
 - **MCP servers**: supported for external tool integration
 - **Multi-agent**: experimental parallel agent support built in
 - **Sandbox**: cross-platform security (macOS Seatbelt, Linux Landlock)
@@ -263,6 +304,61 @@ bin/analyze-log --plot
 bin/merge-findings research/log.jsonl --scoreboard
 ```
 
+---
+
+## Cross-Model Supervision
+
+Use `bin/review-cycle` to have one AI model review experiments done by another. The supervisor and researcher engage in a multi-turn dialogue: the supervisor identifies issues, the researcher responds (fixing or disputing), and the supervisor writes a final verdict.
+
+### Why cross-model?
+
+Different models have different strengths. A research agent optimized for code execution (Claude, Codex) may miss classification errors that a reasoning-focused reviewer catches. Cross-model review reduces blind spots.
+
+### Usage
+
+```bash
+# Codex reviews Claude's last 5 experiments (3-turn dialogue)
+bin/review-cycle --tool codex --researcher-tool claude --last 5
+
+# Gemini reviews with more dialogue turns
+bin/review-cycle --tool gemini --researcher-tool claude --last 10 --turns 5
+
+# Same model can review itself (less diverse but still useful)
+bin/review-cycle --tool claude --researcher-tool claude --last 5
+
+# Preview the prompts without launching agents
+bin/review-cycle --dry-run --last 3
+```
+
+### How it works
+
+The dialogue has 3 turns by default (configurable with `--turns`):
+
+1. **Supervisor reviews** (Turn 1): reads `log.jsonl` entries and findings docs, checks classifications against integrity rules, assigns per-experiment verdicts (CONFIRMED, RECLASSIFY, REVISION_NEEDED, FLAG)
+2. **Researcher responds** (Turn 2): reads the review, fixes acknowledged errors in the actual files, or disputes with evidence
+3. **Supervisor verdict** (Turn 3): evaluates the responses, writes final status per experiment (APPROVED, CORRECTED, DISPUTED, REJECTED)
+
+Each turn is a separate CLI invocation. The dialogue accumulates in `research/reviews/{cycle-id}.md`, which serves as both the conversation medium and the permanent audit trail.
+
+### What the supervisor checks
+
+- Classification honesty: does `delta_pct` direction match the `class`?
+- Findings completeness: all 6 required sections present?
+- Reproducibility: "Can it be reproduced?" has executable commands?
+- Sample size: claims qualified by data point count?
+- Prior work: DISCOVERIES.md checked for duplicates?
+- Locked files: harness.py and measurement code unmodified?
+
+### Review file output
+
+Each review cycle produces `research/reviews/review-{timestamp}.md` with YAML front-matter and the full dialogue. Example summary:
+
+```
+Summary: 3/5 approved, 1/5 corrected, 1/5 disputed (needs human review)
+```
+
+Experiments marked DISPUTED are flagged for human attention.
+
 ## Comparing tools
 
 | Feature | Claude Code | Gemini CLI | Codex CLI | OpenCode | Antigravity |
@@ -272,6 +368,9 @@ bin/merge-findings research/log.jsonl --scoreboard
 | Looped overnight | Yes | Yes | Yes | Yes | No |
 | MCP servers | Yes | Yes | Yes | Yes | No |
 | Custom skills/plugins | Yes | Yes (extensions) | Yes | Yes | No |
+| Project context file | `CLAUDE.md` | `GEMINI.md` | `CODEX.md` | -- | -- |
+| Agent instructions | `.claude/skills/` | `.gemini/` | `.codex/AGENTS.md` | -- | -- |
+| OAuth (subscription) | Yes | Yes (Google) | Yes (ChatGPT) | No | Yes (Google) |
 | Multi-provider | No (Anthropic) | No (Google) | No (OpenAI) | Yes (75+) | Yes |
 | Context window | 200K (Opus: 1M) | 1M | Varies | Varies | Varies |
 | Cost | Subscription or API | Free tier | ChatGPT Plus or API | BYO API key | Free preview |

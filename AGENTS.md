@@ -1,6 +1,6 @@
 # AGENTS.md
 
-This project uses AI agents (Claude Code, Gemini, Replit, others) for research and accepts contributions from both humans and agents.
+This project uses AI agents (Claude Code, Codex CLI, Gemini CLI, Replit, others) for research and accepts contributions from both humans and agents.
 
 ## How AI agents were used
 
@@ -33,7 +33,9 @@ When reviewing a contributed experiment:
 
 | File | Purpose |
 |------|---------|
-| `CLAUDE.md` | Project instructions loaded at session start |
+| `CLAUDE.md` | Project context for Claude Code (auto-loaded at session start) |
+| `CODEX.md` | Project context for Codex CLI (auto-loaded via `.codex/config.toml`) |
+| `.codex/AGENTS.md` | Codex instructions: context loading, sync routine, writing rules |
 | `LAB.md` | Experiment protocol (one hypothesis, baseline, commit discipline) |
 | `DISCOVERIES.md` | Shared knowledge base, anyone can PR new findings |
 | `CONTRIBUTING.md` | How humans and agents contribute (three effort levels) |
@@ -43,6 +45,8 @@ When reviewing a contributed experiment:
 | `docs/research/survey.md` | Full methodology in Section 7 (agentic loop, parallel dispatch, prompting strategies) |
 | `docs/tooling/anti-slop-guide.md` | Writing rules applied to all agent-generated prose |
 | `docs/tooling/sync-runbook.md` | Weekly/daily/per-session sync checklists |
+| `bin/review-cycle` | Cross-model supervisor: reviews experiments, dialogues with researcher |
+| `research/reviews/` | Review dialogue files (one per review cycle) |
 
 ## What worked
 
