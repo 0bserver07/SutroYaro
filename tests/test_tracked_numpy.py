@@ -1,8 +1,10 @@
 """Tests for auto-instrumented numpy wrapper (TrackedArray)."""
 
+import math
 import numpy as np
 import pytest
 from sparse_parity.tracker import MemTracker
+from sparse_parity.lru_tracker import LRUStackTracker
 from sparse_parity.tracked_numpy import TrackedArray, tracking_context, reset_counter
 
 
@@ -319,3 +321,79 @@ def test_gf2_dmc_in_expected_range():
     # Should be order-of-magnitude consistent with honest estimate (~189K)
     # Auto-tracking gives ~227K due to intermediate buffer overhead
     assert 50_000 < dmc < 1_000_000, f"DMC {dmc} outside expected range"
+
+
+# --- LRU stack tracker tests ---
+
+def test_lru_paper_example():
+    """Verify the paper's example: in 'abbbca', reuse distance of second a is 3."""
+    t = LRUStackTracker()
+    t.write('a', 1)   # a
+    t.write('b', 1)   # b
+    t.read('b', 1)    # b (at top, dist=1)
+    t.read('b', 1)    # b (at top, dist=1)
+    t.write('c', 1)   # c
+    dists = t.read('a', 1)  # a (at position 3)
+    assert dists[0] == 3
+
+
+def test_lru_a_plus_b_plus_a():
+    """(a+b)+a with LRU tracker. Second read of a has dist=3 (not 6).
+
+    Trace (size-1 arrays):
+
+        write a: stack=[a]                        cold, dist=1
+        write b: stack=[b,a]                      cold, dist=2
+
+        c = a + b:
+        read a:  stack=[a,b]       a was at pos 2, dist=2
+        read b:  stack=[b,a]       b was at pos 2, dist=2
+        write c: stack=[c,b,a]                    cold, dist=3
+
+        d = c + a:
+        read c:  stack=[c,b,a]     c was at pos 1, dist=1
+        read a:  stack=[a,c,b]     a was at pos 3, dist=3
+        write d: stack=[d,a,c,b]                  cold, dist=4
+
+    Read DMD = sqrt(2) + sqrt(2) + sqrt(1) + sqrt(3) = 5.5605
+    """
+    tracker = LRUStackTracker()
+    a = TrackedArray(np.array([1.0]), 'a', tracker)
+    b = TrackedArray(np.array([5.0]), 'b', tracker)
+    d = (a + b) + a
+
+    np.testing.assert_array_equal(np.asarray(d), [7.0])
+
+    s = tracker.summary()
+    expected_read_dmd = math.sqrt(2) + math.sqrt(2) + math.sqrt(1) + math.sqrt(3)
+
+    assert s['reads'] == 4
+    assert s['writes'] == 4
+    assert abs(s['read_dmd'] - expected_read_dmd) < 0.01, \
+        f"read_dmd {s['read_dmd']:.6f} != expected {expected_read_dmd:.6f}"
+
+
+def test_lru_gf2_integration():
+    """GF(2) with LRU tracker gives read DMD close to honest estimate (~189K)."""
+    from sparse_parity.experiments.exp_gf2 import gf2_gauss_elim
+
+    rng = np.random.RandomState(42)
+    n_bits, k_sparse, n_samples = 20, 3, 21
+    secret = sorted(rng.choice(n_bits, k_sparse, replace=False).tolist())
+    x = rng.choice([-1.0, 1.0], size=(n_samples, n_bits))
+    y = np.prod(x[:, secret], axis=1)
+    A_raw = ((x + 1) / 2).astype(np.uint8)
+    b_raw = ((y + 1) / 2).astype(np.uint8)
+
+    tracker = LRUStackTracker()
+    with tracking_context(tracker):
+        A = TrackedArray(A_raw, 'A_gf2', tracker)
+        b = TrackedArray(b_raw, 'b_gf2', tracker)
+        solution, rank = gf2_gauss_elim(A.copy(), b.copy())
+
+    predicted = sorted(np.where(np.asarray(solution) == 1)[0].tolist())
+    assert predicted == secret
+
+    s = tracker.summary()
+    read_dmd = s['read_dmd']
+    assert 50_000 < read_dmd < 500_000, f"Read DMD {read_dmd} outside expected range"
