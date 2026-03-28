@@ -1,0 +1,16 @@
+# Codex CLI project config for SutroYaro
+# Docs: https://developers.openai.com/codex/config-reference
+
+model = "codex-1"
+
+# Workspace-write lets the agent edit files and run experiments
+sandbox_mode = "workspace-write"
+
+# Ask before destructive actions (git push, file deletion)
+approval_policy = "on-request"
+
+# Read CODEX.md for project context (in addition to AGENTS.md which is auto-read)
+project_doc_fallback_filenames = ["CODEX.md", "AGENTS.md"]
+
+# Auth: prefer ChatGPT OAuth (uses subscription, not API credits)
+forced_login_method = "chatgpt"
