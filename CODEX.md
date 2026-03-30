@@ -85,6 +85,22 @@ See [docs/research/peer-research-protocol.md](docs/research/peer-research-protoc
 | `telegram/tg-read.ts` | Reads messages from a topic (JSON) | See Telegram section below |
 | `telegram/tg-send.ts` | Sends a message to a topic | See Telegram section below |
 | `src/sync_google_docs.py` | Pulls Google Docs to local markdown | [docs/tooling/automation.md](docs/tooling/automation.md) |
+| `bin/review-cycle` | Cross-model experiment review (supervisor/researcher dialogue) | See below |
+
+### Review Cycle Quick Reference
+
+```bash
+# Codex supervises Claude's work (last 5 experiments, 3-turn dialogue)
+bin/review-cycle --tool codex --researcher-tool claude --last 5
+
+# Claude supervises Codex's work
+bin/review-cycle --tool claude --researcher-tool codex --last 5
+
+# Preview prompts without launching agents
+bin/review-cycle --dry-run --last 3
+
+# Output: research/reviews/review-{timestamp}.md
+```
 
 ### Telegram Quick Reference
 

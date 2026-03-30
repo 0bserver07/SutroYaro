@@ -304,6 +304,61 @@ bin/analyze-log --plot
 bin/merge-findings research/log.jsonl --scoreboard
 ```
 
+---
+
+## Cross-Model Supervision
+
+Use `bin/review-cycle` to have one AI model review experiments done by another. The supervisor and researcher engage in a multi-turn dialogue: the supervisor identifies issues, the researcher responds (fixing or disputing), and the supervisor writes a final verdict.
+
+### Why cross-model?
+
+Different models have different strengths. A research agent optimized for code execution (Claude, Codex) may miss classification errors that a reasoning-focused reviewer catches. Cross-model review reduces blind spots.
+
+### Usage
+
+```bash
+# Codex reviews Claude's last 5 experiments (3-turn dialogue)
+bin/review-cycle --tool codex --researcher-tool claude --last 5
+
+# Gemini reviews with more dialogue turns
+bin/review-cycle --tool gemini --researcher-tool claude --last 10 --turns 5
+
+# Same model can review itself (less diverse but still useful)
+bin/review-cycle --tool claude --researcher-tool claude --last 5
+
+# Preview the prompts without launching agents
+bin/review-cycle --dry-run --last 3
+```
+
+### How it works
+
+The dialogue has 3 turns by default (configurable with `--turns`):
+
+1. **Supervisor reviews** (Turn 1): reads `log.jsonl` entries and findings docs, checks classifications against integrity rules, assigns per-experiment verdicts (CONFIRMED, RECLASSIFY, REVISION_NEEDED, FLAG)
+2. **Researcher responds** (Turn 2): reads the review, fixes acknowledged errors in the actual files, or disputes with evidence
+3. **Supervisor verdict** (Turn 3): evaluates the responses, writes final status per experiment (APPROVED, CORRECTED, DISPUTED, REJECTED)
+
+Each turn is a separate CLI invocation. The dialogue accumulates in `research/reviews/{cycle-id}.md`, which serves as both the conversation medium and the permanent audit trail.
+
+### What the supervisor checks
+
+- Classification honesty: does `delta_pct` direction match the `class`?
+- Findings completeness: all 6 required sections present?
+- Reproducibility: "Can it be reproduced?" has executable commands?
+- Sample size: claims qualified by data point count?
+- Prior work: DISCOVERIES.md checked for duplicates?
+- Locked files: harness.py and measurement code unmodified?
+
+### Review file output
+
+Each review cycle produces `research/reviews/review-{timestamp}.md` with YAML front-matter and the full dialogue. Example summary:
+
+```
+Summary: 3/5 approved, 1/5 corrected, 1/5 disputed (needs human review)
+```
+
+Experiments marked DISPUTED are flagged for human attention.
+
 ## Comparing tools
 
 | Feature | Claude Code | Gemini CLI | Codex CLI | OpenCode | Antigravity |
