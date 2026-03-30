@@ -1,0 +1,80 @@
+{
+  "n=20/k=5": {
+    "sgd": {
+      "dmd_per_step": 91605.7,
+      "epochs": 70,
+      "total_steps": 4340,
+      "total_dmd": 397568905.0
+    },
+    "grokfast": {
+      "dmd_per_step": 143078.2,
+      "epochs": 25,
+      "total_steps": 1550,
+      "total_dmd": 221771239.0
+    },
+    "curriculum": {
+      "dmd_per_step_n10": 73007.4,
+      "dmd_per_step_target": 91605.7,
+      "epochs": 25,
+      "total_dmd": 115467691.0
+    },
+    "gf_curriculum": {
+      "dmd_per_step_n10": 101211.1,
+      "dmd_per_step_target": 143078.2,
+      "epochs": 12,
+      "total_dmd": 80492564.0
+    }
+  },
+  "n=50/k=3": {
+    "sgd": {
+      "dmd_per_step": 142612.2,
+      "epochs": 58,
+      "total_steps": 3596,
+      "total_dmd": 512833399.0
+    },
+    "grokfast": {
+      "dmd_per_step": 263891.1,
+      "epochs": 148,
+      "total_steps": 9176,
+      "total_dmd": 2421465120.0
+    },
+    "curriculum": {
+      "dmd_per_step_n10": 76199.8,
+      "dmd_per_step_target": 142612.2,
+      "epochs": 10,
+      "total_dmd": 55478993.0
+    },
+    "gf_curriculum": {
+      "dmd_per_step_n10": 104403.4,
+      "dmd_per_step_target": 263891.1,
+      "epochs": 7,
+      "total_dmd": 65087561.0
+    }
+  },
+  "n=50/k=5": {
+    "sgd": {
+      "dmd_per_step": 144334.8,
+      "epochs": 1000,
+      "total_steps": 62000,
+      "total_dmd": 8948760273.0
+    },
+    "grokfast": {
+      "dmd_per_step": 265613.8,
+      "epochs": 1000,
+      "total_steps": 62000,
+      "total_dmd": 16468055935.0
+    },
+    "curriculum": {
+      "dmd_per_step_n10": 73007.4,
+      "dmd_per_step_target": 144334.8,
+      "epochs": 34,
+      "total_dmd": 162744240.0
+    },
+    "gf_curriculum": {
+      "dmd_per_step_n10": 101211.1,
+      "dmd_per_step_target": 265613.8,
+      "epochs": 14,
+      "total_dmd": 108237150.0
+    }
+  }
+}
