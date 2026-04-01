@@ -2,6 +2,39 @@
 
 Connect your agent to the Sutro Group Telegram. Two paths: read (sync messages to local SQLite) and write (post via your own bot).
 
+## Credentials
+
+### NixOS hosts (sops-nix, no .env needed)
+
+On the NixOS host, Telegram credentials are managed declaratively via sops-nix. Four secrets are encrypted in the NixOS config and decrypted to `/run/secrets/` at boot:
+
+| sops secret name | Environment variable | Purpose |
+|---|---|---|
+| `telegram_api_id` | `TELEGRAM_API_ID` | MTProto API ID (numeric) |
+| `telegram_api_hash` | `TELEGRAM_API_HASH` | MTProto API hash (hex string) |
+| `telegram_bot_token` | `TELEGRAM_BOT_TOKEN` | Bot token for posting |
+| `sutro_group_chat_id` | `SUTRO_GROUP_CHAT_ID` | Supergroup chat ID (negative number) |
+
+The project's `flake.nix` shellHook reads from `/run/secrets/` and exports these as environment variables. With `direnv` enabled (`.envrc` contains `use flake`), entering the project directory automatically loads them into memory. No `.env` file needed.
+
+Verify they're loaded:
+
+```bash
+echo $TELEGRAM_API_ID
+# Should print your numeric API ID, not empty
+```
+
+To add a new secret: encrypt it with sops in the NixOS repo (`~/dev/nixos/secrets/secrets.yaml`), declare it in the NixOS config (`sops.secrets.<name>`), and reference it in the `flake.nix` shellHook.
+
+### Non-NixOS hosts
+
+Copy `.env.example` to `.env` and fill in the values manually. The `.env` file is gitignored.
+
+```bash
+cp .env.example .env
+# Edit .env with your credentials
+```
+
 ## Reading: sync messages locally
 
 ### Quick path (no credentials)
@@ -23,12 +56,13 @@ The SQLite path is better for agents -- queryable, incremental, works offline af
 
 Go to [my.telegram.org/apps](https://my.telegram.org/apps) and create an application. You need the **API ID** (numeric) and **API Hash** (hex string).
 
-If you're using Claude Code with Chrome (`claude --chrome` or `/chrome`), the agent can open the browser and walk you through this interactively since it shares your login state.
-
 #### 2. Set up environment
 
+**NixOS**: Credentials are loaded automatically from sops-nix (see Credentials section above). Skip this step.
+
+**Other systems**: Create a `.env` file with your credentials:
+
 ```bash
-cd SutroYaro
 cp .env.example .env
 # Edit .env and fill in:
 #   TELEGRAM_API_ID=12345678
@@ -151,7 +185,9 @@ Ask the group admin to add your bot to the Sutro group.
 
 ### 3. Set up environment
 
-Add to your `.env`:
+**NixOS**: The bot token and chat ID are loaded from sops-nix automatically (see Credentials section). Skip this step.
+
+**Other systems**: Add to your `.env`:
 
 ```bash
 TELEGRAM_BOT_TOKEN=4839574812:AAFD39kkdpWt3ywyRZergyOLMaJhac60qc
@@ -203,7 +239,7 @@ The sync script uses a user account, so it captures all messages including bot p
 
 ## Troubleshooting
 
-**"Set TELEGRAM_API_ID and TELEGRAM_API_HASH in .env"**: You need credentials from [my.telegram.org/apps](https://my.telegram.org/apps). Use `claude --chrome` for guided setup.
+**"Set TELEGRAM_API_ID and TELEGRAM_API_HASH in .env"**: On NixOS, check that sops-nix decrypted the secrets: `ls /run/secrets/telegram_api_id`. On other systems, create `.env` from `.env.example` with credentials from [my.telegram.org/apps](https://my.telegram.org/apps).
 
 **"Session not found"**: Run `tg auth login` to authenticate. This is a one-time step.
 

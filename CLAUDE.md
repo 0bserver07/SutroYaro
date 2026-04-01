@@ -133,7 +133,8 @@ Other coding agents (Gemini, Codex) don't run the hooks but can read the rules a
 ```bash
 # First time: install deps and authenticate
 bun install
-cp .env.example .env  # fill in TELEGRAM_API_ID and TELEGRAM_API_HASH
+# On NixOS: credentials come from sops-nix via flake shellHook, no .env needed
+# On other systems: cp .env.example .env and fill in credentials
 tg auth login
 
 # Sync messages to SQLite (incremental)
