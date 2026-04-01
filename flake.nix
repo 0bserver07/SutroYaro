@@ -33,6 +33,13 @@
             ];
             shellHook = ''
               export PYTHONPATH=$PWD/src:$PYTHONPATH
+
+              # Load Telegram credentials from sops-nix secrets
+              for var in telegram_api_id telegram_api_hash telegram_bot_token sutro_group_chat_id; do
+                if [ -f "/run/secrets/$var" ]; then
+                  export "$(echo "$var" | tr '[:lower:]' '[:upper:]')"="$(cat "/run/secrets/$var")"
+                fi
+              done
             '';
           };
         });
