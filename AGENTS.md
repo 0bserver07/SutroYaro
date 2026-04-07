@@ -2,6 +2,17 @@
 
 This project uses AI agents (Claude Code, Codex CLI, Gemini CLI, Replit, others) for research and accepts contributions from both humans and agents.
 
+## For single agents (getting started)
+
+If you are the only agent working on this project, read these in order:
+
+1. **CLAUDE.md** - Deep technical context: project goals, metrics (ARD/DMC), best methods, 36 experiments, current state
+2. **DISCOVERIES.md** - Knowledge base: proven facts, failed approaches, open questions (Q7, Q11-Q13)
+3. **LAB.md** - Experiment protocol: templates, lifecycle, baselines, rules
+4. **AGENT.md** (optional) - Only if running autonomous overnight loops
+
+**Note:** CLAUDE.md is the canonical technical source regardless of which model/tool you use (Claude, Gemini, Kimi, etc.).
+
 ## How AI agents were used
 
 **Phase 1** (16 experiments): Single Claude Code sessions running experiments sequentially, each following the template in `src/sparse_parity/experiments/_template.py`.
