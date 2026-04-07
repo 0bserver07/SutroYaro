@@ -13,3 +13,4 @@ Feedback from Meetings #8-9, Telegram, and Google Docs. Updated 2026-04-07.
 | 7 | Homework for Meeting #10: DMC baseline + optimization | HIGH | DONE | [007-homework-meeting10.md](007-homework-meeting10.md) |
 | 8 | Pre-experiment plan: DMC comparison, RL env, license | MEDIUM | IN PROGRESS | [008-pre-experiment-plan.md](008-pre-experiment-plan.md) |
 | 9 | Muon optimizer literature review | MEDIUM | DONE | [009-muon-review.md](009-muon-review.md) |
+| 10 | ASI-Evolve integration into lab workflow | HIGH | IN PROGRESS | [010-asi-evolve-integration.md](010-asi-evolve-integration.md) |
