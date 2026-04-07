@@ -1,6 +1,6 @@
 # Open Tasks
 
-Feedback from Meetings #8-9, Telegram, and Google Docs. Updated 2026-03-22.
+Feedback from Meetings #8-9, Telegram, and Google Docs. Updated 2026-04-07.
 
 | # | Task | Priority | Status | File |
 |---|------|----------|--------|------|
@@ -12,3 +12,4 @@ Feedback from Meetings #8-9, Telegram, and Google Docs. Updated 2026-03-22.
 | 6 | Prep homework for next Monday (present results/process) | HIGH | SUPERSEDED | [006-homework-monday.md](006-homework-monday.md) |
 | 7 | Homework for Meeting #10: DMC baseline + optimization | HIGH | DONE | [007-homework-meeting10.md](007-homework-meeting10.md) |
 | 8 | Pre-experiment plan: DMC comparison, RL env, license | MEDIUM | IN PROGRESS | [008-pre-experiment-plan.md](008-pre-experiment-plan.md) |
+| 9 | Muon optimizer literature review | MEDIUM | IN PROGRESS | [009-muon-review.md](009-muon-review.md) |
