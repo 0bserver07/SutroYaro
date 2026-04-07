@@ -169,11 +169,11 @@ Full sync workflow: [docs/tooling/sync-runbook.md](docs/tooling/sync-runbook.md)
 
 ## People
 
-- **Yad** (repo creator, SutroYaro) — Built the Claude Code autonomous research lab, parallel agent experiments
-- **Yaroslav** (Sutro Group founder) — Technical sprints, algorithm work, cybertronai/sutro
+- **Yad Konrad** (@yad) — repo creator, SutroYaro. Built the Claude Code autonomous research lab, parallel agent experiments
+- **Yaroslav Bulatov** (@yaroslavvb) — Sutro Group founder. Technical sprints, algorithm work, cybertronai/sutro
 - **Emmett** — Aster agentic loop framework, 2x energy improvement on microgpt
 - **G B** — Architecture experiments (depth-1/hidden-64, ARD ~33-35)
-- **Germaine**, **Andy**, **Seth**, **Barak**, **Jamie Simon** — Group members
+- **Germaine**, **Andy Zhang** (@zh4ng), **Seth Stafford** (@sethts), **Barak**, **Jamie Simon** — Group members
 
 ## Contributing
 
