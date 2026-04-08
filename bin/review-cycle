@@ -1,0 +1,391 @@
+#!/usr/bin/env bash
+# Cross-model research review cycle.
+#
+# A supervisor agent reviews recent experiments, a researcher agent
+# responds, and the supervisor writes a final verdict. The dialogue
+# is file-mediated: each turn appends to research/reviews/{cycle-id}.md.
+# Any CLI tool can participate on either side.
+#
+# Usage:
+#   bin/review-cycle                                          # claude reviews last 5
+#   bin/review-cycle --tool codex --researcher-tool claude    # codex reviews claude's work
+#   bin/review-cycle --tool gemini --last 10 --turns 5       # gemini, more experiments, more turns
+#   bin/review-cycle --dry-run                                # print prompts, don't launch
+#
+# Prerequisites:
+#   - AI CLIs installed and authenticated (both supervisor and researcher tools)
+#   - research/log.jsonl has experiment entries
+#   - findings/ has corresponding findings docs
+
+set -euo pipefail
+
+REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$REPO_ROOT"
+
+# --- Parse arguments ---
+
+SUPERVISOR_TOOL="claude"
+RESEARCHER_TOOL="claude"
+LAST_N=5
+MAX_TURNS=3
+RESEARCHER="yad-agent"
+CYCLE_ID=""
+DRY_RUN=false
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --tool)            SUPERVISOR_TOOL="$2"; shift 2 ;;
+        --researcher-tool) RESEARCHER_TOOL="$2"; shift 2 ;;
+        --last)            LAST_N="$2"; shift 2 ;;
+        --turns)           MAX_TURNS="$2"; shift 2 ;;
+        --researcher)      RESEARCHER="$2"; shift 2 ;;
+        --cycle-id)        CYCLE_ID="$2"; shift 2 ;;
+        --dry-run)         DRY_RUN=true; shift ;;
+        -h|--help)
+            echo "Usage: bin/review-cycle [OPTIONS]"
+            echo ""
+            echo "Cross-model review: a supervisor agent reviews experiments, the"
+            echo "researcher responds, and the supervisor writes a final verdict."
+            echo ""
+            echo "Options:"
+            echo "  --tool TOOL            Supervisor AI CLI (default: claude)"
+            echo "                           claude, codex, gemini, opencode, custom"
+            echo "  --researcher-tool TOOL Researcher AI CLI for response turns (default: claude)"
+            echo "  --last N               Review last N experiments (default: 5)"
+            echo "  --turns N              Max dialogue turns (default: 3)"
+            echo "  --researcher ID        Researcher identity (default: yad-agent)"
+            echo "  --cycle-id ID          Override auto-generated cycle ID"
+            echo "  --dry-run              Print prompts without launching agents"
+            echo ""
+            echo "Examples:"
+            echo "  bin/review-cycle --tool codex --researcher-tool claude --last 5"
+            echo "  bin/review-cycle --tool gemini --turns 5 --last 10"
+            echo "  bin/review-cycle --dry-run --last 3"
+            exit 0
+            ;;
+        *)  echo "Unknown option: $1"; exit 1 ;;
+    esac
+done
+
+# Auto-generate cycle ID
+if [ -z "$CYCLE_ID" ]; then
+    CYCLE_ID="review-$(date +%Y%m%d_%H%M%S)"
+fi
+
+REVIEW_DIR="research/reviews"
+REVIEW_FILE="${REVIEW_DIR}/${CYCLE_ID}.md"
+LEDGER="research/log.jsonl"
+
+# --- Agent dispatch (mirrors bin/run-agent) ---
+
+launch_agent() {
+    local tool="$1"
+    local prompt="$2"
+    local logfile="$3"
+
+    case "$tool" in
+        claude)
+            claude -p "$prompt" \
+                --allowedTools "Bash,Read,Write,Edit,Glob,Grep" \
+                --max-turns 50 \
+                2>&1 | tee "$logfile"
+            ;;
+        gemini)
+            gemini -p "$prompt" --yolo \
+                2>&1 | tee "$logfile"
+            ;;
+        codex)
+            codex -q "$prompt" \
+                2>&1 | tee "$logfile"
+            ;;
+        opencode)
+            opencode "$prompt" \
+                2>&1 | tee "$logfile"
+            ;;
+        *)
+            if [ -z "${AI_CMD:-}" ]; then
+                echo "ERROR: Unknown tool '$tool' and AI_CMD not set."
+                echo "Set AI_CMD to your AI CLI command."
+                exit 1
+            fi
+            echo "$prompt" | $AI_CMD 2>&1 | tee "$logfile"
+            ;;
+    esac
+}
+
+# --- Prompt builders ---
+
+build_supervisor_review_prompt() {
+    local turn_number="$1"
+
+    cat <<PROMPT_EOF
+You are a research supervisor for the SutroYaro sparse parity project.
+Your job is to review recent experiments for correctness, honest classification,
+and scientific rigor. You are reviewing work done by a research agent.
+
+## Project context
+
+Read DISCOVERIES.md to understand what has been proven and what is still open.
+Read AGENT.md for the experiment protocol the researcher followed.
+
+## Classification rules you are enforcing
+
+- WIN: primary metric improved over baseline
+- LOSS: experiment ran correctly, metric did not improve (valid negative result)
+- INVALID: crashed, no measurements, or harness corruption
+- INCONCLUSIVE: <2% delta, <10 samples, p>0.05, or hardware not stressed
+
+## Integrity rules
+
+- No inflation. If 6 data points, it says "6 data points."
+- Borderline p-values are not confident findings.
+- Hardware idle during measurement invalidates energy comparisons.
+- INCONCLUSIVE is not a FINDING. LOSS is not a "partial success."
+- No private conversation content or URLs in public files.
+
+## Your review checklist (from AGENTS.md)
+
+1. Check that results in log.jsonl match the findings doc
+2. Check DISCOVERIES.md for prior work on the same question
+3. Verify no locked files were modified (tracker.py, cache_tracker.py, data.py, config.py, harness.py)
+4. If an experiment answers an open question, verify DISCOVERIES.md was updated
+
+## Your task
+
+Review the last ${LAST_N} experiments in research/log.jsonl.
+For each experiment:
+1. Read the log entry (JSON line)
+2. Read the corresponding findings doc in findings/
+3. Cross-reference with DISCOVERIES.md for prior work
+4. Check if the classification is honest (does delta_pct direction match the class?)
+5. Check if the findings doc has all 6 required sections:
+   Question, What was performed, What was produced,
+   Can it be reproduced?, Finding, Files
+6. Check that "Can it be reproduced?" contains an actual executable command
+7. Check that the Finding section acknowledges sample size and limitations
+
+$(if [ "$turn_number" -gt 1 ]; then
+    echo "## Previous dialogue"
+    echo ""
+    echo "This is turn ${turn_number} of the review. Read the full dialogue so far"
+    echo "at: ${REVIEW_FILE}"
+    echo "The researcher has responded to your previous review."
+    echo "Address their responses. Where they fixed issues, acknowledge it."
+    echo "Where they dispute your findings, evaluate their evidence."
+fi)
+
+## Output
+
+$(if [ "$turn_number" -eq 1 ]; then
+    echo "Write your review to: ${REVIEW_FILE}"
+    echo "Start the file with this YAML front-matter:"
+    echo ""
+    echo "---"
+    echo "cycle_id: ${CYCLE_ID}"
+    echo "date: $(date +%Y-%m-%d)"
+    echo "supervisor_tool: ${SUPERVISOR_TOOL}"
+    echo "researcher_tool: ${RESEARCHER_TOOL}"
+    echo "experiments_reviewed: ${LAST_N}"
+    echo "max_turns: ${MAX_TURNS}"
+    echo "status: in_progress"
+    echo "---"
+    echo ""
+    echo "Then add a section: ## Supervisor Review (Turn 1)"
+else
+    echo "Append a new section to ${REVIEW_FILE}:"
+    echo "## Supervisor Review (Turn ${turn_number})"
+fi)
+
+For each experiment, include:
+- Experiment ID and title
+- Log class vs your assessment
+- Issues found (if any)
+- Verdict: CONFIRMED | RECLASSIFY | REVISION_NEEDED | FLAG
+
+End with a summary: counts of each verdict type.
+
+Start by reading: research/log.jsonl (last ${LAST_N} entries), DISCOVERIES.md, AGENT.md
+PROMPT_EOF
+}
+
+build_researcher_response_prompt() {
+    local turn_number="$1"
+
+    cat <<PROMPT_EOF
+You are a research agent for the SutroYaro sparse parity project.
+Your researcher ID is '${RESEARCHER}'.
+
+A supervisor has reviewed your recent experiments. Read the full review
+dialogue at: ${REVIEW_FILE}
+
+For each issue the supervisor raised:
+
+1. If the supervisor is correct:
+   - Acknowledge the error
+   - Fix it: update the findings doc in findings/, fix the classification
+     in research/log.jsonl, update DISCOVERIES.md if needed
+   - State what you changed
+
+2. If you disagree:
+   - Explain why with specific evidence (cite numbers, baselines, methodology)
+   - Do not defend incorrect classifications just to avoid admitting error
+
+3. If the supervisor flagged a missing section:
+   - Add it to the findings doc
+
+After addressing all issues, append your response to: ${REVIEW_FILE}
+Use the section header: ## Researcher Response (Turn ${turn_number})
+
+For each experiment the supervisor reviewed, state:
+- ACCEPTED: supervisor's verdict is correct, no changes needed
+- FIXED: you corrected the issue the supervisor identified (say what changed)
+- DISPUTED: you disagree with the supervisor (explain why with evidence)
+
+Be honest. If the supervisor caught a real error, say so.
+
+Start by reading: ${REVIEW_FILE}, then the relevant findings docs and log entries.
+PROMPT_EOF
+}
+
+build_supervisor_verdict_prompt() {
+    cat <<PROMPT_EOF
+You are a research supervisor for the SutroYaro sparse parity project.
+This is the final turn of a review dialogue.
+
+Read the full dialogue at: ${REVIEW_FILE}
+
+The researcher has responded to your review. Evaluate their responses and
+write a final verdict.
+
+Append to ${REVIEW_FILE} with section header: ## Final Verdict
+
+For each experiment, state:
+- APPROVED: experiment record is accurate (either originally or after correction)
+- CORRECTED: researcher fixed the issue you identified, now accurate
+- DISPUTED: disagreement remains -- flag for human review (explain the dispute)
+- REJECTED: classification or findings are materially wrong and were not fixed
+
+End with:
+1. A one-line summary (e.g., "4/5 approved, 1 corrected")
+2. Recommendations for the next research cycle (if any)
+3. Items requiring human attention (if any)
+PROMPT_EOF
+}
+
+# --- Safety checks ---
+
+if [ ! -f "$LEDGER" ]; then
+    echo "ERROR: No experiment log at $LEDGER."
+    echo "Run experiments first: bin/run-agent --tool claude --max 5"
+    exit 1
+fi
+
+ENTRY_COUNT=$(wc -l < "$LEDGER" | tr -d ' ')
+if [ "$ENTRY_COUNT" -eq 0 ]; then
+    echo "ERROR: $LEDGER is empty."
+    exit 1
+fi
+
+if [ "$ENTRY_COUNT" -lt "$LAST_N" ]; then
+    echo "WARNING: Log has $ENTRY_COUNT entries, reviewing all of them."
+    LAST_N="$ENTRY_COUNT"
+fi
+
+if [ "$MAX_TURNS" -lt 1 ]; then
+    echo "ERROR: --turns must be at least 1."
+    exit 1
+fi
+
+mkdir -p "$REVIEW_DIR"
+
+# --- Print configuration ---
+
+echo ""
+echo "=== Review Cycle: $CYCLE_ID ==="
+echo "Supervisor:  $SUPERVISOR_TOOL"
+echo "Researcher:  $RESEARCHER_TOOL (ID: $RESEARCHER)"
+echo "Experiments: last $LAST_N of $ENTRY_COUNT"
+echo "Max turns:   $MAX_TURNS"
+echo "Review file: $REVIEW_FILE"
+echo "Started:     $(date)"
+if [ "$DRY_RUN" = true ]; then
+    echo "Mode:        DRY RUN (prompts only)"
+fi
+echo ""
+
+# --- The dialogue loop ---
+
+for (( turn=1; turn<=MAX_TURNS; turn++ )); do
+    SESSION_LOG="research/.review-session-${CYCLE_ID}-turn${turn}.log"
+
+    # Determine role for this turn
+    if (( turn % 2 == 1 )); then
+        ROLE="Supervisor"
+        TOOL="$SUPERVISOR_TOOL"
+
+        if (( turn == MAX_TURNS )); then
+            # Last turn and it's the supervisor's: write verdict
+            PROMPT=$(build_supervisor_verdict_prompt)
+            echo "--- Turn $turn/$MAX_TURNS: $ROLE ($TOOL) — Final Verdict ---"
+        else
+            PROMPT=$(build_supervisor_review_prompt "$turn")
+            echo "--- Turn $turn/$MAX_TURNS: $ROLE ($TOOL) — Review ---"
+        fi
+    else
+        ROLE="Researcher"
+        TOOL="$RESEARCHER_TOOL"
+        PROMPT=$(build_researcher_response_prompt "$turn")
+        echo "--- Turn $turn/$MAX_TURNS: $ROLE ($TOOL) — Response ---"
+    fi
+
+    if [ "$DRY_RUN" = true ]; then
+        echo ""
+        echo "$PROMPT"
+        echo ""
+        echo "--- [DRY RUN: would launch $TOOL] ---"
+        echo ""
+        continue
+    fi
+
+    # Launch the agent
+    set +e
+    launch_agent "$TOOL" "$PROMPT" "$SESSION_LOG"
+    EXIT_CODE=$?
+    set -e
+
+    if [ $EXIT_CODE -ne 0 ]; then
+        echo "  Turn $turn exited with code $EXIT_CODE. Continuing."
+    fi
+
+    # Check if review file was created (turn 1) or exists (later turns)
+    if [ "$turn" -eq 1 ] && [ ! -f "$REVIEW_FILE" ]; then
+        echo "WARNING: Supervisor did not create $REVIEW_FILE. Continuing anyway."
+    fi
+
+    # Early exit: supervisor wrote final verdict before turn limit
+    if grep -q "## Final Verdict" "$REVIEW_FILE" 2>/dev/null; then
+        echo "  Final verdict found. Ending dialogue."
+        break
+    fi
+
+    # Brief pause between turns
+    if [ "$turn" -lt "$MAX_TURNS" ]; then
+        sleep 2
+    fi
+done
+
+# --- Finalize ---
+
+# Update status in YAML front-matter
+if [ -f "$REVIEW_FILE" ]; then
+    sed -i '' 's/status: in_progress/status: complete/' "$REVIEW_FILE" 2>/dev/null || \
+    sed -i 's/status: in_progress/status: complete/' "$REVIEW_FILE" 2>/dev/null || true
+fi
+
+echo ""
+echo "=== Review cycle complete ==="
+echo "Review file: $REVIEW_FILE"
+echo "Finished:    $(date)"
+echo ""
+echo "Read the dialogue:"
+echo "  cat $REVIEW_FILE"

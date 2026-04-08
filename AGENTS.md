@@ -45,6 +45,8 @@ When reviewing a contributed experiment:
 | `docs/research/survey.md` | Full methodology in Section 7 (agentic loop, parallel dispatch, prompting strategies) |
 | `docs/tooling/anti-slop-guide.md` | Writing rules applied to all agent-generated prose |
 | `docs/tooling/sync-runbook.md` | Weekly/daily/per-session sync checklists |
+| `bin/review-cycle` | Cross-model supervisor: reviews experiments, dialogues with researcher |
+| `research/reviews/` | Review dialogue files (one per review cycle) |
 
 ## What worked
 
