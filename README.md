@@ -49,6 +49,8 @@ A structured workspace where multiple people use different AI tools (Claude Code
 
 Current challenge: **sparse parity** (learn XOR/parity from random {-1,+1} inputs), plus sparse sum and sparse AND.
 
+[![Submit Solution](https://img.shields.io/badge/Submit_a_Solution-blue?style=for-the-badge)](https://github.com/cybertronai/sparse-parity-challenge/issues/new?template=submission.yml)
+
 ## Results So Far
 
 36 experiments across 3 challenges. Energy metric: DMD (Data Movement Distance, Ding et al. [arXiv:2312.14441](https://arxiv.org/abs/2312.14441)), auto-measured via [TrackedArray](https://cybertronai.github.io/SutroYaro/research/tracked-numpy/).

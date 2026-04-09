@@ -190,3 +190,4 @@ When reviewing PRs: check that results are reproducible, findings follow the tem
 
 - https://github.com/cybertronai/sutro — Main code repo with sparse_parity_benchmark.py
 - https://github.com/cybertronai/SutroYaro — This research workspace
+- https://github.com/cybertronai/sparse-parity-challenge — Submission pipeline: submit a solve() function via GitHub Issue, auto-evaluated with TrackedArray
