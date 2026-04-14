@@ -87,7 +87,8 @@ nav:
       - Peer Research Protocol: research/peer-research-protocol.md
       - Eval Environment: research/eval-environment.md
       - Agent Infrastructure: research/agent-infrastructure.md
-      - "Auto-instrumented DMD Tracking": research/tracked-numpy.md
+      - "ByteDMD (primary metric)": research/bytedmd.md
+      - "Auto-instrumented DMD Tracking (legacy)": research/tracked-numpy.md
       - Adding a Challenge: research/adding-a-challenge.md
       - Adding an Eval Challenge: research/adding-an-eval-challenge.md
       - Literature Review: research/sparse-parity-literature.md
