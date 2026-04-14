@@ -1,3 +1,5 @@
+> **Vendored copy.** Source of truth: <https://github.com/cybertronai/ByteDMD>. Some links in this file (to `docs/`, `benchmarks/`, etc.) point to paths that exist in the upstream repo but not here. Refer to the upstream for the full documentation, benchmarks, and figures.
+
 # A cost model of complexity for the 21st century: ByteDMD
 
 Data movement matters more than FLOPs. Recently accessed bytes can be cached, penalize non-local reads using the following cost model:
