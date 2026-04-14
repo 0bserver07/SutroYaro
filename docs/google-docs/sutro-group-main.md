@@ -336,6 +336,48 @@ Mission: huge amount of energy waste due to legacy learning algorithms. Address 
 
 [Homework for next Monday]
 
+Sutro Group: top level
+
+Mission: huge amount of energy waste due to legacy learning algorithms. Address this in a maximally open way.
+
+[General]
+
+[Bookmarks]
+
+[Meetings]
+
+[Meeting #1, 19 Jan 26]
+
+[Meeting #2, 26 Jan 26]
+
+[Meeting #3, 02 Feb 26]
+
+[Meeting #4, 09 Feb 26]
+
+[Meeting #5, 16 Feb 26]
+
+[Meeting #6, 23 Feb 26]
+
+[Meeting #7, 02 Mar 19]
+
+[Homework for next time]
+
+[Meeting #8, 09 Mar 26]
+
+[Homework for next Monday]
+
+[Longer-term plan]
+
+[Meeting #9, 16 Mar 26]
+
+[Homework for next Monday]
+
+[Meeting #10, 23 Mar 26]
+
+[Meeting #11, 30 Mar 26]
+
+[Meeting #12, 06 Mar26]
+
 # [embedded image] 
 
 # General 
@@ -461,3 +503,27 @@ Meeting [[notes](https://docs.google.com/document/d/1xD6sQbG6TnGifKWUbshcN2Yd1MS
 1. Get agents to improve [[sutro group challenge #1: sparse parity](https://docs.google.com/document/d/16eeltCaTpiiM1t_m_5BSxRnqxoMoiJ-xn4cy0x-TFgc/edit?tab=t.0)] using Data Movement distance  (Ding [[paper](https://arxiv.org/pdf/2312.14441)]) as the proxy for energy)
 
 2. Iterate on prompts and meta-approaches to be able to solve this quickly \-- make it possible to quickly go from \"metric specification\" + \"problem specification\" to a successful sequence of experiments
+
+## Meeting #10, 23 Mar 26 
+
+Agenda: [[Sutro meeting #10](https://docs.google.com/document/d/19qeFyJlpJBubZAydCfyuQPkHNqAICGngxgWc83YgtA0/edit?tab=t.0)]
+
+Homework for next Monday: iterate on agents, minimizing DMD metric.
+
+## Meeting #11, 30 Mar 26 
+
+Agenda: [[Sutro meeting #11 Agenda](https://docs.google.com/document/d/1K2lYNbyEIcdFqeXlsP5qbS31WbWefi02SWR0Y9OP3QI/edit?tab=t.0)]
+
+Meeting [[video](https://gemini.google.com/app/4dc8c3aff4b151e8)], [[slides](https://drive.google.com/open?id=1udFHNLzEDu6z5FztJH-rxHjg-DsieV0G&usp=drive_fs)], [[transcript](https://drive.google.com/open?id=1txEK465CmStt-__348EhoX37LQpr5ROv&usp=drive_fs)]
+
+Homework for next Monday:
+
+- better solutions in [[https://github.com/cybertronai/sparse-parity-challenge](https://github.com/cybertronai/sparse-parity-challenge)] .
+
+- (For Yaroslav: write up metric motivation + test cases)
+
+## Meeting #12, 06 Apr 26 
+
+Agenda: [[Sutro #12 agenda](https://docs.google.com/document/d/1Qd6rAO41Jabc2g7grnW8uxVQ9_RJ95KX5ZNp7XTgHtk/edit?tab=t.0)]
+
+Lessons from making [[https://github.com/cybertronai/ByteDMD](https://github.com/cybertronai/ByteDMD)]
