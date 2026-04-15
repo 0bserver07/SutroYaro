@@ -39,6 +39,10 @@ Following Meeting #7 homework, from [[Sutro Group](https://docs.google.com/docum
 
 TLDR; there's a 1000x faster solution that is discovereable by agents.
 
+Following Meeting #7 homework, from [[Sutro Group](https://docs.google.com/document/d/1B9867EN6Bg4ZVQK9vI_ZqykZ5HEtMAHJ7zBGGas4szQ/edit?tab=t.0#heading=h.mw2co1cau175)]
+
+TLDR; there's a 1000x faster solution that is discovereable by agents.
+
 # Raw Log 
 
 ### Michael Keating 

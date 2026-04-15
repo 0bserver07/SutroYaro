@@ -445,6 +445,40 @@ AI links (local to yaroslav)
 
 [4. Picture]
 
+AI links (local to yaroslav)
+
+[[https://gemini.google.com/app/baf86fdafcaac3af](https://gemini.google.com/app/baf86fdafcaac3af)]
+
+[[https://gemini.google.com/app/5c855e3a869d19cf](https://gemini.google.com/app/5c855e3a869d19cf)]
+
+[[https://chatgpt.com/c/6970003e-4114-8333-86a8-71a8a0e97b23](https://chatgpt.com/c/6970003e-4114-8333-86a8-71a8a0e97b23)]
+
+[Link to \"Slides\"]
+
+[Meeting notes summary]
+
+[Host: Yaroslav Bulatov]
+
+[Jackjack Ganbold \@JackJack]
+
+[Jonathan Belay (@Jonathan Belay )]
+
+[Anish Tondwalkar]
+
+[Seth Stafford]
+
+[Caleb Sirak]
+
+[Anushka Deshpande]
+
+[Daria Soboleva]
+
+[2. Companies & Named Entities]
+
+[3. Key Topics & Tidbits]
+
+[4. Picture]
+
 # Link to \"Slides\" 
 
 from [[energy-efficient learning](https://docs.google.com/document/d/1PhArG_B1qrurqeXtqG41n_OorHw5J9kJcaZkhJOh7NU/edit?tab=t.0#heading=h.cdeox1s0xsl1)]

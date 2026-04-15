@@ -22,7 +22,8 @@ This is a research workspace for the **Sutro Group**, a study group exploring en
 - **Data Movement Complexity (DMC)**: Better proxy metric (Ding et al., arXiv:2312.14441). DMC = sum of sqrt(stack_distance) for all float accesses. Tracks alongside ARD in MemTracker. Baseline: ARD 4,104 / DMC 300,298.
 - **Cache Energy Model**: register 5pJ, L1 (64KB) 20pJ, L2 (256KB) 100pJ, HBM 640pJ per float access (Bill Dally numbers).
 - **CacheTracker**: Extended MemTracker with LRU cache simulation for realistic energy estimates.
-- **TrackedArray / Auto DMD**: `TrackedArray` wraps numpy arrays so every operation (ufuncs, indexing, slicing) auto-records reads and writes on an `LRUStackTracker`. Removes manual instrumentation errors. See `docs/research/tracked-numpy.md`.
+- **TrackedArray / Auto DMD**: `TrackedArray` wraps numpy arrays so every operation (ufuncs, indexing, slicing) auto-records reads and writes on an `LRUStackTracker`. Removes manual instrumentation errors. Legacy element-level metric. See `docs/research/tracked-numpy.md`.
+- **ByteDMD (primary metric, new)**: Pure Python tracer at `src/bytedmd/`. Wraps Python values; traces Python-level ops via dunders. Byte-granularity LRU stack with simultaneous pricing and eager liveness compaction. Reads cost `ceil(sqrt(depth))`; writes are free. Spec/reference: https://github.com/cybertronai/ByteDMD. Use `bytedmd(func, args)` for cost or `traced_eval(func, args)` for the trace. Submissions to the challenge should use Python ops (no numpy) to be fully tracked.
 
 ## Current Best Methods
 

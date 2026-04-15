@@ -115,6 +115,22 @@ Raw Thoughts
 
 ([[planning-sprint1.txt](https://drive.google.com/open?id=1Q2y9pdU4cT4Wn0MBE63XoSeg1xDbgwR-&usp=drive_fs)], [[planning-sprint2.txt](https://drive.google.com/open?id=1NmYwxYazoV5pXXEpV9D6I8J5iP9HB1fb&usp=drive_fs)], [[plannint-spring3.txt](https://drive.google.com/file/d/1xYjR7S4iSG0UeVRZzr-AS72FdsjQ4L-B/view?usp=sharing)], [[gemini](https://gemini.google.com/share/bef3c777a11b)])
 
+.,
+
+Yaroslav Sutro planning sprint #1
+
+Objective
+
+Solve the energy problem of AI. Similar mission to [[https://ml.energy/](https://ml.energy/)] .
+
+Method
+
+Blank slate rewrite. Draw on [[experience](https://docs.google.com/document/d/1PhArG_B1qrurqeXtqG41n_OorHw5J9kJcaZkhJOh7NU/edit?tab=t.0)] to prevent mistakes, (also, [[impractical research](https://www.youtube.com/watch?v=5CUTOOz-pYY&t=13s)])
+
+Raw Thoughts
+
+([[planning-sprint1.txt](https://drive.google.com/open?id=1Q2y9pdU4cT4Wn0MBE63XoSeg1xDbgwR-&usp=drive_fs)], [[planning-sprint2.txt](https://drive.google.com/open?id=1NmYwxYazoV5pXXEpV9D6I8J5iP9HB1fb&usp=drive_fs)], [[plannint-spring3.txt](https://drive.google.com/file/d/1xYjR7S4iSG0UeVRZzr-AS72FdsjQ4L-B/view?usp=sharing)], [[gemini](https://gemini.google.com/share/bef3c777a11b)])
+
 # Mistakes 
 
 1. Too simple of an objective
@@ -151,7 +167,7 @@ Math / kernels design.
 
 Hardware lottery (sarah [[hooker](https://hardwarelottery.github.io/)]), machine learning systems are [[stuck in a rut](https://dl.acm.org/doi/10.1145/3317550.3321441)] (Paul Barham, Michael Isard)
 
-To avoid \-- remove as many boundaries as possible. At some point, the problem becomes too big to make progress on, we are forced to partititon to make progress. If we are motivated by keeping the complexity manageable,  we can periodically re-adjust the partitioning. In contrast to the current paradigm which keeps problem partitioning fixed:
+To avoid \-- remove as many boundaries as possible. At some point, the problem becomes too big to make progress on, we are forced to partititon to make progress. If we are motivated by keeping the complexity manageable,  we can periodically re-adjust the partitioning. In contrast to the current paradigm which keeps problem partitioning fixed:
 
 - math people vs kernels people
 
@@ -206,3 +222,7 @@ Michael: [[sutro_challenge_3_sparce parity results.docx](https://docs.google.com
 2. The Metric [[Yaroslav Knowledge sprint #1](https://docs.google.com/document/d/105FkE_U5_cXA1o8sxMGrj1NuTxysfSBTZsLB7vift-M/edit?tab=t.0#heading=h.p686ct9trrt)]
 
 3. The Problem [[sutro group challenge #1: sparse parity](https://docs.google.com/document/d/16eeltCaTpiiM1t_m_5BSxRnqxoMoiJ-xn4cy0x-TFgc/edit?tab=t.0)]
+
+# Links 
+
+Deep Learning invention timeline: [[https://chatgpt.com/share/69cafda2-5cc0-83e8-99a9-575e876e2c7d](https://chatgpt.com/share/69cafda2-5cc0-83e8-99a9-575e876e2c7d)]

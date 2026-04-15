@@ -142,9 +142,9 @@ Research communication avoid algorithms for learning
 
 [[https://chatgpt.com/c/69acbb1e-4e74-8322-a0fb-349e5961cf40](https://chatgpt.com/c/69acbb1e-4e74-8322-a0fb-349e5961cf40)]
 
-## Ranking heuristics for LRU cache reuse 
+### Ranking heuristics for LRU cache reuse 
 
-16:22 Ask about other heuristics [[gemini](https://gemini.google.com/app/cf721afd6b73481a)] [[notebook](https://notebooklm.google.com/notebook/6e5ab97c-600a-42ea-a071-53e99ae34428)]
+16:22 Ask about other heuristics [[gemini](https://gemini.google.com/app/cf721afd6b73481a)] 
 
 must rely on bytes touched (Stack Distance) rather than instructions elapsed (Reuse Distance)
 
@@ -184,7 +184,7 @@ Sunday 9am, energy costs , 32 byte min but need 2KB request to amortize row acti
 
 ## Ding: Data movement complexity 
 
-(paper) Ding - data movement complexity [[notebook](https://notebooklm.google.com/notebook/78b74c92-0a68-43c8-8f75-e1a480d75983)]
+[[notebook](https://notebooklm.google.com/notebook/78b74c92-0a68-43c8-8f75-e1a480d75983)] - (paper) Ding - data movement complexity 
 
 DMC4ML: Data Movement Complexity for Machine Learning [[arxiv](https://arxiv.org/abs/2312.14441)]
 
@@ -202,8 +202,16 @@ critical analysis:
 
 [[chatgpt](https://chatgpt.com/c/69ada12a-bd68-8323-b846-82a31aad6746)]
 
-chatgpt 1: VLSI-like recommend [[https://chatgpt.com/share/69c03384-43bc-8011-b83c-361b48f9e2c3](https://chatgpt.com/share/69c03384-43bc-8011-b83c-361b48f9e2c3)]
+[[chatgpt](https://chatgpt.com/share/69c03384-43bc-8011-b83c-361b48f9e2c3)] 1: VLSI sqrt recommend 
 
-chatgpt 2: [[https://chatgpt.com/c/69ada12a-bd68-8323-b846-82a31aad6746](https://chatgpt.com/c/69ada12a-bd68-8323-b846-82a31aad6746)]
+? Extending to parallel processors? [[https://gemini.google.com/app/4ab0c4db6fe7f3c6](https://gemini.google.com/app/4ab0c4db6fe7f3c6)]
 
-Extending to parallel processors? [[https://gemini.google.com/app/4ab0c4db6fe7f3c6](https://gemini.google.com/app/4ab0c4db6fe7f3c6)]
+[[https://www.youtube.com/watch?v=nHN5OQdHUpI](https://www.youtube.com/watch?v=nHN5OQdHUpI)]
+
+#### Ask about strassen 
+
+In the new data movement distance, https://arxiv.org/pdf/2203.02536, They note that Strassen is still better than matrix multiplication, the recursive matrix multiplication, although the gap is much smaller. Is there another way to fix this? Is there another idealized metric where the stress would be worse? I want to fix this metric to represent real-life complexities better. Wesley Smith notes that they were looking for that too
+
+[[https://gemini.google.com/app/64a48b964078f7bc](https://gemini.google.com/app/64a48b964078f7bc)]
+
+[[https://chatgpt.com/g/g-p-6978c701eeac8191924e64b518e692ec-sutro-group/c/69c05409-31ec-83e8-ad9e-d4ce65778a58](https://chatgpt.com/g/g-p-6978c701eeac8191924e64b518e692ec-sutro-group/c/69c05409-31ec-83e8-ad9e-d4ce65778a58)]

@@ -2,6 +2,17 @@
 
 All notable changes to this research workspace.
 
+## [0.27.0] - 2026-04-14
+
+### ByteDMD adopted as primary metric
+
+- Vendored [cybertronai/ByteDMD](https://github.com/cybertronai/ByteDMD) at `src/bytedmd/`
+- 13 tests (10 core + 3 gotchas) all pass
+- TrackedArray retained as legacy tracker for existing experiments (30 tests still pass)
+- New docs page: `docs/research/bytedmd.md`
+- Decision made by Yaroslav after meetings with Wesley Smith and Bill Dally feedback. Byte-granularity rewards smaller dtypes; pure Python eliminates numpy escape hatches.
+- Existing challenge submissions stay on legacy DMC. New submissions use ByteDMD.
+
 ## [0.26.0] - 2026-03-28
 
 Largest release: auto-instrumented DMD tracking, RL eval environment, agent infrastructure, Telegram SQLite sync, and documentation fixes. 84 commits from 4 contributors.
